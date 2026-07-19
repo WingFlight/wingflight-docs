@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/wf_icon_dark.svg" alt="WingFlight" width="120">
+</p>
+
 # WingFlight
 
 **WingFlight** is open-source flight controller firmware for fixed-wing aircraft --

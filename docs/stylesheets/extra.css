@@ -1,0 +1,26 @@
+/* WingFlight brand colors, from https://github.com/WingFlight/wingflight-resources/blob/master/color-palette.html */
+
+[data-md-color-primary="custom"] {
+  --md-primary-fg-color: #4e4e4e; /* Dark Gray -- matches the Configurator app's own header */
+  --md-primary-fg-color--light: #6b6b6b;
+  --md-primary-fg-color--dark: #333333; /* Almost Black */
+  --md-primary-bg-color: #ffffff;
+  --md-primary-bg-color--light: rgba(255, 255, 255, 0.7);
+}
+
+[data-md-color-accent="custom"] {
+  --md-accent-fg-color: #d40000; /* Primary Red */
+  --md-accent-fg-color--transparent: rgba(212, 0, 0, 0.1);
+  --md-accent-bg-color: #ffffff;
+  --md-accent-bg-color--light: rgba(255, 255, 255, 0.7);
+}
+
+/* Links and other primary-color accents use the brand red rather than the
+   Dark Gray header color, so they stay identifiable as interactive. */
+.md-typeset a {
+  color: #d40000;
+}
+
+.md-typeset a:hover {
+  color: #a40000; /* Dark Red -- brand hover state */
+}
