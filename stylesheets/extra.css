@@ -24,3 +24,58 @@
 .md-typeset a:hover {
   color: #a40000; /* Dark Red -- brand hover state */
 }
+
+/* Typography and layout, matching color-palette.html's style -----------
+   Same native system-font stack (no external webfont), heavy black-weight
+   headings with tight tracking, and a red underline accent below section
+   titles, echoing that page's h1/.section-title treatment. */
+
+body,
+.md-typeset {
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+    Cantarell, sans-serif;
+}
+
+.md-typeset h1,
+.md-typeset h2 {
+  font-weight: 900;
+}
+
+.md-typeset h1 {
+  letter-spacing: -1px;
+}
+
+.md-typeset h2 {
+  padding-bottom: 0.4rem;
+  border-bottom: 3px solid #d40000;
+}
+
+[data-md-color-scheme="default"] .md-typeset h1,
+[data-md-color-scheme="default"] .md-typeset h2 {
+  color: #4e4e4e;
+}
+
+[data-md-color-scheme="default"] .md-main {
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+}
+
+[data-md-color-scheme="slate"] .md-typeset h1,
+[data-md-color-scheme="slate"] .md-typeset h2 {
+  color: #ffffff;
+}
+
+/* Soft rounded cards for callouts, matching the brand page's card style
+   (rounded corners + soft shadow) rather than Material's default flat,
+   square-cornered admonitions. */
+.md-typeset .admonition,
+.md-typeset details {
+  border: none;
+  border-left: 4px solid #d40000;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.md-typeset pre > code {
+  border-radius: 8px;
+}
