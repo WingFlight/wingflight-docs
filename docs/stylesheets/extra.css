@@ -1,9 +1,9 @@
 /* WingFlight brand colors, from https://github.com/WingFlight/wingflight-resources/blob/master/color-palette.html */
 
 [data-md-color-primary="custom"] {
-  --md-primary-fg-color: #4e4e4e; /* Dark Gray -- matches the Configurator app's own header */
-  --md-primary-fg-color--light: #6b6b6b;
-  --md-primary-fg-color--dark: #333333; /* Almost Black */
+  --md-primary-fg-color: #d40000; /* Primary Red -- toolbar background */
+  --md-primary-fg-color--light: #ff4d4d; /* Light Red */
+  --md-primary-fg-color--dark: #a40000; /* Dark Red */
   --md-primary-bg-color: #ffffff;
   --md-primary-bg-color--light: rgba(255, 255, 255, 0.7);
 }

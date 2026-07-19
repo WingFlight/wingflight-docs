@@ -7,7 +7,7 @@ edit_uri: edit/main/docs/
 
 theme:
   name: material
-  logo: assets/wf_icon_dark.svg
+  logo: assets/wf_icon_white.svg # white variant of the same artwork, for contrast against the red toolbar
   favicon: assets/favicon.ico
   font: false # use the system-font stack from color-palette.html instead of a fetched webfont
   icon:
