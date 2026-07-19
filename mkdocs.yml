@@ -1,0 +1,110 @@
+site_name: WingFlight Documentation
+site_description: Documentation for the WingFlight flight controller firmware and configurator
+site_url: https://doc.wingflight.org/
+repo_url: https://github.com/WingFlight
+repo_name: WingFlight
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  logo: assets/wf_icon_dark.svg
+  favicon: assets/favicon.ico
+  icon:
+    repo: fontawesome/brands/github
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: red
+      accent: red
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: red
+      accent: red
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.action.edit
+    - content.code.copy
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+  - toc:
+      permalink: true
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/WingFlight
+    - icon: fontawesome/brands/discord
+      link: https://discord.gg/aEyyAJTXRw/
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - getting-started/index.md
+      - Installing the Configurator: getting-started/installing-the-configurator.md
+      - Flashing the Firmware: getting-started/flashing-the-firmware.md
+      - First Connection: getting-started/first-connection.md
+      - Backup & Restore: getting-started/backup-and-restore.md
+  - Configurator:
+      - configurator/index.md
+      - Status: configurator/tabs/status.md
+      - Setup: configurator/tabs/setup.md
+      - Configuration: configurator/tabs/configuration.md
+      - Power: configurator/tabs/power.md
+      - Receiver: configurator/tabs/receiver.md
+      - Failsafe: configurator/tabs/failsafe.md
+      - Mixer: configurator/tabs/mixer.md
+      - Servos: configurator/tabs/servos.md
+      - Motors: configurator/tabs/motors.md
+      - Curves: configurator/tabs/curves.md
+      - Profiles: configurator/tabs/profiles.md
+      - Rates: configurator/tabs/rates.md
+      - Gyro: configurator/tabs/gyro.md
+      - Auxiliary (Modes): configurator/tabs/auxiliary.md
+      - Adjustments: configurator/tabs/adjustments.md
+      - Logic Conditions: configurator/tabs/logic.md
+      - GPS: configurator/tabs/gps.md
+      - LED Strip: configurator/tabs/led-strip.md
+      - Beepers: configurator/tabs/beepers.md
+      - Sensors: configurator/tabs/sensors.md
+      - ESC Programming: configurator/tabs/esc-programming.md
+      - Blackbox: configurator/tabs/blackbox.md
+      - CLI: configurator/tabs/cli.md
+  - Flight Modes & Features:
+      - flight-modes/index.md
+      - Auto Hover: flight-modes/auto-hover.md
+      - Attitude Hold: flight-modes/atthold.md
+      - Auto Trim: flight-modes/auto-trim.md
+      - Trainer Mode: flight-modes/trainer.md
+      - Ready-to-Arm Wiggle: flight-modes/ready-to-arm-wiggle.md
+      - Cross-Axis Relax: flight-modes/cross-axis-relax.md
+      - GPS Rescue: flight-modes/gps-rescue.md
+      - Throttle Range Governor: flight-modes/governor.md
+  - Reference:
+      - reference/index.md
+      - CLI Command Reference: reference/cli-reference.md
+      - MSP Overview: reference/msp-overview.md
+  - Contributing:
+      - contributing/index.md
+      - Building the Firmware: contributing/building-the-firmware.md
+      - Developer Guide: contributing/developers.md
