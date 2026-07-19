@@ -9,6 +9,7 @@ theme:
   name: material
   logo: assets/wf_icon_dark.svg
   favicon: assets/favicon.ico
+  font: false # use the system-font stack from color-palette.html instead of a fetched webfont
   icon:
     repo: fontawesome/brands/github
   palette:
