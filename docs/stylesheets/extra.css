@@ -35,12 +35,20 @@
   --md-code-fg-color:            #4e4e4e;
 }
 
-/* .md-container is the full-height flex row wrapping both the sidebar and
-   .md-main. Setting the background here fills the sidebar column for its
-   entire height without any footer-bleeding risk. .md-main then resets to
-   the page colour so only the sidebar strip shows the secondary tone. */
-[data-md-color-scheme="default"] .md-container {
-  background-color: #ebebeb;   /* slightly darker than #f8f9fa — sidebar lane */
+/* The sidebar wrapper (.md-sidebar--primary) is only ~48px tall (sticky anchor).
+   The actual full-height area is .md-sidebar__scrollwrap inside it.
+   Apply background and border there so it covers the full visible sidebar. */
+[data-md-color-scheme="default"] .md-sidebar--primary .md-sidebar__scrollwrap,
+[data-md-color-scheme="default"] .md-sidebar--secondary .md-sidebar__scrollwrap {
+  background-color: #ebebeb;
+}
+
+[data-md-color-scheme="default"] .md-sidebar--primary .md-sidebar__scrollwrap {
+  border-right: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+[data-md-color-scheme="default"] .md-sidebar--secondary .md-sidebar__scrollwrap {
+  border-left: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 [data-md-color-scheme="default"] .md-main {
@@ -81,20 +89,24 @@
   --md-footer-fg-color--lighter:  #89919d;
 }
 
-/* .md-container fills the sidebar column to its full height (no bleeding).
-   .md-main resets to the page colour so only the sidebar lane is tinted. */
-[data-md-color-scheme="slate"] .md-container {
-  background-color: #171b20;   /* --bg-secondary — sidebar lane */
+/* The sidebar wrapper (.md-sidebar--primary) is only ~48px tall (sticky anchor).
+   The actual full-height area is .md-sidebar__scrollwrap inside it.
+   Apply background and border there so it covers the full visible sidebar. */
+[data-md-color-scheme="slate"] .md-sidebar--primary .md-sidebar__scrollwrap,
+[data-md-color-scheme="slate"] .md-sidebar--secondary .md-sidebar__scrollwrap {
+  background-color: #171b20;   /* --bg-secondary */
+}
+
+[data-md-color-scheme="slate"] .md-sidebar--primary .md-sidebar__scrollwrap {
+  border-right: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+[data-md-color-scheme="slate"] .md-sidebar--secondary .md-sidebar__scrollwrap {
+  border-left: 1px solid rgba(255, 255, 255, 0.07);
 }
 
 [data-md-color-scheme="slate"] .md-main {
-  background-color: #101215;   /* --bg-primary   — content area */
-}
-
-/* Ensure the inner grid stretches so the sidebar never visually escapes
-   below the content and bleeds into the footer. */
-[data-md-color-scheme="slate"] .md-main__inner {
-  min-height: 100%;
+  background-color: #101215;   /* --bg-primary */
 }
 
 /* Content card */
