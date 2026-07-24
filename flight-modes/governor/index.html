@@ -27,7 +27,7 @@
     
     
       
-        <title>Throttle Range Governor - WingFlight Documentation</title>
+        <title>Governor - WingFlight Documentation</title>
       
     
     
@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#throttle-range-governor" class="md-skip">
+        <a href="#governor" class="md-skip">
           Skip to content
         </a>
       
@@ -107,7 +107,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Throttle Range Governor
+              Governor
             
           </span>
         </div>
@@ -1627,6 +1627,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Governor
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1634,7 +1652,7 @@
   <span class="md-ellipsis">
     
   
-    Throttle Range Governor
+    Governor
   
 
     
@@ -1643,6 +1661,47 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tuning
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1958,6 +2017,36 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tuning
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1981,12 +2070,53 @@
   
 
 
-<h1 id="throttle-range-governor">Throttle Range Governor<a class="headerlink" href="#throttle-range-governor" title="Permanent link">&para;</a></h1>
-<p>The Throttle Range Governor shapes motor throttle response across its
-range, rather than commanding a raw linear throttle-to-motor-output
-mapping. This is distinct from PID tuning -- it governs how throttle input
-translates to commanded motor output, independent of attitude
-stabilization.</p>
+<h1 id="governor">Governor<a class="headerlink" href="#governor" title="Permanent link">&para;</a></h1>
+<p>The Governor shapes motor throttle response, from holding a fixed idle
+output through to actively governing motor/rotor RPM, rather than commanding
+a raw linear throttle-to-motor-output mapping. This is distinct from PID
+tuning -- it governs how throttle input translates to commanded motor
+output, independent of attitude stabilization.</p>
+<p>It's configured from the Governor section of the
+<a href="../../configurator/tabs/motors/">Motors</a> tab, but has no effect until the
+<strong>GOVERNOR</strong> switch is assigned to a channel on the
+<a href="../../configurator/tabs/auxiliary/">Auxiliary</a> tab -- engaging that switch is
+what actually activates idle hold or RPM governing, depending on the mode.</p>
+<h2 id="modes">Modes<a class="headerlink" href="#modes" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Off</td>
+<td>Disables the governor entirely; throttle passes straight through.</td>
+</tr>
+<tr>
+<td>RPM Idle/Max</td>
+<td>Holds a target idle RPM below the handover throttle using RPM feedback, with an optional max-RPM limit above handover to prevent overspeed.</td>
+</tr>
+<tr>
+<td>Throttle Idle</td>
+<td>Holds a fixed throttle percentage at idle; needs no RPM source, but won't correct for load or battery sag.</td>
+</tr>
+<tr>
+<td>RPM Range</td>
+<td>Maps the throttle stick across a Min RPM (0%) to Max RPM (100%) range, governing speed through the whole flight rather than just at idle.</td>
+</tr>
+</tbody>
+</table>
+<p>RPM Idle/Max and RPM Range modes require an RPM source: bidirectional DShot
+telemetry, ESC telemetry, or a frequency sensor.</p>
+<h2 id="tuning">Tuning<a class="headerlink" href="#tuning" title="Permanent link">&para;</a></h2>
+<p>RPM-governing modes hold their target using a filtered P/I loop: P gain
+corrects RPM error but always settles a little below target, and I gain
+closes that remaining gap. Handover Throttle sets the stick position below
+which the governor takes over (not used in RPM Range mode, which spans the
+whole stick), and Throttle Ceiling caps the maximum throttle the governor
+may command regardless of RPM error.</p>
 
 
 
