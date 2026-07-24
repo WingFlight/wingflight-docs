@@ -1066,6 +1066,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Auxiliary (Modes)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1082,6 +1100,36 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ranges-and-links" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ranges and Links
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1600,34 +1648,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../flight-modes/gps-rescue/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    GPS Rescue
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../../flight-modes/governor/" class="md-nav__link">
         
   
@@ -1958,6 +1978,25 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ranges-and-links" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ranges and Links
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1987,10 +2026,30 @@ switchable features onto transmitter auxiliary channels -- defining which
 switch position(s) activate ARM, <a href="../../../flight-modes/auto-hover/">Auto Hover</a>,
 <a href="../../../flight-modes/atthold/">Attitude Hold</a>,
 <a href="../../../flight-modes/auto-trim/">Auto Trim</a>,
-<a href="../../../flight-modes/trainer/">Trainer Mode</a>, GPS Rescue, and any other
-mode supported by the firmware.</p>
-<p>Each mode can be assigned a channel range so it activates only within a
-specific switch position or stick range.</p>
+<a href="../../../flight-modes/trainer/">Trainer Mode</a>, and any other mode
+supported by the firmware.</p>
+<p>Each mode card shows the live channel position (a marker on the slider) so
+you can confirm a switch flip actually lands inside the range you've set,
+without needing to fly to find out.</p>
+<h2 id="ranges-and-links">Ranges and Links<a class="headerlink" href="#ranges-and-links" title="Permanent link">&para;</a></h2>
+<p>A mode activates from one of two kinds of assignment, and a single mode can
+have several of either:</p>
+<ul>
+<li>A <strong>Range</strong> watches one receiver channel -- the mode is active whenever
+  that channel's value falls between the Min/Max you set, so a 3-position
+  switch can, for example, leave a mode off, on, or on-with-a-different-
+  range depending on position.</li>
+<li>A <strong>Link</strong> activates a mode automatically whenever a <em>different</em> mode is
+  already active -- useful for bundling modes together (e.g. always
+  enabling one mode alongside another) without needing a spare switch or
+  matching their ranges by hand. ARM can't be linked to or from, and a mode
+  already defined by a link can't itself be linked to (no chained links).</li>
+</ul>
+<p>When a mode has more than one Range/Link, each one past the first gets an
+<strong>AND</strong>/<strong>OR</strong> setting: the mode activates when <em>all</em> of its AND
+conditions are true, or when <em>at least one</em> OR condition is true.</p>
+<p>Changes here don't take effect on the flight controller until you hit
+Save.</p>
 
 
 

@@ -1487,6 +1487,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Auto Trim
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1503,6 +1521,36 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-the-capture-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How the capture works
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1580,34 +1628,6 @@
     
   
     Cross-Axis Relax
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../gps-rescue/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    GPS Rescue
   
 
     
@@ -1958,6 +1978,25 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-the-capture-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How the capture works
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1988,6 +2027,19 @@ correction in cruise flight, and Auto Trim gradually folds that correction
 into the aircraft's trim so you no longer need to hold it.</p>
 <p>This is particularly useful for dialing in trim on a new airframe without
 repeated land-adjust-relaunch cycles.</p>
+<h2 id="how-the-capture-works">How the capture works<a class="headerlink" href="#how-the-capture-works" title="Permanent link">&para;</a></h2>
+<p>Flip the switch on while armed and hold a steady correction for about 2
+seconds -- Auto Trim averages the <em>actual, already-mixed</em> servo output
+over that window and writes it as the new center point, the same
+underlying value the <a href="../../configurator/tabs/servos/">Servos</a> tab's Mid
+field or the CLI <code>servo</code> command would set. Only servos actually fed by a
+stabilized axis (roll/pitch/yaw) are touched -- outputs driven purely by a
+raw RC channel, an override, or a logic condition are left alone, since
+those aren't part of the drift this feature corrects for.</p>
+<p>Flip the switch back off before disarming and the capture is abandoned,
+restoring the previous center exactly -- nothing is written unless you
+disarm <em>while</em> the new center is still active, at which point it's saved
+the same way any other live-adjusted value is (on disarm).</p>
 
 
 

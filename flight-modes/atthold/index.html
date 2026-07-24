@@ -1600,34 +1600,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../gps-rescue/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    GPS Rescue
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../governor/" class="md-nav__link">
         
   
@@ -1987,6 +1959,16 @@ release the sticks, rather than the aircraft continuing to fly whatever
 attitude it was last commanded (typical for a fixed-wing aircraft with no
 self-leveling). This gives a self-leveling-like behavior on demand,
 independent of full autopilot features.</p>
+<p>Unlike <a href="../auto-hover/">Auto Hover</a>, Attitude Hold doesn't bound stick
+authority to any particular orientation -- it freezes and holds whatever
+attitude the aircraft happens to be in the instant every stick returns
+inside <strong>Deadband</strong> (percent stick deflection, on any of roll/pitch/yaw)
+at once, at any orientation, not just vertical or level. Above the
+deadband on any stick, you get full unmodified authority and the mode
+continuously re-captures its target, so the next freeze is seamless
+whenever the sticks settle again. <strong>Gain</strong> sets how aggressively it
+corrects back to that frozen attitude, and <strong>Max Rate</strong> caps how fast it's
+allowed to rotate the aircraft while doing so.</p>
 
 
 

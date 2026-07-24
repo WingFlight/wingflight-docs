@@ -1094,6 +1094,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adjustments
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1110,6 +1128,47 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#enable-channel-and-value-channel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enable Channel and Value Channel
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mapped-vs-stepped" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mapped vs. Stepped
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1600,34 +1659,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../flight-modes/gps-rescue/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    GPS Rescue
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../../flight-modes/governor/" class="md-nav__link">
         
   
@@ -1958,6 +1989,36 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#enable-channel-and-value-channel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enable Channel and Value Channel
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mapped-vs-stepped" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mapped vs. Stepped
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1991,6 +2052,35 @@ A/B comparing two settings values in the air.</p>
 Setpoint Boost, and others -- and any function currently under live
 adjustment control shows its effective value on the owning tab while the
 switch/channel is active.</p>
+<p>Adjustments made this way aren't saved to the flight controller
+automatically -- they're meant for freely trying values in the air without
+committing to any of them. If a value you find mid-flight is worth
+keeping, go set it permanently (e.g. on <a href="../profiles/">Profiles</a>) and Save
+from there.</p>
+<h2 id="enable-channel-and-value-channel">Enable Channel and Value Channel<a class="headerlink" href="#enable-channel-and-value-channel" title="Permanent link">&para;</a></h2>
+<p>Each adjustment slot has two channels:</p>
+<ul>
+<li><strong>Enable Channel</strong> gates whether the slot is active at all -- it only
+  takes effect while this channel's value falls within the range you set
+  (or set it to <strong>ALWAYS</strong> to skip gating entirely and let Value Channel
+  control it unconditionally).</li>
+<li><strong>Value Channel</strong> is read once the slot is enabled, and drives the
+  function according to whichever mode you pick below. Its <strong>AUTO</strong>
+  option reuses the Enable Channel itself as the value source, for the
+  common case of one switch/knob doing both jobs.</li>
+</ul>
+<h2 id="mapped-vs-stepped">Mapped vs. Stepped<a class="headerlink" href="#mapped-vs-stepped" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Mapped</strong> continuously maps the Value Channel's position across its
+  range straight onto the function's Min/Max -- a knob or 3-position
+  switch gives you a proportional live value, the same idea as a
+  transmitter-side gain knob but applied on the flight controller side.</li>
+<li><strong>Stepped</strong> instead treats the Value Channel like a momentary
+  increase/decrease button: entering one sub-range nudges the value up by
+  <strong>Step</strong> each time, the other sub-range nudges it down -- useful for a
+  2-position switch you flick repeatedly to walk a value up or down
+  without needing a channel that can hold a precise proportional position.</li>
+</ul>
 
 
 

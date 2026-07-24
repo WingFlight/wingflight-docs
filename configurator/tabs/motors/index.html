@@ -926,6 +926,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Motors
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -942,6 +960,58 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Protocol
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#throttle-endpoints-pwm-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Throttle endpoints (PWM-only)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rpm-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RPM source
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1600,34 +1670,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../flight-modes/gps-rescue/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    GPS Rescue
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../../flight-modes/governor/" class="md-nav__link">
         
   
@@ -1958,6 +2000,47 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Protocol
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#throttle-endpoints-pwm-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Throttle endpoints (PWM-only)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rpm-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RPM source
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1990,6 +2073,28 @@ governs idle hold and RPM behavior separately from motor protocol/testing.</p>
 <p class="admonition-title">Danger</p>
 <p>Always remove propellers before testing motor outputs from this tab.</p>
 </div>
+<h2 id="protocol">Protocol<a class="headerlink" href="#protocol" title="Permanent link">&para;</a></h2>
+<p>Older ESCs expect plain PWM; most modern ESCs support a digital protocol
+like DShot, which is more precise and doesn't need the manual PWM-endpoint
+calibration below. Check what your specific ESC supports before switching.</p>
+<p>For non-DShot ESCs, <strong>Unsynced PWM</strong> decouples the ESC update rate from
+the PID loop, running it instead at a fixed frequency you set (typically
+50-250Hz -- most modern analog ESCs are happy at 250Hz).</p>
+<h2 id="throttle-endpoints-pwm-only">Throttle endpoints (PWM-only)<a class="headerlink" href="#throttle-endpoints-pwm-only" title="Permanent link">&para;</a></h2>
+<p>For PWM/analog protocols, three raw PWM values calibrate the throttle
+range: <strong>Minimum Command</strong> (sent when the motor is stopped -- also what
+lets the ESC arm), <strong>Throttle Minimum</strong> (idle), and <strong>Throttle Maximum</strong>
+(full throttle). Get these wrong and a motor can spin even while disarmed,
+so it's worth using <strong>Realtime</strong> mode (applies changes immediately) paired
+with <strong>Throttle Override</strong> at 0%/1%/100% to directly verify Motor
+Off/Low/High before trusting the values -- rather than guessing and
+arming to find out.</p>
+<h2 id="rpm-source">RPM source<a class="headerlink" href="#rpm-source" title="Permanent link">&para;</a></h2>
+<p>Both the <a href="../../../flight-modes/governor/">Governor</a>'s RPM modes and the
+<a href="../gyro/">Gyro</a> tab's RPM Filter need a real-time RPM reading -- from
+bidirectional DShot telemetry, an ESC telemetry sensor, or a dedicated
+frequency sensor. Configure whichever source your setup provides here so
+it's available to both.</p>
 
 
 

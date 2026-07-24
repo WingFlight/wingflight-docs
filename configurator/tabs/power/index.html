@@ -786,6 +786,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Power
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -802,6 +820,58 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#meter-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Meter source
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#calibration-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Calibration Manager
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#smartfuel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SmartFuel
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1600,34 +1670,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../flight-modes/gps-rescue/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    GPS Rescue
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../../flight-modes/governor/" class="md-nav__link">
         
   
@@ -1958,6 +2000,47 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#meter-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Meter source
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#calibration-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Calibration Manager
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#smartfuel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SmartFuel
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1988,6 +2071,33 @@ fitted.</p>
 <p>Accurate voltage readings here feed the low-voltage warnings/beeper and any
 battery-based failsafe behavior, so it's worth calibrating against a real
 multimeter reading rather than trusting default scale values.</p>
+<h2 id="meter-source">Meter source<a class="headerlink" href="#meter-source" title="Permanent link">&para;</a></h2>
+<p>Voltage and current can each be read from <strong>Battery ADC</strong> (the board's own
+onboard voltage divider / current shunt), <strong>ESC Telemetry</strong>, or a <strong>FrSky
+Sensor</strong> -- or left <strong>None</strong> if not fitted. Only ADC sources need the Scale
+and Divider fields below calibrated for your hardware; ESC telemetry and
+FrSky sensors already report a computed value, so there's nothing to scale.
+Changing the source itself needs a reboot to remap hardware pins -- the
+rest of this tab applies live.</p>
+<h2 id="calibration-manager">Calibration Manager<a class="headerlink" href="#calibration-manager" title="Permanent link">&para;</a></h2>
+<p>Rather than computing a voltage divider or current-shunt scale by hand,
+plug in a battery (props off!), measure its actual voltage/current with a
+multimeter, and type those true values into the Calibration Manager --
+it back-computes the corrected Scale for you from the difference between
+what it's currently reading and what you measured. Only available for ADC
+meter sources, and only meaningful if the Divider/Offset fields are already
+roughly right first (leaving a value at 0 skips calibrating it).</p>
+<h2 id="smartfuel">SmartFuel<a class="headerlink" href="#smartfuel" title="Permanent link">&para;</a></h2>
+<p>A fuel-gauge charge estimate, more informative than raw voltage alone:
+<strong>Voltage</strong> mode estimates remaining charge from pack voltage,
+<strong>Current</strong> mode integrates measured mAh drawn against the configured
+battery capacity, and <strong>Combined</strong> reports whichever of the two is more
+pessimistic at any given moment (so an optimistic voltage reading under
+load can't mask a pack that's actually further depleted). All modes except
+Current need a working voltage sensor. Voltage Drop Rate and Charge Drop
+Rate cap how fast the voltage-based estimate is allowed to fall, and Sag
+Gain compensates for voltage sag under load -- raise it if SmartFuel reads
+too pessimistic under load, lower it if too optimistic.</p>
 
 
 

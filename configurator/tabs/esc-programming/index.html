@@ -1600,34 +1600,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../flight-modes/gps-rescue/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    GPS Rescue
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../../flight-modes/governor/" class="md-nav__link">
         
   
@@ -1986,6 +1958,11 @@
 firmware's own configuration tools (e.g. BLHeli, BLHeli_S/Bluejay, AM32),
 letting you configure ESC-side settings directly through the flight
 controller's USB connection without a separate ESC programming card.</p>
+<p>The flow is: pick your ESC's manufacturer/firmware, select which ESC to
+target if more than one is connected, wait for detection, then edit its
+parameters directly -- <strong>Change ESC</strong> at any point restarts this from the
+beginning if you picked wrong or want to program a different ESC. The
+aircraft must be disarmed throughout; programming is blocked while armed.</p>
 
 
 

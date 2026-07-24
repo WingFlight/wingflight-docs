@@ -1600,34 +1600,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../gps-rescue/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    GPS Rescue
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../governor/" class="md-nav__link">
         
   
@@ -1985,6 +1957,14 @@
 <p>Trainer Mode provides an assisted flight envelope suited to learning --
 limiting attitude/rate extremes to make an aircraft harder to lose control
 of, similar in spirit to a self-leveling "beginner mode" on other platforms.</p>
+<p>Unlike Angle/Horizon-style self-leveling, Trainer Mode does <em>not</em> actively
+level the aircraft -- it flies exactly like normal acro/manual flight right
+up until the pitch/roll angle would exceed <strong>Limit</strong> (default 20°), at
+which point it tilts back toward that limit rather than letting the
+aircraft roll/pitch further. <strong>Gain</strong> sets how aggressively it corrects
+back once the limit is exceeded -- high enough to reliably catch a
+beginner's overcorrection, without fighting normal flying so hard it feels
+like it's flying itself.</p>
 
 
 

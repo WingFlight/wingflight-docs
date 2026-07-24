@@ -1290,6 +1290,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Blackbox
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1306,6 +1324,58 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#when-it-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When it logs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rate-and-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rate and fields
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flash-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flash storage
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1580,34 +1650,6 @@
     
   
     Cross-Axis Relax
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../flight-modes/gps-rescue/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    GPS Rescue
   
 
     
@@ -1958,6 +2000,47 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#when-it-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When it logs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rate-and-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rate and fields
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flash-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flash storage
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1987,6 +2070,34 @@ recorded, logging rate, and (if fitted) onboard flash/SD storage management.
 Blackbox logs are the primary tool for diagnosing tuning issues after a
 flight, and are usually the first thing to attach when asking for tuning
 help.</p>
+<h2 id="when-it-logs">When it logs<a class="headerlink" href="#when-it-logs" title="Permanent link">&para;</a></h2>
+<p><strong>Device</strong> picks where logs go: onboard flash, an SD card, or an external
+serial logger (each only appears if actually fitted/supported). <strong>Mode</strong>
+then decides when logging is active: <strong>Armed</strong> (simplest -- logs every
+flight), <strong>Normal</strong> (logs only when armed <em>and</em> a Blackbox switch is
+active, for keeping only flights you deliberately flag), or <strong>Switch</strong>
+(logs whenever that switch is active, armed or not). <strong>Grace Period</strong>
+keeps logging briefly after disarming, specifically to catch the moments
+right after a crash rather than cutting off exactly at disarm.</p>
+<h2 id="rate-and-fields">Rate and fields<a class="headerlink" href="#rate-and-fields" title="Permanent link">&para;</a></h2>
+<p><strong>Rate of Logging</strong> is a divisor of the PID loop rate -- higher rates
+capture more detail (useful for chasing a specific fast oscillation) at
+the cost of filling storage faster; lower rates log longer flights in the
+same space. The field checkboxes choose which data categories are
+recorded at all -- turn off what you don't need to save space, but when in
+doubt for a tuning question, leave gyro/PID/setpoint data on since that's
+what most tuning advice is read from.</p>
+<p><strong>Debug Mode</strong> adds a further 8 extra values on top of the normal fields,
+for a specific diagnostic (its exact meaning depends on which mode is
+selected) -- leave it on <code>NONE</code> unless you're chasing something specific
+that calls for it.</p>
+<h2 id="flash-storage">Flash storage<a class="headerlink" href="#flash-storage" title="Permanent link">&para;</a></h2>
+<p><strong>Initial Erase</strong> guarantees a minimum amount of free space before
+recording starts, erasing old logs if needed -- note that erasing can take
+a while on some flash chips, so recording doesn't begin until it finishes.
+<strong>Rolling Erase</strong> instead overwrites the oldest logs once storage is full,
+trading guaranteed history for never running out of space -- logs can gain
+gaps if the chip is slow to erase mid-flight.</p>
 
 
 

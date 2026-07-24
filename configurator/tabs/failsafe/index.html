@@ -842,6 +842,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Failsafe
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -858,6 +876,58 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pulse-width-limit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pulse Width Limit
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#channel-fallback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Channel Fallback
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-happens-next-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What happens next (CLI)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1600,34 +1670,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../flight-modes/gps-rescue/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    GPS Rescue
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../../flight-modes/governor/" class="md-nav__link">
         
   
@@ -1958,6 +2000,47 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pulse-width-limit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pulse Width Limit
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#channel-fallback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Channel Fallback
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-happens-next-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What happens next (CLI)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1982,14 +2065,38 @@
 
 
 <h1 id="failsafe">Failsafe<a class="headerlink" href="#failsafe" title="Permanent link">&para;</a></h1>
-<p>The Failsafe tab configures what the aircraft does when radio link is lost:
-which stage(s) to trigger, throttle/surface behavior during failsafe, and
-(if GPS is fitted) whether to trigger GPS Rescue.</p>
+<p>The Failsafe tab configures how the flight controller <em>detects</em> a lost
+radio link and what to do with each channel once it has -- the front end
+of failsafe. What the aircraft actually <em>does</em> next (glide to a landing or
+cut the motor) is a firmware-level choice (<code>failsafe_procedure</code>) that isn't
+exposed as a GUI control yet -- see below for how to check/change it from
+the CLI.</p>
 <p>Configure and bench-test failsafe behavior <em>before</em> flying -- turn off your
 transmitter at a safe distance from the aircraft (props off) and confirm the
-flight controller actually enters failsafe and behaves the way you
-configured it here.</p>
-<p>See also: <a href="../../../flight-modes/gps-rescue/">GPS Rescue</a>.</p>
+flight controller actually enters failsafe and behaves the way you expect.</p>
+<h2 id="pulse-width-limit">Pulse Width Limit<a class="headerlink" href="#pulse-width-limit" title="Permanent link">&para;</a></h2>
+<p>Sets the valid pulse-width range (default 885-2115μs, expert mode only) --
+any channel reporting a value outside it is treated as failed and enters
+failsafe individually, which is what actually feeds the per-channel
+Channel Fallback behavior below and the overall link-loss detection.</p>
+<h2 id="channel-fallback">Channel Fallback<a class="headerlink" href="#channel-fallback" title="Permanent link">&para;</a></h2>
+<p>Per-channel behavior once that channel is judged failed:</p>
+<ul>
+<li><strong>Auto</strong> drives it to a safe value automatically -- center for Roll,
+  Pitch, Yaw; low for Throttle.</li>
+<li><strong>Hold</strong> freezes it at its last known-good position.</li>
+<li><strong>Set</strong> drives it to a specific value you choose.</li>
+</ul>
+<h2 id="what-happens-next-cli">What happens next (CLI)<a class="headerlink" href="#what-happens-next-cli" title="Permanent link">&para;</a></h2>
+<p>Once RX data has been invalid for <code>failsafe_delay</code> (default 15, in tenths
+of a second -- 1.5s), the firmware runs whichever <code>failsafe_procedure</code> is
+configured: <strong>DROP</strong> (cut output immediately -- the default) or
+<strong>AUTO-LAND</strong> (attempt a controlled glide down). For AUTO-LAND,
+<code>failsafe_off_delay</code> (default 10, 1s) then bounds how long the landing
+phase runs before motors are finally cut. All of these are CLI settings
+(<code>failsafe_procedure</code>, <code>failsafe_delay</code>, <code>failsafe_off_delay</code>) -- worth
+checking and bench-testing even though there's no dedicated tab for them
+yet.</p>
 
 
 

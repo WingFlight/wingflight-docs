@@ -16,7 +16,7 @@
         <link rel="prev" href="../ready-to-arm-wiggle/">
       
       
-        <link rel="next" href="../gps-rescue/">
+        <link rel="next" href="../governor/">
       
       
         
@@ -1571,6 +1571,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cross-Axis Relax
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1588,34 +1606,36 @@
 
       </a>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../gps-rescue/" class="md-nav__link">
         
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
-  <span class="md-ellipsis">
+  
     
   
-    GPS Rescue
   
-
-    
-  </span>
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tuning
+      
+    </span>
+  </a>
   
+</li>
+      
+    </ul>
   
-
-      </a>
+</nav>
+      
     </li>
   
 
@@ -1958,6 +1978,25 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tuning
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1992,6 +2031,17 @@ secondary axis while a primary axis is being actively commanded.</p>
 rudder-to-roll on normal-stabilization airframes), and is one of the more
 airframe-specific tuning tools -- see the <a href="../../configurator/tabs/mixer/">Mixer</a>
 tab for related mixing setup.</p>
+<h2 id="tuning">Tuning<a class="headerlink" href="#tuning" title="Permanent link">&para;</a></h2>
+<p>Off by default (Strength = 0) -- it does nothing until an airframe actually
+shows the coupling it's meant to fix. <strong>Roll Strength</strong> and <strong>Pitch
+Strength</strong> each set the maximum feedback reduction (%) applied to that axis
+while yaw/rudder is active -- raise Roll Strength if rudder input visibly
+rolls the aircraft and fighting it through roll PID gains alone feels
+artificial; only touch Pitch Strength if rudder-to-elevator coupling
+specifically feels artificially held back. <strong>Level</strong> sets how much yaw
+stick input is needed to reach that maximum strength, and <strong>Cutoff</strong>
+smooths the yaw-activity detector driving all of this, so relax engages
+smoothly rather than snapping on/off with every small rudder twitch.</p>
 
 
 
@@ -2044,13 +2094,13 @@ tab for related mixing setup.</p>
         
         
           
-          <a href="../gps-rescue/" class="md-footer__link md-footer__link--next" aria-label="Next: GPS Rescue">
+          <a href="../governor/" class="md-footer__link md-footer__link--next" aria-label="Next: Governor">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                GPS Rescue
+                Governor
               </div>
             </div>
             <div class="md-footer__button md-icon">

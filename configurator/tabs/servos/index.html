@@ -898,6 +898,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Servos
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -914,6 +932,58 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#endpoints-and-scale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Endpoints and scale
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rate-speed-and-reverse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rate, Speed, and Reverse
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geometry-correction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Geometry Correction
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1600,34 +1670,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../flight-modes/gps-rescue/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    GPS Rescue
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../../flight-modes/governor/" class="md-nav__link">
         
   
@@ -1958,6 +2000,47 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#endpoints-and-scale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Endpoints and scale
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rate-speed-and-reverse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rate, Speed, and Reverse
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geometry-correction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Geometry Correction
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1988,6 +2071,33 @@ send input to that output.</p>
 <p>Set servo endpoints conservatively at first -- it's easier to increase travel
 once you've confirmed nothing binds mechanically at the extremes than to
 diagnose a stalled/straining servo after the fact.</p>
+<h2 id="endpoints-and-scale">Endpoints and scale<a class="headerlink" href="#endpoints-and-scale" title="Permanent link">&para;</a></h2>
+<p><strong>Min</strong>/<strong>Max</strong> cap the servo's actual pulse-width travel, to keep the arm
+off a mechanical stop at either extreme. <strong>Scale Neg</strong>/<strong>Scale Pos</strong> are a
+separate pair of per-side scaling factors (500μs default for a normal
+1520μs-center servo, 250μs for a narrow-band 760μs-center one) -- adjust
+these instead of Min/Max specifically to correct a servo that throws
+noticeably further on one side than the other.</p>
+<h2 id="rate-speed-and-reverse">Rate, Speed, and Reverse<a class="headerlink" href="#rate-speed-and-reverse" title="Permanent link">&para;</a></h2>
+<p><strong>Rate</strong> is the PWM update frequency for this output -- 50Hz for analog
+servos (higher can damage them), 100-560Hz for digital servos depending on
+what the datasheet supports. It only takes effect after <strong>Save and
+reboot</strong>, since the rate is set up at boot time, not applied live like most
+other fields here.</p>
+<p><strong>Speed</strong> limits how fast the servo is allowed to move, expressed as
+milliseconds needed for a 60° rotation -- 0 means unlimited. Useful for
+deliberately slowing a specific output (e.g. retracts) independent of the
+<a href="../mixer/">Mixer</a> rule's own Speed limit on the same output.</p>
+<p><strong>Reverse</strong> flips direction if a surface moves the wrong way -- check
+<a href="../mixer/">Mixer</a> rule polarity first if only one of several surfaces on
+the same axis is backwards, since Reverse here and a rule's own Reverse
+checkbox both flip the same thing from different places.</p>
+<h2 id="geometry-correction">Geometry Correction<a class="headerlink" href="#geometry-correction" title="Permanent link">&para;</a></h2>
+<p>Compensates for the non-linear geometry of a servo arm sweeping through an
+arc -- the further from center, the less each degree of rotation actually
+moves a pushrod linearly. Only enable it for servos driving a linkage
+through an arc; leave it off for anything already linear (e.g. a direct
+belt/rack-driven surface), where there's no arc geometry to correct for.</p>
 
 
 

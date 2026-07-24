@@ -870,6 +870,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mixer
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -886,6 +904,47 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rules
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#axis-gain-invert" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Axis Gain / Invert
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1600,34 +1659,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../flight-modes/gps-rescue/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    GPS Rescue
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../../flight-modes/governor/" class="md-nav__link">
         
   
@@ -1958,6 +1989,36 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rules
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#axis-gain-invert" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Axis Gain / Invert
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1988,10 +2049,61 @@ what makes WingFlight a <em>fixed-wing</em> mixer rather than a helicopter swash
 mixer.</p>
 <p>Typical fixed-wing mixer setups include conventional aileron/elevator/rudder
 layouts, flying wings (elevon mixing), V-tails, and multi-motor
-configurations. The Configurator's mixer editor lets you assign and weight
-each output against each input axis to match your airframe.</p>
+configurations. The <strong>Mixer Setup Wizard</strong> builds a starting rule set from a
+few questions (wing layout, aileron count, tail type) -- a much faster start
+than building rules from scratch, and a good way to see a working example of
+the patterns below.</p>
 <p>If your airframe changes (e.g. converting ailerons to flaperons, or adding a
 second motor), this is the tab to revisit.</p>
+<h2 id="rules">Rules<a class="headerlink" href="#rules" title="Permanent link">&para;</a></h2>
+<p>Each rule reads one input (a stabilized axis, throttle, an RC channel, etc.)
+and writes it to one output (a servo or motor), combined with whatever's
+already on that output via an <strong>Operator</strong>:</p>
+<ul>
+<li><strong>Set</strong> overwrites the output outright.</li>
+<li><strong>Add</strong> sums onto whatever's already there.</li>
+<li><strong>Mul</strong> multiplies whatever's already there.</li>
+</ul>
+<p>Rules run top to bottom in list order, so this matters: the <strong>first</strong> rule
+for a given output should normally be <strong>Set</strong> (it establishes the baseline),
+and any later rule for that <em>same</em> output should normally be <strong>Add</strong>
+(layering more input on top) -- a later <strong>Set</strong> silently wipes out
+everything earlier rules wrote to that output, which is rarely what you
+want. The Configurator flags both cases inline so a misordered rule set
+doesn't quietly go unnoticed. This is exactly the pattern behind e.g.
+elevon mixing: Pitch is <strong>Set</strong> on the elevon servo, then Roll is <strong>Add</strong>ed
+on top of it.</p>
+<p>Other per-rule fields:</p>
+<ul>
+<li><strong>Weight</strong> (0-5000) is how strongly this rule's input drives the output --
+  values above 1000 amplify the input rather than just passing it through.</li>
+<li><strong>Differential</strong> (-100% to 100%) suppresses (positive) or boosts
+  (negative) the <em>negative</em>-deflection side of this rule relative to the
+  positive side -- the classic aileron-differential trick of reducing
+  down-aileron throw to cut adverse yaw, without touching the input source
+  itself.</li>
+<li><strong>Offset</strong> (-2500 to 2500) adds a fixed bias to the output, independent of
+  the input's value.</li>
+<li><strong>Speed</strong> (0-60000) limits how fast this rule's output can move, for a
+  slower/softer mechanical response on a specific surface.</li>
+<li><strong>Curve</strong> assigns a reshaping curve from the <a href="../curves/">Curves</a> tab to
+  this rule's input before it's weighted onto the output.</li>
+<li><strong>Condition</strong> gates the rule on a <a href="../logic/">Logic</a> condition -- while
+  false, the rule doesn't apply, and its row dims in the table so it's
+  obvious at a glance which rules are actually contributing right now.</li>
+</ul>
+<h2 id="axis-gain-invert">Axis Gain / Invert<a class="headerlink" href="#axis-gain-invert" title="Permanent link">&para;</a></h2>
+<p><strong>Axis Gain</strong> scales <em>every</em> rule reading a given stabilized axis (Roll,
+Pitch, Yaw) by one percentage (0-200%, 100% = unchanged) -- raise or lower
+the combined throw of every surface on that axis (e.g. both aileron
+servos) without re-balancing each rule's Weight individually. <strong>Axis
+Invert</strong> flips every rule reading that axis at once, instead of editing
+each rule's Reverse checkbox by hand.</p>
+<p>Pair Axis Gain with <strong>Control Surface Override</strong> below it to calibrate an
+exact throw: enable the override for an axis, command a known percentage
+(e.g. 100%), measure the actual surface deflection with a protractor, then
+adjust that axis's Gain until the measured angle matches your target.
+Override only takes effect while disarmed.</p>
 
 
 

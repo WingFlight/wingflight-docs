@@ -1150,6 +1150,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPS
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1166,6 +1184,36 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#module-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module setup
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1600,34 +1648,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../flight-modes/gps-rescue/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    GPS Rescue
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../../flight-modes/governor/" class="md-nav__link">
         
   
@@ -1958,6 +1978,25 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#module-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module setup
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1983,8 +2022,26 @@
 
 <h1 id="gps">GPS<a class="headerlink" href="#gps" title="Permanent link">&para;</a></h1>
 <p>The GPS tab configures GPS module settings and shows live GPS status
-(fix type, satellite count, position). If GPS is fitted, this is also where
-<a href="../../../flight-modes/gps-rescue/">GPS Rescue</a> behavior is configured.</p>
+(fix type, satellite count, position, a live map).</p>
+<h2 id="module-setup">Module setup<a class="headerlink" href="#module-setup" title="Permanent link">&para;</a></h2>
+<p><strong>Protocol</strong> selects how the GPS module talks to the flight controller:
+NMEA or UBLOX over a serial port, MSP (a companion device relaying GPS over
+MSP), or FBUS (GPS position piggybacked on an FrSky FBUS link -- in which
+case the satellite signal-strength panel and baud/config options below
+don't apply, since FBUS carries an already-processed fix rather than raw
+module output).</p>
+<p>For NMEA/UBLOX modules, <strong>Auto Baud</strong> and <strong>Auto Config</strong> let the
+Configurator detect the module's baud rate and push its own configuration
+automatically -- leave both on unless you have a reason to manage the
+module yourself. U-blox modules specifically also expose a <strong>Ground
+Assistance Type</strong> (SBAS region -- EGNOS/WAAS/MSAS/GAGAN/auto/none) and a
+<strong>Galileo</strong> toggle (swaps the QZSS constellation for Galileo, since a
+module only tracks so many constellations at once).</p>
+<p><strong>Home Point Once</strong> controls when the home point is captured: off (the
+default) resets it on every arm, so the point always matches your <em>most
+recent</em> takeoff; on captures it only on the very first arm after
+power-up, useful if you deliberately arm/disarm on the bench before walking
+to your actual takeoff spot.</p>
 
 
 
