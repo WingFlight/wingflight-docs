@@ -81,6 +81,18 @@ D-driven damping. Add D deliberately if a specific airframe overshoots or
 wallows in gusts -- and check [Gyro](gyro.md) filtering first, since D is
 the term most likely to expose noise once it's non-zero.
 
+I is also deliberately kept low relative to P (16-20 vs. 50-80) -- don't
+read that gap as I being "weak." I isn't left to accumulate freely the way
+a raw integrator would: I-Term Decay Time (6s by default) continuously
+bleeds accumulated I-term error back off, capped by an I-Term Decay Max
+Rate (35°/s), and I-Term Relax (level 22, cutoff 10Hz by default)
+specifically suppresses I buildup while the stick is moving quickly, to
+avoid bounce-back at the end of a roll or other fast maneuver. Because
+something else is actively managing decay, a small I gain is enough to
+hold a steady bias (wind, a CG offset) -- pushing I up to "match" P instead
+just reintroduces the slow wallowing oscillation the decay/relax defaults
+are there to avoid.
+
 Yaw runs a bit hotter than Roll/Pitch (P 80 vs. 50, I 20 vs. 16) since
 rudder authority and yaw stability vary more from airframe to airframe than
 aileron/elevator response typically does.
