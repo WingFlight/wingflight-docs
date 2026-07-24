@@ -1033,6 +1033,45 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#pid-gains" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PID Gains
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PID Gains">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quick-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-these-defaults" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why these defaults
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#master-gain" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2013,6 +2052,45 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#pid-gains" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PID Gains
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PID Gains">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quick-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-these-defaults" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why these defaults
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#master-gain" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2056,6 +2134,147 @@ attitude.</p>
 <a href="../auxiliary/">Auxiliary</a> mode mapping), which is useful for having distinct
 tunes for, e.g., calm cruising versus aggressive 3D/aerobatic flight on the
 same airframe.</p>
+<h2 id="pid-gains">PID Gains<a class="headerlink" href="#pid-gains" title="Permanent link">&para;</a></h2>
+<p>The PID Gains table holds the actual per-axis P, I, D, F (Feedforward), and B
+(Boost) terms -- the static tune itself, as distinct from Master Gain below,
+which scales it live rather than editing it directly.</p>
+<p>Most people tune by feel in the air, not by reasoning about control theory,
+so here's what each one is actually doing to the way the plane flies rather
+than a textbook definition:</p>
+<ul>
+<li><strong>P</strong> is how locked-in the plane feels to your stick and to gusts. Too
+  little and it's floppy/mushy -- slow to respond, wanders off your line.
+  Too much and it gets nervous: a fast buzz or bounce-back right after a
+  sharp input.</li>
+<li><strong>I</strong> is what holds a turn, a knife-edge, or a heading exactly, rather than
+  approximately. Too little and it slowly bleeds off the line in wind or if
+  the CG's slightly off. Too much and it wallows -- a slow wandering
+  oscillation, or the plane keeps rotating a beat after you've already
+  centered the stick.</li>
+<li><strong>D</strong> is the shock absorber: it stops P's correction from overshooting and
+  soaks up a gust before it upsets the plane. Too little and inputs
+  overshoot, and gusts knock the plane around more than they should. Too
+  much and servos start to growl, buzz, or run hot -- D is by far the most
+  noise-sensitive term, so if you're chasing heat/buzzing here, check
+  <a href="../gyro/">Gyro</a> filtering first.</li>
+<li><strong>F</strong> is what makes stick input feel instant instead of rubbery -- it
+  pushes toward where you're asking the plane to go the moment you move the
+  stick, rather than waiting for it to fall behind first. Too little feels
+  delayed, and the plane keeps rotating briefly after you let go of the
+  stick. Too much snaps past where you wanted and kicks back
+  ("strikeback") as the stick returns to center.</li>
+<li><strong>B</strong> is a finishing touch on top of F, reacting to how <em>fast</em> you move
+  the stick rather than how far. Too little and quick flicks feel
+  soft/rounded; too much and quick flicks get twitchy, sharing D's noise
+  sensitivity.</li>
+</ul>
+<h3 id="quick-troubleshooting">Quick troubleshooting<a class="headerlink" href="#quick-troubleshooting" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>What you're seeing in the air</th>
+<th>Try</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Floaty/mushy, wanders off your line</td>
+<td>Raise P</td>
+</tr>
+<tr>
+<td>Bounces or buzzes right after a sharp stick input</td>
+<td>Lower P (or raise D)</td>
+</tr>
+<tr>
+<td>Overshoots a gust or fast input before settling</td>
+<td>Raise D</td>
+</tr>
+<tr>
+<td>Servos growl, buzz, or run hot</td>
+<td>Lower D, check <a href="../gyro/">Gyro</a> filtering</td>
+</tr>
+<tr>
+<td>Stick input feels laggy or rubbery</td>
+<td>Raise F</td>
+</tr>
+<tr>
+<td>Keeps drifting/rotating a moment after you center the stick</td>
+<td>Lower I; if it's only on quick inputs, raise F instead</td>
+</tr>
+<tr>
+<td>Snaps past the input and kicks back as you release the stick</td>
+<td>Lower F</td>
+</tr>
+<tr>
+<td>Quick flicks feel twitchy/nervous</td>
+<td>Lower B</td>
+</tr>
+<tr>
+<td>Quick flicks feel soft, no snap</td>
+<td>Raise B</td>
+</tr>
+</tbody>
+</table>
+<p>Master Gain and its curve (below) scale P, I, D, and F together as one
+percentage -- Boost is tuned independently per-axis and isn't affected by
+Master Gain.</p>
+<h3 id="why-these-defaults">Why these defaults<a class="headerlink" href="#why-these-defaults" title="Permanent link">&para;</a></h3>
+<p>Out of the box:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>P</th>
+<th>I</th>
+<th>D</th>
+<th>F</th>
+<th>B</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Roll</td>
+<td>50</td>
+<td>16</td>
+<td>0</td>
+<td>100</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Pitch</td>
+<td>50</td>
+<td>16</td>
+<td>0</td>
+<td>100</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Yaw</td>
+<td>80</td>
+<td>20</td>
+<td>0</td>
+<td>100</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>The standout choice is <strong>D = 0 on every axis</strong>. A fixed-wing control
+surface doesn't live in a particularly noisy, high-vibration environment,
+so the default tune leans on Feedforward (already set to a meaningful
+F = 100 out of the box) for a responsive, instant-feeling stick rather than
+D-driven damping. Add D deliberately if a specific airframe overshoots or
+wallows in gusts -- and check <a href="../gyro/">Gyro</a> filtering first, since D is
+the term most likely to expose noise once it's non-zero.</p>
+<p>Yaw runs a bit hotter than Roll/Pitch (P 80 vs. 50, I 20 vs. 16) since
+rudder authority and yaw stability vary more from airframe to airframe than
+aileron/elevator response typically does.</p>
+<p>Boost defaults to 0 -- it's a finishing touch layered on an already-working
+Feedforward tune, not something you'd want fighting an airframe that hasn't
+been flown and trimmed yet.</p>
+<p>Master Gain defaults to 100% (no scaling) with no curve assigned on every
+axis, and Throttle (TPA) likewise defaults to 100% with no curve -- so the
+PID Gains table above is exactly what flies until you deliberately assign a
+curve or an Adjustments knob.</p>
 <h2 id="master-gain">Master Gain<a class="headerlink" href="#master-gain" title="Permanent link">&para;</a></h2>
 <p>Master Gain sets one overall gain per axis (Roll, Pitch, Yaw) that scales the
 whole PID loop for that axis, each with its own optional gain curve so the
