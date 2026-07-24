@@ -16,3 +16,21 @@ the sticks are released. Roll (aileron) is left as a free rate pass-through
 rather than held -- in a nose-up hover the aircraft's roll axis coincides
 with the world vertical axis, so roll becomes the pilot's spin/pirouette
 control, the same role yaw plays in normal nose-level flight.
+
+## Tuning
+
+**Gain** sets how aggressively the aircraft corrects back to vertical/held
+heading once the sticks are centered. **Max Angle** bounds how far
+pitch/yaw stick input can deflect the held attitude away from vertical
+before it springs back on release -- the same idea as Angle Mode's max
+angle, just centered on vertical instead of level. **Max Rate** is a
+safety clamp on how fast Auto Hover is allowed to rotate the aircraft
+toward the held attitude -- most relevant the instant it engages from
+forward flight, since it commands a large, sudden attitude change toward
+vertical.
+
+Auto Hover holds attitude and heading only -- throttle stays fully manual,
+and the mode has no awareness of airspeed or whether the aircraft actually
+has enough thrust to sustain a vertical hover. Engaging it without enough
+thrust available will still command the pitch-up, and the aircraft will
+likely stall or tumble rather than hover.

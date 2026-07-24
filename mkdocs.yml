@@ -102,7 +102,6 @@ nav:
       - Trainer Mode: flight-modes/trainer.md
       - Ready-to-Arm Wiggle: flight-modes/ready-to-arm-wiggle.md
       - Cross-Axis Relax: flight-modes/cross-axis-relax.md
-      - GPS Rescue: flight-modes/gps-rescue.md
       - Governor: flight-modes/governor.md
   - Reference:
       - reference/index.md
