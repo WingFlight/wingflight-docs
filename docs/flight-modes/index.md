@@ -14,7 +14,7 @@ helicopter-focused mode set.
 | [Ready-to-Arm Wiggle](ready-to-arm-wiggle.md) | Visual servo-wiggle confirmation before arming |
 | [Cross-Axis Relax](cross-axis-relax.md) | Reduces unwanted coupling between control axes |
 | [GPS Rescue](gps-rescue.md) | Automated return-to-home on failsafe |
-| [Throttle Range Governor](governor.md) | Governs motor throttle response across its range |
+| [Governor](governor.md) | Idle-hold or RPM governing of motor throttle response, from Off through fixed idle to full RPM Range control |
 
 Each mode is enabled and mapped to a transmitter switch from the
 [Auxiliary](../configurator/tabs/auxiliary.md) tab.

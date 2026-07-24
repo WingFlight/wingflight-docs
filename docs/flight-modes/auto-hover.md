@@ -10,3 +10,9 @@ from WingFlight's normal forward-flight stabilization -- enable it via the
 [Auxiliary](../configurator/tabs/auxiliary.md) tab on a switch you can
 reach quickly, since transitioning in and out of hover is often a deliberate
 part of a maneuver.
+
+Only pitch and yaw are attitude-held, correcting back toward vertical when
+the sticks are released. Roll (aileron) is left as a free rate pass-through
+rather than held -- in a nose-up hover the aircraft's roll axis coincides
+with the world vertical axis, so roll becomes the pilot's spin/pirouette
+control, the same role yaw plays in normal nose-level flight.

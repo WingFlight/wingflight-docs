@@ -103,7 +103,7 @@ nav:
       - Ready-to-Arm Wiggle: flight-modes/ready-to-arm-wiggle.md
       - Cross-Axis Relax: flight-modes/cross-axis-relax.md
       - GPS Rescue: flight-modes/gps-rescue.md
-      - Throttle Range Governor: flight-modes/governor.md
+      - Governor: flight-modes/governor.md
   - Reference:
       - reference/index.md
       - CLI Command Reference: reference/cli-reference.md
