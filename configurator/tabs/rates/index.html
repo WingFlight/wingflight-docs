@@ -1010,6 +1010,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rates
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1026,6 +1044,64 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#rate-shape-and-expo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rate, Shape, and Expo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rate, Shape, and Expo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quick-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dynamics-expert-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dynamics (expert mode)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1958,6 +2034,53 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#rate-shape-and-expo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rate, Shape, and Expo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rate, Shape, and Expo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quick-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dynamics-expert-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dynamics (expert mode)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1988,6 +2111,89 @@ smoother fine control.</p>
 <p>Rates are independent of PID tuning (<a href="../profiles/">Profiles</a>) -- rates
 shape <em>stick input</em>, while profiles control how well the aircraft <em>tracks</em>
 whatever attitude that input commands.</p>
+<p>Like PID profiles, up to six rate profiles can be stored and switched
+between from the profile tabs at the top of the page, and copied from one
+to another -- the live curve chart and 3D preview update immediately so you
+can compare a change before committing to it.</p>
+<h2 id="rate-shape-and-expo">Rate, Shape, and Expo<a class="headerlink" href="#rate-shape-and-expo" title="Permanent link">&para;</a></h2>
+<p>Each axis (Roll, Pitch, Yaw) has three values, and it's worth knowing
+exactly what each one changes, because two of them interact in a way
+that's easy to get backwards:</p>
+<ul>
+<li><strong>Rate</strong> sets your top speed -- the rotation rate, in °/s, you get at
+  full stick deflection. It's shown directly in the <strong>Max Vel</strong> column, and
+  it's the <em>only</em> one of the three that changes it. Raise it for a faster,
+  more aerobatic top end; lower it for a calmer ceiling on how fast the
+  aircraft can rotate no matter how hard you throw the stick.</li>
+<li><strong>Expo</strong> softens the response right around center, for finer small
+  corrections, without touching your top speed. At 0% Expo, the response
+  is a dead straight line from center to max. Raising Expo bends more of
+  the stick's throw into that straight line's shadow near center (gentler
+  small inputs) while still reaching the same Max Vel at full deflection.</li>
+<li><strong>Shape</strong> sets how sharply the curve bends within that softened region --
+  in other words, how much of the rate increase is saved up for the last
+  part of the stick throw versus spread evenly across it. Critically,
+  <strong>Shape only does anything if Expo is above 0%</strong> -- at 0% Expo the curve
+  is a straight line and Shape has no effect at all, since there's no curve
+  left for it to shape.</li>
+</ul>
+<h3 id="quick-troubleshooting">Quick troubleshooting<a class="headerlink" href="#quick-troubleshooting" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>What you're seeing in the air</th>
+<th>Try</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Not enough punch, too slow to snap into a hard maneuver at full stick</td>
+<td>Raise Rate</td>
+</tr>
+<tr>
+<td>Uncontrollable/overshoots on big stick inputs, feels dangerous at full deflection</td>
+<td>Lower Rate</td>
+</tr>
+<tr>
+<td>Small corrections near center feel too sensitive or nervous</td>
+<td>Raise Expo</td>
+</tr>
+<tr>
+<td>Feels numb/dead right around center, hard to make fine corrections</td>
+<td>Lower Expo</td>
+</tr>
+<tr>
+<td>Response feels flat/linear the whole way, no extra "kick" out near the stick ends</td>
+<td>Raise Shape</td>
+</tr>
+<tr>
+<td>Changing Shape doesn't seem to do anything</td>
+<td>Check Expo isn't at 0% -- Shape has no effect there</td>
+</tr>
+</tbody>
+</table>
+<h2 id="dynamics-expert-mode">Dynamics (expert mode)<a class="headerlink" href="#dynamics-expert-mode" title="Permanent link">&para;</a></h2>
+<p>A few extra per-axis shaping options live under Dynamics, hidden unless
+expert mode is on:</p>
+<ul>
+<li><strong>Response Time</strong> smooths the raw stick input itself before it becomes a
+  setpoint -- larger values add more smoothing (and more perceived lag), 0
+  disables it. Useful for a twitchy transmitter/stick or a deliberately
+  softer, more scale-like feel.</li>
+<li><strong>Setpoint Boost Gain/Cutoff</strong> sharpens the raw stick input for a
+  snappier feel, boosting it based on how fast the stick itself is moving.
+  This is a different mechanism from the <strong>B</strong> (Boost) column in
+  <a href="../profiles/#pid-gains">PID Gains</a> -- this one reshapes the stick signal
+  itself, per rate profile, before it ever reaches the PID loop, rather
+  than boosting Feedforward inside the PID loop.</li>
+<li><strong>Dynamic Ceiling Gain</strong> (Yaw) reduces how much stick travel is needed to
+  reach max yaw rate while the stick is moving rapidly toward full
+  deflection -- useful for making a fast full-stick yaw flick reliably hit
+  max rate.</li>
+<li><strong>Dynamic Deadband Gain/Filter</strong> (Yaw) temporarily widens the yaw
+  deadband while the stick is moving rapidly back through center, to
+  smooth out an unwanted wobble on a fast-centering yaw input.</li>
+</ul>
 
 
 
