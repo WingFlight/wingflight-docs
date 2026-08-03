@@ -59,9 +59,9 @@ than a textbook definition:
 | Quick flicks feel twitchy/nervous | Lower B |
 | Quick flicks feel soft, no snap | Raise B |
 
-Master Gain and its curve (below) scale P, I, D, and F together as one
-percentage -- Boost is tuned independently per-axis and isn't affected by
-Master Gain.
+Master Gain and its curve (below) scale P, I, and D together as one
+percentage -- F (Feedforward) and Boost are tuned independently per-axis
+and aren't affected by Master Gain.
 
 ### Why these defaults
 
@@ -108,11 +108,13 @@ curve or an Adjustments knob.
 
 ## Master Gain
 
-Master Gain sets one overall gain per axis (Roll, Pitch, Yaw) that scales the
-whole PID loop for that axis, each with its own optional gain curve so the
-scaling can vary with stick position rather than applying a single flat
-multiplier. In expert mode a fourth row, Throttle (TPA), attenuates gains
-across the throttle range using the same shared gain-curve pool.
+Master Gain sets one overall gain per axis (Roll, Pitch, Yaw) that scales
+the P, I, and D terms of that axis's PID loop -- F (Feedforward) and Boost
+stay at their static configured values -- each with its own optional gain
+curve so the scaling can vary with stick position rather than applying a
+single flat multiplier. In expert mode a fourth row, Throttle (TPA),
+attenuates gains across the throttle range using the same shared
+gain-curve pool.
 
 Any of these gains can also be mapped to a transmitter switch/knob from the
 [Adjustments](adjustments.md) tab for live in-flight tuning -- when a gain is
