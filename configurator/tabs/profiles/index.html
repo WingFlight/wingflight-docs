@@ -2187,9 +2187,9 @@ than a textbook definition:</p>
 </tr>
 </tbody>
 </table>
-<p>Master Gain and its curve (below) scale P, I, D, and F together as one
-percentage -- Boost is tuned independently per-axis and isn't affected by
-Master Gain.</p>
+<p>Master Gain and its curve (below) scale P, I, and D together as one
+percentage -- F (Feedforward) and Boost are tuned independently per-axis
+and aren't affected by Master Gain.</p>
 <h3 id="why-these-defaults">Why these defaults<a class="headerlink" href="#why-these-defaults" title="Permanent link">&para;</a></h3>
 <p>Out of the box:</p>
 <table>
@@ -2259,11 +2259,13 @@ axis, and Throttle (TPA) likewise defaults to 100% with no curve -- so the
 PID Gains table above is exactly what flies until you deliberately assign a
 curve or an Adjustments knob.</p>
 <h2 id="master-gain">Master Gain<a class="headerlink" href="#master-gain" title="Permanent link">&para;</a></h2>
-<p>Master Gain sets one overall gain per axis (Roll, Pitch, Yaw) that scales the
-whole PID loop for that axis, each with its own optional gain curve so the
-scaling can vary with stick position rather than applying a single flat
-multiplier. In expert mode a fourth row, Throttle (TPA), attenuates gains
-across the throttle range using the same shared gain-curve pool.</p>
+<p>Master Gain sets one overall gain per axis (Roll, Pitch, Yaw) that scales
+the P, I, and D terms of that axis's PID loop -- F (Feedforward) and Boost
+stay at their static configured values -- each with its own optional gain
+curve so the scaling can vary with stick position rather than applying a
+single flat multiplier. In expert mode a fourth row, Throttle (TPA),
+attenuates gains across the throttle range using the same shared
+gain-curve pool.</p>
 <p>Any of these gains can also be mapped to a transmitter switch/knob from the
 <a href="../adjustments/">Adjustments</a> tab for live in-flight tuning -- when a gain is
 under live adjustment control, its row shows the current effective value
