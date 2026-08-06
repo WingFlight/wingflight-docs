@@ -1,3 +1,4 @@
+<!-- redeploy: 2026-08-06T13:xxZ -->
 <p align="center">
   <img src="assets/wf_icon_dark.svg" alt="WingFlight" width="120">
 </p>
