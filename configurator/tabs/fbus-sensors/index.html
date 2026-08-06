@@ -10,25 +10,31 @@
       
       
       
+        <link rel="canonical" href="https://doc.wingflight.org/configurator/tabs/fbus-sensors/">
       
+      
+        <link rel="prev" href="../esc-programming/">
+      
+      
+        <link rel="next" href="../blackbox/">
       
       
         
       
       
-      <link rel="icon" href="/assets/favicon.ico">
+      <link rel="icon" href="../../../assets/favicon.ico">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
-        <title>WingFlight Documentation</title>
+        <title>FBUS/S.Port Sensors - WingFlight Documentation</title>
       
     
     
-      <link rel="stylesheet" href="/assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
-        <link rel="stylesheet" href="/assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -41,9 +47,9 @@
       
     
     
-      <link rel="stylesheet" href="/stylesheets/extra.css">
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("/",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -67,6 +73,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#fbussport-sensors" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -77,9 +88,9 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="/." title="WingFlight Documentation" class="md-header__button md-logo" aria-label="WingFlight Documentation" data-md-component="logo">
+    <a href="../../.." title="WingFlight Documentation" class="md-header__button md-logo" aria-label="WingFlight Documentation" data-md-component="logo">
       
-  <img src="/assets/wf_icon_white.svg" alt="logo">
+  <img src="../../../assets/wf_icon_white.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -96,7 +107,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              
+              FBUS/S.Port Sensors
             
           </span>
         </div>
@@ -209,7 +220,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="/." class="md-tabs__link">
+      <a href="../../.." class="md-tabs__link">
         
   
   
@@ -230,7 +241,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/getting-started/" class="md-tabs__link">
+        <a href="../../../getting-started/" class="md-tabs__link">
           
   
   
@@ -246,11 +257,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="/configurator/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
           
   
   
@@ -270,7 +283,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/flight-modes/" class="md-tabs__link">
+        <a href="../../../flight-modes/" class="md-tabs__link">
           
   
   
@@ -290,7 +303,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/reference/" class="md-tabs__link">
+        <a href="../../../reference/" class="md-tabs__link">
           
   
   
@@ -310,7 +323,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/contributing/" class="md-tabs__link">
+        <a href="../../../contributing/" class="md-tabs__link">
           
   
   
@@ -344,9 +357,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/." title="WingFlight Documentation" class="md-nav__button md-logo" aria-label="WingFlight Documentation" data-md-component="logo">
+    <a href="../../.." title="WingFlight Documentation" class="md-nav__button md-logo" aria-label="WingFlight Documentation" data-md-component="logo">
       
-  <img src="/assets/wf_icon_white.svg" alt="logo">
+  <img src="../../../assets/wf_icon_white.svg" alt="logo">
 
     </a>
     WingFlight Documentation
@@ -373,7 +386,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         
   
   
@@ -450,7 +463,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/getting-started/" class="md-nav__link">
+      <a href="../../../getting-started/" class="md-nav__link">
         
   
   
@@ -478,7 +491,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/getting-started/installing-the-configurator/" class="md-nav__link">
+      <a href="../../../getting-started/installing-the-configurator/" class="md-nav__link">
         
   
   
@@ -506,7 +519,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/getting-started/flashing-the-firmware/" class="md-nav__link">
+      <a href="../../../getting-started/flashing-the-firmware/" class="md-nav__link">
         
   
   
@@ -534,7 +547,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/getting-started/first-connection/" class="md-nav__link">
+      <a href="../../../getting-started/first-connection/" class="md-nav__link">
         
   
   
@@ -562,7 +575,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/getting-started/backup-and-restore/" class="md-nav__link">
+      <a href="../../../getting-started/backup-and-restore/" class="md-nav__link">
         
   
   
@@ -594,24 +607,29 @@
       
   
   
+    
   
   
+  
     
     
     
     
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
             
   
   
@@ -629,7 +647,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -647,7 +665,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/configurator/" class="md-nav__link">
+      <a href="../../" class="md-nav__link">
         
   
   
@@ -675,7 +693,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/configurator/tabs/status/" class="md-nav__link">
+      <a href="../status/" class="md-nav__link">
         
   
   
@@ -703,7 +721,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/configurator/tabs/setup/" class="md-nav__link">
+      <a href="../setup/" class="md-nav__link">
         
   
   
@@ -731,7 +749,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/configurator/tabs/configuration/" class="md-nav__link">
+      <a href="../configuration/" class="md-nav__link">
         
   
   
@@ -759,7 +777,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/configurator/tabs/power/" class="md-nav__link">
+      <a href="../power/" class="md-nav__link">
         
   
   
@@ -787,7 +805,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/configurator/tabs/receiver/" class="md-nav__link">
+      <a href="../receiver/" class="md-nav__link">
         
   
   
@@ -815,7 +833,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/configurator/tabs/failsafe/" class="md-nav__link">
+      <a href="../failsafe/" class="md-nav__link">
         
   
   
@@ -843,7 +861,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/configurator/tabs/mixer/" class="md-nav__link">
+      <a href="../mixer/" class="md-nav__link">
         
   
   
@@ -871,7 +889,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/configurator/tabs/servos/" class="md-nav__link">
+      <a href="../servos/" class="md-nav__link">
         
   
   
@@ -899,7 +917,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/configurator/tabs/motors/" class="md-nav__link">
+      <a href="../motors/" class="md-nav__link">
         
   
   
@@ -927,7 +945,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/configurator/tabs/curves/" class="md-nav__link">
+      <a href="../curves/" class="md-nav__link">
         
   
   
@@ -955,7 +973,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/configurator/tabs/profiles/" class="md-nav__link">
+      <a href="../profiles/" class="md-nav__link">
         
   
   
@@ -983,7 +1001,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/configurator/tabs/rates/" class="md-nav__link">
+      <a href="../rates/" class="md-nav__link">
         
   
   
@@ -1011,7 +1029,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/configurator/tabs/gyro/" class="md-nav__link">
+      <a href="../gyro/" class="md-nav__link">
         
   
   
@@ -1039,7 +1057,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/configurator/tabs/auxiliary/" class="md-nav__link">
+      <a href="../auxiliary/" class="md-nav__link">
         
   
   
@@ -1067,7 +1085,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/configurator/tabs/adjustments/" class="md-nav__link">
+      <a href="../adjustments/" class="md-nav__link">
         
   
   
@@ -1095,7 +1113,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/configurator/tabs/logic/" class="md-nav__link">
+      <a href="../logic/" class="md-nav__link">
         
   
   
@@ -1123,7 +1141,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/configurator/tabs/gps/" class="md-nav__link">
+      <a href="../gps/" class="md-nav__link">
         
   
   
@@ -1151,7 +1169,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/configurator/tabs/led-strip/" class="md-nav__link">
+      <a href="../led-strip/" class="md-nav__link">
         
   
   
@@ -1179,7 +1197,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/configurator/tabs/beepers/" class="md-nav__link">
+      <a href="../beepers/" class="md-nav__link">
         
   
   
@@ -1207,7 +1225,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/configurator/tabs/sensors/" class="md-nav__link">
+      <a href="../sensors/" class="md-nav__link">
         
   
   
@@ -1235,7 +1253,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/configurator/tabs/esc-programming/" class="md-nav__link">
+      <a href="../esc-programming/" class="md-nav__link">
         
   
   
@@ -1260,10 +1278,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="/configurator/tabs/fbus-sensors/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FBUS/S.Port Sensors
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1279,6 +1324,59 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#reading-sensors-direct-use-vs-forwarding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading sensors: direct use vs. forwarding
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-sensor-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The sensor table
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#forwarding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Forwarding
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1291,7 +1389,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/configurator/tabs/blackbox/" class="md-nav__link">
+      <a href="../blackbox/" class="md-nav__link">
         
   
   
@@ -1319,7 +1417,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/configurator/tabs/cli/" class="md-nav__link">
+      <a href="../cli/" class="md-nav__link">
         
   
   
@@ -1404,7 +1502,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/flight-modes/" class="md-nav__link">
+      <a href="../../../flight-modes/" class="md-nav__link">
         
   
   
@@ -1432,7 +1530,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/flight-modes/auto-hover/" class="md-nav__link">
+      <a href="../../../flight-modes/auto-hover/" class="md-nav__link">
         
   
   
@@ -1460,7 +1558,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/flight-modes/atthold/" class="md-nav__link">
+      <a href="../../../flight-modes/atthold/" class="md-nav__link">
         
   
   
@@ -1488,7 +1586,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/flight-modes/auto-trim/" class="md-nav__link">
+      <a href="../../../flight-modes/auto-trim/" class="md-nav__link">
         
   
   
@@ -1516,7 +1614,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/flight-modes/trainer/" class="md-nav__link">
+      <a href="../../../flight-modes/trainer/" class="md-nav__link">
         
   
   
@@ -1544,7 +1642,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/flight-modes/ready-to-arm-wiggle/" class="md-nav__link">
+      <a href="../../../flight-modes/ready-to-arm-wiggle/" class="md-nav__link">
         
   
   
@@ -1572,7 +1670,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/flight-modes/cross-axis-relax/" class="md-nav__link">
+      <a href="../../../flight-modes/cross-axis-relax/" class="md-nav__link">
         
   
   
@@ -1600,7 +1698,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/flight-modes/governor/" class="md-nav__link">
+      <a href="../../../flight-modes/governor/" class="md-nav__link">
         
   
   
@@ -1685,7 +1783,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/reference/" class="md-nav__link">
+      <a href="../../../reference/" class="md-nav__link">
         
   
   
@@ -1713,7 +1811,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/reference/cli-reference/" class="md-nav__link">
+      <a href="../../../reference/cli-reference/" class="md-nav__link">
         
   
   
@@ -1741,7 +1839,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/reference/msp-overview/" class="md-nav__link">
+      <a href="../../../reference/msp-overview/" class="md-nav__link">
         
   
   
@@ -1769,7 +1867,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/reference/fbus-sensor-ids/" class="md-nav__link">
+      <a href="../../../reference/fbus-sensor-ids/" class="md-nav__link">
         
   
   
@@ -1854,7 +1952,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/contributing/" class="md-nav__link">
+      <a href="../../../contributing/" class="md-nav__link">
         
   
   
@@ -1882,7 +1980,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/contributing/building-the-firmware/" class="md-nav__link">
+      <a href="../../../contributing/building-the-firmware/" class="md-nav__link">
         
   
   
@@ -1910,7 +2008,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/contributing/developers/" class="md-nav__link">
+      <a href="../../../contributing/developers/" class="md-nav__link">
         
   
   
@@ -1955,6 +2053,49 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#reading-sensors-direct-use-vs-forwarding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading sensors: direct use vs. forwarding
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-sensor-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The sensor table
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#forwarding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Forwarding
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -1967,8 +2108,118 @@
               
               <article class="md-content__inner md-typeset">
                 
-  <h1>404 - Not found</h1>
+                  
 
+
+  
+    <a href="https://github.com/WingFlight/edit/main/docs/configurator/tabs/fbus-sensors.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="fbussport-sensors">FBUS/S.Port Sensors<a class="headerlink" href="#fbussport-sensors" title="Permanent link">&para;</a></h1>
+<p>The FBUS/S.Port Sensors tab is a diagnostic and forwarding-control page for
+boards acting as an <strong>FBUS or S.Port master</strong> -- reading telemetry directly
+from third-party FrSky-ecosystem sensors (GPS, current sensors, RPM sensors,
+smart servos, and more) wired to a spare UART, rather than talking to a
+receiver on it. The tab only appears once a serial port is assigned the
+<code>FBUS_OUT</code> or <code>SPORT_MASTER</code> function on the <a href="../configuration/">Configuration</a>
+tab.</p>
+<h2 id="reading-sensors-direct-use-vs-forwarding">Reading sensors: direct use vs. forwarding<a class="headerlink" href="#reading-sensors-direct-use-vs-forwarding" title="Permanent link">&para;</a></h2>
+<p>Sensors observed on the bus can be put to work two different (non-exclusive)
+ways:</p>
+<ul>
+<li><strong>Direct use</strong> -- the firmware reads certain sensor types itself and feeds
+  them straight into existing systems. A FrSky current/voltage sensor can
+  become a battery voltage/current source -- set <strong>Battery Voltage/Current
+  Source</strong> to <strong>FrSky Sensor</strong> on the <a href="../power/">Power</a> tab. A FrSky ESC
+  sensor can become an ESC telemetry source (voltage, current, RPM,
+  temperature, consumption); this one is currently CLI-only --
+  <code>set esc_sensor_protocol = FBUS</code>. Nothing needs enabling on this page for
+  direct use -- it happens automatically as soon as the sensor is observed.</li>
+<li><strong>Forwarding</strong> -- relays a sensor's raw telemetry frames back out over the
+  receiver link, so your transmitter/radio displays them directly. This
+  matters most for sensor types the firmware doesn't consume itself (a
+  vario or airspeed sensor, for example) -- forwarding is the only way to
+  see those values on the radio. The <strong>Forwarded</strong> toggle on this page
+  controls it.</li>
+</ul>
+<h2 id="the-sensor-table">The sensor table<a class="headerlink" href="#the-sensor-table" title="Permanent link">&para;</a></h2>
+<p>Each row is a sensor physical ID actually observed talking on the bus,
+refreshed roughly once a second:</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Physical ID</td>
+<td>The sensor's hardware-defined identity (e.g. GPS, FLVSS, ESC) -- see the <a href="../../../reference/fbus-sensor-ids/">Sensor ID Reference</a> for the full list</td>
+</tr>
+<tr>
+<td>Source</td>
+<td>Which physical bus it was seen on -- FBUS or S.Port</td>
+</tr>
+<tr>
+<td>Sensor Name</td>
+<td>Resolved sensor name, or <code>ID_&lt;n&gt;</code> if the physical ID isn't recognized</td>
+</tr>
+<tr>
+<td>App IDs</td>
+<td>The specific data types seen from this sensor (e.g. altitude, speed) -- see the reference page for what the numbers mean</td>
+</tr>
+<tr>
+<td>Packets</td>
+<td>Running packet count since the last connect or <strong>Clear</strong></td>
+</tr>
+<tr>
+<td>Forwarded</td>
+<td>Whether this sensor is currently relayed back to the receiver -- see <a href="#forwarding">Forwarding</a> below</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Clear</strong> resets the observed-sensor table and packet counts -- useful after
+rewiring, to confirm what's actually present now rather than what was seen
+earlier in the session. It doesn't affect Forwarding configuration.</p>
+<h2 id="forwarding">Forwarding<a class="headerlink" href="#forwarding" title="Permanent link">&para;</a></h2>
+<p>Toggling <strong>Forwarded</strong> takes effect immediately -- no reboot needed -- and
+persists across power cycles. Up to <strong>8 sensors</strong> can be forwarded at once;
+toggling a 9th while all 8 slots are in use is refused, so turn one off
+first.</p>
+<p>The Forwarded toggle is only enabled when the receiver protocol itself is
+FrSky-family -- <strong>F.Port, F.Port2, or FBUS</strong>, set on the
+<a href="../receiver/">Receiver</a> tab; otherwise it shows dimmed, and hovering it
+explains why. It works by relaying frames over that protocol's own
+telemetry return channel, which other protocols (CRSF, Ghost, and the rest)
+don't have. Reading sensors as a bus master, and using them directly, both
+work regardless of receiver protocol -- only forwarding to the radio needs
+FrSky-family.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>FBUS/S.Port master mode and the receiver's own RX protocol are
+independent: the master feature listens on its own dedicated UART, so
+it works alongside CRSF, ELRS, or any other receiver protocol. Only
+<em>forwarding</em> ties back to what the receiver link speaks.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
               </article>
             </div>
           
@@ -1986,6 +2237,44 @@
       
         <footer class="md-footer">
   
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../esc-programming/" class="md-footer__link md-footer__link--prev" aria-label="Previous: ESC Programming">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                ESC Programming
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../blackbox/" class="md-footer__link md-footer__link--next" aria-label="Next: Blackbox">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Blackbox
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
     
   
   <div class="md-footer-meta md-typeset">
@@ -2040,10 +2329,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "/", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.action.edit", "content.code.copy"], "search": "/assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.action.edit", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="/assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>
