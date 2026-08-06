@@ -92,6 +92,7 @@ nav:
       - Beepers: configurator/tabs/beepers.md
       - Sensors: configurator/tabs/sensors.md
       - ESC Programming: configurator/tabs/esc-programming.md
+      - FBUS/S.Port Sensors: configurator/tabs/fbus-sensors.md
       - Blackbox: configurator/tabs/blackbox.md
       - CLI: configurator/tabs/cli.md
   - Flight Modes & Features:
@@ -107,6 +108,7 @@ nav:
       - reference/index.md
       - CLI Command Reference: reference/cli-reference.md
       - MSP Overview: reference/msp-overview.md
+      - FBUS/S.Port Sensor ID Reference: reference/fbus-sensor-ids.md
   - Contributing:
       - contributing/index.md
       - Building the Firmware: contributing/building-the-firmware.md
