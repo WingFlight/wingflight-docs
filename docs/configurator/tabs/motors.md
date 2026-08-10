@@ -4,6 +4,9 @@ The Motors tab lets you test motor outputs individually (props off!) and
 configure motor-related output settings such as protocol and idle behavior.
 It also hosts the [Governor](../../flight-modes/governor.md) section, which
 governs idle hold and RPM behavior separately from motor protocol/testing.
+In RPM Idle/Max mode, **Idle Throttle Floor** is the minimum powered idle
+output the governor is allowed to command below handover; in Throttle Idle
+mode, the same field is the fixed idle output.
 
 !!! danger
     Always remove propellers before testing motor outputs from this tab.
