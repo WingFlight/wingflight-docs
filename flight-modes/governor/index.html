@@ -2124,7 +2124,7 @@ what actually activates idle hold or RPM governing, depending on the mode.</p>
 </tr>
 <tr>
 <td>RPM Idle/Max</td>
-<td>Holds a target idle RPM below the handover throttle using RPM feedback, with an optional max-RPM limit above handover to prevent overspeed.</td>
+<td>Holds a target idle RPM below the handover throttle using RPM feedback, starting from the configured Idle Throttle Floor so the ESC is not commanded to zero during a rapid throttle chop. Above handover, the optional max-RPM limit can prevent overspeed.</td>
 </tr>
 <tr>
 <td>Throttle Idle</td>
@@ -2139,12 +2139,22 @@ what actually activates idle hold or RPM governing, depending on the mode.</p>
 <p>RPM Idle/Max and RPM Range modes require an RPM source: bidirectional DShot
 telemetry, ESC telemetry, or a frequency sensor.</p>
 <h2 id="tuning">Tuning<a class="headerlink" href="#tuning" title="Permanent link">&para;</a></h2>
+<p>RPM Idle/Max uses <strong>Idle Throttle Floor</strong> as the minimum powered idle output
+while the governor is active below handover. The RPM controller then adds P/I
+correction above that floor to reach the configured Idle RPM. This keeps the
+motor spinning instead of letting an RPM overshoot drive the command to 0%
+throttle, which can make the ESC struggle to spool back up.</p>
+<p>Set Idle Throttle Floor high enough that the motor keeps turning reliably
+after a quick throttle chop, but not so high that the aircraft idles faster
+than you want. If the floor alone produces more RPM than the configured Idle
+RPM, RPM Idle/Max will not pull below the floor; lower the floor or raise the
+Idle RPM target. Throttle Ceiling remains the hard maximum output the
+governor may command, and also caps the effective idle floor.</p>
 <p>RPM-governing modes hold their target using a filtered P/I loop: P gain
 corrects RPM error but always settles a little below target, and I gain
 closes that remaining gap. Handover Throttle sets the stick position below
-which the governor takes over (not used in RPM Range mode, which spans the
-whole stick), and Throttle Ceiling caps the maximum throttle the governor
-may command regardless of RPM error.</p>
+which RPM Idle/Max or Throttle Idle takes over (not used in RPM Range mode,
+which spans the whole stick).</p>
 
 
 
