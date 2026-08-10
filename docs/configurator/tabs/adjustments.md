@@ -6,10 +6,10 @@ reconnecting the Configurator. Useful for fine-tuning while flying, or for
 A/B comparing two settings values in the air.
 
 Adjustable functions are grouped by category -- Master Gains
-([Profiles](profiles.md)), Servo Trims (roll/pitch/yaw), Accelerometer Trim,
-Setpoint Boost, and others -- and any function currently under live
-adjustment control shows its effective value on the owning tab while the
-switch/channel is active.
+([Profiles](profiles.md)), [Servo Trims](servos.md#in-flight-trim)
+(roll/pitch/yaw), Accelerometer Trim, Setpoint Boost, and others -- and any
+function currently under live adjustment control shows its effective value
+on the owning tab while the switch/channel is active.
 
 Adjustments made this way aren't saved to the flight controller
 automatically -- they're meant for freely trying values in the air without

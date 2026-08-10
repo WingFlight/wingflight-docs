@@ -42,3 +42,35 @@ arc -- the further from center, the less each degree of rotation actually
 moves a pushrod linearly. Only enable it for servos driving a linkage
 through an arc; leave it off for anything already linear (e.g. a direct
 belt/rack-driven surface), where there's no arc geometry to correct for.
+
+## In-Flight Trim
+
+Center points (**Mid**) don't have to be set from this tab or the CLI --
+map **Servo Trim Roll**, **Servo Trim Pitch**, or **Servo Trim Yaw** to a
+momentary switch on the [Adjustments](adjustments.md) tab (Stepped mode)
+and nudge them live while flying instead.
+
+Trimming an axis shifts Mid on every servo whose [Mixer](mixer.md) rule
+takes its input from that stabilized axis, not just one output -- each
+servo's own Reverse flag above is respected, so e.g. two ailerons mixed
+from opposite sides of the same roll input trim toward each other
+correctly rather than both moving the same raw direction. Servos fed by a
+raw RC channel, an override, or a logic condition rather than a
+stabilized axis aren't touched -- the same rule
+[Auto Trim](../../flight-modes/auto-trim.md) uses for its own capture.
+
+Each axis can move up to ±200μs away from its last *saved* Mid before
+hitting the adjustment's own limit. Disarming with a pending trim saves
+it automatically, the same as any other live-adjusted value, and the
+±200μs window then re-baselines to the new center, so there's always
+fresh headroom to keep trimming across multiple flights rather than
+being capped by the first save.
+
+!!! warning "Best used in the air, not on the bench"
+    This is meant for trimming while actually flying. Ground use over USB
+    currently fights you on two fronts: this tab won't visibly pick up a
+    center-point change made this way, so there's nothing to confirm/save
+    from the Configurator, and having this tab open over USB blocks
+    arming outright. See
+    [firmware issue #17](https://github.com/WingFlight/wingflight-firmware/issues/17)
+    for current status.

@@ -23,3 +23,8 @@ Flip the switch back off before disarming and the capture is abandoned,
 restoring the previous center exactly -- nothing is written unless you
 disarm *while* the new center is still active, at which point it's saved
 the same way any other live-adjusted value is (on disarm).
+
+For a manual alternative -- nudging an axis's center by a fixed amount per
+switch flick, rather than capturing a sustained stick correction -- see
+[In-Flight Trim](../configurator/tabs/servos.md#in-flight-trim) on the
+Servos tab.
