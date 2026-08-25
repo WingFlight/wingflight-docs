@@ -876,6 +876,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#srxl2-full-size-receivers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SRXL2 full-size receivers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#channel-assignment" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2085,6 +2096,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#srxl2-full-size-receivers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SRXL2 full-size receivers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#channel-assignment" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2157,6 +2179,17 @@ you'll see no signal at all rather than a subtle problem:</p>
   for SBUS2, F.Port, SRXL, and SRXL2.</li>
 <li><strong>Pin Swap</strong> swaps the Rx/Tx pins, for wiring that comes in reversed.</li>
 </ul>
+<h2 id="srxl2-full-size-receivers">SRXL2 full-size receivers<a class="headerlink" href="#srxl2-full-size-receivers" title="Permanent link">&para;</a></h2>
+<p>Some Spektrum full-size receivers (e.g. the AR6610T) need to see a valid
+SRXL2 handshake within about 200ms of power-on, or they revert their
+receiver port to plain PWM instead of SRXL2 -- which can be too fast for
+the normal handshake to win the race during boot. When the FC's own SRXL2
+unit ID is set to <code>0</code> (bus master), it now sends the first handshake
+packets very early during boot, before this can happen, then continues
+the normal handshake process as usual.</p>
+<p>This is CLI-only -- set it with <code>set srxl2_unit_id = 0</code>. Note the
+default is <code>1</code>, not <code>0</code>, so this needs setting explicitly for a receiver
+that requires it.</p>
 <h2 id="channel-assignment">Channel Assignment<a class="headerlink" href="#channel-assignment" title="Permanent link">&para;</a></h2>
 <p>Different transmitter brands don't agree on which physical channel carries
 which stick -- FrSky/ELRS/Futaba send <code>AETR</code> (Aileron, Elevator, Throttle,

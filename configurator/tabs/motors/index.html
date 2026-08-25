@@ -988,6 +988,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#srxl2-esc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SRXL2 ESC
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#throttle-endpoints-pwm-only" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2074,6 +2085,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#srxl2-esc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SRXL2 ESC
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#throttle-endpoints-pwm-only" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2139,6 +2161,20 @@ calibration below. Check what your specific ESC supports before switching.</p>
 <p>For non-DShot ESCs, <strong>Unsynced PWM</strong> decouples the ESC update rate from
 the PID loop, running it instead at a fixed frequency you set (typically
 50-250Hz -- most modern analog ESCs are happy at 250Hz).</p>
+<h2 id="srxl2-esc">SRXL2 ESC<a class="headerlink" href="#srxl2-esc" title="Permanent link">&para;</a></h2>
+<p>Spektrum SRXL2 ESCs (e.g. Smart ESCs designed for the SRXL2 bus) use a
+single, bidirectional, single-wire UART connection for both throttle
+commands and telemetry -- there's no separate PWM/DShot signal wire and no
+separate ESC telemetry wire.</p>
+<p>To use one, assign a spare UART the <strong>SRXL2 ESC</strong> function on the
+<a href="../configuration/">Configuration</a> tab. That one assignment is all that's
+needed: <strong>Protocol</strong>, <strong>ESC Telemetry Protocol</strong>, and <strong>Half-Duplex</strong> are
+all set to match automatically and lock (shown disabled, with a tooltip
+explaining why) so they can't drift out of sync with the port -- the
+firmware forces the same values on save regardless of what's shown here.
+To go back to a different ESC protocol, change the port's function on the
+Configuration tab rather than trying to change it from this tab.</p>
+<p>SRXL2 ESC only supports a single motor.</p>
 <h2 id="throttle-endpoints-pwm-only">Throttle endpoints (PWM-only)<a class="headerlink" href="#throttle-endpoints-pwm-only" title="Permanent link">&para;</a></h2>
 <p>For PWM/analog protocols, three raw PWM values calibrate the throttle
 range: <strong>Minimum Command</strong> (sent when the motor is stopped -- also what
