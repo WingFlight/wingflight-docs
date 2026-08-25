@@ -21,6 +21,24 @@ For non-DShot ESCs, **Unsynced PWM** decouples the ESC update rate from
 the PID loop, running it instead at a fixed frequency you set (typically
 50-250Hz -- most modern analog ESCs are happy at 250Hz).
 
+## SRXL2 ESC
+
+Spektrum SRXL2 ESCs (e.g. Smart ESCs designed for the SRXL2 bus) use a
+single, bidirectional, single-wire UART connection for both throttle
+commands and telemetry -- there's no separate PWM/DShot signal wire and no
+separate ESC telemetry wire.
+
+To use one, assign a spare UART the **SRXL2 ESC** function on the
+[Configuration](configuration.md) tab. That one assignment is all that's
+needed: **Protocol**, **ESC Telemetry Protocol**, and **Half-Duplex** are
+all set to match automatically and lock (shown disabled, with a tooltip
+explaining why) so they can't drift out of sync with the port -- the
+firmware forces the same values on save regardless of what's shown here.
+To go back to a different ESC protocol, change the port's function on the
+Configuration tab rather than trying to change it from this tab.
+
+SRXL2 ESC only supports a single motor.
+
 ## Throttle endpoints (PWM-only)
 
 For PWM/analog protocols, three raw PWM values calibrate the throttle

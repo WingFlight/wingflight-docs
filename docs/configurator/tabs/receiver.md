@@ -16,6 +16,20 @@ you'll see no signal at all rather than a subtle problem:
   for SBUS2, F.Port, SRXL, and SRXL2.
 - **Pin Swap** swaps the Rx/Tx pins, for wiring that comes in reversed.
 
+## SRXL2 full-size receivers
+
+Some Spektrum full-size receivers (e.g. the AR6610T) need to see a valid
+SRXL2 handshake within about 200ms of power-on, or they revert their
+receiver port to plain PWM instead of SRXL2 -- which can be too fast for
+the normal handshake to win the race during boot. When the FC's own SRXL2
+unit ID is set to `0` (bus master), it now sends the first handshake
+packets very early during boot, before this can happen, then continues
+the normal handshake process as usual.
+
+This is CLI-only -- set it with `set srxl2_unit_id = 0`. Note the
+default is `1`, not `0`, so this needs setting explicitly for a receiver
+that requires it.
+
 ## Channel Assignment
 
 Different transmitter brands don't agree on which physical channel carries
