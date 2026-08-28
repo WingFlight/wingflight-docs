@@ -7,10 +7,25 @@ tuning -- it governs how throttle input translates to commanded motor
 output, independent of attitude stabilization.
 
 It's configured from the Governor section of the
-[Motors](../configurator/tabs/motors.md) tab, but has no effect until the
-**GOVERNOR** switch is assigned to a channel on the
-[Auxiliary](../configurator/tabs/auxiliary.md) tab -- engaging that switch is
-what actually activates idle hold or RPM governing, depending on the mode.
+[Motors](../configurator/tabs/motors.md) tab. Setting a mode other than
+**Off** and assigning the **GOVERNOR** switch on the
+[Auxiliary](../configurator/tabs/auxiliary.md) tab turns that switch into a
+hard motor interlock, not just something that shapes the bottom of the
+throttle curve:
+
+- **Switch off** -- the motor is forced to 0% output. The throttle stick has
+  no authority at all, at any position, until the switch is engaged. This is
+  deliberate: it lets you arm and handle the model on the ground without the
+  motor spinning, the same purpose an idle-up switch serves on a heli or
+  helicopter-style transmitter setup.
+- **Switch on** -- idle hold or RPM governing activates as described below,
+  and above the handover throttle (or across the whole stick in RPM Range
+  mode) the stick drives the motor normally.
+
+If a mode other than Off is selected but no switch is assigned to
+**GOVERNOR**, the interlock does not apply and the motor behaves as if the
+governor were Off -- throttle passes straight through at all times. Assign
+the switch if you want the mode you've configured to actually take effect.
 
 ## Modes
 
