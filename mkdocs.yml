@@ -104,6 +104,7 @@ nav:
       - Ready-to-Arm Wiggle: flight-modes/ready-to-arm-wiggle.md
       - Cross-Axis Relax: flight-modes/cross-axis-relax.md
       - Governor: flight-modes/governor.md
+      - SBUS-In Fallback Receiver: flight-modes/sbus-input-fallback.md
   - Reference:
       - reference/index.md
       - CLI Command Reference: reference/cli-reference.md

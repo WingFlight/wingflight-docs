@@ -11,6 +11,13 @@ Configure and bench-test failsafe behavior *before* flying -- turn off your
 transmitter at a safe distance from the aircraft (props off) and confirm the
 flight controller actually enters failsafe and behaves the way you expect.
 
+!!! note
+    If a [SBUS-In Fallback Receiver](../../flight-modes/sbus-input-fallback.md)
+    is configured, losing the main link doesn't reach any of the stages below
+    on its own -- control switches to the fallback receiver instantly instead.
+    The staged failsafe behavior described on this page only takes over if
+    *both* the main link and the fallback link are down.
+
 ## Pulse Width Limit
 
 Sets the valid pulse-width range (default 885-2115μs, expert mode only) --
