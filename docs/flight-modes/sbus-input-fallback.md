@@ -25,10 +25,10 @@ different protocol entirely) without needing a full second RF system.
    opposite electrical inversion from the default SBUS assumption. These
    are independent of the main receiver's own `serialrx_pinswap`/
    `serialrx_inverted`, since this is a different physical UART.
-3. Once a port is assigned, a new **SBUS Input Status** page appears
-   under Diagnostics in the sidebar -- confirm it's working there: live
+3. Once a port is assigned, a new **SBUS Input** page appears under
+   Diagnostics in the sidebar -- confirm it's working there: live
    channel values and link-up state, refreshed several times a second.
-   See the [SBUS Input Status](../configurator/tabs/sbus-input-status.md)
+   See the [SBUS Input](../configurator/tabs/sbus-input-status.md)
    page for details.
 
 ## Behavior
@@ -60,7 +60,7 @@ As with any failsafe-adjacent behavior, test this on the bench (props off)
 before relying on it in the air:
 
 1. With both the main receiver and the SBUS-in satellite bound and
-   powered, confirm the SBUS Input Status page shows the main link
+   powered, confirm the SBUS Input page shows the main link
    active and moving the SBUS-in satellite's sticks has no effect on
    outputs.
 2. Power off (or walk the main receiver's transmitter out of range),

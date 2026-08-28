@@ -1,6 +1,6 @@
-# SBUS Input Status
+# SBUS Input
 
-SBUS Input Status is a read-only diagnostic page for the
+SBUS Input is a read-only diagnostic page for the
 [SBUS-In Fallback Receiver](../../flight-modes/sbus-input-fallback.md)
 feature -- it has no settings of its own. It only appears in the
 **Diagnostics** section of the sidebar once a serial port is assigned the
