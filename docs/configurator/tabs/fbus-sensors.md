@@ -67,20 +67,3 @@ FrSky-family.
     independent: the master feature listens on its own dedicated UART, so
     it works alongside CRSF, ELRS, or any other receiver protocol. Only
     *forwarding* ties back to what the receiver link speaks.
-
-## SBUS-In Fallback Status
-
-If a serial port is assigned the **SBUS-In Fallback** function (see
-[SBUS-In Fallback Receiver](../../flight-modes/sbus-input-fallback.md)),
-this tab also shows a live status panel for it, independent of whether
-FBUS/S.Port master is configured at all:
-
-| Field | Meaning |
-|---|---|
-| Link | Whether the SBUS-in port is currently decoding valid frames |
-| Active Source | Which link is driving the aircraft right now -- Main RX or SBUS-In |
-| Channels | Live channel values from the SBUS-in decoder, refreshed several times a second |
-
-This is a read-only diagnostic view for confirming your fallback receiver
-is bound and wired correctly, and for watching it take over during a bench
-test -- it has no settings of its own.

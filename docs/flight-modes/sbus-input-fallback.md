@@ -15,21 +15,21 @@ different protocol entirely) without needing a full second RF system.
 ## Setting it up
 
 1. Wire an SBUS-capable satellite receiver to a spare UART, then assign
-   that port the **SBUS-In Fallback** function from the port function
-   dropdown on the Configuration tab's serial ports list.
+   that port the **SBUS Input (Satellite Rx)** function from the port
+   function dropdown on the Configuration tab's serial ports list.
 2. Bind the satellite as you would any SBUS receiver. If it isn't decoding
-   (Link stays down on the status panel below), check wiring against the
+   (Link stays down on the status page below), check wiring against the
    UART's pinout -- `sbus_input_pinswap` and `sbus_input_inverted` (both
    CLI-only for now, default `OFF`) cover boards where the port's natural
    RX pin isn't the one that's wired, or where the signal needs the
    opposite electrical inversion from the default SBUS assumption. These
    are independent of the main receiver's own `serialrx_pinswap`/
    `serialrx_inverted`, since this is a different physical UART.
-3. Confirm it's working from the SBUS-In Fallback status shown on the
-   [FBUS/S.Port Sensors](../configurator/tabs/fbus-sensors.md) tab --
-   live channel values and link-up state are shown there whenever a port
-   is assigned this function, independent of whether FBUS/S.Port master
-   is also in use.
+3. Once a port is assigned, a new **SBUS Input Status** page appears
+   under Diagnostics in the sidebar -- confirm it's working there: live
+   channel values and link-up state, refreshed several times a second.
+   See the [SBUS Input Status](../configurator/tabs/sbus-input-status.md)
+   page for details.
 
 ## Behavior
 
@@ -60,7 +60,7 @@ As with any failsafe-adjacent behavior, test this on the bench (props off)
 before relying on it in the air:
 
 1. With both the main receiver and the SBUS-in satellite bound and
-   powered, confirm the FBUS/S.Port Sensors tab shows the main link
+   powered, confirm the SBUS Input Status page shows the main link
    active and moving the SBUS-in satellite's sticks has no effect on
    outputs.
 2. Power off (or walk the main receiver's transmitter out of range),
