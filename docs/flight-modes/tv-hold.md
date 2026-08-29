@@ -1,12 +1,13 @@
-# TV Attitude / Heading Hold
+# Thrust Vector Attitude Hold
 
-TV Attitude / Heading Hold (TV ATT HOLD) holds attitude and heading on the
-Thrust Vector loop only, independent of whatever the aerodynamic control
-surfaces are doing. This is aimed at jets and other aircraft with a
-vectored-thrust nozzle: engage it and the nozzle holds heading/attitude on
-its own while ailerons, elevator, and rudder stay in plain rate/acro under
-your stick -- useful at low airspeed or post-stall, where the surfaces have
-little authority but the vectored thrust still does.
+Thrust Vector Attitude Hold (THRUST VECTOR ATTITUDE HOLD) holds attitude
+and heading on the Thrust Vector loop only, independent of whatever the
+aerodynamic control surfaces are doing. This is aimed at jets and other
+aircraft with a vectored-thrust nozzle: engage it and the nozzle holds
+heading/attitude on its own while ailerons, elevator, and rudder stay in
+plain rate/acro under your stick -- useful at low airspeed or post-stall,
+where the surfaces have little authority but the vectored thrust still
+does.
 
 It only has an effect while **THRUST VECTOR** is also engaged, and it's
 completely decoupled from [Attitude Hold](atthold.md),
