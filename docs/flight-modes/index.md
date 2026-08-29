@@ -9,6 +9,7 @@ helicopter-focused mode set.
 |---|---|
 | [Auto Hover](auto-hover.md) | Automated hover/attitude assist for aircraft capable of hovering flight |
 | [Attitude Hold](atthold.md) | Holds commanded attitude, releasing stick input to level/hold |
+| [TV Attitude / Heading Hold](tv-hold.md) | Independent attitude/heading hold on the Thrust Vector loop only, decoupled from the main surfaces |
 | [Auto Trim](auto-trim.md) | Captures trim automatically from sustained stick input |
 | [Trainer Mode](trainer.md) | Assisted flight mode for beginners |
 | [Ready-to-Arm Wiggle](ready-to-arm-wiggle.md) | Visual servo-wiggle confirmation before arming |
