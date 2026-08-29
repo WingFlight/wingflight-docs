@@ -1719,6 +1719,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../flight-modes/sbus-input-fallback/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SBUS-In Fallback Receiver
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2130,6 +2158,15 @@ the CLI.</p>
 <p>Configure and bench-test failsafe behavior <em>before</em> flying -- turn off your
 transmitter at a safe distance from the aircraft (props off) and confirm the
 flight controller actually enters failsafe and behaves the way you expect.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If a <a href="../../../flight-modes/sbus-input-fallback/">SBUS-In Fallback Receiver</a>
+is configured, losing the main link doesn't reach any of the stages below
+on its own -- control switches to the fallback receiver instead, within
+the main receiver's own ~100ms signal-loss detection window. The staged
+failsafe behavior described on this page only takes over if <em>both</em> the
+main link and the fallback link are down.</p>
+</div>
 <h2 id="pulse-width-limit">Pulse Width Limit<a class="headerlink" href="#pulse-width-limit" title="Permanent link">&para;</a></h2>
 <p>Sets the valid pulse-width range (default 885-2115μs, expert mode only) --
 any channel reporting a value outside it is treated as failed and enters
