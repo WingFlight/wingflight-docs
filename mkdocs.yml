@@ -93,7 +93,7 @@ nav:
       - Sensors: configurator/tabs/sensors.md
       - ESC Programming: configurator/tabs/esc-programming.md
       - FBUS/S.Port Sensors: configurator/tabs/fbus-sensors.md
-      - SBUS Input: configurator/tabs/sbus-input-status.md
+      - Serial Rx (Backup): configurator/tabs/sbus-input-status.md
       - Blackbox: configurator/tabs/blackbox.md
       - CLI: configurator/tabs/cli.md
   - Flight Modes & Features:

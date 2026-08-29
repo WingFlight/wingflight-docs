@@ -56,3 +56,14 @@ actually support (e.g. RPM only appears with a configured RPM source).
 
 For bench-testing without a real transmitter bound, a virtual RX input tool
 is available (desktop app only) to simulate channel input.
+
+## Serial Rx (Backup) status
+
+If a serial port is assigned the **Serial Rx (Backup, SBUS)** function on
+the [Configuration](configuration.md) tab, a status line appears here
+showing which port it's on and whether it's currently linked up, with a
+**View Details** link through to the full
+[Serial Rx (Backup)](sbus-input-status.md) diagnostics page (live channel
+values, active-source indicator). See
+[SBUS-In Fallback Receiver](../../flight-modes/sbus-input-fallback.md)
+for what the feature actually does.

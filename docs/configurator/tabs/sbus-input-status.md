@@ -1,10 +1,10 @@
-# SBUS Input
+# Serial Rx (Backup)
 
-SBUS Input is a read-only diagnostic page for the
+Serial Rx (Backup) is a read-only diagnostic page for the
 [SBUS-In Fallback Receiver](../../flight-modes/sbus-input-fallback.md)
 feature -- it has no settings of its own. It only appears in the
 **Diagnostics** section of the sidebar once a serial port is assigned the
-**SBUS Input (Satellite Rx)** function on the [Configuration](configuration.md)
+**Serial Rx (Backup, SBUS)** function on the [Configuration](configuration.md)
 tab's serial ports list.
 
 | Field | Meaning |
@@ -16,3 +16,7 @@ tab's serial ports list.
 Use this page to confirm your fallback receiver is bound and wired
 correctly, and to watch it take over live during a bench test -- see the
 feature page's own [bench-testing procedure](../../flight-modes/sbus-input-fallback.md#bench-testing-before-you-fly).
+
+A summary of the same link status also appears directly on the
+[Receiver](receiver.md) tab whenever a backup port is configured, with a
+link through to this page for the full channel readout.
