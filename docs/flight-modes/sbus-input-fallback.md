@@ -23,20 +23,17 @@ different protocol entirely) without needing a full second RF system.
    this is a second, independent one, just fixed to SBUS rather than a
    choice of protocol.
 2. Bind the satellite as you would any SBUS receiver. If it isn't decoding
-   (Link stays down on the status page below), check wiring against the
+   (Link stays down on the status box below), check wiring against the
    UART's pinout -- `sbus_input_pinswap` and `sbus_input_inverted` (both
    CLI-only for now, default `OFF`) cover boards where the port's natural
    RX pin isn't the one that's wired, or where the signal needs the
    opposite electrical inversion from the default SBUS assumption. These
    are independent of the main receiver's own `serialrx_pinswap`/
    `serialrx_inverted`, since this is a different physical UART.
-3. Once a port is assigned, a status line appears directly on the
-   [Receiver](../configurator/tabs/receiver.md) tab, and a new
-   **Serial Rx (Backup)** page appears under Diagnostics in the sidebar
-   -- confirm it's working there: live channel values and link-up state,
-   refreshed several times a second. See the
-   [Serial Rx (Backup)](../configurator/tabs/sbus-input-status.md) page
-   for details.
+3. Once a port is assigned, a status box appears directly on the
+   [Receiver](../configurator/tabs/receiver.md) tab -- link-up state and
+   which link is active are always visible; click the chevron to expand
+   live per-channel values, refreshed several times a second.
 
 ## Behavior
 
@@ -73,9 +70,9 @@ As with any failsafe-adjacent behavior, test this on the bench (props off)
 before relying on it in the air:
 
 1. With both the main receiver and the SBUS-in satellite bound and
-   powered, confirm the Serial Rx (Backup) page shows the main link
-   active and moving the SBUS-in satellite's sticks has no effect on
-   outputs.
+   powered, confirm the Receiver tab's Serial Rx (Backup) box shows the
+   main link active and moving the SBUS-in satellite's sticks has no
+   effect on outputs.
 2. Power off (or walk the main receiver's transmitter out of range),
    and confirm control switches to the SBUS-in satellite within roughly
    100ms, arm state is preserved, and aux switches on the fallback radio
