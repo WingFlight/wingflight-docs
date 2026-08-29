@@ -99,6 +99,7 @@ nav:
       - flight-modes/index.md
       - Auto Hover: flight-modes/auto-hover.md
       - Attitude Hold: flight-modes/atthold.md
+      - Thrust Vector Attitude Hold: flight-modes/tv-hold.md
       - Auto Trim: flight-modes/auto-trim.md
       - Trainer Mode: flight-modes/trainer.md
       - Ready-to-Arm Wiggle: flight-modes/ready-to-arm-wiggle.md
