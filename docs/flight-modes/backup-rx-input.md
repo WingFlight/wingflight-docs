@@ -1,10 +1,10 @@
-# SBUS-In Fallback Receiver
+# Backup RX Input
 
-SBUS-In Fallback lets a spare UART carry a second, independent SBUS
+Backup RX Input lets a spare UART carry a second, independent RX
 receiver ("satellite") purely as a backup for the main RF link. If the main
 receiver's signal is lost, the flight controller takes over all RC
 channels -- including aux/mode switches, so arm state and flight-mode
-switching keep working -- from the SBUS-in port instead, bypassing the
+switching keep working -- from the backup port instead, bypassing the
 normal failsafe stages entirely. The moment the main link's signal comes
 back, control reverts to it automatically. Takeover and revert happen
 within the main receiver's own signal-loss detection window (up to
@@ -14,22 +14,29 @@ This is a cheap way to get a basic backup-receiver setup (e.g. a small
 FrSky/compatible satellite bound to a second transmitter module or a
 different protocol entirely) without needing a full second RF system.
 
+The backup port speaks a single, configurable protocol -- currently
+**SBUS** only, selected via the **Protocol** field shown on the status box
+below. The feature was originally SBUS-only in name too ("SBUS-In Fallback
+Receiver"); it's now built so more protocols (e.g. FBUS, FPort) can be
+added later without changing how it behaves or is configured, hence the
+more general name.
+
 ## Setting it up
 
-1. Wire an SBUS-capable satellite receiver to a spare UART, then assign
-   that port the **Serial Rx (Backup, SBUS)** function from the port
-   function dropdown on the Configuration tab's serial ports list. It's
-   named to pair with the main receiver's own **Serial Rx** option --
-   this is a second, independent one, just fixed to SBUS rather than a
-   choice of protocol.
-2. Bind the satellite as you would any SBUS receiver. If it isn't decoding
-   (Link stays down on the status box below), check wiring against the
-   UART's pinout -- `sbus_input_pinswap` and `sbus_input_inverted` (both
-   CLI-only for now, default `OFF`) cover boards where the port's natural
-   RX pin isn't the one that's wired, or where the signal needs the
-   opposite electrical inversion from the default SBUS assumption. These
-   are independent of the main receiver's own `serialrx_pinswap`/
-   `serialrx_inverted`, since this is a different physical UART.
+1. Wire an RX-capable satellite receiver to a spare UART, then assign
+   that port the **Serial Rx (Backup)** function from the port function
+   dropdown on the Configuration tab's serial ports list. It's named to
+   pair with the main receiver's own **Serial Rx** option -- this is a
+   second, independent one.
+2. Bind the satellite as you would any receiver of that protocol. If it
+   isn't decoding (Link stays down on the status box below), check wiring
+   against the UART's pinout -- `rx_input_backup_pinswap` and
+   `rx_input_backup_inverted` (both CLI-only for now, default `OFF`) cover
+   boards where the port's natural RX pin isn't the one that's wired, or
+   where the signal needs the opposite electrical inversion from the
+   protocol's default assumption. These are independent of the main
+   receiver's own `serialrx_pinswap`/`serialrx_inverted`, since this is a
+   different physical UART.
 3. Once a port is assigned, a status box appears directly on the
    [Receiver](../configurator/tabs/receiver.md) tab -- link-up state and
    which link is active are always visible; click the chevron to expand
@@ -48,20 +55,20 @@ different protocol entirely) without needing a full second RF system.
   It's still far quicker than doing nothing here -- an un-caught channel
   would otherwise hold its last value for 300ms before failsafe even
   declares it failed.
-- **Full channel takeover.** All channels are taken from the SBUS-in port
+- **Full channel takeover.** All channels are taken from the backup port
   during fallback, not just roll/pitch/yaw/throttle -- aux switches
-  (flight mode, arming, etc.) are driven from the fallback stick exactly
+  (flight mode, arming, etc.) are driven from the backup stick exactly
   as they would be from the main receiver.
 - **Auto-revert.** As soon as the main receiver's signal is valid again
-  (within that same ~100ms window), control reverts to it -- fallback does
-  not latch for the rest of the flight.
+  (within that same ~100ms window), control reverts to it -- the backup
+  does not latch for the rest of the flight.
 - **Not a second failsafe system.** If *both* the main link and the
-  SBUS-in link are down, ordinary staged failsafe behavior (hold/land/cut,
+  backup link are down, ordinary staged failsafe behavior (hold/land/cut,
   per the [Failsafe](../configurator/tabs/failsafe.md) tab) takes over
-  exactly as it would without this feature. SBUS-in fallback is a bridge
+  exactly as it would without this feature. Backup RX input is a bridge
   for a single lost link, not a replacement for failsafe.
 - A **Failsafe** switch on an aux channel still invalidates control
-  channels even while SBUS-in fallback is otherwise healthy -- the switch
+  channels even while the backup link is otherwise healthy -- the switch
   is honored the same way regardless of which link is currently active.
 
 ## Bench-testing before you fly
@@ -69,13 +76,13 @@ different protocol entirely) without needing a full second RF system.
 As with any failsafe-adjacent behavior, test this on the bench (props off)
 before relying on it in the air:
 
-1. With both the main receiver and the SBUS-in satellite bound and
+1. With both the main receiver and the backup satellite bound and
    powered, confirm the Receiver tab's Serial Rx (Backup) box shows the
-   main link active and moving the SBUS-in satellite's sticks has no
+   main link active and moving the backup satellite's sticks has no
    effect on outputs.
 2. Power off (or walk the main receiver's transmitter out of range),
-   and confirm control switches to the SBUS-in satellite within roughly
-   100ms, arm state is preserved, and aux switches on the fallback radio
+   and confirm control switches to the backup satellite within roughly
+   100ms, arm state is preserved, and aux switches on the backup radio
    work as expected.
 3. Restore the main link and confirm control reverts to it within that
    same window.

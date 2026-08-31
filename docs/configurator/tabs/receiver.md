@@ -59,12 +59,12 @@ is available (desktop app only) to simulate channel input.
 
 ## Serial Rx (Backup) status
 
-If a serial port is assigned the **Serial Rx (Backup, SBUS)** function on
+If a serial port is assigned the **Serial Rx (Backup)** function on
 the [Configuration](configuration.md) tab, a status box appears above the
-Preview panel showing which port it's on, whether it's currently linked
-up, and which link is actively driving the aircraft (main vs. backup) --
-all visible without expanding anything. Click the chevron to expand a
-live meter per channel, the same live readout used for bench-testing the
-feature. See
-[SBUS-In Fallback Receiver](../../flight-modes/sbus-input-fallback.md)
+Preview panel showing which protocol it's decoding, which port it's on,
+whether it's currently linked up, and which link is actively driving the
+aircraft (main vs. backup) -- all visible without expanding anything.
+Click the chevron to expand a live meter per channel, the same live
+readout used for bench-testing the feature. See
+[Backup RX Input](../../flight-modes/backup-rx-input.md)
 for what the feature actually does.

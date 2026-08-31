@@ -12,12 +12,12 @@ transmitter at a safe distance from the aircraft (props off) and confirm the
 flight controller actually enters failsafe and behaves the way you expect.
 
 !!! note
-    If a [SBUS-In Fallback Receiver](../../flight-modes/sbus-input-fallback.md)
+    If a [Backup RX Input](../../flight-modes/backup-rx-input.md)
     is configured, losing the main link doesn't reach any of the stages below
-    on its own -- control switches to the fallback receiver instead, within
+    on its own -- control switches to the backup receiver instead, within
     the main receiver's own ~100ms signal-loss detection window. The staged
     failsafe behavior described on this page only takes over if *both* the
-    main link and the fallback link are down.
+    main link and the backup link are down.
 
 ## Pulse Width Limit
 
