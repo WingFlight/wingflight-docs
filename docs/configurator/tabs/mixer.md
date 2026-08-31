@@ -15,6 +15,12 @@ the patterns below.
 If your airframe changes (e.g. converting ailerons to flaperons, or adding a
 second motor), this is the tab to revisit.
 
+If you're running digital bus servos (SBUS/FBUS output) instead of, or
+alongside, PWM servos, note that they normally mirror your PWM outputs
+automatically -- rules built here for PWM outputs drive both. See
+[Servos → Bus Servos](servos.md#bus-servos) for how that works and when to
+turn it off.
+
 ## Rules
 
 Each rule reads one input (a stabilized axis, throttle, an RC channel, etc.)
