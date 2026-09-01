@@ -67,14 +67,14 @@ If a serial port is assigned the **Serial Rx (Backup)** function on the
 [Configuration](configuration.md) tab, a second box, **Serial RX #2**,
 appears below it with:
 
-- A **Protocol** dropdown (None, Futaba S.BUS, FrSky FBUS, FrSky F.PORT, or
-  FrSky F.PORT2) -- `None` is the default, meaning the port is assigned but
-  not yet decoding anything.
+- A **Protocol** dropdown (None, Futaba S.BUS, FrSky FBUS, FrSky F.PORT,
+  FrSky F.PORT2, Jeti EXBUS, or TBS CRSF) -- `None` is the default, meaning
+  the port is assigned but not yet decoding anything.
 - **Inverted**, **Half-Duplex**, and **Pin Swap** switches, same meaning as
   the equivalent settings for the main receiver but independent of them --
   this is a different physical UART, and each protocol has its own natural
-  wiring convention (SBUS is inverted by default; FBUS/F.Port/F.Port2
-  aren't), so `OFF` always means "this protocol's normal wiring."
+  wiring convention (SBUS is inverted by default; every other supported
+  protocol isn't), so `OFF` always means "this protocol's normal wiring."
 - **Link** and **Active Source** badges in its own title bar, live-updated,
   so both boxes show their status right where you'd configure them.
 

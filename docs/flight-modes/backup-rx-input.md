@@ -16,7 +16,8 @@ different protocol entirely) without needing a full second RF system.
 
 The backup port speaks a single, configurable protocol, chosen from the
 **Protocol** dropdown on the **Serial RX #2** box (see below): **SBUS**,
-**FBUS**, **F.Port**, or **F.Port2**. The feature was originally SBUS-only
+**FBUS**, **F.Port**, **F.Port2**, **Jeti EXBUS**, or **TBS CRSF**
+(Crossfire/ELRS). The feature was originally SBUS-only
 in name too ("SBUS-In Fallback Receiver"); it's now built so more protocols
 can be added later without changing how it behaves or is configured, hence
 the more general name. By default (before a protocol is chosen) the port
@@ -43,9 +44,9 @@ is reserved but not decoding anything.
    protocol. All three are independent of the main receiver's own
    equivalent settings, since this is a different physical UART, and each
    protocol has its own natural wiring convention (SBUS is inverted by
-   default; FBUS/F.Port/F.Port2 aren't) -- `OFF` always means "this
-   protocol's normal wiring," not "no inversion" in an absolute sense.
-   Changing any of these needs **Save & Reboot** to take effect.
+   default; every other supported protocol isn't) -- `OFF` always means
+   "this protocol's normal wiring," not "no inversion" in an absolute
+   sense. Changing any of these needs **Save & Reboot** to take effect.
 4. Once bound and decoding, the **Serial RX #2** box's **Link** and
    **Active Source** badges update live, and each entry in
    [Channel Assignment](../configurator/tabs/receiver.md#channel-assignment)
