@@ -57,14 +57,34 @@ actually support (e.g. RPM only appears with a configured RPM source).
 For bench-testing without a real transmitter bound, a virtual RX input tool
 is available (desktop app only) to simulate channel input.
 
-## Serial Rx (Backup) status
+## Serial RX #1 / Serial RX #2 (Backup RX Input)
 
-If a serial port is assigned the **Serial Rx (Backup)** function on
-the [Configuration](configuration.md) tab, a status box appears above the
-Preview panel showing which protocol it's decoding, which port it's on,
-whether it's currently linked up, and which link is actively driving the
-aircraft (main vs. backup) -- all visible without expanding anything.
-Click the chevron to expand a live meter per channel, the same live
-readout used for bench-testing the feature. See
+The main receiver's own protocol box is labeled **Serial RX #1**. Its title
+bar always shows a **Link** badge for the main receiver's own live signal
+state, whether or not a backup port is configured.
+
+If a serial port is assigned the **Serial Rx (Backup)** function on the
+[Configuration](configuration.md) tab, a second box, **Serial RX #2**,
+appears below it with:
+
+- A **Protocol** dropdown (None, Futaba S.BUS, FrSky FBUS, FrSky F.PORT, or
+  FrSky F.PORT2) -- `None` is the default, meaning the port is assigned but
+  not yet decoding anything.
+- **Inverted**, **Half-Duplex**, and **Pin Swap** switches, same meaning as
+  the equivalent settings for the main receiver but independent of them --
+  this is a different physical UART, and each protocol has its own natural
+  wiring convention (SBUS is inverted by default; FBUS/F.Port/F.Port2
+  aren't), so `OFF` always means "this protocol's normal wiring."
+- **Link** and **Active Source** badges in its own title bar, live-updated,
+  so both boxes show their status right where you'd configure them.
+
+Changes to any of these fields need **Save & Reboot** to take effect, same
+as any other serial-port setting.
+
+Once a backup protocol is selected and reporting data, every entry in
+[Channel Assignment](#channel-assignment) grows a second, smaller meter
+underneath the main one showing the backup receiver's own live value for
+that channel -- useful for confirming a bound backup satellite is producing
+sane values before ever relying on it in the air. See
 [Backup RX Input](../../flight-modes/backup-rx-input.md)
 for what the feature actually does.
