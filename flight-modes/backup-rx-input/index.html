@@ -2189,12 +2189,14 @@ within the main receiver's own signal-loss detection window (up to
 <p>This is a cheap way to get a basic backup-receiver setup (e.g. a small
 FrSky/compatible satellite bound to a second transmitter module or a
 different protocol entirely) without needing a full second RF system.</p>
-<p>The backup port speaks a single, configurable protocol -- currently
-<strong>SBUS</strong> only, selected via the <strong>Protocol</strong> field shown on the status box
-below. The feature was originally SBUS-only in name too ("SBUS-In Fallback
-Receiver"); it's now built so more protocols (e.g. FBUS, FPort) can be
-added later without changing how it behaves or is configured, hence the
-more general name.</p>
+<p>The backup port speaks a single, configurable protocol, chosen from the
+<strong>Protocol</strong> dropdown on the <strong>Serial RX #2</strong> box (see below): <strong>SBUS</strong>,
+<strong>FBUS</strong>, <strong>F.Port</strong>, <strong>F.Port2</strong>, <strong>Jeti EXBUS</strong>, or <strong>TBS CRSF</strong>
+(Crossfire/ELRS). The feature was originally SBUS-only
+in name too ("SBUS-In Fallback Receiver"); it's now built so more protocols
+can be added later without changing how it behaves or is configured, hence
+the more general name. By default (before a protocol is chosen) the port
+is reserved but not decoding anything.</p>
 <h2 id="setting-it-up">Setting it up<a class="headerlink" href="#setting-it-up" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Wire an RX-capable satellite receiver to a spare UART, then assign
@@ -2202,19 +2204,29 @@ more general name.</p>
    dropdown on the Configuration tab's serial ports list. It's named to
    pair with the main receiver's own <strong>Serial Rx</strong> option -- this is a
    second, independent one.</li>
+<li>On the <a href="../../configurator/tabs/receiver/">Receiver</a> tab, a <strong>Serial
+   RX #2</strong> box appears below the main <strong>Serial RX #1</strong> box. Pick the
+   satellite's protocol from its <strong>Protocol</strong> dropdown, then <strong>Save &amp;
+   Reboot</strong>.</li>
 <li>Bind the satellite as you would any receiver of that protocol. If it
-   isn't decoding (Link stays down on the status box below), check wiring
-   against the UART's pinout -- <code>rx_input_backup_pinswap</code> and
-   <code>rx_input_backup_inverted</code> (both CLI-only for now, default <code>OFF</code>) cover
-   boards where the port's natural RX pin isn't the one that's wired, or
-   where the signal needs the opposite electrical inversion from the
-   protocol's default assumption. These are independent of the main
-   receiver's own <code>serialrx_pinswap</code>/<code>serialrx_inverted</code>, since this is a
-   different physical UART.</li>
-<li>Once a port is assigned, a status box appears directly on the
-   <a href="../../configurator/tabs/receiver/">Receiver</a> tab -- link-up state and
-   which link is active are always visible; click the chevron to expand
-   live per-channel values, refreshed several times a second.</li>
+   isn't decoding (the box's <strong>Link</strong> badge stays down), check wiring
+   against the UART's pinout -- the box's <strong>Pin Swap</strong> and <strong>Inverted</strong>
+   switches cover boards where the port's natural RX pin isn't the one
+   that's wired, or where the signal needs the opposite electrical
+   inversion from the protocol's default assumption; <strong>Half-Duplex</strong> covers
+   satellites that only expose a single, shared signal wire for this
+   protocol. All three are independent of the main receiver's own
+   equivalent settings, since this is a different physical UART, and each
+   protocol has its own natural wiring convention (SBUS is inverted by
+   default; every other supported protocol isn't) -- <code>OFF</code> always means
+   "this protocol's normal wiring," not "no inversion" in an absolute
+   sense. Changing any of these needs <strong>Save &amp; Reboot</strong> to take effect.</li>
+<li>Once bound and decoding, the <strong>Serial RX #2</strong> box's <strong>Link</strong> and
+   <strong>Active Source</strong> badges update live, and each entry in
+   <a href="../../configurator/tabs/receiver/#channel-assignment">Channel Assignment</a>
+   grows a second, smaller meter showing the backup receiver's own live
+   channel values -- refreshed several times a second, the same readout
+   used for bench-testing below.</li>
 </ol>
 <h2 id="behavior">Behavior<a class="headerlink" href="#behavior" title="Permanent link">&para;</a></h2>
 <ul>
@@ -2250,9 +2262,9 @@ more general name.</p>
 before relying on it in the air:</p>
 <ol>
 <li>With both the main receiver and the backup satellite bound and
-   powered, confirm the Receiver tab's Serial Rx (Backup) box shows the
-   main link active and moving the backup satellite's sticks has no
-   effect on outputs.</li>
+   powered, confirm the Receiver tab's <strong>Serial RX #1</strong> box shows its
+   <strong>Active Source</strong> badge as Main RX, and moving the backup satellite's
+   sticks has no effect on outputs.</li>
 <li>Power off (or walk the main receiver's transmitter out of range),
    and confirm control switches to the backup satellite within roughly
    100ms, arm state is preserved, and aux switches on the backup radio

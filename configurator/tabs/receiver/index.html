@@ -920,10 +920,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#serial-rx-backup-status" class="md-nav__link">
+  <a href="#serial-rx-1-serial-rx-2-backup-rx-input" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Serial Rx (Backup) status
+        Serial RX #1 / Serial RX #2 (Backup RX Input)
       
     </span>
   </a>
@@ -2207,10 +2207,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#serial-rx-backup-status" class="md-nav__link">
+  <a href="#serial-rx-1-serial-rx-2-backup-rx-input" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Serial Rx (Backup) status
+        Serial RX #1 / Serial RX #2 (Backup RX Input)
       
     </span>
   </a>
@@ -2288,14 +2288,32 @@ actually support (e.g. RPM only appears with a configured RPM source).</p>
 <h2 id="virtual-tx">Virtual TX<a class="headerlink" href="#virtual-tx" title="Permanent link">&para;</a></h2>
 <p>For bench-testing without a real transmitter bound, a virtual RX input tool
 is available (desktop app only) to simulate channel input.</p>
-<h2 id="serial-rx-backup-status">Serial Rx (Backup) status<a class="headerlink" href="#serial-rx-backup-status" title="Permanent link">&para;</a></h2>
-<p>If a serial port is assigned the <strong>Serial Rx (Backup)</strong> function on
-the <a href="../configuration/">Configuration</a> tab, a status box appears above the
-Preview panel showing which protocol it's decoding, which port it's on,
-whether it's currently linked up, and which link is actively driving the
-aircraft (main vs. backup) -- all visible without expanding anything.
-Click the chevron to expand a live meter per channel, the same live
-readout used for bench-testing the feature. See
+<h2 id="serial-rx-1-serial-rx-2-backup-rx-input">Serial RX #1 / Serial RX #2 (Backup RX Input)<a class="headerlink" href="#serial-rx-1-serial-rx-2-backup-rx-input" title="Permanent link">&para;</a></h2>
+<p>The main receiver's own protocol box is labeled <strong>Serial RX #1</strong>. Its title
+bar always shows a <strong>Link</strong> badge for the main receiver's own live signal
+state, whether or not a backup port is configured.</p>
+<p>If a serial port is assigned the <strong>Serial Rx (Backup)</strong> function on the
+<a href="../configuration/">Configuration</a> tab, a second box, <strong>Serial RX #2</strong>,
+appears below it with:</p>
+<ul>
+<li>A <strong>Protocol</strong> dropdown (None, Futaba S.BUS, FrSky FBUS, FrSky F.PORT,
+  FrSky F.PORT2, Jeti EXBUS, or TBS CRSF) -- <code>None</code> is the default, meaning
+  the port is assigned but not yet decoding anything.</li>
+<li><strong>Inverted</strong>, <strong>Half-Duplex</strong>, and <strong>Pin Swap</strong> switches, same meaning as
+  the equivalent settings for the main receiver but independent of them --
+  this is a different physical UART, and each protocol has its own natural
+  wiring convention (SBUS is inverted by default; every other supported
+  protocol isn't), so <code>OFF</code> always means "this protocol's normal wiring."</li>
+<li><strong>Link</strong> and <strong>Active Source</strong> badges in its own title bar, live-updated,
+  so both boxes show their status right where you'd configure them.</li>
+</ul>
+<p>Changes to any of these fields need <strong>Save &amp; Reboot</strong> to take effect, same
+as any other serial-port setting.</p>
+<p>Once a backup protocol is selected and reporting data, every entry in
+<a href="#channel-assignment">Channel Assignment</a> grows a second, smaller meter
+underneath the main one showing the backup receiver's own live value for
+that channel -- useful for confirming a bound backup satellite is producing
+sane values before ever relying on it in the air. See
 <a href="../../../flight-modes/backup-rx-input/">Backup RX Input</a>
 for what the feature actually does.</p>
 
