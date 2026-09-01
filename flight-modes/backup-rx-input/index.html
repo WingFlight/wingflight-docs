@@ -10,7 +10,7 @@
       
       
       
-        <link rel="canonical" href="https://doc.wingflight.org/flight-modes/sbus-input-fallback/">
+        <link rel="canonical" href="https://doc.wingflight.org/flight-modes/backup-rx-input/">
       
       
         <link rel="prev" href="../governor/">
@@ -27,7 +27,7 @@
     
     
       
-        <title>SBUS-In Fallback Receiver - WingFlight Documentation</title>
+        <title>Backup RX Input - WingFlight Documentation</title>
       
     
     
@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#sbus-in-fallback-receiver" class="md-skip">
+        <a href="#backup-rx-input" class="md-skip">
           Skip to content
         </a>
       
@@ -107,7 +107,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              SBUS-In Fallback Receiver
+              Backup RX Input
             
           </span>
         </div>
@@ -1690,7 +1690,7 @@
   <span class="md-ellipsis">
     
   
-    SBUS-In Fallback Receiver
+    Backup RX Input
   
 
     
@@ -1708,7 +1708,7 @@
   <span class="md-ellipsis">
     
   
-    SBUS-In Fallback Receiver
+    Backup RX Input
   
 
     
@@ -2168,7 +2168,7 @@
 
 
   
-    <a href="https://github.com/WingFlight/edit/main/docs/flight-modes/sbus-input-fallback.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/WingFlight/edit/main/docs/flight-modes/backup-rx-input.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -2176,12 +2176,12 @@
   
 
 
-<h1 id="sbus-in-fallback-receiver">SBUS-In Fallback Receiver<a class="headerlink" href="#sbus-in-fallback-receiver" title="Permanent link">&para;</a></h1>
-<p>SBUS-In Fallback lets a spare UART carry a second, independent SBUS
+<h1 id="backup-rx-input">Backup RX Input<a class="headerlink" href="#backup-rx-input" title="Permanent link">&para;</a></h1>
+<p>Backup RX Input lets a spare UART carry a second, independent RX
 receiver ("satellite") purely as a backup for the main RF link. If the main
 receiver's signal is lost, the flight controller takes over all RC
 channels -- including aux/mode switches, so arm state and flight-mode
-switching keep working -- from the SBUS-in port instead, bypassing the
+switching keep working -- from the backup port instead, bypassing the
 normal failsafe stages entirely. The moment the main link's signal comes
 back, control reverts to it automatically. Takeover and revert happen
 within the main receiver's own signal-loss detection window (up to
@@ -2189,22 +2189,28 @@ within the main receiver's own signal-loss detection window (up to
 <p>This is a cheap way to get a basic backup-receiver setup (e.g. a small
 FrSky/compatible satellite bound to a second transmitter module or a
 different protocol entirely) without needing a full second RF system.</p>
+<p>The backup port speaks a single, configurable protocol -- currently
+<strong>SBUS</strong> only, selected via the <strong>Protocol</strong> field shown on the status box
+below. The feature was originally SBUS-only in name too ("SBUS-In Fallback
+Receiver"); it's now built so more protocols (e.g. FBUS, FPort) can be
+added later without changing how it behaves or is configured, hence the
+more general name.</p>
 <h2 id="setting-it-up">Setting it up<a class="headerlink" href="#setting-it-up" title="Permanent link">&para;</a></h2>
 <ol>
-<li>Wire an SBUS-capable satellite receiver to a spare UART, then assign
-   that port the <strong>Serial Rx (Backup, SBUS)</strong> function from the port
-   function dropdown on the Configuration tab's serial ports list. It's
-   named to pair with the main receiver's own <strong>Serial Rx</strong> option --
-   this is a second, independent one, just fixed to SBUS rather than a
-   choice of protocol.</li>
-<li>Bind the satellite as you would any SBUS receiver. If it isn't decoding
-   (Link stays down on the status box below), check wiring against the
-   UART's pinout -- <code>sbus_input_pinswap</code> and <code>sbus_input_inverted</code> (both
-   CLI-only for now, default <code>OFF</code>) cover boards where the port's natural
-   RX pin isn't the one that's wired, or where the signal needs the
-   opposite electrical inversion from the default SBUS assumption. These
-   are independent of the main receiver's own <code>serialrx_pinswap</code>/
-   <code>serialrx_inverted</code>, since this is a different physical UART.</li>
+<li>Wire an RX-capable satellite receiver to a spare UART, then assign
+   that port the <strong>Serial Rx (Backup)</strong> function from the port function
+   dropdown on the Configuration tab's serial ports list. It's named to
+   pair with the main receiver's own <strong>Serial Rx</strong> option -- this is a
+   second, independent one.</li>
+<li>Bind the satellite as you would any receiver of that protocol. If it
+   isn't decoding (Link stays down on the status box below), check wiring
+   against the UART's pinout -- <code>rx_input_backup_pinswap</code> and
+   <code>rx_input_backup_inverted</code> (both CLI-only for now, default <code>OFF</code>) cover
+   boards where the port's natural RX pin isn't the one that's wired, or
+   where the signal needs the opposite electrical inversion from the
+   protocol's default assumption. These are independent of the main
+   receiver's own <code>serialrx_pinswap</code>/<code>serialrx_inverted</code>, since this is a
+   different physical UART.</li>
 <li>Once a port is assigned, a status box appears directly on the
    <a href="../../configurator/tabs/receiver/">Receiver</a> tab -- link-up state and
    which link is active are always visible; click the chevron to expand
@@ -2223,33 +2229,33 @@ different protocol entirely) without needing a full second RF system.</p>
   It's still far quicker than doing nothing here -- an un-caught channel
   would otherwise hold its last value for 300ms before failsafe even
   declares it failed.</li>
-<li><strong>Full channel takeover.</strong> All channels are taken from the SBUS-in port
+<li><strong>Full channel takeover.</strong> All channels are taken from the backup port
   during fallback, not just roll/pitch/yaw/throttle -- aux switches
-  (flight mode, arming, etc.) are driven from the fallback stick exactly
+  (flight mode, arming, etc.) are driven from the backup stick exactly
   as they would be from the main receiver.</li>
 <li><strong>Auto-revert.</strong> As soon as the main receiver's signal is valid again
-  (within that same ~100ms window), control reverts to it -- fallback does
-  not latch for the rest of the flight.</li>
+  (within that same ~100ms window), control reverts to it -- the backup
+  does not latch for the rest of the flight.</li>
 <li><strong>Not a second failsafe system.</strong> If <em>both</em> the main link and the
-  SBUS-in link are down, ordinary staged failsafe behavior (hold/land/cut,
+  backup link are down, ordinary staged failsafe behavior (hold/land/cut,
   per the <a href="../../configurator/tabs/failsafe/">Failsafe</a> tab) takes over
-  exactly as it would without this feature. SBUS-in fallback is a bridge
+  exactly as it would without this feature. Backup RX input is a bridge
   for a single lost link, not a replacement for failsafe.</li>
 <li>A <strong>Failsafe</strong> switch on an aux channel still invalidates control
-  channels even while SBUS-in fallback is otherwise healthy -- the switch
+  channels even while the backup link is otherwise healthy -- the switch
   is honored the same way regardless of which link is currently active.</li>
 </ul>
 <h2 id="bench-testing-before-you-fly">Bench-testing before you fly<a class="headerlink" href="#bench-testing-before-you-fly" title="Permanent link">&para;</a></h2>
 <p>As with any failsafe-adjacent behavior, test this on the bench (props off)
 before relying on it in the air:</p>
 <ol>
-<li>With both the main receiver and the SBUS-in satellite bound and
+<li>With both the main receiver and the backup satellite bound and
    powered, confirm the Receiver tab's Serial Rx (Backup) box shows the
-   main link active and moving the SBUS-in satellite's sticks has no
+   main link active and moving the backup satellite's sticks has no
    effect on outputs.</li>
 <li>Power off (or walk the main receiver's transmitter out of range),
-   and confirm control switches to the SBUS-in satellite within roughly
-   100ms, arm state is preserved, and aux switches on the fallback radio
+   and confirm control switches to the backup satellite within roughly
+   100ms, arm state is preserved, and aux switches on the backup radio
    work as expected.</li>
 <li>Restore the main link and confirm control reverts to it within that
    same window.</li>
