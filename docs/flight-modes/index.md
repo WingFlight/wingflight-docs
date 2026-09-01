@@ -15,9 +15,9 @@ helicopter-focused mode set.
 | [Ready-to-Arm Wiggle](ready-to-arm-wiggle.md) | Visual servo-wiggle confirmation before arming |
 | [Cross-Axis Relax](cross-axis-relax.md) | Reduces unwanted coupling between control axes |
 | [Governor](governor.md) | Idle-hold or RPM governing of motor throttle response, from Off through fixed idle to full RPM Range control |
-| [SBUS-In Fallback Receiver](sbus-input-fallback.md) | Instant backup receiver takeover from a second SBUS-in port if the main RF link is lost |
+| [Backup RX Input](backup-rx-input.md) | Instant backup receiver takeover from a second RX port if the main RF link is lost |
 
 Most modes are enabled and mapped to a transmitter switch from the
-[Auxiliary](../configurator/tabs/auxiliary.md) tab. SBUS-In Fallback
-Receiver is the exception -- it's enabled by assigning a serial port's
+[Auxiliary](../configurator/tabs/auxiliary.md) tab. Backup RX Input
+is the exception -- it's enabled by assigning a serial port's
 function, not an aux switch; see its own page for setup.
