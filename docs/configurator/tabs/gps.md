@@ -7,10 +7,11 @@ The GPS tab configures GPS module settings and shows live GPS status
 
 **Protocol** selects how the GPS module talks to the flight controller:
 NMEA or UBLOX over a serial port, MSP (a companion device relaying GPS over
-MSP), or FBUS (GPS position piggybacked on an FrSky FBUS link -- in which
-case the satellite signal-strength panel and baud/config options below
-don't apply, since FBUS carries an already-processed fix rather than raw
-module output).
+MSP), FBUS (GPS position piggybacked on an FrSky FBUS link), or CRSF (GPS
+position from a [CRSF Sensors](crsf-sensors.md) accessory) -- for the
+latter two, the satellite signal-strength panel and baud/config options
+below don't apply, since both carry an already-processed fix rather than
+raw module output.
 
 For NMEA/UBLOX modules, **Auto Baud** and **Auto Config** let the
 Configurator detect the module's baud rate and push its own configuration
