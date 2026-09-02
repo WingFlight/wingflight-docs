@@ -93,6 +93,7 @@ nav:
       - Sensors: configurator/tabs/sensors.md
       - ESC Programming: configurator/tabs/esc-programming.md
       - FBUS/S.Port Sensors: configurator/tabs/fbus-sensors.md
+      - CRSF Sensors: configurator/tabs/crsf-sensors.md
       - Blackbox: configurator/tabs/blackbox.md
       - CLI: configurator/tabs/cli.md
   - Flight Modes & Features:
