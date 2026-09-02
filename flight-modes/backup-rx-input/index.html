@@ -2221,6 +2221,20 @@ is reserved but not decoding anything.</p>
    default; every other supported protocol isn't) -- <code>OFF</code> always means
    "this protocol's normal wiring," not "no inversion" in an absolute
    sense. Changing any of these needs <strong>Save &amp; Reboot</strong> to take effect.</li>
+<li><strong>Turn off telemetry on the backup receiver itself.</strong> This link is
+   receive-only -- the flight controller never reads anything the backup
+   receiver's own telemetry system might send, so this has no effect on
+   the feature's flight-control behavior at all. It matters for a
+   different reason: a second, independent telemetry stream is exactly
+   what can confuse your radio's Lua scripts about which link is the
+   real telemetry path back from the flight controller.<ul>
+<li><strong>FrSky/compatible satellites:</strong> in the receiver's own RX options
+  (on the transmitter, not the Configurator), turn telemetry off
+  for this receiver.</li>
+<li><strong>ExpressLRS receivers:</strong> use the ELRS web configurator to
+  disable telemetry on this receiver.</li>
+</ul>
+</li>
 <li>Once bound and decoding, the <strong>Serial RX #2</strong> box's <strong>Link</strong> and
    <strong>Active Source</strong> badges update live, and each entry in
    <a href="../../configurator/tabs/receiver/#channel-assignment">Channel Assignment</a>
