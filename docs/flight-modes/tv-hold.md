@@ -31,9 +31,10 @@ fights that with its own frozen target.
 
 **Gain** sets how aggressively TV Hold corrects the thrust-vector output
 back to the frozen attitude. **Max Rate** caps how fast it's allowed to
-rotate the held target while doing so. Both are configured on the Thrust
-Vector tab, under **Attitude / Heading Hold** -- separate from Attitude
-Hold's own Gain/Deadband/Max Rate on the
-[Profiles](../configurator/tabs/profiles.md) tab, since this is an
-entirely independent hold engine tuned for the thrust-vector actuators
-specifically.
+rotate the held target while doing so. Both are configured on the
+[Thrust Vector](../configurator/tabs/thrust-vector.md) tab, under
+**Attitude / Heading Hold** -- separate from Attitude Hold's own
+Gain/Deadband/Max Rate on the [Profiles](../configurator/tabs/profiles.md)
+tab, since this is an entirely independent hold engine tuned for the
+thrust-vector actuators specifically. Like the rest of the Thrust Vector
+tab, Gain/Deadband/Max Rate are per Thrust Vector profile.
