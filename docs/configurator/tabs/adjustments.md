@@ -7,9 +7,16 @@ A/B comparing two settings values in the air.
 
 Adjustable functions are grouped by category -- Master Gains
 ([Profiles](profiles.md)), [Servo Trims](servos.md#in-flight-trim)
-(roll/pitch/yaw), Accelerometer Trim, Setpoint Boost, and others -- and any
-function currently under live adjustment control shows its effective value
-on the owning tab while the switch/channel is active.
+(roll/pitch/yaw), Accelerometer Trim, Setpoint Boost, PID/Rate/TV Profile
+switching, and others -- and any function currently under live adjustment
+control shows its effective value on the owning tab while the switch/channel
+is active.
+
+Profile switching (PID, Rate, and [Thrust Vector](thrust-vector.md)) is a
+special case: each is its own adjustment function, mapped to a channel the
+same way as any other, but a profile switch applies -- and is confirmed with
+its own beep count -- immediately, rather than waiting for a manual value
+commit like most other adjustments.
 
 Adjustments made this way aren't saved to the flight controller
 automatically -- they're meant for freely trying values in the air without

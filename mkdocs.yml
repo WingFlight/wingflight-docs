@@ -83,6 +83,7 @@ nav:
       - Curves: configurator/tabs/curves.md
       - Profiles: configurator/tabs/profiles.md
       - Rates: configurator/tabs/rates.md
+      - Thrust Vector: configurator/tabs/thrust-vector.md
       - Gyro: configurator/tabs/gyro.md
       - Auxiliary (Modes): configurator/tabs/auxiliary.md
       - Adjustments: configurator/tabs/adjustments.md
