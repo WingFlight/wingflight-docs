@@ -14,10 +14,14 @@ helicopter-focused mode set.
 | [Trainer Mode](trainer.md) | Assisted flight mode for beginners |
 | [Ready-to-Arm Wiggle](ready-to-arm-wiggle.md) | Visual servo-wiggle confirmation before arming |
 | [Cross-Axis Relax](cross-axis-relax.md) | Reduces unwanted coupling between control axes |
+| [Oscillation Limiter](oscillation-limiter.md) | Detects a sustained gain-induced oscillation on an axis and eases its gain down as a safety net |
 | [Governor](governor.md) | Idle-hold or RPM governing of motor throttle response, from Off through fixed idle to full RPM Range control |
 | [Backup RX Input](backup-rx-input.md) | Instant backup receiver takeover from a second RX port if the main RF link is lost |
 
 Most modes are enabled and mapped to a transmitter switch from the
-[Auxiliary](../configurator/tabs/auxiliary.md) tab. Backup RX Input
-is the exception -- it's enabled by assigning a serial port's
-function, not an aux switch; see its own page for setup.
+[Auxiliary](../configurator/tabs/auxiliary.md) tab. Two exceptions: Backup
+RX Input is enabled by assigning a serial port's function, not an aux
+switch; and the Oscillation Limiter is a per-PID-profile on/off toggle on
+the [Profiles](../configurator/tabs/profiles.md) tab, since it's a
+detector running continuously rather than something you'd want to switch
+in and out of mid-flight. See each page for setup.

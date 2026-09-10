@@ -105,6 +105,7 @@ nav:
       - Trainer Mode: flight-modes/trainer.md
       - Ready-to-Arm Wiggle: flight-modes/ready-to-arm-wiggle.md
       - Cross-Axis Relax: flight-modes/cross-axis-relax.md
+      - Oscillation Limiter: flight-modes/oscillation-limiter.md
       - Governor: flight-modes/governor.md
       - Backup RX Input: flight-modes/backup-rx-input.md
   - Reference:
