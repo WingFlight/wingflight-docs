@@ -932,6 +932,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#flap-to-elevator-compensation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flap-to-Elevator Compensation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#axis-gain-invert" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2147,6 +2158,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#flap-to-elevator-compensation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flap-to-Elevator Compensation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#axis-gain-invert" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2237,6 +2259,33 @@ on top of it.</p>
   false, the rule doesn't apply, and its row dims in the table so it's
   obvious at a glance which rules are actually contributing right now.</li>
 </ul>
+<h2 id="flap-to-elevator-compensation">Flap-to-Elevator Compensation<a class="headerlink" href="#flap-to-elevator-compensation" title="Permanent link">&para;</a></h2>
+<p>Many airframes pitch when flaps go down -- often a nose-up "balloon,"
+sometimes the opposite. If you don't correct for it, the stabilizer will
+quietly paper over a small version of this for you, which can hide the
+problem during most of the flight. But that hidden correction has limits,
+and it tends to run out right on landing approach when you're slow and
+low -- the plane can suddenly pitch up (or down) on you during the flare,
+with no warning it was coming.</p>
+<p>The fix is to cancel the pitch change yourself, right in the mixer, so
+the elevator moves with the flaps automatically:</p>
+<ol>
+<li>Find the rule that drives your elevator servo from <strong>Stabilized
+   Pitch</strong> -- this should already exist as a <strong>Set</strong> rule.</li>
+<li>Add a new rule <strong>below</strong> it, on the <em>same</em> output, reading whatever
+   input drives your flaps (an RC channel, or the same input your flap
+   rule uses). Set its Operator to <strong>Add</strong>.</li>
+<li>Adjust <strong>Weight</strong> (and <strong>Reverse</strong> if it moves the wrong way) until
+   putting the flaps down no longer causes any pitch change with the
+   stick centered.</li>
+<li>If the pitch change isn't even across flap travel (common with
+   multi-stage flaps), assign a <a href="../curves/#mixer-curves">Curve</a> to the
+   rule instead of relying on Weight alone.</li>
+</ol>
+<p>Do this after you've already trimmed the plane for normal cruise flight
+(via <a href="../../../flight-modes/auto-trim/">Auto Trim</a> or the Servos tab's Mid
+field) -- this rule is just for the extra pitch change flaps cause, not a
+replacement for trimming the airframe itself.</p>
 <h2 id="axis-gain-invert">Axis Gain / Invert<a class="headerlink" href="#axis-gain-invert" title="Permanent link">&para;</a></h2>
 <p><strong>Axis Gain</strong> scales <em>every</em> rule reading a given stabilized axis (Roll,
 Pitch, Yaw) by one percentage (0-200%, 100% = unchanged) -- raise or lower
