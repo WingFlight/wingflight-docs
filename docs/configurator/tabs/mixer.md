@@ -86,7 +86,7 @@ the elevator moves with the flaps automatically:
    rule instead of relying on Weight alone.
 
 Do this after you've already trimmed the plane for normal cruise flight
-(via [Auto Trim](../flight-modes/auto-trim.md) or the Servos tab's Mid
+(via [Auto Trim](../../flight-modes/auto-trim.md) or the Servos tab's Mid
 field) -- this rule is just for the extra pitch change flaps cause, not a
 replacement for trimming the airframe itself.
 
