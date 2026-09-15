@@ -28,3 +28,9 @@ For a manual alternative -- nudging an axis's center by a fixed amount per
 switch flick, rather than capturing a sustained stick correction -- see
 [In-Flight Trim](../configurator/tabs/servos.md#in-flight-trim) on the
 Servos tab.
+
+Auto Trim fixes a steady, always-there offset -- it isn't the right tool
+for a pitch change that only shows up when flaps go down. If the plane
+trims out fine clean but balloons (or dips) with flaps out, see
+[Mixer → Flap-to-Elevator Compensation](../configurator/tabs/mixer.md#flap-to-elevator-compensation)
+instead.

@@ -60,6 +60,36 @@ Other per-rule fields:
   false, the rule doesn't apply, and its row dims in the table so it's
   obvious at a glance which rules are actually contributing right now.
 
+## Flap-to-Elevator Compensation
+
+Many airframes pitch when flaps go down -- often a nose-up "balloon,"
+sometimes the opposite. If you don't correct for it, the stabilizer will
+quietly paper over a small version of this for you, which can hide the
+problem during most of the flight. But that hidden correction has limits,
+and it tends to run out right on landing approach when you're slow and
+low -- the plane can suddenly pitch up (or down) on you during the flare,
+with no warning it was coming.
+
+The fix is to cancel the pitch change yourself, right in the mixer, so
+the elevator moves with the flaps automatically:
+
+1. Find the rule that drives your elevator servo from **Stabilized
+   Pitch** -- this should already exist as a **Set** rule.
+2. Add a new rule **below** it, on the *same* output, reading whatever
+   input drives your flaps (an RC channel, or the same input your flap
+   rule uses). Set its Operator to **Add**.
+3. Adjust **Weight** (and **Reverse** if it moves the wrong way) until
+   putting the flaps down no longer causes any pitch change with the
+   stick centered.
+4. If the pitch change isn't even across flap travel (common with
+   multi-stage flaps), assign a [Curve](curves.md#mixer-curves) to the
+   rule instead of relying on Weight alone.
+
+Do this after you've already trimmed the plane for normal cruise flight
+(via [Auto Trim](../flight-modes/auto-trim.md) or the Servos tab's Mid
+field) -- this rule is just for the extra pitch change flaps cause, not a
+replacement for trimming the airframe itself.
+
 ## Axis Gain / Invert
 
 **Axis Gain** scales *every* rule reading a given stabilized axis (Roll,
