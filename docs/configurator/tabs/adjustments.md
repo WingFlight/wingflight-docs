@@ -8,9 +8,10 @@ A/B comparing two settings values in the air.
 Adjustable functions are grouped by category -- Master Gains
 ([Profiles](profiles.md)), [Servo Trims](servos.md#in-flight-trim)
 (roll/pitch/yaw), Accelerometer Trim, Setpoint Boost, PID/Rate/TV Profile
-switching, and others -- and any function currently under live adjustment
-control shows its effective value on the owning tab while the switch/channel
-is active.
+switching, [Mixer](mixer.md#rule-roles) (Flap Compensation Gain,
+Differential Thrust Yaw Gain), and others -- and any function currently
+under live adjustment control shows its effective value on the owning tab
+while the switch/channel is active.
 
 Profile switching (PID, Rate, and [Thrust Vector](thrust-vector.md)) is a
 special case: each is its own adjustment function, mapped to a channel the
