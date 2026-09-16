@@ -12,6 +12,7 @@ helicopter-focused mode set.
 | [Thrust Vector Attitude Hold](tv-hold.md) | Independent attitude/heading hold on the Thrust Vector loop only, decoupled from the main surfaces |
 | [Auto Trim](auto-trim.md) | Captures trim automatically from sustained stick input |
 | [Trainer Mode](trainer.md) | Assisted flight mode for beginners |
+| [Traditional](traditional.md) | Zeroes the I-term for a snappy, no-hold rate-gyro feel, layered on top of any other stabilization |
 | [Ready-to-Arm Wiggle](ready-to-arm-wiggle.md) | Visual servo-wiggle confirmation before arming |
 | [Cross-Axis Relax](cross-axis-relax.md) | Reduces unwanted coupling between control axes |
 | [Governor](governor.md) | Idle-hold or RPM governing of motor throttle response, from Off through fixed idle to full RPM Range control |
