@@ -932,10 +932,32 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#rule-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rule Roles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#flap-to-elevator-compensation" class="md-nav__link">
     <span class="md-ellipsis">
       
         Flap-to-Elevator Compensation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#differential-thrust-yaw" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Differential Thrust Yaw
       
     </span>
   </a>
@@ -2186,10 +2208,32 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#rule-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rule Roles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#flap-to-elevator-compensation" class="md-nav__link">
     <span class="md-ellipsis">
       
         Flap-to-Elevator Compensation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#differential-thrust-yaw" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Differential Thrust Yaw
       
     </span>
   </a>
@@ -2286,6 +2330,26 @@ on top of it.</p>
 <li><strong>Condition</strong> gates the rule on a <a href="../logic/">Logic</a> condition -- while
   false, the rule doesn't apply, and its row dims in the table so it's
   obvious at a glance which rules are actually contributing right now.</li>
+<li><strong>Role</strong> tags a rule with a recognized job in the mix -- see
+  <a href="#rule-roles">Rule Roles</a> below.</li>
+</ul>
+<h2 id="rule-roles">Rule Roles<a class="headerlink" href="#rule-roles" title="Permanent link">&para;</a></h2>
+<p>Most rules are just an ordinary axis-to-surface mapping, unique to your
+airframe and identified by where they sit in the list. A few jobs are
+common enough, and important enough to find again later, that they get
+a <strong>Role</strong> instead: a label on the rule itself, independent of its
+position in the list. Right now that's flap-to-elevator compensation and
+differential-thrust yaw (below), both tagged automatically by the Mixer
+Setup Wizard when you enable them.</p>
+<p>A rule's Role changes nothing about how it runs -- the mixer itself
+never reads it. What it unlocks is everything <em>around</em> the rule:</p>
+<ul>
+<li>Any model type other than Custom shows a <strong>Compensation</strong> table
+  listing just the tagged rules' weights, so tuning one doesn't require
+  opening the full rule list.</li>
+<li>The <a href="../adjustments/">Adjustments</a> tab can drive a tagged rule's weight
+  live from a transmitter switch or pot, and keeps working no matter
+  where the rule ends up if you reorder the list later.</li>
 </ul>
 <h2 id="flap-to-elevator-compensation">Flap-to-Elevator Compensation<a class="headerlink" href="#flap-to-elevator-compensation" title="Permanent link">&para;</a></h2>
 <p>Many airframes pitch when flaps go down -- often a nose-up "balloon,"
@@ -2296,24 +2360,50 @@ and it tends to run out right on landing approach when you're slow and
 low -- the plane can suddenly pitch up (or down) on you during the flare,
 with no warning it was coming.</p>
 <p>The fix is to cancel the pitch change yourself, right in the mixer, so
-the elevator moves with the flaps automatically:</p>
+the elevator moves with the flaps automatically. If you enabled <strong>Flaps</strong>
+in the Mixer Setup Wizard, this is already set up for you: the wizard
+adds a <strong>Flap Compensation</strong>-<a href="#rule-roles">tagged</a> rule, at zero weight,
+onto every surface that carries pitch -- the elevator, or both sides of
+a V-tail or elevon layout. Find it in the <strong>Compensation</strong> table (or the
+rule list itself in Custom mode) and raise <strong>Weight</strong> until putting the
+flaps down no longer causes any pitch change with the stick centered. If
+the pitch change isn't even across flap travel (common with multi-stage
+flaps), assign a <a href="../curves/#mixer-curves">Curve</a> to the rule instead of
+relying on Weight alone.</p>
+<p>Building the rule by hand works the same way if you're not using the
+wizard, or need a second one:</p>
 <ol>
 <li>Find the rule that drives your elevator servo from <strong>Stabilized
    Pitch</strong> -- this should already exist as a <strong>Set</strong> rule.</li>
 <li>Add a new rule <strong>below</strong> it, on the <em>same</em> output, reading whatever
    input drives your flaps (an RC channel, or the same input your flap
-   rule uses). Set its Operator to <strong>Add</strong>.</li>
+   rule uses). Set its Operator to <strong>Add</strong>, and its Role to <strong>Flap
+   Compensation</strong> if you'd like it to appear in the Compensation table
+   or be adjustable in flight (see below).</li>
 <li>Adjust <strong>Weight</strong> (and <strong>Reverse</strong> if it moves the wrong way) until
    putting the flaps down no longer causes any pitch change with the
    stick centered.</li>
-<li>If the pitch change isn't even across flap travel (common with
-   multi-stage flaps), assign a <a href="../curves/#mixer-curves">Curve</a> to the
-   rule instead of relying on Weight alone.</li>
+<li>If the pitch change isn't even across flap travel, assign a
+   <a href="../curves/#mixer-curves">Curve</a> to the rule instead.</li>
 </ol>
 <p>Do this after you've already trimmed the plane for normal cruise flight
 (via <a href="../../../flight-modes/auto-trim/">Auto Trim</a> or the Servos tab's Mid
 field) -- this rule is just for the extra pitch change flaps cause, not a
 replacement for trimming the airframe itself.</p>
+<p>Once tagged, the rule's Weight can also be mapped to a transmitter switch
+or pot on the <a href="../adjustments/">Adjustments</a> tab (<strong>Flap Compensation
+Gain</strong>) -- handy for dialing it in during a flight, or adjusting for a
+payload or CG change without reconnecting the Configurator.</p>
+<h2 id="differential-thrust-yaw">Differential Thrust Yaw<a class="headerlink" href="#differential-thrust-yaw" title="Permanent link">&para;</a></h2>
+<p>On a twin-motor airframe, the Mixer Setup Wizard's <strong>Differential
+Thrust</strong> option adds extra yaw authority by speeding up one motor and
+slowing the other, on top of normal throttle -- handy on a
+rudderless twin, or as extra authority alongside a rudder you already
+have. Both rules it generates share the <strong>Differential Thrust
+Yaw</strong> <a href="#rule-roles">role</a> but move opposite directions by design, so
+raising <strong>Differential Thrust Yaw Gain</strong> on the
+<a href="../adjustments/">Adjustments</a> tab (or the Weight field on either rule)
+scales both together rather than cancelling the differential out.</p>
 <h2 id="axis-gain-invert">Axis Gain / Invert<a class="headerlink" href="#axis-gain-invert" title="Permanent link">&para;</a></h2>
 <p><strong>Axis Gain</strong> scales <em>every</em> rule reading a given stabilized axis (Roll,
 Pitch, Yaw) by one percentage (0-200%, 100% = unchanged) -- raise or lower
