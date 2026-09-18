@@ -1812,6 +1812,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#arming-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arming check
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#bench-testing-before-you-fly" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2197,6 +2208,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#arming-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arming check
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#bench-testing-before-you-fly" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2327,10 +2349,23 @@ is reserved but not decoding anything.</p>
   channels even while the backup link is otherwise healthy -- the switch
   is honored the same way regardless of which link is currently active.</li>
 </ul>
+<h2 id="arming-check">Arming check<a class="headerlink" href="#arming-check" title="Permanent link">&para;</a></h2>
+<p>A configured backup receiver has to prove it works before you can fly
+relying on it. Once the boot arming-grace window has passed, arming is
+blocked -- the Status tab shows the <strong>BACKUP_RX</strong> arming-disable flag --
+until the backup receiver has linked at least once, so a mis-wired or dead
+backup can't go unnoticed until the moment you need it.</p>
+<p>The check only guards the <strong>first arm after power-up</strong>. Once you have armed
+successfully, a backup that later drops out (between flights or batteries,
+say) will not block re-arming for the rest of the session. If you leave the
+backup port unconfigured (no protocol chosen), no check applies.</p>
 <h2 id="bench-testing-before-you-fly">Bench-testing before you fly<a class="headerlink" href="#bench-testing-before-you-fly" title="Permanent link">&para;</a></h2>
 <p>As with any failsafe-adjacent behavior, test this on the bench (props off)
 before relying on it in the air:</p>
 <ol>
+<li>Power up with the backup satellite bound and powered, and
+   confirm the <strong>BACKUP_RX</strong> flag on the Status tab clears once its <strong>Link</strong>
+   badge comes up (arming stays blocked until then).</li>
 <li>With both the main receiver and the backup satellite bound and
    powered, confirm the Receiver tab's <strong>Serial RX #1</strong> box shows its
    <strong>Active Source</strong> badge as Main RX, and moving the backup satellite's

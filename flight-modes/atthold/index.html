@@ -1515,6 +1515,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Attitude Hold
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1531,6 +1549,47 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#each-axis-holds-independently" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Each axis holds independently
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tuning
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -2098,6 +2157,36 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#each-axis-holds-independently" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Each axis holds independently
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tuning
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2129,14 +2218,33 @@ self-leveling). This gives a self-leveling-like behavior on demand,
 independent of full autopilot features.</p>
 <p>Unlike <a href="../auto-hover/">Auto Hover</a>, Attitude Hold doesn't bound stick
 authority to any particular orientation -- it freezes and holds whatever
-attitude the aircraft happens to be in the instant every stick returns
-inside <strong>Deadband</strong> (percent stick deflection, on any of roll/pitch/yaw)
-at once, at any orientation, not just vertical or level. Above the
-deadband on any stick, you get full unmodified authority and the mode
-continuously re-captures its target, so the next freeze is seamless
-whenever the sticks settle again. <strong>Gain</strong> sets how aggressively it
-corrects back to that frozen attitude, and <strong>Max Rate</strong> caps how fast it's
-allowed to rotate the aircraft while doing so.</p>
+attitude the aircraft happens to be in, at any orientation, not just
+vertical or level.</p>
+<h2 id="each-axis-holds-independently">Each axis holds independently<a class="headerlink" href="#each-axis-holds-independently" title="Permanent link">&para;</a></h2>
+<p>Roll, pitch and yaw each track or freeze based on <strong>their own</strong> stick. An
+axis whose stick is inside <strong>Deadband</strong> (percent stick deflection) is held
+at the attitude it was in when the stick centered; an axis whose stick is
+outside the deadband gets full unmodified authority and continuously
+re-captures its target, so the next freeze is seamless whenever that stick
+settles again.</p>
+<p>That means you can fly one axis while the others stay held:</p>
+<ul>
+<li>Work the ailerons alone for a clean axial or rifle roll while pitch and
+  yaw stay locked.</li>
+<li>Ride the elevator through a high-alpha attitude while roll and yaw stay
+  held, so torque roll can't creep in while you're not touching the
+  ailerons.</li>
+</ul>
+<h2 id="tuning">Tuning<a class="headerlink" href="#tuning" title="Permanent link">&para;</a></h2>
+<p><strong>Gain</strong> sets how aggressively it corrects back to the held attitude,
+<strong>Deadband</strong> is the stick threshold above, and <strong>Max Rate</strong> caps how fast
+it's allowed to rotate the aircraft while doing so. These are on the
+<a href="../../configurator/tabs/profiles/">Profiles</a> tab.</p>
+<p>Attitude Hold works at reduced strength (about a quarter) before the
+aircraft is airborne, so you can tilt the airframe by hand on the bench and
+see a real, gentler correction. See
+<a href="../auto-hover/#on-the-bench">On the bench</a> for the details, which are shared
+with Auto Hover.</p>
 
 
 

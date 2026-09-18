@@ -1924,6 +1924,28 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#settings-added-in-recent-snapshots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Settings added in recent snapshots
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mixer-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mixer rules
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2185,6 +2207,28 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#settings-added-in-recent-snapshots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Settings added in recent snapshots
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mixer-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mixer rules
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2270,6 +2314,91 @@ Configurator, or over any serial terminal at the configured baud rate.</p>
 easy to review. Paste the saved output back into the CLI and run <code>save</code> to
 restore it. See <a href="../../getting-started/backup-and-restore/">Backup &amp; Restore</a>
 for the full workflow.</p>
+<h2 id="settings-added-in-recent-snapshots">Settings added in recent snapshots<a class="headerlink" href="#settings-added-in-recent-snapshots" title="Permanent link">&para;</a></h2>
+<p>Auto Hover and Attitude Hold settings are per-profile (set them after
+selecting the profile you want to change):</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Range</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>autohover_gain</code></td>
+<td>0-250</td>
+<td>50</td>
+<td><a href="../../flight-modes/auto-hover/">Auto Hover</a> correction strength</td>
+</tr>
+<tr>
+<td><code>autohover_max_angle</code></td>
+<td>0-90</td>
+<td>30</td>
+<td>Max stick deflection off vertical, degrees</td>
+</tr>
+<tr>
+<td><code>autohover_max_rate</code></td>
+<td>0-1800</td>
+<td>300</td>
+<td>Attitude-capture rate clamp, deg/s</td>
+</tr>
+<tr>
+<td><code>autohover_roll_deadband</code></td>
+<td>0-100</td>
+<td>5</td>
+<td>Roll stick percent below which roll is held</td>
+</tr>
+<tr>
+<td><code>autohover_throttle_assist_gain</code></td>
+<td>0-100</td>
+<td>0</td>
+<td>Throttle added per second under sustained saturation, percent of range; 0 = off</td>
+</tr>
+<tr>
+<td><code>autohover_throttle_assist_max</code></td>
+<td>0-50</td>
+<td>15</td>
+<td>Ceiling on the added throttle, percent of range</td>
+</tr>
+<tr>
+<td><code>autohover_throttle_assist_trigger_ms</code></td>
+<td>0-2000</td>
+<td>300</td>
+<td>Milliseconds of saturation before the assist starts</td>
+</tr>
+<tr>
+<td><code>atthold_gain</code></td>
+<td>0-250</td>
+<td>40</td>
+<td><a href="../../flight-modes/atthold/">Attitude Hold</a> correction strength</td>
+</tr>
+<tr>
+<td><code>atthold_deadband</code></td>
+<td>0-100</td>
+<td>5</td>
+<td>Per-axis stick percent below which that axis is held</td>
+</tr>
+<tr>
+<td><code>atthold_max_rate</code></td>
+<td>0-1800</td>
+<td>300</td>
+<td>Correction rate clamp, deg/s</td>
+</tr>
+</tbody>
+</table>
+<h2 id="mixer-rules">Mixer rules<a class="headerlink" href="#mixer-rules" title="Permanent link">&para;</a></h2>
+<p>The <code>mixer rule</code> command takes an optional last argument, the rule's
+<a href="../../configurator/tabs/mixer/#rule-roles">role</a>: <code>0</code> for none (the default
+when omitted), <code>1</code> for Flap Compensation, <code>2</code> for Differential Thrust Yaw.
+The full argument order is:</p>
+<div class="highlight"><pre><span></span><code>mixer rule &lt;index&gt; &lt;operator&gt; &lt;input&gt; &lt;output&gt; &lt;weight&gt; &lt;offset&gt; &lt;weight-neg&gt; &lt;speed&gt; &lt;curve&gt; &lt;condition&gt; &lt;role&gt;
+</code></pre></div>
+<p>Everything after <code>&lt;offset&gt;</code> is optional: <code>&lt;weight-neg&gt;</code> defaults to the
+symmetric value, and the rest default to off. <code>dump</code> and <code>diff</code> print rules
+in this form.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This page covers general CLI usage. A full per-command and per-setting

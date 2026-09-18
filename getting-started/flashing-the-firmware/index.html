@@ -595,6 +595,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#the-flashing-wizard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The flashing wizard
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#dfu-mode" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -610,6 +621,17 @@
     <span class="md-ellipsis">
       
         Before you flash
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#if-you-lose-communication-with-a-board" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If you lose communication with a board
       
     </span>
   </a>
@@ -2186,6 +2208,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#the-flashing-wizard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The flashing wizard
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#dfu-mode" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2201,6 +2234,17 @@
     <span class="md-ellipsis">
       
         Before you flash
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#if-you-lose-communication-with-a-board" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If you lose communication with a board
       
     </span>
   </a>
@@ -2233,28 +2277,74 @@
 
 
 <h1 id="flashing-the-firmware">Flashing the Firmware<a class="headerlink" href="#flashing-the-firmware" title="Permanent link">&para;</a></h1>
-<p>Firmware is flashed from the Configurator's <strong>Firmware Flasher</strong> tab.</p>
+<p>Firmware is flashed from the Configurator's <strong>Firmware Flasher</strong> tab, which
+walks you through the whole process as a step-by-step wizard.</p>
 <h2 id="picking-a-build">Picking a build<a class="headerlink" href="#picking-a-build" title="Permanent link">&para;</a></h2>
 <p>WingFlight firmware is currently published as numbered development
-snapshots (e.g. <code>0.0.8</code>) rather than stable releases, while the project is
+snapshots (e.g. <code>0.0.23</code>) rather than stable releases, while the project is
 in its early stages. The Firmware Flasher lists available builds per target
 board, pulled from the project's build history.</p>
+<h2 id="the-flashing-wizard">The flashing wizard<a class="headerlink" href="#the-flashing-wizard" title="Permanent link">&para;</a></h2>
+<p>The wizard has six steps, shown along the top. <strong>Back</strong> and <strong>Next</strong> move
+between them.</p>
+<ol>
+<li><strong>Connect</strong> -- choose the port your board is on. If it isn't listed, add
+   a <strong>Serial</strong>, <strong>DFU</strong> or <strong>Bluetooth</strong> device from this step. The desktop
+   app picks up newly plugged-in devices automatically; the browser build
+   asks for permission through its device chooser.</li>
+<li><strong>Board</strong> -- pick your target board. <strong>Detect My Board</strong> reads it from a
+   connected flight controller, or <strong>Select board manually instead</strong> if you
+   would rather choose it yourself (or the board is in DFU mode, which
+   can't be auto-detected). The selected board's default config is combined
+   with the firmware at flash time.</li>
+<li><strong>Firmware</strong> -- choose an online release or development build for your
+   board, or switch to <strong>Load a local firmware file instead</strong> to flash a
+   <code>.hex</code> (and optional <code>.config</code>) you already have. Skipping the Board step
+   and flashing a local file flashes it exactly as loaded, with no default
+   config combined in.</li>
+<li><strong>Backup</strong> -- capture your current configuration with <strong>Back Up Now</strong>
+   before it's erased; see <a href="#before-you-flash">Before you flash</a>.</li>
+<li><strong>Flash</strong> -- a one-line summary of the target and version; <strong>Show
+   details</strong> reveals the full release info and lets you save the firmware
+   (<code>.hex</code>) and config (<code>.config</code>) files. Start the flash from here.</li>
+<li><strong>Restore</strong> -- once the new firmware boots, the wizard offers to restore
+   the backup taken in step 4.</li>
+</ol>
+<p><strong>Flash Another Board</strong> starts the wizard over when you're done. Anyone who
+prefers the previous, single-page flasher can switch to it from a link on
+the Connect step and return with <strong>Back to wizard</strong>.</p>
 <h2 id="dfu-mode">DFU mode<a class="headerlink" href="#dfu-mode" title="Permanent link">&para;</a></h2>
 <p>Most WingFlight boards flash over USB using STM32's built-in DFU (Device
 Firmware Upgrade) bootloader:</p>
 <ol>
 <li>Put the board into DFU mode (usually a boot button held while powering on,
    or a dedicated bootloader pin/jumper -- check your board's documentation).</li>
-<li>In the Configurator, select the <strong>DFU</strong> entry in the port picker.</li>
-<li>Choose your target and firmware version.</li>
-<li>Click <strong>Flash Firmware</strong>.</li>
+<li>On the Connect step, select the <strong>DFU</strong> device (use <strong>Add DFU Device</strong> or
+   <strong>Select DFU Device</strong> if it isn't listed).</li>
+<li>Choose your board and firmware version.</li>
+<li>Flash.</li>
 </ol>
+<p>A DFU connection is enough to flash, but not to auto-detect the board or run
+the backup and restore steps -- those need a normal serial connection.</p>
 <h2 id="before-you-flash">Before you flash<a class="headerlink" href="#before-you-flash" title="Permanent link">&para;</a></h2>
 <p>If you're updating an existing setup rather than flashing a fresh board,
-back up your configuration first (see <a href="../backup-and-restore/">Backup &amp; Restore</a>)
-or take a CLI <code>diff all</code> / <code>dump all</code> snapshot. A firmware update can change
+back up your configuration first. The wizard's Backup step does this for
+you (see <a href="../backup-and-restore/">Backup &amp; Restore</a>); you can also take a
+CLI <code>diff all</code> / <code>dump all</code> snapshot yourself. A firmware update can change
 parameter layouts between versions, and having a backup makes it much easier
 to recover your tune afterward.</p>
+<div class="admonition warning">
+<p class="admonition-title">Updates can reset your configuration</p>
+<p>Some firmware updates change how settings are stored. When the firmware
+finds saved settings it can't read, it discards them and starts from
+defaults, so some or all of your settings may be reset on first boot.
+Always take a backup first -- the wizard's Backup step does this --
+and restore it afterward.</p>
+</div>
+<h2 id="if-you-lose-communication-with-a-board">If you lose communication with a board<a class="headerlink" href="#if-you-lose-communication-with-a-board" title="Permanent link">&para;</a></h2>
+<p>Power off, enable <strong>Full chip erase</strong>, jumper the BOOT pins (or hold the
+BOOT button), and power on -- the activity LED will not flash if that worked.
+Install the correct USB driver if your OS asks for one, then flash again.</p>
 
 
 

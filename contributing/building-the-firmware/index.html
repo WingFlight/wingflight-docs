@@ -2115,6 +2115,28 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#targets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Targets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#simulator-sitl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Simulator (SITL)
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2229,6 +2251,28 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#targets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Targets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#simulator-sitl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Simulator (SITL)
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2259,8 +2303,9 @@
 structure as Rotorflight/Betaflight.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <ul>
-<li>A Linux, macOS, or WSL environment (native Windows builds are not
-  supported directly)</li>
+<li>A Linux, macOS, or WSL environment (native Windows builds of board
+  firmware are not supported directly; the SITL simulator target is the
+  exception, see <a href="#simulator-sitl">below</a>)</li>
 <li><code>make</code></li>
 </ul>
 <h2 id="installing-the-toolchain">Installing the toolchain<a class="headerlink" href="#installing-the-toolchain" title="Permanent link">&para;</a></h2>
@@ -2276,6 +2321,28 @@ structure as Rotorflight/Betaflight.</p>
 <p>Locally-built <code>.hex</code> files can be flashed the same way as an official build
 -- via the Configurator's Firmware Flasher, using <strong>Load Firmware [Local]</strong>
 instead of the online build list.</p>
+<h2 id="targets">Targets<a class="headerlink" href="#targets" title="Permanent link">&para;</a></h2>
+<p>Boards are built as <strong>unified targets</strong> only. The old per-board targets
+(the Matek F405/F411/F722/H743 and Nucleo F722/H743 builds) have been
+removed in favor of the unified target configurations, so build guides and
+examples use unified targets throughout. The one other supported target is
+<strong>SITL</strong>, below.</p>
+<h2 id="simulator-sitl">Simulator (SITL)<a class="headerlink" href="#simulator-sitl" title="Permanent link">&para;</a></h2>
+<p><code>TARGET=SITL</code> builds WingFlight as a native executable that talks to an
+external flight-dynamics model (JSBSim, optionally with FlightGear visuals)
+over UDP, so the firmware can be flown without a board. Unlike the ARM
+builds, it can be built natively on Windows:</p>
+<div class="highlight"><pre><span></span><code>make mingw_sdk_install    # Windows only, once: installs MinGW-w64 GCC
+make TARGET=SITL          # produces obj/main/wingflight_SITL.elf
+</code></pre></div>
+<p>On Linux/macOS the system <code>gcc</code> is used. RC input arrives over MSP, so a
+joystick or the Configurator can connect to it over TCP; a few features
+that need real hardware (LED strip, OSD, soft serial and similar) are not
+built. The bridge, launcher, aircraft models, joystick tool and automated
+checks live in the
+<a href="https://github.com/WingFlight/wingflight-sitl-hitl">wingflight-sitl-hitl</a>
+repository. See the SITL README in the firmware repository
+(<code>src/main/target/SITL/README.md</code>) for ports and <code>eeprom.bin</code> handling.</p>
 
 
 

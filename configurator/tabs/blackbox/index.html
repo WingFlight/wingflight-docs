@@ -1429,6 +1429,28 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#reading-flight-mode-changes-in-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading flight-mode changes in logs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#log-files-over-usb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Log files over USB
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2207,6 +2229,28 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#reading-flight-mode-changes-in-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading flight-mode changes in logs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#log-files-over-usb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Log files over USB
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2266,6 +2310,20 @@ a while on some flash chips, so recording doesn't begin until it finishes.
 <strong>Rolling Erase</strong> instead overwrites the oldest logs once storage is full,
 trading guaranteed history for never running out of space -- logs can gain
 gaps if the chip is slow to erase mid-flight.</p>
+<h2 id="reading-flight-mode-changes-in-logs">Reading flight-mode changes in logs<a class="headerlink" href="#reading-flight-mode-changes-in-logs" title="Permanent link">&para;</a></h2>
+<p>Each periodic log frame records which flight modes are active in two
+words, <code>flightModeFlags</code> and <code>flightModeFlags2</code>, together covering every
+mode. Older firmware logged only the first word, which silently dropped
+every mode past the 32nd -- including Auto Hover -- so an Auto Hover
+segment never showed as engaged. If you read logs with a tool that only
+knows <code>flightModeFlags</code>, modes such as Auto Hover need <code>flightModeFlags2</code>
+too. The separate flight-mode change <em>event</em> still carries only the
+first word.</p>
+<h2 id="log-files-over-usb">Log files over USB<a class="headerlink" href="#log-files-over-usb" title="Permanent link">&para;</a></h2>
+<p>When the flight controller is plugged in as a USB drive (mass storage), log
+files are named after the craft name from your pilot settings, followed by
+a sequence number and timestamp. With no craft name set, the prefix is
+<code>wflt</code> (it used to be <code>rtfl</code>), for example <code>wflt_002_20251012_141213.bbl</code>.</p>
 
 
 

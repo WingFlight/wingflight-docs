@@ -702,6 +702,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Status
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -718,6 +736,36 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#arming-disable-flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arming disable flags
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -2098,6 +2146,25 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#arming-disable-flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arming disable flags
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2128,6 +2195,15 @@ status, and any active warnings.</p>
 <p>Use this tab as your first check after connecting, before diving into
 configuration -- it's the quickest way to spot a sensor that isn't
 initializing or a warning that needs attention.</p>
+<h2 id="arming-disable-flags">Arming disable flags<a class="headerlink" href="#arming-disable-flags" title="Permanent link">&para;</a></h2>
+<p>When the flight controller won't arm, the Status tab lists each active
+arming-disable flag; hover one for a plain-language explanation of what's
+blocking. One worth knowing about is <strong>BACKUP_RX</strong>: a
+<a href="../../../flight-modes/backup-rx-input/">Backup RX Input</a> receiver is
+configured but hasn't linked yet, so the first arm of the session is
+blocked until it does. Check the backup receiver's power, binding and
+wiring, or power-cycle it, then confirm its <strong>Link</strong> badge on the
+<a href="../receiver/">Receiver</a> tab comes up.</p>
 
 
 

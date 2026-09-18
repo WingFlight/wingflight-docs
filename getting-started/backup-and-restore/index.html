@@ -2214,9 +2214,30 @@
 <p>Back up your configuration before flashing new firmware, before major tuning
 changes, and periodically once you have a working setup.</p>
 <h2 id="from-the-configurator">From the Configurator<a class="headerlink" href="#from-the-configurator" title="Permanent link">&para;</a></h2>
-<p>Configuration backups can be saved to and restored from a local file. Look
-for backup/restore options in the CLI tab (a <code>dump</code>/<code>diff</code> snapshot) or via
-the Configurator's dedicated backup functionality where available.</p>
+<p>The <strong>Firmware Flasher</strong> wizard has backup and restore built in, and this
+is the easiest route around a firmware update:</p>
+<ul>
+<li>On the <strong>Backup</strong> step (before flashing) you can capture your settings
+  from the connected board over the CLI. The backup type defaults to
+  <strong>Dump</strong> (the complete configuration) rather than Diff. A Diff backup
+  starts by replaying the board's defaults, which on current firmware can
+  produce a spurious parse error in the CLI output, so a full dump is the
+  more dependable choice. <strong>Diff</strong> is still selectable, and you can turn
+  the backup off entirely.</li>
+<li>The backup is held in memory and offered for restore on the <strong>Restore</strong>
+  step once the new firmware boots, so you don't have to do anything by
+  hand. Saving a copy to a file is optional but recommended in case
+  something goes wrong.</li>
+<li>If the board isn't currently running WingFlight, the backup is still
+  captured and saveable, but it isn't offered for automatic restore --
+  another firmware's settings aren't guaranteed to carry over.</li>
+<li>Backup and restore need a normal serial connection; a board flashed over
+  DFU alone can't be backed up this way. If the connection drops after the
+  board reboots mid-restore, the wizard retries and offers a <strong>Select Port</strong>
+  option to reconnect.</li>
+</ul>
+<p>You can also save a <code>dump</code>/<code>diff</code> snapshot to a file from the CLI tab at
+any time.</p>
 <h2 id="via-the-cli">Via the CLI<a class="headerlink" href="#via-the-cli" title="Permanent link">&para;</a></h2>
 <p>The most portable backup is a CLI dump:</p>
 <div class="highlight"><pre><span></span><code>diff all

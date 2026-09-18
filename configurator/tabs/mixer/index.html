@@ -2330,6 +2330,12 @@ on top of it.</p>
 <li><strong>Condition</strong> gates the rule on a <a href="../logic/">Logic</a> condition -- while
   false, the rule doesn't apply, and its row dims in the table so it's
   obvious at a glance which rules are actually contributing right now.</li>
+<li>The rule's <strong>Input</strong> can be a stabilized axis, throttle, or an RC channel,
+  named <strong>CH #N</strong> like every other channel picker in the Configurator. The
+  <strong>Roll</strong>, <strong>Pitch</strong>, <strong>Yaw</strong> and <strong>Throttle</strong> bypass inputs (the raw stick,
+  without stabilization) resolve to whichever receiver channel you've
+  actually mapped to that stick on the <a href="../receiver/">Receiver</a> tab, not to a
+  fixed channel order.</li>
 <li><strong>Role</strong> tags a rule with a recognized job in the mix -- see
   <a href="#rule-roles">Rule Roles</a> below.</li>
 </ul>
@@ -2342,7 +2348,9 @@ position in the list. Right now that's flap-to-elevator compensation and
 differential-thrust yaw (below), both tagged automatically by the Mixer
 Setup Wizard when you enable them.</p>
 <p>A rule's Role changes nothing about how it runs -- the mixer itself
-never reads it. What it unlocks is everything <em>around</em> the rule:</p>
+never reads it. A role-tagged rule keeps its own <strong>Reverse</strong> setting no
+matter what an Adjustment does to it: live adjustments only scale the
+weight's magnitude (0-1000), never its direction. What it unlocks is everything <em>around</em> the rule:</p>
 <ul>
 <li>Any model type other than Custom shows a <strong>Compensation</strong> table
   listing just the tagged rules' weights, so tuning one doesn't require
@@ -2361,7 +2369,8 @@ low -- the plane can suddenly pitch up (or down) on you during the flare,
 with no warning it was coming.</p>
 <p>The fix is to cancel the pitch change yourself, right in the mixer, so
 the elevator moves with the flaps automatically. If you enabled <strong>Flaps</strong>
-in the Mixer Setup Wizard, this is already set up for you: the wizard
+in the Mixer Setup Wizard (choose <strong>1 servo (shared Y-cable channel)</strong> or
+<strong>2 independent servos</strong> for the flaps), this is already set up for you: the wizard
 adds a <strong>Flap Compensation</strong>-<a href="#rule-roles">tagged</a> rule, at zero weight,
 onto every surface that carries pitch -- the elevator, or both sides of
 a V-tail or elevon layout. Find it in the <strong>Compensation</strong> table (or the
