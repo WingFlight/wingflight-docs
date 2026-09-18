@@ -59,6 +59,12 @@ Other per-rule fields:
 - **Condition** gates the rule on a [Logic](logic.md) condition -- while
   false, the rule doesn't apply, and its row dims in the table so it's
   obvious at a glance which rules are actually contributing right now.
+- The rule's **Input** can be a stabilized axis, throttle, or an RC channel,
+  named **CH #N** like every other channel picker in the Configurator. The
+  **Roll**, **Pitch**, **Yaw** and **Throttle** bypass inputs (the raw stick,
+  without stabilization) resolve to whichever receiver channel you've
+  actually mapped to that stick on the [Receiver](receiver.md) tab, not to a
+  fixed channel order.
 - **Role** tags a rule with a recognized job in the mix -- see
   [Rule Roles](#rule-roles) below.
 
@@ -73,7 +79,9 @@ differential-thrust yaw (below), both tagged automatically by the Mixer
 Setup Wizard when you enable them.
 
 A rule's Role changes nothing about how it runs -- the mixer itself
-never reads it. What it unlocks is everything *around* the rule:
+never reads it. A role-tagged rule keeps its own **Reverse** setting no
+matter what an Adjustment does to it: live adjustments only scale the
+weight's magnitude (0-1000), never its direction. What it unlocks is everything *around* the rule:
 
 - Any model type other than Custom shows a **Compensation** table
   listing just the tagged rules' weights, so tuning one doesn't require
@@ -94,7 +102,8 @@ with no warning it was coming.
 
 The fix is to cancel the pitch change yourself, right in the mixer, so
 the elevator moves with the flaps automatically. If you enabled **Flaps**
-in the Mixer Setup Wizard, this is already set up for you: the wizard
+in the Mixer Setup Wizard (choose **1 servo (shared Y-cable channel)** or
+**2 independent servos** for the flaps), this is already set up for you: the wizard
 adds a **Flap Compensation**-[tagged](#rule-roles) rule, at zero weight,
 onto every surface that carries pitch -- the elevator, or both sides of
 a V-tail or elevon layout. Find it in the **Compensation** table (or the

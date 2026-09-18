@@ -25,6 +25,14 @@ committing to any of them. If a value you find mid-flight is worth
 keeping, go set it permanently (e.g. on [Profiles](profiles.md)) and Save
 from there.
 
+## Channel names
+
+Every channel picker in the Configurator -- here, on [Mixer](mixer.md),
+[Logic Conditions](logic.md) and [Auxiliary](auxiliary.md) -- uses one
+naming scheme: **CH #N**, where N is the receiver channel number. The four
+channels after the stick channels that older versions called AUX 1-4 are
+now simply CH #5-8, and so on up.
+
 ## Enable Channel and Value Channel
 
 Each adjustment slot has two channels:

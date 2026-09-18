@@ -21,7 +21,8 @@ noticeably further on one side than the other.
 
 **Rate** is the PWM update frequency for this output -- 50Hz for analog
 servos (higher can damage them), 100-560Hz for digital servos depending on
-what the datasheet supports. It only takes effect after **Save and
+what the datasheet supports. The default is 50Hz, the safe choice for any
+servo; raise it only once you've confirmed your servos support it. It only takes effect after **Save and
 reboot**, since the rate is set up at boot time, not applied live like most
 other fields here.
 
@@ -35,13 +36,21 @@ deliberately slowing a specific output (e.g. retracts) independent of the
 the same axis is backwards, since Reverse here and a rule's own Reverse
 checkbox both flip the same thing from different places.
 
-## Geometry Correction
+## Balance Curve
 
-Compensates for the non-linear geometry of a servo arm sweeping through an
-arc -- the further from center, the less each degree of rotation actually
-moves a pushrod linearly. Only enable it for servos driving a linkage
-through an arc; leave it off for anything already linear (e.g. a direct
-belt/rack-driven surface), where there's no arc geometry to correct for.
+When two servos drive the same surface (dual ailerons, split flaps) and
+don't quite track each other, a per-servo **balance curve** trims one
+servo's travel to match its partner. Balance curves are edited on the
+[Curves](curves.md#servo-balance-curves) tab, not here. Any servo with a
+non-flat curve shows a curve icon in its row; click it to jump straight to
+that servo's curve. A bus servo that is cloning a PWM output (see
+[below](#clone-pwm-outputs-to-bus-servos)) shows its source PWM servo's
+curve, since that's the one actually shaping its output.
+
+!!! note
+    The **Geometry Correction** switch that older Configurator versions
+    showed on this tab has been removed from the Configurator, so the
+    correction can no longer be turned on or off from here.
 
 ## In-Flight Trim
 
@@ -81,8 +90,8 @@ Enabling **SBUS Output** or **FBUS Master** on a serial port (see
 [Configuration](configuration.md)) adds a second "Bus Servo Configuration"
 table below the PWM one, covering up to 18 additional outputs -- for
 digital bus servos wired to that UART instead of individual PWM wires.
-Each bus output has the same Min/Max/Scale/Speed/Reverse/Geometry
-Correction fields as a PWM servo, above.
+Each bus output has the same Min/Max/Scale/Speed/Reverse fields as a PWM
+servo, above.
 
 ### Clone PWM outputs to bus servos
 

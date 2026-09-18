@@ -40,3 +40,21 @@ a while on some flash chips, so recording doesn't begin until it finishes.
 **Rolling Erase** instead overwrites the oldest logs once storage is full,
 trading guaranteed history for never running out of space -- logs can gain
 gaps if the chip is slow to erase mid-flight.
+
+## Reading flight-mode changes in logs
+
+Each periodic log frame records which flight modes are active in two
+words, `flightModeFlags` and `flightModeFlags2`, together covering every
+mode. Older firmware logged only the first word, which silently dropped
+every mode past the 32nd -- including Auto Hover -- so an Auto Hover
+segment never showed as engaged. If you read logs with a tool that only
+knows `flightModeFlags`, modes such as Auto Hover need `flightModeFlags2`
+too. The separate flight-mode change *event* still carries only the
+first word.
+
+## Log files over USB
+
+When the flight controller is plugged in as a USB drive (mass storage), log
+files are named after the craft name from your pilot settings, followed by
+a sequence number and timestamp. With no craft name set, the prefix is
+`wflt` (it used to be `rtfl`), for example `wflt_002_20251012_141213.bbl`.

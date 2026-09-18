@@ -45,6 +45,16 @@ than a textbook definition:
   soft/rounded; too much and quick flicks get twitchy, sharing D's noise
   sensitivity.
 
+### F and MANUAL mode
+
+F also sets how far the surfaces move in **MANUAL** mode (stabilization
+off, sticks straight to the servos). MANUAL is scaled through the same
+F-term the stabilized loop uses -- "stabilized flight minus the gyro
+correction" -- so a well-tuned F puts MANUAL's throw in the neighborhood of
+what the stabilized modes settle to in flight, instead of it depending on
+the rates ceiling as it once did. Judge the match in the air: a stationary
+airframe on the bench never rotates far enough for the two to look alike.
+
 ### Quick troubleshooting
 
 | What you're seeing in the air | Try |
@@ -120,3 +130,12 @@ Any of these gains can also be mapped to a transmitter switch/knob from the
 [Adjustments](adjustments.md) tab for live in-flight tuning -- when a gain is
 under live adjustment control, its row shows the current effective value
 being commanded in place of the static configured number.
+
+## Leveling Settings
+
+Angle/Horizon-style leveling and the hold modes are tuned here as well.
+The [Auto Hover](../../flight-modes/auto-hover.md) fields -- Gain, Max
+Angle, Max Rate, **Auto Hover roll deadband** and the three **throttle
+assist** fields -- sit in the Auto Hover group, and
+[Attitude Hold](../../flight-modes/atthold.md) has its own Gain, Deadband
+and Max Rate. See each mode's page for what the fields do.
