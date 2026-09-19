@@ -55,11 +55,18 @@ curve, since that's the one actually shaping its output.
 ## In-Flight Trim
 
 Center points (**Mid**) don't have to be set from this tab or the CLI --
-map **Servo Trim Roll**, **Servo Trim Pitch**, or **Servo Trim Yaw** to a
-momentary switch on the [Adjustments](adjustments.md) tab (Stepped mode)
-and nudge them live while flying instead.
+map **Servo Trim Roll**, **Servo Trim Pitch**, or **Servo Trim Yaw** on the
+[Adjustments](adjustments.md) tab and trim live while flying instead. The
+two adjustment modes behave differently:
 
-Trimming an axis shifts Mid on every servo whose [Mixer](mixer.md) rule
+- **Stepped** (a momentary switch you flick to walk the trim up or down)
+  changes **Mid** itself, and the change is saved.
+- **Mapped** (a knob or channel position that sets the trim directly) adds
+  an offset to the servo's output *on top of* Mid. It never changes Mid, is
+  not saved, and starts from zero every time the flight controller boots,
+  following the knob's position from there.
+
+Trimming an axis moves every servo whose [Mixer](mixer.md) rule
 takes its input from that stabilized axis, not just one output -- each
 servo's own Reverse flag above is respected, so e.g. two ailerons mixed
 from opposite sides of the same roll input trim toward each other
@@ -68,21 +75,40 @@ raw RC channel, an override, or a logic condition rather than a
 stabilized axis aren't touched -- the same rule
 [Auto Trim](../../flight-modes/auto-trim.md) uses for its own capture.
 
-Each axis can move up to ±200μs away from its last *saved* Mid before
-hitting the adjustment's own limit. Disarming with a pending trim saves
-it automatically, the same as any other live-adjusted value, and the
-±200μs window then re-baselines to the new center, so there's always
-fresh headroom to keep trimming across multiple flights rather than
-being capped by the first save.
+With **Stepped**, each axis can move up to ±200μs away from its last
+*saved* Mid before hitting the adjustment's own limit. Disarming with a
+pending trim saves it automatically, the same as any other live-adjusted
+value, and the ±200μs window then re-baselines to the new center, so
+there's always fresh headroom to keep trimming across multiple flights
+rather than being capped by the first save.
 
-!!! warning "Best used in the air, not on the bench"
-    This is meant for trimming while actually flying. Ground use over USB
+With **Mapped**, the offset on any one servo is limited to 20% of that
+servo's Scale (the larger of Scale Neg and Scale Pos -- ±100μs at the
+default 500μs), however far the knob is turned or whatever the channel
+reads, and it is applied inside the servo's Min/Max travel limits. Because
+it is never saved, a knob that is misread -- for example a channel that
+isn't valid yet just after power-up -- can move a surface by at most that
+much and leaves nothing behind once the reading is right again. It also
+means the knob can't stack on top of its own saved result after a reboot.
+
+Because a Mapped trim doesn't change Mid, the **Mid** field on this tab
+doesn't move when you turn the knob. Servos that have a Servo Trim
+adjustment set up show a badge in the **Trim** column (highlighted while
+the adjustment is active, with its channel, e.g. `R CH9` for roll on
+channel 9). When the firmware and Configurator both support it, the badge
+is followed by the live offset, for example `+10` or `-25`, so you can see
+a trim is in effect. It is display-only and never counts as an unsaved
+change on this tab.
+
+!!! warning "Stepped trim is best used in the air, not on the bench"
+    Stepped trimming is meant for trimming while actually flying. Ground use over USB
     currently fights you on two fronts: this tab won't visibly pick up a
     center-point change made this way, so there's nothing to confirm/save
     from the Configurator, and having this tab open over USB blocks
     arming outright. See
     [firmware issue #17](https://github.com/WingFlight/wingflight-firmware/issues/17)
-    for current status.
+    for current status. Mapped trims are not affected: they need no arming
+    and can be tried with the Configurator connected.
 
 ## Bus Servos
 
