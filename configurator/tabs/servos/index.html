@@ -2356,10 +2356,18 @@ correction can no longer be turned on or off from here.</p>
 </div>
 <h2 id="in-flight-trim">In-Flight Trim<a class="headerlink" href="#in-flight-trim" title="Permanent link">&para;</a></h2>
 <p>Center points (<strong>Mid</strong>) don't have to be set from this tab or the CLI --
-map <strong>Servo Trim Roll</strong>, <strong>Servo Trim Pitch</strong>, or <strong>Servo Trim Yaw</strong> to a
-momentary switch on the <a href="../adjustments/">Adjustments</a> tab (Stepped mode)
-and nudge them live while flying instead.</p>
-<p>Trimming an axis shifts Mid on every servo whose <a href="../mixer/">Mixer</a> rule
+map <strong>Servo Trim Roll</strong>, <strong>Servo Trim Pitch</strong>, or <strong>Servo Trim Yaw</strong> on the
+<a href="../adjustments/">Adjustments</a> tab and trim live while flying instead. The
+two adjustment modes behave differently:</p>
+<ul>
+<li><strong>Stepped</strong> (a momentary switch you flick to walk the trim up or down)
+  changes <strong>Mid</strong> itself, and the change is saved.</li>
+<li><strong>Mapped</strong> (a knob or channel position that sets the trim directly) adds
+  an offset to the servo's output <em>on top of</em> Mid. It never changes Mid, is
+  not saved, and starts from zero every time the flight controller boots,
+  following the knob's position from there.</li>
+</ul>
+<p>Trimming an axis moves every servo whose <a href="../mixer/">Mixer</a> rule
 takes its input from that stabilized axis, not just one output -- each
 servo's own Reverse flag above is respected, so e.g. two ailerons mixed
 from opposite sides of the same roll input trim toward each other
@@ -2367,21 +2375,38 @@ correctly rather than both moving the same raw direction. Servos fed by a
 raw RC channel, an override, or a logic condition rather than a
 stabilized axis aren't touched -- the same rule
 <a href="../../../flight-modes/auto-trim/">Auto Trim</a> uses for its own capture.</p>
-<p>Each axis can move up to ±200μs away from its last <em>saved</em> Mid before
-hitting the adjustment's own limit. Disarming with a pending trim saves
-it automatically, the same as any other live-adjusted value, and the
-±200μs window then re-baselines to the new center, so there's always
-fresh headroom to keep trimming across multiple flights rather than
-being capped by the first save.</p>
+<p>With <strong>Stepped</strong>, each axis can move up to ±200μs away from its last
+<em>saved</em> Mid before hitting the adjustment's own limit. Disarming with a
+pending trim saves it automatically, the same as any other live-adjusted
+value, and the ±200μs window then re-baselines to the new center, so
+there's always fresh headroom to keep trimming across multiple flights
+rather than being capped by the first save.</p>
+<p>With <strong>Mapped</strong>, the offset on any one servo is limited to 20% of that
+servo's Scale (the larger of Scale Neg and Scale Pos -- ±100μs at the
+default 500μs), however far the knob is turned or whatever the channel
+reads, and it is applied inside the servo's Min/Max travel limits. Because
+it is never saved, a knob that is misread -- for example a channel that
+isn't valid yet just after power-up -- can move a surface by at most that
+much and leaves nothing behind once the reading is right again. It also
+means the knob can't stack on top of its own saved result after a reboot.</p>
+<p>Because a Mapped trim doesn't change Mid, the <strong>Mid</strong> field on this tab
+doesn't move when you turn the knob. Servos that have a Servo Trim
+adjustment set up show a badge in the <strong>Trim</strong> column (highlighted while
+the adjustment is active, with its channel, e.g. <code>R CH9</code> for roll on
+channel 9). When the firmware and Configurator both support it, the badge
+is followed by the live offset, for example <code>+10</code> or <code>-25</code>, so you can see
+a trim is in effect. It is display-only and never counts as an unsaved
+change on this tab.</p>
 <div class="admonition warning">
-<p class="admonition-title">Best used in the air, not on the bench</p>
-<p>This is meant for trimming while actually flying. Ground use over USB
+<p class="admonition-title">Stepped trim is best used in the air, not on the bench</p>
+<p>Stepped trimming is meant for trimming while actually flying. Ground use over USB
 currently fights you on two fronts: this tab won't visibly pick up a
 center-point change made this way, so there's nothing to confirm/save
 from the Configurator, and having this tab open over USB blocks
 arming outright. See
 <a href="https://github.com/WingFlight/wingflight-firmware/issues/17">firmware issue #17</a>
-for current status.</p>
+for current status. Mapped trims are not affected: they need no arming
+and can be tried with the Configurator connected.</p>
 </div>
 <h2 id="bus-servos">Bus Servos<a class="headerlink" href="#bus-servos" title="Permanent link">&para;</a></h2>
 <p>Enabling <strong>SBUS Output</strong> or <strong>FBUS Master</strong> on a serial port (see
