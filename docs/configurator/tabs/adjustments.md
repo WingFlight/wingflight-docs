@@ -57,3 +57,8 @@ Each adjustment slot has two channels:
   **Step** each time, the other sub-range nudges it down -- useful for a
   2-position switch you flick repeatedly to walk a value up or down
   without needing a channel that can hold a precise proportional position.
+
+For [Servo Trims](servos.md#in-flight-trim) the two modes differ in more
+than how you drive them: Stepped changes the servo's saved Mid, while
+Mapped adds a runtime-only offset that is never saved and is limited to 20%
+of the servo's Scale.
