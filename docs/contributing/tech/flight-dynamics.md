@@ -196,7 +196,7 @@ Mahony quaternion filter (gyro integration corrected by accelerometer, plus magn
 
 ### 2.13 Airborne detection — [airborne.c](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/airborne.c)
 
-State machine: LANDED → AIRBORNE when armed and any of {peak stick > 2.5% (`rc_threshold`/1000), tilt cosine < 0.8 (≈37°), failsafe/GPS-rescue}. Back to LANDED when disarmed, or when sticks < 1.7% *and* tilt cosine > 0.9 (≈26°) *and* no failsafe. Consumers: the 25% authority scaling in leveling and the hold modes, the AUTOHOVER assist gate, SmartFuel, blackbox. Inherited from the helicopter lineage; see **H-4**.
+State machine: LANDED → AIRBORNE when armed and any of {peak stick > 2.5% (`rc_threshold`/1000), tilt cosine < 0.8 (≈37°), failsafe/GPS-rescue}. Back to LANDED when disarmed, or when sticks < 1.7% *and* tilt cosine > 0.9 (≈26°) *and* no failsafe. Consumers: the 25% authority scaling in leveling and the hold modes, the AUTOHOVER assist gate, blackbox. Inherited from the helicopter lineage; see **H-4**.
 
 ### 2.14 Arming, failsafe, navigation
 
@@ -304,7 +304,7 @@ The 25% rule was added so modes can be tested on the bench without snapping (com
 - **L-9. Hold stall re-capture is silent.** After 3 s pinned above 5° error the target ratchets to the current attitude with no beep, OSD or log flag. A genuine slow disturbance (cross-wind hover) could be walked off target this way without the pilot knowing.
 - **L-10. Auto trim captures whatever the sticks and stabilization are doing** during its 2 s window, not a true neutral. It needs hands-off, straight-and-level flight to give a good centre.
 - **L-11. First IMU update integrates over a huge `dt`.** [imu.c:460](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/imu.c#L460) initialises `previousIMUUpdateTime` to 0, so the first step is seconds long. Inherited from Betaflight and converges quickly on the bench; noted because it happens once per boot.
-- **L-12. SmartFuel sag compensation uses the wrong load.** [smartfuel.c](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/sensors/smartfuel.c) adds voltage back in proportion to the combined roll and pitch control demand (`getCyclicDeflection()`), inherited from the helicopter firmware. On a wing, voltage sag follows throttle and current. It also only runs when `isAirborne()` is true, so in level hands-off cruise (H-4) it is off. At the default gain it adds at most about 0.11 V per cell. A better driver is the throttle command or the measured current.
+- **L-12. SmartFuel sag compensation used the wrong load. Fixed (#121).** It added voltage in proportion to the combined roll and pitch control demand (`getCyclicDeflection()`), inherited from the helicopter firmware, and only when `isAirborne()` was true. It now follows the averaged motor outputs, so it tracks current, runs whenever the motor is working, and does nothing on a model with no motor.
 
 ### Checked and found sound
 

@@ -13,7 +13,7 @@ Measured consumption is reported separately by the battery monitoring code and i
 `smartfuel` is a four-way lookup parameter:
 
 - `OFF` — SmartFuel does not run; `getBatteryChargeLevel()` falls through to the legacy sources.
-- `VOLTAGE` — voltage-only estimator. Pack voltage drives the percentage (with stick-based sag compensation once airborne); current/consumption are ignored.
+- `VOLTAGE` — voltage-only estimator. Pack voltage drives the percentage (with throttle-based sag compensation); current/consumption are ignored.
 - `CURRENT` — when both `bat_capacity` and used mAh are non-zero, the level is `initial − used / capacity`, where `initial` is the first voltage-derived fraction (0–1) after the pack is seen and `used / capacity` is the fraction of configured capacity counted by the current meter. Voltage is not blended in on this path. When either capacity or used is zero, this mode behaves the same as `VOLTAGE`.
 - `COMBINED` — the level is the **minimum** of the voltage-derived estimate and `initial − used / capacity`, i.e. whichever indicator is more pessimistic in the moment. When either capacity or used is zero, this mode behaves the same as `VOLTAGE`.
 
@@ -84,12 +84,14 @@ This limiter only applies to the **voltage** half of the estimate. In `CURRENT` 
 
 ### `smartfuel_sag_gain`
 
-Amount of sag compensation applied to the voltage reading before it is turned into a percentage. Sag compensation is only active while the aircraft is airborne. It is driven by the magnitude of the combined roll and pitch control demand (the mixer's stabilized roll and pitch inputs, each 0 to 1). The firmware adds `smartfuel_sag_gain` hundredths of a volt, multiplied by 0.2 times that magnitude (limited to 1), to the per-cell voltage. See [Known limitation](#known-limitation-sag-compensation).
+Amount of sag compensation applied to the voltage reading before it is turned into a percentage. Voltage sag follows motor current, so the compensation is driven by the motor outputs actually being sent (after the governor and any AUTOHOVER throttle assist), averaged across motors: `0` at idle, `1` at full power on every motor. The firmware adds `smartfuel_sag_gain` hundredths of a volt, multiplied by that load, to the per-cell voltage. It runs whenever the motor is working, not only when the aircraft counts as airborne.
 
 - Increase it if SmartFuel is too pessimistic under load.
-- Decrease it if SmartFuel is too optimistic during hard roll or pitch stick loading.
+- Decrease it if SmartFuel is too optimistic under load.
 
-Units: hundredths of a volt per unit of load. With full roll and pitch demand the load is about 0.28, so at the default `40` the most it adds is about 0.11 V per cell. Valid range **0**–**100** in the CLI and MSP.
+Units: hundredths of a volt per cell at full power, so the default `40` adds up to 0.40 V per cell at full throttle. Valid range **0**–**100** in the CLI and MSP.
+
+A model with no motor (a glider, say) gets no compensation, and a throttle channel that drives something else cannot inject any. Earlier firmware followed roll and pitch stick load and only ran while the aircraft counted as airborne, so at the default it added at most about 0.11 V per cell; if SmartFuel read well on that firmware, it may now read a little more optimistic under load, and lowering the gain compensates.
 
 ## Tuning guidance
 
@@ -129,14 +131,3 @@ When the firmware is built with `USE_SMARTFUEL`:
 
 - **`MSP2_GET_SMARTFUEL_CONFIG` (`0x4000`)** — response: U8 mode (`0` = OFF, `1` = VOLTAGE, `2` = CURRENT, `3` = COMBINED); U8 `smartfuel_voltage_drop_rate` (mV/s, 0–250); U8 `smartfuel_charge_drop_rate`; U8 `smartfuel_sag_gain`.
 - **`MSP2_SET_SMARTFUEL_CONFIG` (`0x4001`)** — payload: same four fields in the same order. Values use the same limits as the CLI parameters.
-
-## Known limitation: sag compensation
-
-The sag compensation was inherited from the helicopter firmware, where battery sag follows cyclic and
-collective demand. On a fixed-wing aircraft, voltage sag follows **throttle and motor current**, not the roll
-and pitch surface demand, so the term compensates for the wrong load. In addition, it only runs while the
-aircraft counts as airborne, and that state is read from stick activity and tilt: a level, hands-off aircraft
-counts as landed (see the [Flight Dynamics review](https://github.com/WingFlight/wingflight-firmware/blob/master/docs/FlightDynamics.md), finding H-4), so in steady cruise the compensation is off.
-
-Until that is reworked, `smartfuel_sag_gain` is a blunt tool. A better driver would be the throttle
-command, or the measured current when a current sensor is fitted.

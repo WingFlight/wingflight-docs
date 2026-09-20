@@ -82,4 +82,4 @@ aircraft weaves from side to side while tracking.
   not a good guide to heading.
 
 These are recorded as findings H-3 and M-2 in the firmware repository's
-[Flight Dynamics review](https://github.com/WingFlight/wingflight-firmware/blob/master/docs/FlightDynamics.md).
+[Flight Dynamics review](../contributing/tech/flight-dynamics.md).
