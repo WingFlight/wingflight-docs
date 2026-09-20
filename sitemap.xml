@@ -117,7 +117,55 @@
          <lastmod>2026-09-20</lastmod>
     </url>
     <url>
+         <loc>https://doc.wingflight.org/contributing/code-guidelines/</loc>
+         <lastmod>2026-09-20</lastmod>
+    </url>
+    <url>
+         <loc>https://doc.wingflight.org/contributing/coding-style/</loc>
+         <lastmod>2026-09-20</lastmod>
+    </url>
+    <url>
          <loc>https://doc.wingflight.org/contributing/developers/</loc>
+         <lastmod>2026-09-20</lastmod>
+    </url>
+    <url>
+         <loc>https://doc.wingflight.org/contributing/tech/</loc>
+         <lastmod>2026-09-20</lastmod>
+    </url>
+    <url>
+         <loc>https://doc.wingflight.org/contributing/tech/atomic-barrier/</loc>
+         <lastmod>2026-09-20</lastmod>
+    </url>
+    <url>
+         <loc>https://doc.wingflight.org/contributing/tech/blackbox-format/</loc>
+         <lastmod>2026-09-20</lastmod>
+    </url>
+    <url>
+         <loc>https://doc.wingflight.org/contributing/tech/configuration-format/</loc>
+         <lastmod>2026-09-20</lastmod>
+    </url>
+    <url>
+         <loc>https://doc.wingflight.org/contributing/tech/custom-boards/</loc>
+         <lastmod>2026-09-20</lastmod>
+    </url>
+    <url>
+         <loc>https://doc.wingflight.org/contributing/tech/customizing-the-build/</loc>
+         <lastmod>2026-09-20</lastmod>
+    </url>
+    <url>
+         <loc>https://doc.wingflight.org/contributing/tech/hardware-debugging-vscode-jlink/</loc>
+         <lastmod>2026-09-20</lastmod>
+    </url>
+    <url>
+         <loc>https://doc.wingflight.org/contributing/tech/hardware-debugging/</loc>
+         <lastmod>2026-09-20</lastmod>
+    </url>
+    <url>
+         <loc>https://doc.wingflight.org/contributing/tech/parameter-groups/</loc>
+         <lastmod>2026-09-20</lastmod>
+    </url>
+    <url>
+         <loc>https://doc.wingflight.org/contributing/tech/smartfuel/</loc>
          <lastmod>2026-09-20</lastmod>
     </url>
     <url>
