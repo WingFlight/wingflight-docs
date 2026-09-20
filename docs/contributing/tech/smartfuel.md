@@ -29,6 +29,8 @@ If you plug in a pack that is not “full” (the first sample is well below 100
 2. **Consumption-based**, if `bat_capacity` is non-zero. Reported as `100 × (capacity − used) / capacity`. Without a configured current sensor `used` stays at zero, so this path will report `100%` indefinitely — set `bat_capacity = 0` to fall through to the linear-voltage estimate instead.
 3. **Linear voltage**, if cell count is known. A simple linear interpolation between `vbat_min_cell_voltage` and `vbat_max_cell_voltage`.
 
+`bat_capacity`, `battery_cell_count` and the `vbat_*_cell_voltage` settings are arrays with one value per battery profile (`bat_profile`); the active profile's values are used. SmartFuel is re-initialised when the profile changes, as soon as the model is disarmed.
+
 ## Configuration
 
 SmartFuel is enabled by setting `smartfuel` to `VOLTAGE`, `CURRENT`, or `COMBINED`. Set `smartfuel = OFF` to disable it; the firmware then falls back to consumption-based or linear-voltage charge level as described above.

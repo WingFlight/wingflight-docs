@@ -23,6 +23,26 @@ hardware pins -- the rest of this tab applies live.
 frame type actually feeds the voltage reading when more than one is
 present.
 
+## Battery profiles
+
+There are six battery profiles, and each one carries its own **capacity**,
+**cell count** and **Min / Warn / Full / Max** cell voltages. This lets one
+model switch between, for example, a 3S LiPo and a 4S LiHV pack. Click a
+profile's name to make it the active profile; the active row is highlighted.
+
+A cell count of 0 detects the cell count automatically when the battery is
+connected. Within each profile the voltages must be ordered
+Min ≤ Warn ≤ Full ≤ Max -- a profile that is not ordered is reset to the
+defaults when the configuration is loaded.
+
+Battery monitoring, the low-voltage warnings and SmartFuel all use the
+active profile. If the profile is changed while armed (for example with an
+adjustment), the change is applied as soon as the model is disarmed.
+
+Firmware that predates per-profile cell settings shows the older layout: a
+single set of cell count and cell voltages shared by all profiles, with only
+the capacity set per profile.
+
 ## Calibration Manager
 
 Rather than computing a voltage divider or current-shunt scale by hand,
