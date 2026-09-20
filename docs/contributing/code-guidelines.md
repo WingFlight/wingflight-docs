@@ -28,7 +28,7 @@ Guidance for firmware changes. For layout and formatting rules, see
 ## Changing flight-control code
 
 Mixer, mode and PID changes are safety-critical. Before you change them, read
-the [Flight Dynamics](https://github.com/WingFlight/wingflight-firmware/blob/master/docs/FlightDynamics.md)
+the [Flight Dynamics](tech/flight-dynamics.md)
 notes in the firmware repository. They record the signal chain, sign
 conventions and the design rationale, and list known defects that can look
 intentional.
