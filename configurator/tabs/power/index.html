@@ -1445,6 +1445,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../crsf-sensors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CRSF Sensors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../blackbox/" class="md-nav__link">
         
   
@@ -3167,12 +3195,16 @@ battery-based failsafe behavior, so it's worth calibrating against a real
 multimeter reading rather than trusting default scale values.</p>
 <h2 id="meter-source">Meter source<a class="headerlink" href="#meter-source" title="Permanent link">&para;</a></h2>
 <p>Voltage and current can each be read from <strong>Battery ADC</strong> (the board's own
-onboard voltage divider / current shunt), <strong>ESC Telemetry</strong>, or a <strong>FrSky
-Sensor</strong> -- or left <strong>None</strong> if not fitted. Only ADC sources need the Scale
-and Divider fields below calibrated for your hardware; ESC telemetry and
-FrSky sensors already report a computed value, so there's nothing to scale.
-Changing the source itself needs a reboot to remap hardware pins -- the
-rest of this tab applies live.</p>
+onboard voltage divider / current shunt), <strong>ESC Telemetry</strong>, a <strong>FrSky
+Sensor</strong>, or a <strong>CRSF Sensor</strong> -- or left <strong>None</strong> if not fitted. Only ADC
+sources need the Scale and Divider fields below calibrated for your
+hardware; the other sources already report a computed value, so there's
+nothing to scale. Changing the source itself needs a reboot to remap
+hardware pins -- the rest of this tab applies live.</p>
+<p><strong>CRSF Sensor</strong> needs a UART assigned the CRSF Sensors port function first
+-- see the <a href="../crsf-sensors/">CRSF Sensors</a> tab, including which decoded
+frame type actually feeds the voltage reading when more than one is
+present.</p>
 <h2 id="calibration-manager">Calibration Manager<a class="headerlink" href="#calibration-manager" title="Permanent link">&para;</a></h2>
 <p>Rather than computing a voltage divider or current-shunt scale by hand,
 plug in a battery (props off!), measure its actual voltage/current with a

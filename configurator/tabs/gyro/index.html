@@ -1484,6 +1484,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../crsf-sensors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CRSF Sensors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../blackbox/" class="md-nav__link">
         
   
@@ -3251,8 +3279,13 @@ things cool and quiet, not the most.</p>
   sensor) -- turn on the <strong>RPM Filter</strong> first. It uses the motor's actual
   RPM (and any gear ratio) to place notches exactly on the noise it's
   currently producing, so it introduces far less delay than guessing at a
-  fixed frequency. ESC telemetry alone isn't fast/precise enough for this;
-  it needs bidirectional DShot or a dedicated sensor.</li>
+  fixed frequency. <code>esc_sensor_protocol = FBUS</code> or <code>crsf_sensors_use_rpm =
+  ON</code> (<a href="../crsf-sensors/">CRSF Sensors</a>) can technically feed this too
+  (nothing stops you setting either), but those update far too slowly and
+  infrequently for RPM Filter's notches to track real noise -- <strong>use at
+  your own risk</strong>, not a supported RPM source for filtering. It needs
+  bidirectional DShot or a dedicated RPM/frequency-pin sensor to actually
+  work as intended.</li>
 <li>If you don't have an RPM source -- the <strong>Dynamic Notch Filter</strong> is the
   next best option. It watches the gyro signal itself, hunts for noise
   peaks, and places notches on them automatically. More flexible, but
@@ -3294,7 +3327,9 @@ things cool and quiet, not the most.</p>
 where vibration is coming from and notch it out, rather than guessing --
 this introduces substantially less delay than any filter that has to infer
 noise from the gyro signal itself. It needs bidirectional DShot or an
-RPM/frequency sensor; ESC telemetry isn't fast or precise enough. Strength
+RPM/frequency sensor; ESC telemetry (<code>esc_sensor_protocol = FBUS</code>) and
+<a href="../crsf-sensors/">CRSF Sensors</a> (<code>crsf_sensors_use_rpm = ON</code>) aren't fast
+or precise enough, even though nothing stops you enabling either. Strength
 (Low/Medium/High) trades more aggressive noise removal for more delay --
 start at Medium and only go higher if you're still seeing heat or noise in
 Blackbox.</p>

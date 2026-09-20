@@ -1360,6 +1360,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../configurator/tabs/crsf-sensors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CRSF Sensors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../configurator/tabs/blackbox/" class="md-nav__link">
         
   
@@ -3190,7 +3218,13 @@ the switch if you want the mode you've configured to actually take effect.</p>
 </tbody>
 </table>
 <p>RPM Idle/Max and RPM Range modes require an RPM source: bidirectional DShot
-telemetry, ESC telemetry, or a frequency sensor.</p>
+telemetry or a frequency sensor. <code>esc_sensor_protocol = FBUS</code> or
+<code>crsf_sensors_use_rpm = ON</code> (<a href="../../configurator/tabs/crsf-sensors/#rpm">CRSF Sensors</a>)
+can also feed the governor -- nothing in firmware stops it -- but those
+update far too slowly and infrequently for closed-loop RPM control to react
+safely. Treat that as <strong>use at your own risk</strong>, not a supported governor
+RPM source; see the <a href="../../configurator/tabs/gyro/#which-filter-should-i-use">Gyro</a>
+tab's own note on the same limitation for RPM Filter.</p>
 <h2 id="tuning">Tuning<a class="headerlink" href="#tuning" title="Permanent link">&para;</a></h2>
 <p>RPM Idle/Max uses <strong>Idle Throttle Floor</strong> as the minimum powered idle output
 while the governor is active below handover. The RPM controller then adds P/I

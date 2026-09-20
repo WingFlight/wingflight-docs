@@ -16,7 +16,7 @@
         <link rel="prev" href="../esc-programming/">
       
       
-        <link rel="next" href="../blackbox/">
+        <link rel="next" href="../crsf-sensors/">
       
       
         
@@ -1433,6 +1433,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crsf-sensors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CRSF Sensors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -3175,9 +3203,20 @@ ways:</p>
   become a battery voltage/current source -- set <strong>Battery Voltage/Current
   Source</strong> to <strong>FrSky Sensor</strong> on the <a href="../power/">Power</a> tab. A FrSky ESC
   sensor can become an ESC telemetry source (voltage, current, RPM,
-  temperature, consumption); this one is currently CLI-only --
-  <code>set esc_sensor_protocol = FBUS</code>. Nothing needs enabling on this page for
-  direct use -- it happens automatically as soon as the sensor is observed.</li>
+  temperature, consumption) -- set <strong>ESC Telemetry Protocol</strong> to
+  <strong>FrSky F.BUS</strong> on the <a href="../motors/">Motors</a> tab (or <code>set
+  esc_sensor_protocol = FBUS</code> from the CLI). Nothing needs enabling on this
+  page for direct use -- it happens automatically as soon as the sensor is
+  observed.
+  !!! warning
+      The RPM this feeds is telemetry-rate, not motor-rate -- <strong>use at your
+      own risk</strong> for <a href="../gyro/#rpm-filter">RPM Filter</a> or the
+      <a href="../../../flight-modes/governor/">Governor</a>'s RPM Idle/Max and RPM
+      Range modes, both of which need bidirectional DShot or a dedicated
+      RPM/frequency-pin sensor to actually track real motor speed. Nothing
+      in firmware stops you selecting it there anyway. It's fine for OSD,
+      blackbox logging, or telemetry display, where the update rate doesn't
+      matter.</li>
 <li><strong>Forwarding</strong> -- relays a sensor's raw telemetry frames back out over the
   receiver link, so your transmitter/radio displays them directly. This
   matters most for sensor types the firmware doesn't consume itself (a
@@ -3297,13 +3336,13 @@ it works alongside CRSF, ELRS, or any other receiver protocol. Only
         
         
           
-          <a href="../blackbox/" class="md-footer__link md-footer__link--next" aria-label="Next: Blackbox">
+          <a href="../crsf-sensors/" class="md-footer__link md-footer__link--next" aria-label="Next: CRSF Sensors">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Blackbox
+                CRSF Sensors
               </div>
             </div>
             <div class="md-footer__button md-icon">
