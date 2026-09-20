@@ -21,6 +21,7 @@ relevant feature is enabled or detected.
 | [Curves](tabs/curves.md) | Throttle and control curves |
 | [Profiles](tabs/profiles.md) | PID tuning profiles |
 | [Rates](tabs/rates.md) | Stick response/rate profiles |
+| [Thrust Vector](tabs/thrust-vector.md) | Independent vectored-thrust PID loop and profiles |
 | [Gyro](tabs/gyro.md) | Gyro filtering |
 | [Auxiliary (Modes)](tabs/auxiliary.md) | Flight-mode-to-switch mapping |
 | [Adjustments](tabs/adjustments.md) | In-flight tuning via transmitter switches |

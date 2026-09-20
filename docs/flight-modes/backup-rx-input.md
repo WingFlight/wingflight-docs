@@ -95,20 +95,36 @@ is reserved but not decoding anything.
   channels even while the backup link is otherwise healthy -- the switch
   is honored the same way regardless of which link is currently active.
 
+## Arming check
+
+A configured backup receiver has to prove it works before you can fly
+relying on it. Once the boot arming-grace window has passed, arming is
+blocked -- the Status tab shows the **BACKUP_RX** arming-disable flag --
+until the backup receiver has linked at least once, so a mis-wired or dead
+backup can't go unnoticed until the moment you need it.
+
+The check only guards the **first arm after power-up**. Once you have armed
+successfully, a backup that later drops out (between flights or batteries,
+say) will not block re-arming for the rest of the session. If you leave the
+backup port unconfigured (no protocol chosen), no check applies.
+
 ## Bench-testing before you fly
 
 As with any failsafe-adjacent behavior, test this on the bench (props off)
 before relying on it in the air:
 
-1. With both the main receiver and the backup satellite bound and
+1. Power up with the backup satellite bound and powered, and
+   confirm the **BACKUP_RX** flag on the Status tab clears once its **Link**
+   badge comes up (arming stays blocked until then).
+2. With both the main receiver and the backup satellite bound and
    powered, confirm the Receiver tab's **Serial RX #1** box shows its
    **Active Source** badge as Main RX, and moving the backup satellite's
    sticks has no effect on outputs.
-2. Power off (or walk the main receiver's transmitter out of range),
+3. Power off (or walk the main receiver's transmitter out of range),
    and confirm control switches to the backup satellite within roughly
    100ms, arm state is preserved, and aux switches on the backup radio
    work as expected.
-3. Restore the main link and confirm control reverts to it within that
+4. Restore the main link and confirm control reverts to it within that
    same window.
-4. Power off both receivers and confirm ordinary staged failsafe
+5. Power off both receivers and confirm ordinary staged failsafe
    triggers as configured.

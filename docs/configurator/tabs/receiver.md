@@ -41,7 +41,7 @@ channel let you confirm the remap actually matches real stick movement
 before wiring up the [Mixer](mixer.md).
 
 **RSSI** can be read from Auto (protocol-reported, if the link supports
-it), the board's analog RSSI ADC input, or repurposed from any AUX channel
+it), the board's analog RSSI ADC input, or repurposed from any spare channel (CH #5 onward)
 your receiver outputs an analog-ish RSSI value on.
 
 ## Telemetry Sensors

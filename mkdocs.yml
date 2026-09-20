@@ -69,6 +69,7 @@ nav:
       - Flashing the Firmware: getting-started/flashing-the-firmware.md
       - First Connection: getting-started/first-connection.md
       - Backup & Restore: getting-started/backup-and-restore.md
+      - Safety: getting-started/safety.md
   - Configurator:
       - configurator/index.md
       - Status: configurator/tabs/status.md
@@ -83,6 +84,7 @@ nav:
       - Curves: configurator/tabs/curves.md
       - Profiles: configurator/tabs/profiles.md
       - Rates: configurator/tabs/rates.md
+      - Thrust Vector: configurator/tabs/thrust-vector.md
       - Gyro: configurator/tabs/gyro.md
       - Auxiliary (Modes): configurator/tabs/auxiliary.md
       - Adjustments: configurator/tabs/adjustments.md
@@ -103,16 +105,48 @@ nav:
       - Thrust Vector Attitude Hold: flight-modes/tv-hold.md
       - Auto Trim: flight-modes/auto-trim.md
       - Trainer Mode: flight-modes/trainer.md
+      - Traditional: flight-modes/traditional.md
       - Ready-to-Arm Wiggle: flight-modes/ready-to-arm-wiggle.md
       - Cross-Axis Relax: flight-modes/cross-axis-relax.md
       - Governor: flight-modes/governor.md
       - Backup RX Input: flight-modes/backup-rx-input.md
+      - GPS RTH and Loiter: flight-modes/gps-rth.md
+      - GPS Rescue: flight-modes/gps-rescue.md
   - Reference:
       - reference/index.md
       - CLI Command Reference: reference/cli-reference.md
       - MSP Overview: reference/msp-overview.md
       - FBUS/S.Port Sensor ID Reference: reference/fbus-sensor-ids.md
+      - Arming and Stick Commands: reference/stick-commands.md
+      - Receivers: reference/receivers.md
+      - RSSI: reference/rssi.md
+      - Spektrum Binding: reference/spektrum-bind.md
+      - FrSky SPI RX: reference/frsky-spi-rx.md
+      - Serial Ports: reference/serial-ports.md
+      - Telemetry: reference/telemetry.md
+      - Castle ESC Telemetry: reference/castle-esc-telemetry.md
+      - GPS Hardware and Module Setup: reference/gps-hardware.md
+      - VTX: reference/vtx.md
+      - LED Strip: reference/led-strip.md
+      - Buzzer: reference/buzzer.md
+      - OLED Display: reference/oled-display.md
   - Contributing:
       - contributing/index.md
       - Building the Firmware: contributing/building-the-firmware.md
       - Developer Guide: contributing/developers.md
+      - Code Guidelines and Testing: contributing/code-guidelines.md
+      - Coding Style: contributing/coding-style.md
+      - Technical Reference:
+          - contributing/tech/index.md
+          - Parameter Groups: contributing/tech/parameter-groups.md
+          - Configuration Format: contributing/tech/configuration-format.md
+          - Atomic Barrier: contributing/tech/atomic-barrier.md
+          - Customizing the Build: contributing/tech/customizing-the-build.md
+          - Custom Board Configuration: contributing/tech/custom-boards.md
+          - Blackbox Log Format: contributing/tech/blackbox-format.md
+          - SmartFuel Internals: contributing/tech/smartfuel.md
+          - Hardware Debugging: contributing/tech/hardware-debugging.md
+          - Debugging with VS Code and J-Link: contributing/tech/hardware-debugging-vscode-jlink.md
+          - Flight Dynamics: contributing/tech/flight-dynamics.md
+          - RX Wiring Auto-detect: contributing/tech/rx-wiring-autodetect.md
+          - ESC Signalling Auto-detect: contributing/tech/esc-signaling-autodetect.md

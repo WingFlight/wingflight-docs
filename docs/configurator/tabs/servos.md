@@ -21,7 +21,8 @@ noticeably further on one side than the other.
 
 **Rate** is the PWM update frequency for this output -- 50Hz for analog
 servos (higher can damage them), 100-560Hz for digital servos depending on
-what the datasheet supports. It only takes effect after **Save and
+what the datasheet supports. The default is 50Hz, the safe choice for any
+servo; raise it only once you've confirmed your servos support it. It only takes effect after **Save and
 reboot**, since the rate is set up at boot time, not applied live like most
 other fields here.
 
@@ -35,22 +36,37 @@ deliberately slowing a specific output (e.g. retracts) independent of the
 the same axis is backwards, since Reverse here and a rule's own Reverse
 checkbox both flip the same thing from different places.
 
-## Geometry Correction
+## Balance Curve
 
-Compensates for the non-linear geometry of a servo arm sweeping through an
-arc -- the further from center, the less each degree of rotation actually
-moves a pushrod linearly. Only enable it for servos driving a linkage
-through an arc; leave it off for anything already linear (e.g. a direct
-belt/rack-driven surface), where there's no arc geometry to correct for.
+When two servos drive the same surface (dual ailerons, split flaps) and
+don't quite track each other, a per-servo **balance curve** trims one
+servo's travel to match its partner. Balance curves are edited on the
+[Curves](curves.md#servo-balance-curves) tab, not here. Any servo with a
+non-flat curve shows a curve icon in its row; click it to jump straight to
+that servo's curve. A bus servo that is cloning a PWM output (see
+[below](#clone-pwm-outputs-to-bus-servos)) shows its source PWM servo's
+curve, since that's the one actually shaping its output.
+
+!!! note
+    The **Geometry Correction** switch that older Configurator versions
+    showed on this tab has been removed from the Configurator, so the
+    correction can no longer be turned on or off from here.
 
 ## In-Flight Trim
 
 Center points (**Mid**) don't have to be set from this tab or the CLI --
-map **Servo Trim Roll**, **Servo Trim Pitch**, or **Servo Trim Yaw** to a
-momentary switch on the [Adjustments](adjustments.md) tab (Stepped mode)
-and nudge them live while flying instead.
+map **Servo Trim Roll**, **Servo Trim Pitch**, or **Servo Trim Yaw** on the
+[Adjustments](adjustments.md) tab and trim live while flying instead. The
+two adjustment modes behave differently:
 
-Trimming an axis shifts Mid on every servo whose [Mixer](mixer.md) rule
+- **Stepped** (a momentary switch you flick to walk the trim up or down)
+  changes **Mid** itself, and the change is saved.
+- **Mapped** (a knob or channel position that sets the trim directly) adds
+  an offset to the servo's output *on top of* Mid. It never changes Mid, is
+  not saved, and starts from zero every time the flight controller boots,
+  following the knob's position from there.
+
+Trimming an axis moves every servo whose [Mixer](mixer.md) rule
 takes its input from that stabilized axis, not just one output -- each
 servo's own Reverse flag above is respected, so e.g. two ailerons mixed
 from opposite sides of the same roll input trim toward each other
@@ -59,21 +75,40 @@ raw RC channel, an override, or a logic condition rather than a
 stabilized axis aren't touched -- the same rule
 [Auto Trim](../../flight-modes/auto-trim.md) uses for its own capture.
 
-Each axis can move up to ±200μs away from its last *saved* Mid before
-hitting the adjustment's own limit. Disarming with a pending trim saves
-it automatically, the same as any other live-adjusted value, and the
-±200μs window then re-baselines to the new center, so there's always
-fresh headroom to keep trimming across multiple flights rather than
-being capped by the first save.
+With **Stepped**, each axis can move up to ±200μs away from its last
+*saved* Mid before hitting the adjustment's own limit. Disarming with a
+pending trim saves it automatically, the same as any other live-adjusted
+value, and the ±200μs window then re-baselines to the new center, so
+there's always fresh headroom to keep trimming across multiple flights
+rather than being capped by the first save.
 
-!!! warning "Best used in the air, not on the bench"
-    This is meant for trimming while actually flying. Ground use over USB
+With **Mapped**, the offset on any one servo is limited to 20% of that
+servo's Scale (the larger of Scale Neg and Scale Pos -- ±100μs at the
+default 500μs), however far the knob is turned or whatever the channel
+reads, and it is applied inside the servo's Min/Max travel limits. Because
+it is never saved, a knob that is misread -- for example a channel that
+isn't valid yet just after power-up -- can move a surface by at most that
+much and leaves nothing behind once the reading is right again. It also
+means the knob can't stack on top of its own saved result after a reboot.
+
+Because a Mapped trim doesn't change Mid, the **Mid** field on this tab
+doesn't move when you turn the knob. Servos that have a Servo Trim
+adjustment set up show a badge in the **Trim** column (highlighted while
+the adjustment is active, with its channel, e.g. `R CH9` for roll on
+channel 9). When the firmware and Configurator both support it, the badge
+is followed by the live offset, for example `+10` or `-25`, so you can see
+a trim is in effect. It is display-only and never counts as an unsaved
+change on this tab.
+
+!!! warning "Stepped trim is best used in the air, not on the bench"
+    Stepped trimming is meant for trimming while actually flying. Ground use over USB
     currently fights you on two fronts: this tab won't visibly pick up a
     center-point change made this way, so there's nothing to confirm/save
     from the Configurator, and having this tab open over USB blocks
     arming outright. See
     [firmware issue #17](https://github.com/WingFlight/wingflight-firmware/issues/17)
-    for current status.
+    for current status. Mapped trims are not affected: they need no arming
+    and can be tried with the Configurator connected.
 
 ## Bus Servos
 
@@ -81,8 +116,8 @@ Enabling **SBUS Output** or **FBUS Master** on a serial port (see
 [Configuration](configuration.md)) adds a second "Bus Servo Configuration"
 table below the PWM one, covering up to 18 additional outputs -- for
 digital bus servos wired to that UART instead of individual PWM wires.
-Each bus output has the same Min/Max/Scale/Speed/Reverse/Geometry
-Correction fields as a PWM servo, above.
+Each bus output has the same Min/Max/Scale/Speed/Reverse fields as a PWM
+servo, above.
 
 ### Clone PWM outputs to bus servos
 

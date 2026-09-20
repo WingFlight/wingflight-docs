@@ -9,8 +9,10 @@ configured, flying aircraft.
 2. [Flash the firmware](flashing-the-firmware.md) onto your flight controller.
 3. [Make a first connection](first-connection.md) and confirm sensors,
    receiver, and basic setup are working.
-4. Configure your mixer, servos, and flight modes for your specific airframe.
-5. Once you have a working setup, take a [backup](backup-and-restore.md)
+4. Read [Safety](safety.md) before you power the aircraft with a propeller
+   fitted, and set up your receiver's failsafe.
+5. Configure your mixer, servos, and flight modes for your specific airframe.
+6. Once you have a working setup, take a [backup](backup-and-restore.md)
    before you start tuning.
 
 If you get stuck at any point, the [WingFlight Discord](https://discord.gg/aEyyAJTXRw/)

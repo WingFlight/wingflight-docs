@@ -7,15 +7,31 @@ A/B comparing two settings values in the air.
 
 Adjustable functions are grouped by category -- Master Gains
 ([Profiles](profiles.md)), [Servo Trims](servos.md#in-flight-trim)
-(roll/pitch/yaw), Accelerometer Trim, Setpoint Boost, and others -- and any
-function currently under live adjustment control shows its effective value
-on the owning tab while the switch/channel is active.
+(roll/pitch/yaw), Accelerometer Trim, Setpoint Boost, PID/Rate/TV Profile
+switching, [Mixer](mixer.md#rule-roles) (Flap Compensation Gain,
+Differential Thrust Yaw Gain), and others -- and any function currently
+under live adjustment control shows its effective value on the owning tab
+while the switch/channel is active.
+
+Profile switching (PID, Rate, and [Thrust Vector](thrust-vector.md)) is a
+special case: each is its own adjustment function, mapped to a channel the
+same way as any other, but a profile switch applies -- and is confirmed with
+its own beep count -- immediately, rather than waiting for a manual value
+commit like most other adjustments.
 
 Adjustments made this way aren't saved to the flight controller
 automatically -- they're meant for freely trying values in the air without
 committing to any of them. If a value you find mid-flight is worth
 keeping, go set it permanently (e.g. on [Profiles](profiles.md)) and Save
 from there.
+
+## Channel names
+
+Every channel picker in the Configurator -- here, on [Mixer](mixer.md),
+[Logic Conditions](logic.md) and [Auxiliary](auxiliary.md) -- uses one
+naming scheme: **CH #N**, where N is the receiver channel number. The four
+channels after the stick channels that older versions called AUX 1-4 are
+now simply CH #5-8, and so on up.
 
 ## Enable Channel and Value Channel
 
@@ -41,3 +57,8 @@ Each adjustment slot has two channels:
   **Step** each time, the other sub-range nudges it down -- useful for a
   2-position switch you flick repeatedly to walk a value up or down
   without needing a channel that can hold a precise proportional position.
+
+For [Servo Trims](servos.md#in-flight-trim) the two modes differ in more
+than how you drive them: Stepped changes the servo's saved Mid, while
+Mapped adds a runtime-only offset that is never saved and is limited to 20%
+of the servo's Scale.

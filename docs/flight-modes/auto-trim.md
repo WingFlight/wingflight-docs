@@ -24,7 +24,30 @@ restoring the previous center exactly -- nothing is written unless you
 disarm *while* the new center is still active, at which point it's saved
 the same way any other live-adjusted value is (on disarm).
 
+If a Mapped [Servo Trim](../configurator/tabs/servos.md#in-flight-trim) knob
+is also in use, its offset is left out of the center Auto Trim saves. The
+captured center is what the aircraft needs *without* the knob, so the knob
+keeps working on top of it instead of being baked in and then applied a
+second time.
+
 For a manual alternative -- nudging an axis's center by a fixed amount per
 switch flick, rather than capturing a sustained stick correction -- see
 [In-Flight Trim](../configurator/tabs/servos.md#in-flight-trim) on the
 Servos tab.
+
+!!! note "Trying it on the bench"
+    Auto Trim only starts while the aircraft is armed, and arming is blocked
+    while the Configurator or the CLI is connected over USB, so it can't be
+    tried that way. To check it on the ground, power the model from its
+    battery with the props off and no USB, arm, tilt it so a surface moves
+    off center and hold it there, switch Auto Trim on for a few seconds,
+    and disarm with the switch still on. Then connect and check Mid on the
+    [Servos](../configurator/tabs/servos.md) tab. On an aircraft that is
+    still and level the servo is already at center, so nothing visibly
+    changes.
+
+Auto Trim fixes a steady, always-there offset -- it isn't the right tool
+for a pitch change that only shows up when flaps go down. If the plane
+trims out fine clean but balloons (or dips) with flaps out, see
+[Mixer → Flap-to-Elevator Compensation](../configurator/tabs/mixer.md#flap-to-elevator-compensation)
+instead.
