@@ -291,7 +291,7 @@ The boost was added to `getThrottle()` unconditionally, up to `throttle_assist_m
 
 ### Low
 
-- **L-1. Heli remnants in the adjustment code.** [pid.c:253, :308, :319](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/pid.c#L253) scale roll D, pitch B and roll B by `pidMode == 4`. Mode 4 does not exist here, so those branches are dead.
+- **L-1. Heli remnants in the adjustment code. Fixed (#110).** The roll D, pitch B and roll B adjustment setters in [pid.c](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/pid.c) scaled their coefficient by `pidMode == 4`, a mode that does not exist here. The dead branches are removed.
 - **L-2. Roll D scale is 10× smaller than pitch and yaw.** [pid.h:40](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/pid.h#L40) `ROLL_D_TERM_SCALE 0.1e-6` vs `1.0e-6`. Inherited. Confirm it is intended for wings. It is also mirrored in the TV loop.
 - **L-3. Cross-axis relax is applied twice to I.** [pid.c:850, :863](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/pid.c#L850): it scales the accumulation *and* the I output, so I output drops immediately on rudder input and jumps back on release (limited only by the relax filter's 1–100 Hz cutoff). Default strength is 0, so latent.
 - **L-4. `isUpright()` does not check attitude.** [imu.c:628](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/imu.c#L628) returns "attitude established". Arming is therefore not blocked by tilt. Probably right for wings; rename or comment it.
