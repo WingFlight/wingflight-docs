@@ -876,6 +876,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#battery-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Battery profiles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#calibration-manager" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3112,6 +3123,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#battery-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Battery profiles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#calibration-manager" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3177,6 +3199,21 @@ hardware pins -- the rest of this tab applies live.</p>
 -- see the <a href="../crsf-sensors/">CRSF Sensors</a> tab, including which decoded
 frame type actually feeds the voltage reading when more than one is
 present.</p>
+<h2 id="battery-profiles">Battery profiles<a class="headerlink" href="#battery-profiles" title="Permanent link">&para;</a></h2>
+<p>There are six battery profiles, and each one carries its own <strong>capacity</strong>,
+<strong>cell count</strong> and <strong>Min / Warn / Full / Max</strong> cell voltages. This lets one
+model switch between, for example, a 3S LiPo and a 4S LiHV pack. Click a
+profile's name to make it the active profile; the active row is highlighted.</p>
+<p>A cell count of 0 detects the cell count automatically when the battery is
+connected. Within each profile the voltages must be ordered
+Min ≤ Warn ≤ Full ≤ Max -- a profile that is not ordered is reset to the
+defaults when the configuration is loaded.</p>
+<p>Battery monitoring, the low-voltage warnings and SmartFuel all use the
+active profile. If the profile is changed while armed (for example with an
+adjustment), the change is applied as soon as the model is disarmed.</p>
+<p>Firmware that predates per-profile cell settings shows the older layout: a
+single set of cell count and cell voltages shared by all profiles, with only
+the capacity set per profile.</p>
 <h2 id="calibration-manager">Calibration Manager<a class="headerlink" href="#calibration-manager" title="Permanent link">&para;</a></h2>
 <p>Rather than computing a voltage divider or current-shunt scale by hand,
 plug in a battery (props off!), measure its actual voltage/current with a
