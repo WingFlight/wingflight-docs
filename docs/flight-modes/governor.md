@@ -37,7 +37,13 @@ the switch if you want the mode you've configured to actually take effect.
 | RPM Range | Maps the throttle stick across a Min RPM (0%) to Max RPM (100%) range, governing speed through the whole flight rather than just at idle. |
 
 RPM Idle/Max and RPM Range modes require an RPM source: bidirectional DShot
-telemetry, ESC telemetry, or a frequency sensor.
+telemetry or a frequency sensor. `esc_sensor_protocol = FBUS` or
+`crsf_sensors_use_rpm = ON` ([CRSF Sensors](../configurator/tabs/crsf-sensors.md#rpm))
+can also feed the governor -- nothing in firmware stops it -- but those
+update far too slowly and infrequently for closed-loop RPM control to react
+safely. Treat that as **use at your own risk**, not a supported governor
+RPM source; see the [Gyro](../configurator/tabs/gyro.md#which-filter-should-i-use)
+tab's own note on the same limitation for RPM Filter.
 
 ## Tuning
 

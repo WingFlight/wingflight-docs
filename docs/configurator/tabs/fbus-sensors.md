@@ -18,9 +18,20 @@ ways:
   become a battery voltage/current source -- set **Battery Voltage/Current
   Source** to **FrSky Sensor** on the [Power](power.md) tab. A FrSky ESC
   sensor can become an ESC telemetry source (voltage, current, RPM,
-  temperature, consumption); this one is currently CLI-only --
-  `set esc_sensor_protocol = FBUS`. Nothing needs enabling on this page for
-  direct use -- it happens automatically as soon as the sensor is observed.
+  temperature, consumption) -- set **ESC Telemetry Protocol** to
+  **FrSky F.BUS** on the [Motors](motors.md) tab (or `set
+  esc_sensor_protocol = FBUS` from the CLI). Nothing needs enabling on this
+  page for direct use -- it happens automatically as soon as the sensor is
+  observed.
+  !!! warning
+      The RPM this feeds is telemetry-rate, not motor-rate -- **use at your
+      own risk** for [RPM Filter](gyro.md#rpm-filter) or the
+      [Governor](../../flight-modes/governor.md)'s RPM Idle/Max and RPM
+      Range modes, both of which need bidirectional DShot or a dedicated
+      RPM/frequency-pin sensor to actually track real motor speed. Nothing
+      in firmware stops you selecting it there anyway. It's fine for OSD,
+      blackbox logging, or telemetry display, where the update rate doesn't
+      matter.
 - **Forwarding** -- relays a sensor's raw telemetry frames back out over the
   receiver link, so your transmitter/radio displays them directly. This
   matters most for sensor types the firmware doesn't consume itself (a

@@ -11,12 +11,17 @@ multimeter reading rather than trusting default scale values.
 ## Meter source
 
 Voltage and current can each be read from **Battery ADC** (the board's own
-onboard voltage divider / current shunt), **ESC Telemetry**, or a **FrSky
-Sensor** -- or left **None** if not fitted. Only ADC sources need the Scale
-and Divider fields below calibrated for your hardware; ESC telemetry and
-FrSky sensors already report a computed value, so there's nothing to scale.
-Changing the source itself needs a reboot to remap hardware pins -- the
-rest of this tab applies live.
+onboard voltage divider / current shunt), **ESC Telemetry**, a **FrSky
+Sensor**, or a **CRSF Sensor** -- or left **None** if not fitted. Only ADC
+sources need the Scale and Divider fields below calibrated for your
+hardware; the other sources already report a computed value, so there's
+nothing to scale. Changing the source itself needs a reboot to remap
+hardware pins -- the rest of this tab applies live.
+
+**CRSF Sensor** needs a UART assigned the CRSF Sensors port function first
+-- see the [CRSF Sensors](crsf-sensors.md) tab, including which decoded
+frame type actually feeds the voltage reading when more than one is
+present.
 
 ## Calibration Manager
 

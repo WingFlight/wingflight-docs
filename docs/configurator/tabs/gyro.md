@@ -16,8 +16,13 @@ things cool and quiet, not the most.
   sensor) -- turn on the **RPM Filter** first. It uses the motor's actual
   RPM (and any gear ratio) to place notches exactly on the noise it's
   currently producing, so it introduces far less delay than guessing at a
-  fixed frequency. ESC telemetry alone isn't fast/precise enough for this;
-  it needs bidirectional DShot or a dedicated sensor.
+  fixed frequency. `esc_sensor_protocol = FBUS` or `crsf_sensors_use_rpm =
+  ON` ([CRSF Sensors](crsf-sensors.md)) can technically feed this too
+  (nothing stops you setting either), but those update far too slowly and
+  infrequently for RPM Filter's notches to track real noise -- **use at
+  your own risk**, not a supported RPM source for filtering. It needs
+  bidirectional DShot or a dedicated RPM/frequency-pin sensor to actually
+  work as intended.
 - If you don't have an RPM source -- the **Dynamic Notch Filter** is the
   next best option. It watches the gyro signal itself, hunts for noise
   peaks, and places notches on them automatically. More flexible, but
@@ -45,7 +50,9 @@ Uses the motor's real RPM (and configured gear ratio) to track exactly
 where vibration is coming from and notch it out, rather than guessing --
 this introduces substantially less delay than any filter that has to infer
 noise from the gyro signal itself. It needs bidirectional DShot or an
-RPM/frequency sensor; ESC telemetry isn't fast or precise enough. Strength
+RPM/frequency sensor; ESC telemetry (`esc_sensor_protocol = FBUS`) and
+[CRSF Sensors](crsf-sensors.md) (`crsf_sensors_use_rpm = ON`) aren't fast
+or precise enough, even though nothing stops you enabling either. Strength
 (Low/Medium/High) trades more aggressive noise removal for more delay --
 start at Medium and only go higher if you're still seeing heat or noise in
 Blackbox.
