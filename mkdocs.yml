@@ -133,3 +133,16 @@ nav:
       - contributing/index.md
       - Building the Firmware: contributing/building-the-firmware.md
       - Developer Guide: contributing/developers.md
+      - Code Guidelines and Testing: contributing/code-guidelines.md
+      - Coding Style: contributing/coding-style.md
+      - Technical Reference:
+          - contributing/tech/index.md
+          - Parameter Groups: contributing/tech/parameter-groups.md
+          - Configuration Format: contributing/tech/configuration-format.md
+          - Atomic Barrier: contributing/tech/atomic-barrier.md
+          - Customizing the Build: contributing/tech/customizing-the-build.md
+          - Custom Board Configuration: contributing/tech/custom-boards.md
+          - Blackbox Log Format: contributing/tech/blackbox-format.md
+          - SmartFuel Internals: contributing/tech/smartfuel.md
+          - Hardware Debugging: contributing/tech/hardware-debugging.md
+          - Debugging with VS Code and J-Link: contributing/tech/hardware-debugging-vscode-jlink.md
