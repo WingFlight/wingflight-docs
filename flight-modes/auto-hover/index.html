@@ -3244,10 +3244,9 @@ airframe.</p>
   by a safety mode, and never carries over into the next engagement.</li>
 <li>A Max Rate of 0 disables the attitude correction, and with it the
   assist.</li>
-<li><strong>It ignores the throttle stick and the radio link.</strong> The boost is added
-  even with your stick at idle, so it can spin the motor up when you have
-  closed the throttle, and it is not cancelled if the link is lost while
-  Auto Hover is still switched on. Leave it off unless you need it.</li>
+<li>It is off whenever your throttle stick is at or below the off-throttle
+  point, or the radio link is lost, and it ramps back in from zero when the
+  stick comes back up. The assist can never spin the motor up on its own.</li>
 </ul>
 <h2 id="on-the-bench">On the bench<a class="headerlink" href="#on-the-bench" title="Permanent link">&para;</a></h2>
 <p>Auto Hover (and <a href="../atthold/">Attitude Hold</a>) still work at reduced
