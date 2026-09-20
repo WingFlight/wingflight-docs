@@ -13,5 +13,6 @@ testing -- are welcome.
   [WingFlight/wingflight-configurator](https://github.com/WingFlight/wingflight-configurator).
 
 See the [Developer Guide](developers.md) for general contribution guidance,
-and join the [WingFlight Discord](https://discord.gg/aEyyAJTXRw/) to discuss
+[Code Guidelines and Testing](code-guidelines.md) and [Coding Style](coding-style.md) for how to write
+the code, and the [Technical Reference](tech/index.md) for the internals. Join the [WingFlight Discord](https://discord.gg/aEyyAJTXRw/) to discuss
 larger changes before starting.
