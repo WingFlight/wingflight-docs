@@ -75,10 +75,9 @@ Things worth knowing:
   by a safety mode, and never carries over into the next engagement.
 - A Max Rate of 0 disables the attitude correction, and with it the
   assist.
-- **It ignores the throttle stick and the radio link.** The boost is added
-  even with your stick at idle, so it can spin the motor up when you have
-  closed the throttle, and it is not cancelled if the link is lost while
-  Auto Hover is still switched on. Leave it off unless you need it.
+- It is off whenever your throttle stick is at or below the off-throttle
+  point, or the radio link is lost, and it ramps back in from zero when the
+  stick comes back up. The assist can never spin the motor up on its own.
 
 ## On the bench
 
