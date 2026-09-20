@@ -1,0 +1,4278 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for the WingFlight flight controller firmware and configurator">
+      
+      
+      
+        <link rel="canonical" href="https://doc.wingflight.org/contributing/tech/flight-dynamics/">
+      
+      
+        <link rel="prev" href="../hardware-debugging-vscode-jlink/">
+      
+      
+        <link rel="next" href="../rx-wiring-autodetect/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Flight Dynamics - WingFlight Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#wingflight-flight-dynamics-design-rationale-and-review" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="WingFlight Documentation" class="md-header__button md-logo" aria-label="WingFlight Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/wf_icon_white.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            WingFlight Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Flight Dynamics
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/WingFlight" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    WingFlight
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../getting-started/" class="md-tabs__link">
+          
+  
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../configurator/" class="md-tabs__link">
+          
+  
+  
+  Configurator
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../flight-modes/" class="md-tabs__link">
+          
+  
+  
+  Flight Modes & Features
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../reference/" class="md-tabs__link">
+          
+  
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+  Contributing
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="WingFlight Documentation" class="md-nav__button md-logo" aria-label="WingFlight Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/wf_icon_white.svg" alt="logo">
+
+    </a>
+    WingFlight Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/WingFlight" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    WingFlight
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/installing-the-configurator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installing the Configurator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/flashing-the-firmware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Flashing the Firmware
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/first-connection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    First Connection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/backup-and-restore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backup & Restore
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/safety/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Safety
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurator
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Configurator
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configurator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configurator/tabs/status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Status
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configurator/tabs/setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configurator/tabs/configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configurator/tabs/power/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Power
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configurator/tabs/receiver/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Receiver
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configurator/tabs/failsafe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Failsafe
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configurator/tabs/mixer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mixer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configurator/tabs/servos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Servos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configurator/tabs/motors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Motors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configurator/tabs/curves/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Curves
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configurator/tabs/profiles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Profiles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configurator/tabs/rates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configurator/tabs/thrust-vector/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thrust Vector
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configurator/tabs/gyro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gyro
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configurator/tabs/auxiliary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Auxiliary (Modes)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configurator/tabs/adjustments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adjustments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configurator/tabs/logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Logic Conditions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configurator/tabs/gps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configurator/tabs/led-strip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LED Strip
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configurator/tabs/beepers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Beepers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configurator/tabs/sensors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sensors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configurator/tabs/esc-programming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ESC Programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configurator/tabs/fbus-sensors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FBUS/S.Port Sensors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configurator/tabs/blackbox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Blackbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configurator/tabs/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Flight Modes & Features
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Flight Modes & Features
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../flight-modes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Flight Modes &amp; Features
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../flight-modes/auto-hover/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Auto Hover
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../flight-modes/atthold/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Attitude Hold
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../flight-modes/tv-hold/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thrust Vector Attitude Hold
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../flight-modes/auto-trim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Auto Trim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../flight-modes/trainer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trainer Mode
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../flight-modes/traditional/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Traditional
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../flight-modes/ready-to-arm-wiggle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ready-to-Arm Wiggle
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../flight-modes/cross-axis-relax/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cross-Axis Relax
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../flight-modes/governor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Governor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../flight-modes/backup-rx-input/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backup RX Input
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../flight-modes/gps-rth/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPS RTH and Loiter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../flight-modes/gps-rescue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPS Rescue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/cli-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI Command Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/msp-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MSP Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/fbus-sensor-ids/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FBUS/S.Port Sensor ID Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/stick-commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arming and Stick Commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/receivers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Receivers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/rssi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RSSI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/spektrum-bind/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spektrum Binding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/frsky-spi-rx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FrSky SPI RX
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/serial-ports/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serial Ports
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/telemetry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Telemetry
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/castle-esc-telemetry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Castle ESC Telemetry
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/gps-hardware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPS Hardware and Module Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/vtx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VTX
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/led-strip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LED Strip
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/buzzer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Buzzer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/oled-display/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OLED Display
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Contributing
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../building-the-firmware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Building the Firmware
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../code-guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Code Guidelines and Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coding-style/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Coding Style
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6_6" id="__nav_6_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Technical Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../parameter-groups/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parameter Groups
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration-format/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration Format
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../atomic-barrier/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Atomic Barrier
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customizing-the-build/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Customizing the Build
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom-boards/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Custom Board Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../blackbox-format/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Blackbox Log Format
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../smartfuel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SmartFuel Internals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware-debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware Debugging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware-debugging-vscode-jlink/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Debugging with VS Code and J-Link
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Flight Dynamics
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Flight Dynamics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-conventions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Conventions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Conventions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#signal-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Signal chain
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mode-arbitration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mode arbitration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-subsystems-what-they-do-and-why" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Subsystems: what they do and why
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Subsystems: what they do and why">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-setpoint-shaping-setpointc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Setpoint shaping — setpoint.c
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-rate-pid-mode-1-pidc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Rate PID (mode 1) — pid.c
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-passthrough-and-manual-mixerc-setpointc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 PASSTHROUGH and MANUAL — mixer.c, setpoint.c
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-angle-and-horizon-levelingc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 ANGLE and HORIZON — leveling.c
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-attitude-hold-engine-hold_enginec-attholdc-tv_holdc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 Attitude hold engine — hold_engine.c, atthold.c, tv_hold.c
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-autohover-autohoverc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 AUTOHOVER — autohover.c
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27-acro-trainer-trainerc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7 Acro trainer — trainer.c
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#28-thrust-vector-loop-tv_pidc-tv_holdc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8 Thrust-vector loop — tv_pid.c, tv_hold.c
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#29-mixer-mixerc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.9 Mixer — mixer.c
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#210-servo-output-servosc-autotrimc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.10 Servo output — servos.c, autotrim.c
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#211-throttle-governor-motors-governorc-motorsc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.11 Throttle, governor, motors — governor.c, motors.c
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212-attitude-estimator-imuc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.12 Attitude estimator — imu.c
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213-airborne-detection-airbornec" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.13 Airborne detection — airborne.c
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#214-arming-failsafe-navigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.14 Arming, failsafe, navigation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-decision-log" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Decision log
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-review-findings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Review findings
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Review findings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#high" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        High
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#medium" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Medium
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#low" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Low
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checked-and-found-sound" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checked and found sound
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#not-reviewed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Not reviewed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-test-coverage-and-verification-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Test coverage and verification plan
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rx-wiring-autodetect/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RX Wiring Auto-detect
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../esc-signaling-autodetect/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ESC Signalling Auto-detect
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-conventions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Conventions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Conventions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#signal-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Signal chain
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mode-arbitration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mode arbitration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-subsystems-what-they-do-and-why" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Subsystems: what they do and why
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Subsystems: what they do and why">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-setpoint-shaping-setpointc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Setpoint shaping — setpoint.c
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-rate-pid-mode-1-pidc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Rate PID (mode 1) — pid.c
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-passthrough-and-manual-mixerc-setpointc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 PASSTHROUGH and MANUAL — mixer.c, setpoint.c
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-angle-and-horizon-levelingc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 ANGLE and HORIZON — leveling.c
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-attitude-hold-engine-hold_enginec-attholdc-tv_holdc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 Attitude hold engine — hold_engine.c, atthold.c, tv_hold.c
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-autohover-autohoverc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 AUTOHOVER — autohover.c
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27-acro-trainer-trainerc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7 Acro trainer — trainer.c
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#28-thrust-vector-loop-tv_pidc-tv_holdc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8 Thrust-vector loop — tv_pid.c, tv_hold.c
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#29-mixer-mixerc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.9 Mixer — mixer.c
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#210-servo-output-servosc-autotrimc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.10 Servo output — servos.c, autotrim.c
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#211-throttle-governor-motors-governorc-motorsc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.11 Throttle, governor, motors — governor.c, motors.c
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212-attitude-estimator-imuc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.12 Attitude estimator — imu.c
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213-airborne-detection-airbornec" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.13 Airborne detection — airborne.c
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#214-arming-failsafe-navigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.14 Arming, failsafe, navigation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-decision-log" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Decision log
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-review-findings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Review findings
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Review findings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#high" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        High
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#medium" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Medium
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#low" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Low
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checked-and-found-sound" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checked and found sound
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#not-reviewed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Not reviewed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-test-coverage-and-verification-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Test coverage and verification plan
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/WingFlight/edit/main/docs/contributing/tech/flight-dynamics.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="wingflight-flight-dynamics-design-rationale-and-review">Wingflight Flight Dynamics: Design Rationale and Review<a class="headerlink" href="#wingflight-flight-dynamics-design-rationale-and-review" title="Permanent link">&para;</a></h1>
+<p>This document describes how Wingflight turns pilot sticks and sensor data into surface and motor commands. It records why each piece is built the way it is, and lists the problems found in a review of that code.</p>
+<p><strong>Scope.</strong> Everything between the receiver and the servo/motor outputs: setpoint shaping, the rate PID, the leveling and hold modes, the thrust-vector loop, the mixer, servo and motor output, the attitude estimator, and the arming/failsafe/navigation logic that overrides them.</p>
+<p><strong>Basis.</strong> A static read of <code>master</code>. Nothing was compiled, simulated, or flown for this review. The one thing checked numerically was the fast quaternion product in <code>imu.c</code>, which matches the Hamilton product to 1e-15. Where a finding depends on a sign convention or on behaviour I could not observe, it says so.</p>
+<p><strong>Provenance of the rationale.</strong> "Why" statements come from in-code comments and commit messages, and are quoted or paraphrased. Where neither exists, the text says <em>inferred</em>.</p>
+<hr />
+<h2 id="1-conventions">1. Conventions<a class="headerlink" href="#1-conventions" title="Permanent link">&para;</a></h2>
+<p>These are easy to get wrong and are not written down elsewhere.</p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Convention</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pitch sign</td>
+<td><code>attitude.values.pitch</code> and <code>attitude.raw[PITCH]</code> are <strong>positive nose-down</strong> (inherited Betaflight convention). Nose-up vertical is <code>-900</code> decidegrees.</td>
+<td><a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/autohover.c">autohover.c</a> ("+900 drives the elevator toward nose-down, -900 is the physically-vertical, nose-up target"); <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/gps_rescue.c">gps_rescue.c</a> (positive angle = forward flight)</td>
+</tr>
+<tr>
+<td>Yaw sign</td>
+<td>RC yaw is clockwise-positive; gyro yaw is negative for the same motion. <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/setpoint.c">setpoint.c</a> negates RC yaw once, and everything downstream (setpoint, MANUAL, PASSTHROUGH) keeps that sign.</td>
+<td><code>setpointUpdate()</code>, <code>mixerGetPassthroughInput()</code></td>
+</tr>
+<tr>
+<td>Stabilized outputs</td>
+<td>PID sum is a unitless surface command, ±1.0 = full mixer input.</td>
+<td><code>pidSum</code> into <code>MIXER_IN_STABILIZED_*</code>, limits ±1000 in <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/pg/mixer.c">pg/mixer.c</a></td>
+</tr>
+<tr>
+<td>Axis error units</td>
+<td><code>axisError</code> is degrees (integrated rate error). <code>error_limit</code> is degrees.</td>
+<td><a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/pid.c">pid.c</a></td>
+</tr>
+<tr>
+<td>Quaternion</td>
+<td><code>q</code> is sensor frame relative to earth frame. <code>imuEulerToQuaternion()</code> takes decidegrees in the <code>attitude.values</code> convention and negates yaw internally.</td>
+<td><a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/imu.c">imu.c</a></td>
+</tr>
+<tr>
+<td>Loop timing</td>
+<td><code>pid.dT</code> comes from <code>gyro.targetLooptime</code>. With <code>pid_process_denom</code> &gt; 1, <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/fc/core.c">core.c</a> <code>taskMainPidLoop()</code> spreads setpoint → PID → mixer → servo across consecutive ticks, so output lags the PID by up to one denominator's worth of ticks.</td>
+<td><code>activePidLoopDenom</code> cases</td>
+</tr>
+</tbody>
+</table>
+<h3 id="signal-chain">Signal chain<a class="headerlink" href="#signal-chain" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code> RX (rx.c) ─► rcInput ─► rc.c: deadband, ±1 deflection, throttle 0..1
+                              │
+                              ▼
+        setpoint.c: airborne update ─► yaw sign ─► PT3 smoothing ─► yaw dynamic range
+                    ─► response/accel limit ─► sp.deflection ─► FF boost ─► rates curve ─► sp.setpoint
+                              │
+                              ▼
+        pid.c pidApplySetpoint(): first match wins
+           ANGLE|GPS_RESCUE|FAILSAFE|LOITER|RTH → leveling.c angleModeApply
+           AUTOHOVER → autohover.c        ATTHOLD → atthold.c → hold_engine.c
+           HORIZON → horizonModeApply     TRAINER → acroTrainerApply     else: acro
+                              │
+                              ▼
+        pid.c mode 1: P (TPA) + I + D + F + B  ─► pidSum   (mode 0: F only)
+        tv_pid.c (optional, independent loop, reuses the final main setpoint)
+                              │
+                              ▼
+        mixer.c: inputs → PASSTHROUGH / MANUAL override → rule table → outputs
+                              │
+                    servos.c (balance curve, speed limit, trim, travel)   motors.c (+ governor)
+</code></pre></div>
+<h3 id="mode-arbitration">Mode arbitration<a class="headerlink" href="#mode-arbitration" title="Permanent link">&para;</a></h3>
+<p><a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/fc/core.c">core.c</a> <code>processRxModes()</code> picks one leveling-family mode from the BOX switches. Priority: <strong>AUTOHOVER &gt; ATTHOLD &gt; ANGLE &gt; HORIZON &gt; TRAINER</strong>; the winner clears the others' flags, so with ANGLE and AUTOHOVER both switched on, AUTOHOVER runs and <code>ANGLE_MODE</code> is off.</p>
+<p>Separately, the "safety" set (<code>ANGLE | GPS_RESCUE | FAILSAFE | LOITER | RTH</code>) preempts AUTOHOVER and ATTHOLD inside <code>pidApplySetpoint()</code>. GPS rescue, loiter and RTH are set from their own switches and are not cleared by the chain above, so they do preempt a hold. <code>core.c</code> then feeds the hold <code>mode &amp;&amp; !safetyLevelingActive</code>, so the hold re-captures a fresh target when the safety mode releases.</p>
+<p><code>PASSTHROUGH</code>, <code>MANUAL</code> and <code>TRADITIONAL</code> are independent flags, not part of that chain.</p>
+<hr />
+<h2 id="2-subsystems-what-they-do-and-why">2. Subsystems: what they do and why<a class="headerlink" href="#2-subsystems-what-they-do-and-why" title="Permanent link">&para;</a></h2>
+<h3 id="21-setpoint-shaping-setpointc">2.1 Setpoint shaping — <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/setpoint.c">setpoint.c</a><a class="headerlink" href="#21-setpoint-shaping-setpointc" title="Permanent link">&para;</a></h3>
+<p>Order of operations: airborne update, yaw negation, PT3 smoothing (cutoff derived from measured RX frame interval), yaw dynamic deadband/ceiling, response-time and acceleration limit (→ <code>sp.deflection</code>), feed-forward "boost", rates curve (→ <code>sp.setpoint</code>).</p>
+<ul>
+<li><strong>Two outputs on purpose.</strong> <code>sp.deflection</code> (before boost and curve) feeds the leveling/hold layers and MANUAL. <code>sp.setpoint</code> (after) feeds acro. The boost exists only to sharpen the gyro loop's target; it has no meaning for a mode that skips the gyro loop. Commit <code>062e79151</code>: reusing the boosted setpoint for MANUAL made fast stick moves saturate early "and felt like passthrough".</li>
+<li><strong>Smoothing tied to the RX frame rate.</strong> Inherited from Rotorflight; it removes stair-stepping from 50–150 Hz link updates without a fixed lag.</li>
+</ul>
+<h3 id="22-rate-pid-mode-1-pidc">2.2 Rate PID (mode 1) — <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/pid.c">pid.c</a><a class="headerlink" href="#22-rate-pid-mode-1-pidc" title="Permanent link">&para;</a></h3>
+<p><code>error = setpoint − filtered gyro</code>. Terms:</p>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Formula</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P</td>
+<td><code>Kp · masterGain · gainCurve · TPA · crossAxisRelax · error</code></td>
+<td></td>
+</tr>
+<tr>
+<td>I</td>
+<td><code>Ki · masterGain · crossAxisRelax · axisError</code></td>
+<td>Not attenuated by TPA. Forced to 0 output (state kept) under <code>TRADITIONAL_MODE</code>.</td>
+</tr>
+<tr>
+<td>D</td>
+<td><code>Kd · masterGain · gainCurve · TPA · crossAxisRelax · d/dt(−gyro)</code></td>
+<td>Gyro-only D (no setpoint kick). Default D = 0.</td>
+</tr>
+<tr>
+<td>F</td>
+<td><code>Kf · setpoint</code></td>
+<td>Default carries the whole stick response: F=100 → 0.0025/(°/s), so 400 °/s = full travel.</td>
+</tr>
+<tr>
+<td>B</td>
+<td><code>Kb · d/dt(setpoint)</code></td>
+<td>FF boost; default 0.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Default authority budget</strong> (from <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/pg/pid.c">pg/pid.c</a> and <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/pid.h">pid.h</a> scale constants):</p>
+<table>
+<thead>
+<tr>
+<th>Axis</th>
+<th>P at 100 °/s error</th>
+<th>I ceiling (Ki · <code>error_limit</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Roll / pitch</td>
+<td>0.033</td>
+<td>0.0032 × 45° = 0.144</td>
+</tr>
+<tr>
+<td>Yaw</td>
+<td>0.53</td>
+<td>0.010 × 60° = <strong>0.60</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Yaw I can therefore drive 60% of travel on its own. That is deliberate room for rudder trim under prop torque, but it is large enough to matter for the anti-windup review below.</p>
+<p><strong>Design decisions:</strong></p>
+<ul>
+<li><strong>Throttle-based gain attenuation (<code>fw_tpa_gain</code>, <code>fw_tpa_curve</code>).</strong> Throttle is used as a proxy for prop-wash over the surfaces, "not airspeed": on aircraft that hover or harrier at or past stall, surfaces stay authoritative at high throttle regardless of airspeed, so gain falls as throttle <em>rises</em>. Structured like <code>master_gain</code> + <code>gain_curve</code> (baseline scale × optional curve from the shared pool) so tuners have one mental model. Applies to P and D only.</li>
+<li><strong>Master gain applied at the point of use</strong>, not baked into <code>coef[]</code>, so any live adjustment stays correct regardless of which adjustment last touched a coefficient.</li>
+<li><strong>I-term error relax</strong> (<code>iterm_relax_*</code>): high-pass of the setpoint scales accumulation down during fast stick motion. Inherited.</li>
+<li><strong>Cross-axis relax</strong> (<code>cross_axis_relax_*</code>): yaw activity softens roll and/or pitch feedback "so rudder does not feel like an artificial hold". Default off.</li>
+<li><strong>Anti-windup:</strong> accumulation stops only when the mixer input for that axis is saturated <em>and</em> the error would push further into saturation (<code>pidAxisSaturated</code>). Servo travel clipping also raises saturation (<code>mixerSaturateServoOutput</code>), so trim-induced clipping is covered.</li>
+<li><strong><code>rotateAxisError()</code>:</strong> rotates roll/pitch <code>axisError</code> by the yaw gyro so a stored error stays fixed in the earth-ish frame during a yaw rotation. Physically correct for a knife-edge or hover, harmless in cruise.</li>
+<li><strong>I-term decay policy</strong> (the most-edited rule in this file):</li>
+<li>Default <code>iterm_decay_time=6</code> → decay rate 10/6 s⁻¹, i.e. τ ≈ 0.6 s, capped at 35 °/s. Plain acro/manual flight bleeds I at this rate.</li>
+<li><strong>Suspended</strong> on roll/pitch while any of ANGLE/HORIZON/GPS-rescue/failsafe/loiter/RTH/TRAINER shapes the setpoint, and on any AUTOHOVER axis that is holding. Reason (commit <code>8a2b5233c</code>): the decay was inherited from the helicopter lineage to stop servo creep, but it "quietly erod[es] exactly the sustained I-term those layers need … felt like the correction giving up after a couple of seconds".</li>
+<li><strong>Slowed to 10%</strong> (τ ≈ 6 s, 3.5 °/s) on an ATTHOLD axis that is holding (<code>QUATHOLD_HOLD_I_DECAY_SCALE</code>), except for 3 s after a stall re-capture, when it runs at full rate (see §2.5). Reason (commit <code>10bf9b81d</code>): with no bleed, stale I "parks the surfaces off-centre forever" at zero error and zero motion, e.g. on the bench. A real steady disturbance is still held because the outer loop re-grows the I it needs.</li>
+<li><strong>Unchanged (full rate)</strong> for an axis that is free-tracking or settling inside a hold mode. Commit <code>92c9de190</code>: it is plain rate flight, so it should not carry stale I from an earlier manoeuvre into the next hold.</li>
+<li><strong>Gyro overflow</strong> (<code>gyroOverflowDetected()</code>): <code>pidReset()</code> zeros all PID state and outputs until the gyro has read sane values for 50 ms. Protects against "yaw spin to the moon" after a crash-level over-range.</li>
+</ul>
+<p><strong>Mode 0</strong> (<code>pid_mode</code> ≠ 1) outputs F only: a stick-proportional command with no stabilization.</p>
+<h3 id="23-passthrough-and-manual-mixerc-setpointc">2.3 PASSTHROUGH and MANUAL — <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/mixer.c">mixer.c</a>, <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/setpoint.c">setpoint.c</a><a class="headerlink" href="#23-passthrough-and-manual-mixerc-setpointc" title="Permanent link">&para;</a></h3>
+<p>Two distinct modes since commit <code>621dd3712</code>:</p>
+<ul>
+<li><strong>PASSTHROUGH</strong> replaces the stabilized mixer inputs with raw RC channels. No rates, no expo, no PID. Takes priority over MANUAL. TV stabilized inputs are zeroed because no raw channel maps to them. This is the "bail-out" mode.</li>
+<li><strong>MANUAL</strong> keeps the pilot's rates/expo but drops the gyro correction: output = <code>Kf · applyRatesCurve(sp.deflection)</code>, clamped ±1. Rationale (commit <code>a40c7860a</code>): MANUAL is meant to be "stabilized flight minus the gyro correction", and F is exactly that contribution, so reusing it makes MANUAL track however the airframe's F was tuned instead of an arbitrary fixed ceiling. Two earlier attempts (<code>062e79151</code>, <code>ec909933a</code>) had made MANUAL either saturate early or ignore the configured rates.</li>
+</ul>
+<p>See finding <strong>M-3</strong> for the consequence of tying MANUAL's authority to F.</p>
+<h3 id="24-angle-and-horizon-levelingc">2.4 ANGLE and HORIZON — <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/leveling.c">leveling.c</a><a class="headerlink" href="#24-angle-and-horizon-levelingc" title="Permanent link">&para;</a></h3>
+<p>Standard Betaflight Euler-angle leveling on roll and pitch only; yaw stays a pass-through so the rudder is never held. Target angle = stick × <code>level_limit</code> (default 55°) + GPS-rescue/nav offsets, clamped to the limit. Rate command = error × <code>level_strength/10</code> (default 4 °/s per °). HORIZON blends that into the acro setpoint by stick position and inclination. Below "airborne" the error is scaled to 25% (see <strong>H-4</strong>).</p>
+<p>Euler math is acceptable here because ANGLE is limited to 55° and pitch never nears ±90°. This is exactly why AUTOHOVER and ATTHOLD do <em>not</em> use it.</p>
+<h3 id="25-attitude-hold-engine-hold_enginec-attholdc-tv_holdc">2.5 Attitude hold engine — <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/hold_engine.c">hold_engine.c</a>, <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/atthold.c">atthold.c</a>, <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/tv_hold.c">tv_hold.c</a><a class="headerlink" href="#25-attitude-hold-engine-hold_enginec-attholdc-tv_holdc" title="Permanent link">&para;</a></h3>
+<p><strong>What it does.</strong> Per axis, the hold either <em>tracks</em> (pilot stick outside <code>deadband</code>: setpoint passes through and the target follows the aircraft) or <em>holds</em> (stick centred and the axis has stopped rotating: rate command = attitude error × gain, clamped to <code>max_rate</code>).</p>
+<p><strong>Key decisions:</strong></p>
+<ul>
+<li><strong>Quaternion error, not Euler.</strong> Needed to work through inverted, knife-edge and harrier attitudes where Euler roll/pitch couple. Error is <code>2 × vector part</code> of <code>q_current⁻¹ · q_target</code> (shortest-path sign-corrected). That is singularity-free across 0–180°, at the cost of a non-linear measure: it saturates at 2 rad (≈115°) and reads 81° for a true 90° error, so gain is effectively lower at large errors.</li>
+<li><strong>Per-axis independence</strong> (commit <code>4d714a433</code>). A blackbox from a real flight showed roll never correcting torque roll while the pilot held elevator: the earlier gate was one OR across all three sticks. Each axis now tracks or freezes on its own stick. The target is advanced by zeroing the tracking axes' components of the error quaternion and recomposing, never by extracting Euler angles.</li>
+<li><strong>Settle-then-capture</strong> (<code>HOLD_SETTLE_RATE</code> 15 °/s or <code>HOLD_SETTLE_MAX_S</code> 0.4 s). Freezing at the instant the stick centres pins the target to an attitude the aircraft is still rotating through, and the hold hauls it back: a rubber-band snap-back "unlike plain acro, where the rate loop just brakes and the attitude stays put". The time cap stops a persistent disturbance rotation from keeping an axis in tracking forever.</li>
+<li><strong>Stall timeout</strong> (error &gt; 5° and rate &lt; 5 °/s for 3 s → re-capture). A hold pinned against something it cannot move (aircraft on the bench, surface with no authority) gives up instead of leaving surfaces pegged. A small sag held by I stays under the threshold. This is silent to the pilot. <strong>Wound-up I is bled at the full rate for 3 s after a re-capture</strong> (<code>HOLD_STALL_BLEED_S</code>, <code>quatHoldIDecayScale()</code>). Without that, the 10% hold-rate bleed took about 15 s to re-centre roll/pitch (longer on yaw, whose I ceiling is 0.60 of travel): 3 s stall timeout, then about 7 s of linear decay at 3.5 °/s, then an exponential tail. Now it re-centres in roughly 5–6 s in total, with no step, because it decays rather than resetting.</li>
+<li><strong>Pre-airborne authority reduced, not zeroed</strong> (commit <code>8a2b5233c</code>). Forcing passthrough on the ground made both hold modes look dead on the bench. They now use the same 25% scaling that ANGLE/HORIZON already used.</li>
+<li><strong>One engine, two instances</strong> (commits <code>50b444423</code>, <code>83a5965e0</code>). ATTHOLD and the thrust-vector hold each own a <code>quatHold_t</code> but run identical code, so a fix lands in both.</li>
+<li><strong>Clamps at load, not only at the CLI</strong> (commit <code>fa54e333d</code>). MSP <code>SET_PID_PROFILE</code> writes the raw byte with no clamping, so <code>deadband &gt; 100</code> would have made the tracking test never trip and frozen the hold at full stick.</li>
+<li><strong>Re-capture after a safety mode</strong> (commit <code>fa54e333d</code>). The AUTOHOVER/ATTHOLD flag stayed set while a safety mode preempted the setpoint, so the hold never saw a rising edge and resumed a stale target. <code>core.c</code> now feeds <code>mode &amp;&amp; !safetyLevelingActive</code>.</li>
+</ul>
+<p><strong>Known limitation (documented in source):</strong> does not subtract <code>accelerometerTrims</code>, unlike <code>leveling.c</code>/<code>trainer.c</code>, so a pilot with board-mount trim dialled in will hold slightly off where the sticks were released.</p>
+<h3 id="26-autohover-autohoverc">2.6 AUTOHOVER — <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/autohover.c">autohover.c</a><a class="headerlink" href="#26-autohover-autohoverc" title="Permanent link">&para;</a></h3>
+<p>Quaternion vertical (nose-up) attitude and heading hold for 3D prop-hang.</p>
+<ul>
+<li><strong>Target</strong> = vertical at the captured heading, plus pitch/yaw stick deflection (× <code>max_angle</code>, default 30°) as a small body-frame offset. Right-multiplied so stick feel does not depend on which way the held heading points.</li>
+<li><strong>Roll is the pilot's pirouette axis</strong> (roll coincides with world-vertical at hover). Free while the stick is deflected. Since commit <code>7bc87e81b</code> it is captured and held once the stick centres, so torque roll no longer goes uncorrected.</li>
+<li><strong>Roll-hold only runs near vertical</strong> (pitch+yaw error &lt; 30°). Far from vertical the quaternion error does not decompose per axis, so <code>errorDeg[0]</code> picks up pitch/yaw error and feeds the roll-offset integrator: a bench-confirmed runaway (commit <code>8a2b5233c</code>).</li>
+<li><strong>Two-stage roll lock</strong> (commit <code>51ba254f0</code>). Tracking starts at 30° but freeze and the settle countdown only run inside 10°. Before this, the settle clock's 0.4 s cap expired mid-flare while torque roll still spun the aircraft, freezing a target the aircraft was still rotating through. Leaving the 30° band now clears the capture.</li>
+<li><strong>Default <code>max_rate</code> 300 → 120 °/s</strong> (same commit): engaging in forward flight now makes a wide turn instead of a hard 90° snap. At gain 5 that saturates at 24° of error.</li>
+<li><strong>Optional throttle assist</strong> (<code>throttle_assist_*</code>, gain 0 = disabled by default; commit <code>befd8f6cf</code>). Ramps a bounded throttle add when pitch correction stays pinned at <code>max_rate</code>, as a proxy for "the airframe cannot out-thrust the hold". Ramped both ways, capped by a 50% firmware backstop independent of CLI/MSP values. See finding <strong>M-1</strong>.</li>
+<li><strong>Pitch sign</strong>: <code>imuEulerToQuaternion(roll, −900, heading)</code>. Commit <code>89f531016</code> fixed an initial nose-down target.</li>
+</ul>
+<p>Limitations already in the source comment: no <code>accelerometerTrims</code>; heading captured from an <code>atan2</code> that degrades toward 90° pitch; attitude only, no position hold; manual throttle.</p>
+<h3 id="27-acro-trainer-trainerc">2.7 Acro trainer — <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/trainer.c">trainer.c</a><a class="headerlink" href="#27-acro-trainer-trainerc" title="Permanent link">&para;</a></h3>
+<p>Angle-limits roll/pitch in acro using a projected-angle lookahead. Stateless (no latch). Inherited unchanged.</p>
+<h3 id="28-thrust-vector-loop-tv_pidc-tv_holdc">2.8 Thrust-vector loop — <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/tv_pid.c">tv_pid.c</a>, <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/tv_hold.c">tv_hold.c</a><a class="headerlink" href="#28-thrust-vector-loop-tv_pidc-tv_holdc" title="Permanent link">&para;</a></h3>
+<p>A second, independent rate PID for vectored-thrust actuators (commit <code>107cfee43</code>), feeding <code>MIXER_IN_STABILIZED_TV_*</code>. It runs after the main PID and reuses the main loop's final setpoint, so it inherits any leveling/hold shaping. <code>BOXTHRUSTVECTOR</code> gates it live; while off it is reset so re-engaging ramps from zero instead of bumping. The optional TV hold (commit <code>83a99b1ba</code>) lets a jet hold attitude on the nozzle alone while the surfaces stay in acro, useful post-stall. It yields to the safety set so a stale target never fights a recovery.</p>
+<p>It deliberately has no TPA, cross-axis relax, <code>TRADITIONAL_MODE</code>, or <code>rotateAxisError</code>.</p>
+<h3 id="29-mixer-mixerc">2.9 Mixer — <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/mixer.c">mixer.c</a><a class="headerlink" href="#29-mixer-mixerc" title="Permanent link">&para;</a></h3>
+<p>A rule table: <code>output (SET/ADD/MUL) = offset + weight · curve(input · rate)</code>, with a separate negative weight, an optional slew (<code>speed</code>), and an optional logic-condition gate. Default wing layout (S1/S2 ailerons from stabilized roll, S3 elevator, S4 rudder, M1 throttle) is in <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/pg/mixer.c">pg/mixer.c</a>.</p>
+<ul>
+<li><strong>Live-adjustable rule weights</strong> (flap compensation, differential-thrust yaw) find rules by <em>role tag</em>, because nothing reserves fixed rule slots and the configurator reorders freely. The adjustment writes only |weight|; the pilot's polarity is kept in a separate <code>mixerRuleSign[]</code> because a live magnitude passes through 0, which has no sign.</li>
+<li><strong>Saturation flags</strong> last <code>MIXER_SATURATION_TIME</code> (5) ticks and gate the PID's anti-windup.</li>
+<li><strong>Overrides and wiggle</strong> apply only while disarmed.</li>
+</ul>
+<h3 id="210-servo-output-servosc-autotrimc">2.10 Servo output — <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/servos.c">servos.c</a>, <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/autotrim.c">autotrim.c</a><a class="headerlink" href="#210-servo-output-servosc-autotrimc" title="Permanent link">&para;</a></h3>
+<p>Order: mixer output → geometry correction → <strong>balance curve</strong> → speed limit → reverse → <code>rpos</code>/<code>rneg</code> scale → runtime trim → travel limit → <code>mid</code>.</p>
+<ul>
+<li><strong>Balance curve</strong> (commit <code>aa362d09a</code>): a small additive delta so two servos on one surface can be matched across the throw, the same idea as ETHOS "Balance channels". Additive, not a reshape, so an unconfigured curve is a zero delta.</li>
+<li><strong>Trim is split in two</strong> (commit <code>220980d8d</code>). Switch-stepped and auto trim edit <code>mid</code> (saved). A continuous pot/channel trim is a <strong>runtime-only</strong> offset limited to 20% of scale and never saved. If it were saved, the pot would apply itself on top of its own saved result after every reboot, and a bad reading at boot would leave a wrong centre behind. Trim direction folds together three independent reversals (axis input rate sign, rule weight sign, servo REVERSED flag) so paired surfaces stay coordinated.</li>
+<li><strong>Auto trim</strong> (from iNav's BOXAUTOTRIM): while the switch is on and armed, averages each stabilized servo's final output for 2 s and stores it as the new centre. Turning the switch off before disarm reverts it. It removes the runtime trim from what it stores.</li>
+</ul>
+<h3 id="211-throttle-governor-motors-governorc-motorsc">2.11 Throttle, governor, motors — <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/governor.c">governor.c</a>, <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/motors.c">motors.c</a><a class="headerlink" href="#211-throttle-governor-motors-governorc-motorsc" title="Permanent link">&para;</a></h3>
+<p>Throttle goes <code>getThrottle()</code> → AUTOHOVER assist → <code>governorApply()</code> → mixer M1 → <code>motorUpdate()</code>. The governor has four modes (off, RPM idle-hold, fixed throttle, RPM range) plus an RPM max limiter. Notable decisions:</p>
+<ul>
+<li>When a governor mode is configured <strong>and</strong> a switch is assigned to <code>BOXGOVERNOR</code>, that switch is a <strong>hard motor interlock</strong>: stick has no authority until it is engaged. The <code>isModeActivationConditionPresent()</code> guard stops a configured-but-unwired governor from hard-cutting the motor forever.</li>
+<li><strong>RX loss bypasses the governor</strong> so a held-on governor switch cannot override the failsafe throttle cut. It tests <code>!rxIsReceivingSignal()</code> first because <code>failsafeIsActive()</code> is unreliable while monitoring is disabled (see <strong>H-1</strong>).</li>
+<li>The P term is low-passed at 2 Hz for idle modes because a fixed-wing prop has almost no inertia and an unfiltered P limit-cycles on RPM quantisation.</li>
+</ul>
+<h3 id="212-attitude-estimator-imuc">2.12 Attitude estimator — <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/imu.c">imu.c</a><a class="headerlink" href="#212-attitude-estimator-imuc" title="Permanent link">&para;</a></h3>
+<p>Mahony quaternion filter (gyro integration corrected by accelerometer, plus magnetometer or GPS course when available).</p>
+<ul>
+<li>Accelerometer accepted only within 0.9–1.1 g.</li>
+<li>Gain is ×10 while disarmed, and after a disarm a 250 ms gyro-quiet period triggers a 500 ms high-gain re-convergence, to recover from a crash-induced bad attitude.</li>
+<li>Integral feedback stops above 20 °/s spin.</li>
+<li>Heading: magnetometer, else GPS course over ground above 5 m/s with ≥5 satellites.</li>
+</ul>
+<h3 id="213-airborne-detection-airbornec">2.13 Airborne detection — <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/airborne.c">airborne.c</a><a class="headerlink" href="#213-airborne-detection-airbornec" title="Permanent link">&para;</a></h3>
+<p>State machine: LANDED → AIRBORNE when armed and any of {peak stick &gt; 2.5% (<code>rc_threshold</code>/1000), tilt cosine &lt; 0.8 (≈37°), failsafe/GPS-rescue}. Back to LANDED when disarmed, or when sticks &lt; 1.7% <em>and</em> tilt cosine &gt; 0.9 (≈26°) <em>and</em> no failsafe. Consumers: the 25% authority scaling in leveling and the hold modes, the AUTOHOVER assist gate, SmartFuel, blackbox. Inherited from the helicopter lineage; see <strong>H-4</strong>.</p>
+<h3 id="214-arming-failsafe-navigation">2.14 Arming, failsafe, navigation<a class="headerlink" href="#214-arming-failsafe-navigation" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Arming.</strong> <code>isUpright()</code> checks only that the attitude estimate is established, not that the aircraft is level (see <strong>L-4</strong>). That suits hand-launched wings, but the name is misleading. A re-arm grace window after an in-flight disarm relaxes the throttle and attitude checks.</li>
+<li><strong>Failsafe.</strong> See <strong>H-1</strong>. Effective behaviour today is receiver-side substitution in <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/rx/rx.c">rx.c</a> only.</li>
+<li><strong>RTH and Loiter</strong> (<a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/gps_nav.c">gps_nav.c</a>, commit <code>255829c23</code>): produce roll and pitch <em>angle</em> targets that flow through the ANGLE-mode path. Track error → bank (P only, default 2.0 °/°, max 25°); altitude error → pitch (default 1 °/m, max 15°). No throttle, no wind compensation.</li>
+<li><strong>GPS Rescue</strong> (<a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/gps_rescue.c">gps_rescue.c</a>) is Betaflight's quad code. See <strong>H-2</strong>.</li>
+</ul>
+<hr />
+<h2 id="3-decision-log">3. Decision log<a class="headerlink" href="#3-decision-log" title="Permanent link">&para;</a></h2>
+<p>Rationale reconstructed from commit messages. Dates are commit dates.</p>
+<table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Commit</th>
+<th>Decision</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2026-06-28</td>
+<td><code>d60575985</code></td>
+<td>Fork Rotorflight into a fixed-wing firmware</td>
+<td>Wing-first behaviour; heli slots kept as reserved IDs for MSP/BOX compatibility</td>
+</tr>
+<tr>
+<td>2026-07-05</td>
+<td><code>e10a57cd4</code>, <code>16b0e68d9</code></td>
+<td>Remove Euler ATTHOLD; add quaternion AUTOHOVER</td>
+<td>Euler math gimbal-locks at 90° pitch, the one attitude hover lives at</td>
+</tr>
+<tr>
+<td>2026-07-05</td>
+<td><code>621dd3712</code></td>
+<td>Split MANUAL from PASSTHROUGH</td>
+<td>Separate a "no gyro but rates/expo" mode from a raw bail-out</td>
+</tr>
+<tr>
+<td>2026-07-08</td>
+<td><code>b9d03d122</code></td>
+<td>Allow aileron control in AUTOHOVER</td>
+<td>Roll is world-vertical at hover, so it is the pirouette control</td>
+</tr>
+<tr>
+<td>2026-07-09</td>
+<td><code>3799be71d</code></td>
+<td>Re-add ATTHOLD on quaternion math</td>
+<td>Works through any attitude</td>
+</tr>
+<tr>
+<td>2026-08-09</td>
+<td><code>107cfee43</code></td>
+<td>Independent thrust-vector PID loop</td>
+<td>Vectored nozzles need tuning separate from surfaces</td>
+</tr>
+<tr>
+<td>2026-08-29</td>
+<td><code>83a99b1ba</code></td>
+<td>Independent TV attitude hold</td>
+<td>Hold heading on the nozzle while surfaces stay in acro (low airspeed, post-stall)</td>
+</tr>
+<tr>
+<td>2026-09-11</td>
+<td><code>062e79151</code>, <code>ec909933a</code></td>
+<td>MANUAL built from <code>sp.deflection</code> and the rate curve</td>
+<td>Boost saturated early; normalizing by own rcRates cancelled the rates</td>
+</tr>
+<tr>
+<td>2026-09-17</td>
+<td><code>4d714a433</code></td>
+<td>Hold each ATTHOLD axis independently</td>
+<td>Real-flight blackbox: roll was uncorrected while elevator was held</td>
+</tr>
+<tr>
+<td>2026-09-17</td>
+<td><code>7bc87e81b</code></td>
+<td>Hold AUTOHOVER roll once the stick centres</td>
+<td>Torque roll went uncorrected</td>
+</tr>
+<tr>
+<td>2026-09-17</td>
+<td><code>8a2b5233c</code></td>
+<td>25% pre-airborne authority; suspend I decay under leveling; near-vertical gate on roll hold</td>
+<td>Bench: modes looked dead, correction "gave up", roll-hold runaway</td>
+</tr>
+<tr>
+<td>2026-09-17</td>
+<td><code>a40c7860a</code></td>
+<td>MANUAL scaled through F</td>
+<td>Track the airframe's real tuning</td>
+</tr>
+<tr>
+<td>2026-09-18</td>
+<td><code>92c9de190</code>, <code>05bc541c5</code></td>
+<td>Settle-then-capture for ATTHOLD and AUTOHOVER roll</td>
+<td>Remove release snap-back</td>
+</tr>
+<tr>
+<td>2026-09-18</td>
+<td><code>10bf9b81d</code></td>
+<td>10% I decay and stall timeout on holds</td>
+<td>Re-centre surfaces when nothing is happening</td>
+</tr>
+<tr>
+<td>2026-09-18</td>
+<td><code>50b444423</code>, <code>83a5965e0</code></td>
+<td>Extract shared hold engine</td>
+<td>One fix, both loops</td>
+</tr>
+<tr>
+<td>2026-09-18</td>
+<td><code>befd8f6cf</code>, <code>fa54e333d</code></td>
+<td>Optional AUTOHOVER throttle assist; fix stale targets under safety modes, unclamped deadbands, zero-max-rate trigger</td>
+<td>Under-thrust hovers; MSP has no clamping</td>
+</tr>
+<tr>
+<td>2026-09-18</td>
+<td><code>aa362d09a</code></td>
+<td>Per-servo balance curve</td>
+<td>Twin servos on one surface can bind</td>
+</tr>
+<tr>
+<td>2026-09-19</td>
+<td><code>220980d8d</code></td>
+<td>Continuous servo trim is runtime-only</td>
+<td>Saved pot trim re-applied itself every boot</td>
+</tr>
+<tr>
+<td>2026-09-19</td>
+<td><code>51ba254f0</code></td>
+<td>Two-stage roll lock; <code>max_rate</code> 300 → 120</td>
+<td>Snap-back mid-flare; hard 90° snap on engage</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4-review-findings">4. Review findings<a class="headerlink" href="#4-review-findings" title="Permanent link">&para;</a></h2>
+<p>Severity reflects consequence in flight, not effort to fix. <strong>Confirmed</strong> = follows directly from the code as read. <strong>Needs verification</strong> = depends on a convention or runtime behaviour I could not observe.</p>
+<h3 id="high">High<a class="headerlink" href="#high" title="Permanent link">&para;</a></h3>
+<p><strong>H-1. The flight-controller failsafe state machine never runs.</strong> <em>Confirmed.</em>
+<a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/failsafe.c#L118">failsafe.c:118</a> <code>failsafeStartMonitoring()</code> has its body commented out ("RTFL: Keep disabled until code refactored"), so <code>failsafeIsMonitoring()</code> is always false and <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/failsafe.c#L204">failsafe.c:204</a> makes <code>failsafeUpdateState()</code> return immediately. Consequences:
+- <code>FAILSAFE_MODE</code> is never set from link loss. No landing, no drop/disarm, and <code>failsafe_procedure</code>, <code>failsafe_delay</code>, <code>failsafe_off_delay</code> and <code>failsafe_throttle_low_delay</code> have no effect on link loss.
+- <code>GPS_RESCUE</code> cannot be entered by failsafe.
+- What does happen is <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/rx/rx.c">rx.c</a> <code>detectAndApplySignalLossBehaviour()</code>: hold last value 300 ms, then per-channel fallback (default AUTO: roll/pitch/yaw centred, throttle just below the off-throttle threshold, <strong>all other channels hold last value</strong>, including the arm switch and any mode switches).
+- The user docs used to describe <code>failsafe_procedure</code>, <code>failsafe_delay</code> and <code>failsafe_off_delay</code> as if stage 2 worked, and GPS Rescue as a working failsafe. The <code>failsafe</code> and <code>gps-rescue</code> pages in the wingflight-docs repo are corrected in WingFlight/wingflight-docs#20. The governor code already knew about the stub; the CLI settings still exist and do nothing.</p>
+<p><em>Fix.</em> Either enable and adapt stage 2 for wings (what should a plane do: level and cut, or RTH?), or delete the dead settings. Until then, tell pilots to configure the receiver's own failsafe, including the mode switches.</p>
+<p><strong>H-2. GPS Rescue does not steer or control altitude on a wing.</strong> <em>Confirmed.</em>
+<code>gpsRescueGetYawRate()</code> and <code>gpsRescueGetThrottle()</code> (<a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/gps_rescue.c#L653">gps_rescue.c:653</a>, <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/gps_rescue.c#L658">:658</a>) are declared but called from nowhere, and <code>gpsRescueAngle[AI_ROLL]</code> is only ever set to 0. What remains active is the pitch angle from Betaflight's <em>quad</em> speed controller: below target ground speed it commands more nose-down pitch. In <code>GPS_RESCUE_MODE</code> a wing therefore levels the wings and pitches down with no heading correction and no thrust control. Only reachable via <code>BOXGPSRESCUE</code> today (see H-1), but it is a selectable mode.</p>
+<p><em>Fix.</em> Hide/disable it for wings and point pilots at RTH, or reimplement on the RTH path.</p>
+<p><strong>H-3. RTH altitude hold is probably inverted.</strong> <em>Needs verification (bench or SITL).</em>
+<a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/gps_nav.c#L139">gps_nav.c:139</a>: <code>pitchDdeg = Kp · (target − current)</code>; positive means "aircraft is below target". <code>navAngle[PITCH]</code> is added to a target angle in <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/leveling.c">leveling.c</a> where pitch is <strong>positive nose-down</strong> (§1). So being below target commands nose-down, which descends further. Two independent code comments (AUTOHOVER <code>-900</code> = nose-up; GPS rescue positive = forward flight) support that convention. Roll sign checks out (target clockwise of course → positive → right bank).</p>
+<p><em>Fix.</em> Negate the pitch term once confirmed. Add a unit test for both signs.</p>
+<p><strong>H-4. "Airborne" is read from stick and tilt only, so a level, hands-off aircraft counts as landed.</strong> <em>Confirmed by code; effect size needs flight data.</em>
+<a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/airborne.c#L103">airborne.c:103</a> <code>touchdown()</code> is true when armed, sticks &lt; ~1.7%, tilt cosine &gt; 0.9, no failsafe. A wing cruising level with hands off satisfies that within a few seconds of stick release (the stick peak filter decays with a 0.5 Hz cutoff). <code>isAirborne()</code> then false scales the error to <strong>25%</strong> in ANGLE/HORIZON (<a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/leveling.c#L215">leveling.c:215, :230</a>), ATTHOLD/TV hold (<a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/hold_engine.c#L210">hold_engine.c:210</a>) and AUTOHOVER (<a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/autohover.c#L341">autohover.c:341</a>). Leaving LANDED needs tilt beyond 37° (or stick input) while re-entering it needs tilt under 26°, so a hands-off aircraft that is already LANDED and gets disturbed to 30° bank keeps the weak gain until 37°. The most common use of a hold mode (release the sticks, expect it to hold) is exactly the case where the hold is quartered. The same applies to a hand launch with centred sticks.</p>
+<p>The 25% rule was added so modes can be tested on the bench without snapping (commit <code>8a2b5233c</code>); the airborne signal was designed for a helicopter and has no throttle or airspeed input here.</p>
+<p><em>Fix options.</em> Include throttle above idle (or motor output) in liftoff and require it below idle to land; or scale by a separate "on the ground" test (no throttle and low gyro), not by stick activity.</p>
+<h3 id="medium">Medium<a class="headerlink" href="#medium" title="Permanent link">&para;</a></h3>
+<p><strong>M-1. AUTOHOVER throttle assist ignores the throttle stick and RX loss.</strong> <em>Confirmed.</em>
+<a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/mixer.c#L341">mixer.c:341</a> adds <code>autoHoverThrottleBoost()</code> to <code>getThrottle()</code> unconditionally, up to <code>throttle_assist_max</code> (default 15%, hard cap 50%). With the stick at idle the motor can spin up, and on link loss the held-on AUTOHOVER switch plus centred sticks can keep assisting (H-1 means no failsafe mode clears it). The governor has an explicit failsafe bypass for the same reason; this path does not. Disabled by default (<code>throttle_assist_gain=0</code>), so exposure is limited to users who enabled it.</p>
+<p><em>Fix.</em> Gate the boost on the throttle stick being above off-throttle and on <code>rxIsReceivingSignal()</code>.</p>
+<p><strong>M-2. Loiter direction is inverted.</strong> <em>Confirmed by geometry.</em>
+<a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/gps_nav.c#L125">gps_nav.c:125</a>: clockwise adds +90° to the <em>bearing to the target</em>. Aircraft south of the target (bearing 0°) is sent east (90°), which is counter-clockwise. <code>nav_loiter_direction = CW</code> orbits CCW and vice versa. Also: the orbit has no radial correction, so it circles at whatever radius it entered, and it steers on GPS course over ground, which is undefined at low groundspeed.</p>
+<p><strong>M-3. MANUAL authority is coupled to F and to the rate profile.</strong> <em>Confirmed.</em>
+<a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/setpoint.c#L182">setpoint.c:182</a>: output = <code>Kf · rate</code>. At default F=100 a 400 °/s rate is full travel; at <code>F=0</code> MANUAL outputs <strong>nothing</strong>, and a milder rate profile gives proportionally less throw. That was intended (commit <code>a40c7860a</code>), but MANUAL is the fallback a pilot reaches for when the stabilized loop is misbehaving, and a tuning choice made for the PID (lower F, lower rates) silently shrinks it.</p>
+<p><em>Fix.</em> Give MANUAL its own scale or a floor, or warn at configuration time when <code>F × max rate &lt; 1</code>.</p>
+<p><strong>M-4. No guard against NaN/Inf at the servo boundary.</strong> <em>Confirmed (defence in depth).</em>
+<a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/servos.c#L370">servos.c:370</a> writes <code>lrintf(pos · resolution)</code> straight to the timer compare register. <code>limitTravel</code> uses <code>&gt;</code>/<code>&lt;</code>, which are false for NaN, so a NaN from any upstream source would pass through as an undefined integer. I found no unguarded divide today (<a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/fc/rc.c#L235">rc.c:235</a> <code>range = deflection − deadband</code> would divide by zero only if the config allowed deadband ≥ deflection). One <code>isfinite</code> check in <code>servoUpdate()</code> and in <code>mixerUpdate()</code> closes it.</p>
+<p><strong>M-5. Attitude estimator assumes the accelerometer reads gravity.</strong> <em>Needs flight data.</em>
+<a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/imu.c#L320">imu.c:320</a> accepts 0.9–1.1 g. For a wing, sustained banked turns below ~25° bank and thrust acceleration both stay inside that window and bias the tilt estimate toward the turn or the acceleration. AUTOHOVER and every leveling mode depend on that estimate. There is no centripetal or airspeed correction. Kp and Ki defaults were not reviewed here. Worth checking against a blackbox of a sustained turn before tuning hold gains.</p>
+<p><strong>M-6. Servo <code>speed</code> limiting couples every roll/pitch surface.</strong> <em>Confirmed; default off.</em>
+<a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/servos.c#L424">servos.c:424–455</a>: a slow servo's overrun scales <em>all</em> servos fed by roll or pitch (<code>cyclic_ratio</code>), so one rate-limited flap or aileron slows the elevator too. That is right for a helicopter swashplate and wrong for independent wing surfaces. <code>DEFAULT_SERVO_SPEED</code> is 0, so it only bites when a pilot sets a speed.</p>
+<h3 id="low">Low<a class="headerlink" href="#low" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>L-1. Heli remnants in the adjustment code.</strong> <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/pid.c#L253">pid.c:253, :308, :319</a> scale roll D, pitch B and roll B by <code>pidMode == 4</code>. Mode 4 does not exist here, so those branches are dead.</li>
+<li><strong>L-2. Roll D scale is 10× smaller than pitch and yaw.</strong> <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/pid.h#L40">pid.h:40</a> <code>ROLL_D_TERM_SCALE 0.1e-6</code> vs <code>1.0e-6</code>. Inherited. Confirm it is intended for wings. It is also mirrored in the TV loop.</li>
+<li><strong>L-3. Cross-axis relax is applied twice to I.</strong> <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/pid.c#L850">pid.c:850, :863</a>: it scales the accumulation <em>and</em> the I output, so I output drops immediately on rudder input and jumps back on release (limited only by the relax filter's 1–100 Hz cutoff). Default strength is 0, so latent.</li>
+<li><strong>L-4. <code>isUpright()</code> does not check attitude.</strong> <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/imu.c#L628">imu.c:628</a> returns "attitude established". Arming is therefore not blocked by tilt. Probably right for wings; rename or comment it.</li>
+<li><strong>L-5. GPS heading re-initialisation is a no-op.</strong> <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/imu.c#L481">imu.c:481</a> writes into the quaternion <em>products</em> <code>qP</code>, then <code>imuComputeRotationMatrix()</code> recomputes <code>qP</code> from the unchanged <code>q</code>. Only <code>attitudeIsEstablished</code> and the one-shot flag change. Harmless in effect, but the code does not do what its comment says.</li>
+<li><strong>L-6. Angle/horizon rate command is uncapped.</strong> <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/leveling.c#L218">leveling.c:218</a>: <code>error × gain</code> up to 180° × 4 = 720 °/s on a recovery from inverted. Surfaces saturate first, so it is safe, but it exceeds the configured rate profile.</li>
+<li><strong>L-7. MANUAL and PASSTHROUGH bypass mixer input limits</strong> (<a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/mixer.c#L309">mixer.c:309–330</a>). Intentional for bail-out; note that a tightened <code>min/max</code> on a stabilized input does not apply in those modes.</li>
+<li><strong>L-8. TV loop I-decay ignores leveling modes.</strong> The main loop suspends decay under ANGLE/HORIZON/RTH; the TV loop only slows it under its own hold. In ANGLE mode the two loops therefore bleed I differently.</li>
+<li><strong>L-9. Hold stall re-capture is silent.</strong> After 3 s pinned above 5° error the target ratchets to the current attitude with no beep, OSD or log flag. A genuine slow disturbance (cross-wind hover) could be walked off target this way without the pilot knowing.</li>
+<li><strong>L-10. Auto trim captures whatever the sticks and stabilization are doing</strong> during its 2 s window, not a true neutral. It needs hands-off, straight-and-level flight to give a good centre.</li>
+<li><strong>L-11. First IMU update integrates over a huge <code>dt</code>.</strong> <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/imu.c#L460">imu.c:460</a> initialises <code>previousIMUUpdateTime</code> to 0, so the first step is seconds long. Inherited from Betaflight and converges quickly on the bench; noted because it happens once per boot.</li>
+<li><strong>L-12. SmartFuel sag compensation uses the wrong load.</strong> <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/sensors/smartfuel.c">smartfuel.c</a> adds voltage back in proportion to the combined roll and pitch control demand (<code>getCyclicDeflection()</code>), inherited from the helicopter firmware. On a wing, voltage sag follows throttle and current. It also only runs when <code>isAirborne()</code> is true, so in level hands-off cruise (H-4) it is off. At the default gain it adds at most about 0.11 V per cell. A better driver is the throttle command or the measured current.</li>
+</ul>
+<h3 id="checked-and-found-sound">Checked and found sound<a class="headerlink" href="#checked-and-found-sound" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Fast 8-multiply quaternion product matches the Hamilton product (random test, max error 7e-16).</li>
+<li>Hold engine: shortest-path sign fix, magnitude clamp over frozen axes only, unit renormalisation, and no drift accumulation when all axes are frozen.</li>
+<li>AUTOHOVER <code>MaxRate &gt; 0</code> guard on the assist trigger; roll-lock hysteresis; deadband clamps at load.</li>
+<li>PID anti-windup logic and its use of servo-travel saturation; yaw sign handling consistent between setpoint, MANUAL and PASSTHROUGH.</li>
+<li>Governor failsafe bypass and the interlock guard.</li>
+<li>Runtime servo trim design: trim direction folds the three reversal sources correctly.</li>
+<li>Mode arbitration: safety modes cleanly preempt AUTOHOVER/ATTHOLD and force a re-capture on release.</li>
+</ul>
+<h3 id="not-reviewed">Not reviewed<a class="headerlink" href="#not-reviewed" title="Permanent link">&para;</a></h3>
+<p>Dynamic notch and RPM filters, gyro/accelerometer drivers and calibration, <code>position.c</code> altitude estimation, <code>logic_condition.c</code>, <code>wiggle.c</code>, blackbox, MSP and CLI plumbing. The pilot-facing docs in <code>docs/</code> were audited separately.</p>
+<hr />
+<h2 id="5-test-coverage-and-verification-plan">5. Test coverage and verification plan<a class="headerlink" href="#5-test-coverage-and-verification-plan" title="Permanent link">&para;</a></h2>
+<p>Unit tests exist for PID, setpoint, curves, maths and the acro trainer. The tests for the mixer, IMU and failsafe are present but <strong>disabled</strong> (<code>flight_mixer_unittest.cc.txt</code>, <code>flight_imu_unittest.cc.txt</code>, <code>flight_failsafe_unittest.cc.txt</code>). There are no tests for the hold engine, AUTOHOVER, ATTHOLD, the TV loop, leveling, airborne detection, servos, or nav. Every finding above is in an untested area.</p>
+<p>Suggested order, cheapest and highest-value first:</p>
+<ol>
+<li><strong>Signs (H-3, M-2).</strong> Unit tests for <code>updateGpsNav()</code> with fixtures: aircraft south/north/east/west of target for CW and CCW, and above/below target altitude. Then one SITL confirmation of the pitch sign.</li>
+<li><strong>Airborne (H-4).</strong> Test the state machine directly: armed, level, sticks centred → must stay AIRBORNE if throttle is up. Then a SITL or blackbox replay of a hands-off hold.</li>
+<li><strong>Failsafe (H-1).</strong> Decide the intended behaviour first, then re-enable <code>flight_failsafe_unittest</code>.</li>
+<li><strong>Hold engine.</strong> Synthetic quaternion sequences: release mid-rotation (no snap-back), disturbance while frozen, stall timeout, per-axis independence, and a 90°/180° error.</li>
+<li><strong>Throttle assist (M-1).</strong> Assist must be zero with the stick at idle and with no RX signal.</li>
+<li><strong>NaN guard (M-4).</strong> Inject NaN into a mixer input and assert servo output stays finite.</li>
+</ol>
+<p>Nothing in this document has been flight tested by the review itself.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../hardware-debugging-vscode-jlink/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Debugging with VS Code and J-Link">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Debugging with VS Code and J-Link
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../rx-wiring-autodetect/" class="md-footer__link md-footer__link--next" aria-label="Next: RX Wiring Auto-detect">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                RX Wiring Auto-detect
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/WingFlight" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://discord.gg/aEyyAJTXRw/" target="_blank" rel="noopener" title="discord.gg" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.action.edit", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

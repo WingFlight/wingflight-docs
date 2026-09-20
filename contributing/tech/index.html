@@ -2717,10 +2717,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#design-notes-in-the-firmware-repository" class="md-nav__link">
+  <a href="#flight-control-and-wiring-design" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Design notes in the firmware repository
+        Flight control and wiring design
       
     </span>
   </a>
@@ -2988,6 +2988,90 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="flight-dynamics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Flight Dynamics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="rx-wiring-autodetect/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RX Wiring Auto-detect
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="esc-signaling-autodetect/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ESC Signalling Auto-detect
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -3063,10 +3147,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#design-notes-in-the-firmware-repository" class="md-nav__link">
+  <a href="#flight-control-and-wiring-design" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Design notes in the firmware repository
+        Flight control and wiring design
       
     </span>
   </a>
@@ -3127,17 +3211,14 @@ Configurator. Most users will not need these pages.</p>
   use them.</li>
 <li><a href="hardware-debugging-vscode-jlink/">Hardware Debugging with VS Code and J-Link</a></li>
 </ul>
-<h2 id="design-notes-in-the-firmware-repository">Design notes in the firmware repository<a class="headerlink" href="#design-notes-in-the-firmware-repository" title="Permanent link">&para;</a></h2>
-<p>A few design documents live next to the code they describe, in the firmware
-repository's <code>docs/</code> directory:</p>
+<h2 id="flight-control-and-wiring-design">Flight control and wiring design<a class="headerlink" href="#flight-control-and-wiring-design" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="https://github.com/WingFlight/wingflight-firmware/blob/master/docs/FlightDynamics.md">Flight Dynamics</a>
-  -- the flight-control signal chain, sign conventions, the rationale behind each
-  stage, and a review of known defects.</li>
-<li><a href="https://github.com/WingFlight/wingflight-firmware/blob/master/docs/rx-wiring-autodetect-design.md">RX serial wiring auto-detect</a>
-  and
-  <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/docs/esc-signaling-autodetect-design.md">ESC telemetry signalling auto-detect</a>
-  -- the design of the live trial that finds the right inversion, half-duplex and
+<li><a href="flight-dynamics/">Flight Dynamics</a> -- the flight-control signal chain, sign
+  conventions, the rationale behind each stage, and a review of known defects
+  with a test plan. Read it before changing flight-control code.</li>
+<li><a href="rx-wiring-autodetect/">RX serial wiring auto-detect</a> and
+  <a href="esc-signaling-autodetect/">ESC telemetry signalling auto-detect</a> -- the
+  design of the live trial that finds the right inversion, half-duplex and
   pin-swap settings.</li>
 </ul>
 

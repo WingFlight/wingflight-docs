@@ -10,13 +10,11 @@
       
       
       
-        <link rel="canonical" href="https://doc.wingflight.org/configurator/tabs/profiles/">
+        <link rel="canonical" href="https://doc.wingflight.org/contributing/tech/esc-signaling-autodetect/">
       
       
-        <link rel="prev" href="../curves/">
+        <link rel="prev" href="../rx-wiring-autodetect/">
       
-      
-        <link rel="next" href="../rates/">
       
       
         
@@ -27,7 +25,7 @@
     
     
       
-        <title>Profiles - WingFlight Documentation</title>
+        <title>ESC Signalling Auto-detect - WingFlight Documentation</title>
       
     
     
@@ -74,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#profiles" class="md-skip">
+        <a href="#esc-telemetry-wiring-auto-detect-design" class="md-skip">
           Skip to content
         </a>
       
@@ -107,7 +105,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Profiles
+              ESC Signalling Auto-detect
             
           </span>
         </div>
@@ -257,13 +255,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../../" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../../configurator/" class="md-tabs__link">
           
   
   
@@ -319,11 +315,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../../contributing/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
           
   
   
@@ -635,29 +633,24 @@
       
   
   
-    
   
   
-  
     
     
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
   
@@ -675,7 +668,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -693,7 +686,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../" class="md-nav__link">
+      <a href="../../../configurator/" class="md-nav__link">
         
   
   
@@ -721,7 +714,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../status/" class="md-nav__link">
+      <a href="../../../configurator/tabs/status/" class="md-nav__link">
         
   
   
@@ -749,7 +742,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../setup/" class="md-nav__link">
+      <a href="../../../configurator/tabs/setup/" class="md-nav__link">
         
   
   
@@ -777,7 +770,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../configuration/" class="md-nav__link">
+      <a href="../../../configurator/tabs/configuration/" class="md-nav__link">
         
   
   
@@ -805,7 +798,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../power/" class="md-nav__link">
+      <a href="../../../configurator/tabs/power/" class="md-nav__link">
         
   
   
@@ -833,7 +826,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../receiver/" class="md-nav__link">
+      <a href="../../../configurator/tabs/receiver/" class="md-nav__link">
         
   
   
@@ -861,7 +854,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../failsafe/" class="md-nav__link">
+      <a href="../../../configurator/tabs/failsafe/" class="md-nav__link">
         
   
   
@@ -889,7 +882,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../mixer/" class="md-nav__link">
+      <a href="../../../configurator/tabs/mixer/" class="md-nav__link">
         
   
   
@@ -917,7 +910,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../servos/" class="md-nav__link">
+      <a href="../../../configurator/tabs/servos/" class="md-nav__link">
         
   
   
@@ -945,7 +938,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../motors/" class="md-nav__link">
+      <a href="../../../configurator/tabs/motors/" class="md-nav__link">
         
   
   
@@ -973,7 +966,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../curves/" class="md-nav__link">
+      <a href="../../../configurator/tabs/curves/" class="md-nav__link">
         
   
   
@@ -998,37 +991,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Profiles
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../../configurator/tabs/profiles/" class="md-nav__link">
         
   
   
@@ -1044,98 +1010,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#pid-gains" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        PID Gains
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="PID Gains">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#f-and-manual-mode" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        F and MANUAL mode
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#quick-troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Quick troubleshooting
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#why-these-defaults" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Why these defaults
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#master-gain" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Master Gain
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#leveling-settings" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Leveling Settings
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1148,7 +1022,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../rates/" class="md-nav__link">
+      <a href="../../../configurator/tabs/rates/" class="md-nav__link">
         
   
   
@@ -1176,7 +1050,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../thrust-vector/" class="md-nav__link">
+      <a href="../../../configurator/tabs/thrust-vector/" class="md-nav__link">
         
   
   
@@ -1204,7 +1078,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../gyro/" class="md-nav__link">
+      <a href="../../../configurator/tabs/gyro/" class="md-nav__link">
         
   
   
@@ -1232,7 +1106,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../auxiliary/" class="md-nav__link">
+      <a href="../../../configurator/tabs/auxiliary/" class="md-nav__link">
         
   
   
@@ -1260,7 +1134,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adjustments/" class="md-nav__link">
+      <a href="../../../configurator/tabs/adjustments/" class="md-nav__link">
         
   
   
@@ -1288,7 +1162,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../logic/" class="md-nav__link">
+      <a href="../../../configurator/tabs/logic/" class="md-nav__link">
         
   
   
@@ -1316,7 +1190,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../gps/" class="md-nav__link">
+      <a href="../../../configurator/tabs/gps/" class="md-nav__link">
         
   
   
@@ -1344,7 +1218,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../led-strip/" class="md-nav__link">
+      <a href="../../../configurator/tabs/led-strip/" class="md-nav__link">
         
   
   
@@ -1372,7 +1246,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../beepers/" class="md-nav__link">
+      <a href="../../../configurator/tabs/beepers/" class="md-nav__link">
         
   
   
@@ -1400,7 +1274,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../sensors/" class="md-nav__link">
+      <a href="../../../configurator/tabs/sensors/" class="md-nav__link">
         
   
   
@@ -1428,7 +1302,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../esc-programming/" class="md-nav__link">
+      <a href="../../../configurator/tabs/esc-programming/" class="md-nav__link">
         
   
   
@@ -1456,7 +1330,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fbus-sensors/" class="md-nav__link">
+      <a href="../../../configurator/tabs/fbus-sensors/" class="md-nav__link">
         
   
   
@@ -1484,7 +1358,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../blackbox/" class="md-nav__link">
+      <a href="../../../configurator/tabs/blackbox/" class="md-nav__link">
         
   
   
@@ -1512,7 +1386,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cli/" class="md-nav__link">
+      <a href="../../../configurator/tabs/cli/" class="md-nav__link">
         
   
   
@@ -2498,24 +2372,29 @@
       
   
   
+    
   
   
+  
     
     
     
     
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
         
           
-          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
             
   
   
@@ -2533,7 +2412,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2551,7 +2430,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributing/" class="md-nav__link">
+      <a href="../../" class="md-nav__link">
         
   
   
@@ -2579,7 +2458,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributing/building-the-firmware/" class="md-nav__link">
+      <a href="../../building-the-firmware/" class="md-nav__link">
         
   
   
@@ -2607,7 +2486,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributing/developers/" class="md-nav__link">
+      <a href="../../developers/" class="md-nav__link">
         
   
   
@@ -2635,7 +2514,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributing/code-guidelines/" class="md-nav__link">
+      <a href="../../code-guidelines/" class="md-nav__link">
         
   
   
@@ -2663,7 +2542,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributing/coding-style/" class="md-nav__link">
+      <a href="../../coding-style/" class="md-nav__link">
         
   
   
@@ -2688,6 +2567,8 @@
                 
   
   
+    
+  
   
   
     
@@ -2698,11 +2579,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_6" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_6" checked>
         
           
           <label class="md-nav__link" for="__nav_6_6" id="__nav_6_6_label" tabindex="0">
@@ -2723,7 +2604,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_6_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_6_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_6_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2741,7 +2622,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributing/tech/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         
   
   
@@ -2769,7 +2650,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributing/tech/parameter-groups/" class="md-nav__link">
+      <a href="../parameter-groups/" class="md-nav__link">
         
   
   
@@ -2797,7 +2678,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributing/tech/configuration-format/" class="md-nav__link">
+      <a href="../configuration-format/" class="md-nav__link">
         
   
   
@@ -2825,7 +2706,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributing/tech/atomic-barrier/" class="md-nav__link">
+      <a href="../atomic-barrier/" class="md-nav__link">
         
   
   
@@ -2853,7 +2734,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributing/tech/customizing-the-build/" class="md-nav__link">
+      <a href="../customizing-the-build/" class="md-nav__link">
         
   
   
@@ -2881,7 +2762,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributing/tech/custom-boards/" class="md-nav__link">
+      <a href="../custom-boards/" class="md-nav__link">
         
   
   
@@ -2909,7 +2790,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributing/tech/blackbox-format/" class="md-nav__link">
+      <a href="../blackbox-format/" class="md-nav__link">
         
   
   
@@ -2937,7 +2818,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributing/tech/smartfuel/" class="md-nav__link">
+      <a href="../smartfuel/" class="md-nav__link">
         
   
   
@@ -2965,7 +2846,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributing/tech/hardware-debugging/" class="md-nav__link">
+      <a href="../hardware-debugging/" class="md-nav__link">
         
   
   
@@ -2993,7 +2874,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributing/tech/hardware-debugging-vscode-jlink/" class="md-nav__link">
+      <a href="../hardware-debugging-vscode-jlink/" class="md-nav__link">
         
   
   
@@ -3021,7 +2902,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributing/tech/flight-dynamics/" class="md-nav__link">
+      <a href="../flight-dynamics/" class="md-nav__link">
         
   
   
@@ -3049,7 +2930,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributing/tech/rx-wiring-autodetect/" class="md-nav__link">
+      <a href="../rx-wiring-autodetect/" class="md-nav__link">
         
   
   
@@ -3074,10 +2955,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../../contributing/tech/esc-signaling-autodetect/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ESC Signalling Auto-detect
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -3093,6 +3001,59 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#whats-different-from-the-rx-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's different from the RX version
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#msp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MSP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#open-items-pending-bench-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open items pending bench testing
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -3140,60 +3101,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#pid-gains" class="md-nav__link">
+  <a href="#whats-different-from-the-rx-version" class="md-nav__link">
     <span class="md-ellipsis">
       
-        PID Gains
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="PID Gains">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#f-and-manual-mode" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        F and MANUAL mode
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#quick-troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Quick troubleshooting
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#why-these-defaults" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Why these defaults
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#master-gain" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Master Gain
+        What's different from the RX version
       
     </span>
   </a>
@@ -3201,10 +3112,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#leveling-settings" class="md-nav__link">
+  <a href="#msp" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Leveling Settings
+        MSP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#open-items-pending-bench-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open items pending bench testing
       
     </span>
   </a>
@@ -3228,7 +3150,7 @@
 
 
   
-    <a href="https://github.com/WingFlight/edit/main/docs/configurator/tabs/profiles.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/WingFlight/edit/main/docs/contributing/tech/esc-signaling-autodetect.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -3236,202 +3158,63 @@
   
 
 
-<h1 id="profiles">Profiles<a class="headerlink" href="#profiles" title="Permanent link">&para;</a></h1>
-<p>The Profiles tab manages PID tuning profiles -- the actual stabilization
-gains that control how tightly the flight controller holds your commanded
-attitude.</p>
-<p>Multiple profiles can be configured and switched between in flight (via an
-<a href="../auxiliary/">Auxiliary</a> mode mapping), which is useful for having distinct
-tunes for, e.g., calm cruising versus aggressive 3D/aerobatic flight on the
-same airframe.</p>
-<h2 id="pid-gains">PID Gains<a class="headerlink" href="#pid-gains" title="Permanent link">&para;</a></h2>
-<p>The PID Gains table holds the actual per-axis P, I, D, F (Feedforward), and B
-(Boost) terms -- the static tune itself, as distinct from Master Gain below,
-which scales it live rather than editing it directly.</p>
-<p>Most people tune by feel in the air, not by reasoning about control theory,
-so here's what each one is actually doing to the way the plane flies rather
-than a textbook definition:</p>
+<h1 id="esc-telemetry-wiring-auto-detect-design">ESC telemetry wiring auto-detect — design<a class="headerlink" href="#esc-telemetry-wiring-auto-detect-design" title="Permanent link">&para;</a></h1>
+<p>Same mechanism as <a href="../rx-wiring-autodetect/">RX serial wiring auto-detect</a>,
+applied to the ESC telemetry port (<code>escSensorConfig</code>) instead of the RX
+port(s). Read that doc first for the underlying rationale (why this needs a
+live re-init rather than just a configurator-side reboot loop, the general
+shape of the trial state machine, the UART invert/pin-swap latch bug it
+uncovered and fixed). This note only covers what's different here.</p>
+<h2 id="whats-different-from-the-rx-version">What's different from the RX version<a class="headerlink" href="#whats-different-from-the-rx-version" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>P</strong> is how locked-in the plane feels to your stick and to gusts. Too
-  little and it's floppy/mushy -- slow to respond, wanders off your line.
-  Too much and it gets nervous: a fast buzz or bounce-back right after a
-  sharp input.</li>
-<li><strong>I</strong> is what holds a turn, a knife-edge, or a heading exactly, rather than
-  approximately. Too little and it slowly bleeds off the line in wind or if
-  the CG's slightly off. Too much and it wallows -- a slow wandering
-  oscillation, or the plane keeps rotating a beat after you've already
-  centered the stick.</li>
-<li><strong>D</strong> is the shock absorber: it stops P's correction from overshooting and
-  soaks up a gust before it upsets the plane. Too little and inputs
-  overshoot, and gusts knock the plane around more than they should. Too
-  much and servos start to growl, buzz, or run hot -- D is by far the most
-  noise-sensitive term, so if you're chasing heat/buzzing here, check
-  <a href="../gyro/">Gyro</a> filtering first.</li>
-<li><strong>F</strong> is what makes stick input feel instant instead of rubbery -- it
-  pushes toward where you're asking the plane to go the moment you move the
-  stick, rather than waiting for it to fall behind first. Too little feels
-  delayed, and the plane keeps rotating briefly after you let go of the
-  stick. Too much snaps past where you wanted and kicks back
-  ("strikeback") as the stick returns to center.</li>
-<li><strong>B</strong> is a finishing touch on top of F, reacting to how <em>fast</em> you move
-  the stick rather than how far. Too little and quick flicks feel
-  soft/rounded; too much and quick flicks get twitchy, sharing D's noise
-  sensitivity.</li>
+<li><strong>No <code>inverted</code> bit.</strong> <code>escSensorInit()</code> (<a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/sensors/esc_sensor.c#L4471">esc_sensor.c:4471</a>)
+  always opens the port <code>SERIAL_NOT_INVERTED</code> - ESC telemetry protocols don't
+  invert. So this is a 4-combo search (<code>halfDuplex</code> × <code>pinSwap</code>), not 8.</li>
+<li><strong>No baud confound.</strong> Every protocol here has a baud fixed by the protocol
+  itself (115200/19200/38400 depending on which), not a user-configurable or
+  negotiated one - CRSF's <code>crsf_use_negotiated_baud</code> had no analogue to worry
+  about.</li>
+<li><strong>Graupner requires half-duplex to function at all</strong> (single-wire
+  request/response - <code>validateAndFixEscSensorConfig()</code> already forces it on
+  for exactly this reason), rather than merely ignoring the bit the way
+  CRSF/GHST do for RX. Pinned rather than varied, same treatment either way.</li>
+<li><strong>Better signal-detection primitive.</strong> The RX version used
+  <code>rxIsReceivingSignal()</code>, a boolean that decays after ~100ms without a fresh
+  frame - fine for streaming protocols, but it flickered false between
+  frames for anything slower than ~10Hz and produced a real false-negative
+  on CRSF during bench testing. ESC telemetry already has a plain monotonic
+  <code>totalFrameCount</code> counter, incremented by every protocol's own decode path
+  only on a structurally/checksum-valid frame. Success is declared once that
+  counter has advanced by <code>ESC_SENSOR_TRIAL_MIN_FRAMES</code> (2) since the combo
+  was applied - a delta check, immune to the "gap between frames" flicker
+  entirely, so no debounce timer was needed this time.</li>
+<li><strong>Some protocols don't have a UART to test at all</strong>: Castle Link (PWM edge
+  timing, no serial port), FBUS and SRXL2 ESC telemetry (each reads via its
+  own dedicated port function, not <code>FUNCTION_ESC_SENSOR</code>). All three are
+  clean <code>REJECTED</code> cases, mirroring "no serial port assigned."</li>
+<li><strong>Settle timing split by decode mechanism, not per-protocol guesswork</strong>:
+  protocols that go through the shared "rrfsm" (request/response) decode
+  engine (HW5, Scorpion, OpenYGE, FLY, Graupner, XDFLY, ZTW, OMPHOBBY - see
+  the dispatch switch in <code>escSensorProcess()</code>) poll the ESC rather than just
+  listening to a continuous stream, so get the longer settle tier. BLHeli32,
+  HW4, Kontronik, APD, and Record get the default (faster) tier.</li>
 </ul>
-<h3 id="f-and-manual-mode">F and MANUAL mode<a class="headerlink" href="#f-and-manual-mode" title="Permanent link">&para;</a></h3>
-<p>F also sets how far the surfaces move in <strong>MANUAL</strong> mode (stabilization
-off, sticks straight to the servos). MANUAL is scaled through the same
-F-term the stabilized loop uses -- "stabilized flight minus the gyro
-correction" -- so a well-tuned F puts MANUAL's throw in the neighborhood of
-what the stabilized modes settle to in flight, instead of it depending on
-the rates ceiling as it once did. Judge the match in the air: a stationary
-airframe on the bench never rotates far enough for the two to look alike.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Because MANUAL is scaled through F, it is only as big as your F and rates
-allow. With the default F of 100, a rate of 400 deg/s gives full surface
-travel. Halve F, or lower the rates, and MANUAL travel shrinks with them.
-<strong>F = 0 gives no surface movement at all in MANUAL.</strong> If you use MANUAL
-as a fallback when the stabilization misbehaves, check on the bench that
-full stick still gives full travel.</p>
-</div>
-<h3 id="quick-troubleshooting">Quick troubleshooting<a class="headerlink" href="#quick-troubleshooting" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>What you're seeing in the air</th>
-<th>Try</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Floaty/mushy, wanders off your line</td>
-<td>Raise P</td>
-</tr>
-<tr>
-<td>Bounces or buzzes right after a sharp stick input</td>
-<td>Lower P (or raise D)</td>
-</tr>
-<tr>
-<td>Overshoots a gust or fast input before settling</td>
-<td>Raise D</td>
-</tr>
-<tr>
-<td>Servos growl, buzz, or run hot</td>
-<td>Lower D, check <a href="../gyro/">Gyro</a> filtering</td>
-</tr>
-<tr>
-<td>Stick input feels laggy or rubbery</td>
-<td>Raise F</td>
-</tr>
-<tr>
-<td>Keeps drifting/rotating a moment after you center the stick</td>
-<td>Lower I; if it's only on quick inputs, raise F instead</td>
-</tr>
-<tr>
-<td>Snaps past the input and kicks back as you release the stick</td>
-<td>Lower F</td>
-</tr>
-<tr>
-<td>Quick flicks feel twitchy/nervous</td>
-<td>Lower B</td>
-</tr>
-<tr>
-<td>Quick flicks feel soft, no snap</td>
-<td>Raise B</td>
-</tr>
-</tbody>
-</table>
-<p>Master Gain and its curve (below) scale P, I, and D together as one
-percentage -- F (Feedforward) and Boost are tuned independently per-axis
-and aren't affected by Master Gain.</p>
-<h3 id="why-these-defaults">Why these defaults<a class="headerlink" href="#why-these-defaults" title="Permanent link">&para;</a></h3>
-<p>Out of the box:</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>P</th>
-<th>I</th>
-<th>D</th>
-<th>F</th>
-<th>B</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Roll</td>
-<td>50</td>
-<td>16</td>
-<td>0</td>
-<td>100</td>
-<td>0</td>
-</tr>
-<tr>
-<td>Pitch</td>
-<td>50</td>
-<td>16</td>
-<td>0</td>
-<td>100</td>
-<td>0</td>
-</tr>
-<tr>
-<td>Yaw</td>
-<td>80</td>
-<td>20</td>
-<td>0</td>
-<td>100</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-<p>The standout choice is <strong>D = 0 on every axis</strong>. A fixed-wing control
-surface doesn't live in a particularly noisy, high-vibration environment,
-so the default tune leans on Feedforward (already set to a meaningful
-F = 100 out of the box) for a responsive, instant-feeling stick rather than
-D-driven damping. Add D deliberately if a specific airframe overshoots or
-wallows in gusts -- and check <a href="../gyro/">Gyro</a> filtering first, since D is
-the term most likely to expose noise once it's non-zero.</p>
-<p>I is also deliberately kept low relative to P (16-20 vs. 50-80) -- don't
-read that gap as I being "weak." I isn't left to accumulate freely the way
-a raw integrator would: I-Term Decay Time (0.6s by default) continuously
-bleeds accumulated I-term error back off, capped by an I-Term Decay Max
-Rate (35°/s), and I-Term Relax (level 22, cutoff 10Hz by default)
-specifically suppresses I buildup while the stick is moving quickly, to
-avoid bounce-back at the end of a roll or other fast maneuver. Because
-something else is actively managing decay, a small I gain is enough to
-hold a steady bias (wind, a CG offset) -- pushing I up to "match" P instead
-just reintroduces the slow wallowing oscillation the decay/relax defaults
-are there to avoid.</p>
-<p>Yaw runs a bit hotter than Roll/Pitch (P 80 vs. 50, I 20 vs. 16) since
-rudder authority and yaw stability vary more from airframe to airframe than
-aileron/elevator response typically does.</p>
-<p>Boost defaults to 0 -- it's a finishing touch layered on an already-working
-Feedforward tune, not something you'd want fighting an airframe that hasn't
-been flown and trimmed yet.</p>
-<p>Master Gain defaults to 100% (no scaling) with no curve assigned on every
-axis, and Throttle (TPA) likewise defaults to 100% with no curve -- so the
-PID Gains table above is exactly what flies until you deliberately assign a
-curve or an Adjustments knob.</p>
-<h2 id="master-gain">Master Gain<a class="headerlink" href="#master-gain" title="Permanent link">&para;</a></h2>
-<p>Master Gain sets one overall gain per axis (Roll, Pitch, Yaw) that scales
-the P, I, and D terms of that axis's PID loop -- F (Feedforward) and Boost
-stay at their static configured values -- each with its own optional gain
-curve so the scaling can vary with stick position rather than applying a
-single flat multiplier. In expert mode a fourth row, Throttle (TPA),
-attenuates gains across the throttle range using the same shared
-gain-curve pool.</p>
-<p>Any of these gains can also be mapped to a transmitter switch/knob from the
-<a href="../adjustments/">Adjustments</a> tab for live in-flight tuning -- when a gain is
-under live adjustment control, its row shows the current effective value
-being commanded in place of the static configured number.</p>
-<h2 id="leveling-settings">Leveling Settings<a class="headerlink" href="#leveling-settings" title="Permanent link">&para;</a></h2>
-<p>Angle/Horizon-style leveling and the hold modes are tuned here as well.
-The <a href="../../../flight-modes/auto-hover/">Auto Hover</a> fields -- Gain, Max
-Angle, Max Rate, <strong>Auto Hover roll deadband</strong> and the three <strong>throttle
-assist</strong> fields -- sit in the Auto Hover group, and
-<a href="../../../flight-modes/atthold/">Attitude Hold</a> has its own Gain, Deadband
-and Max Rate. See each mode's page for what the fields do.</p>
+<h2 id="msp">MSP<a class="headerlink" href="#msp" title="Permanent link">&para;</a></h2>
+<p>One new command, <code>MSP2_WING_ESC_SENSOR_TRIAL</code> (<code>0x5F14</code> - <code>0x5F12</code>/<code>0x5F13</code>
+are claimed by the RX wiring auto-detect PR's <code>MSP2_WING_RX_SERIAL_TRIAL</code>/
+<code>MSP2_WING_RX_INPUT_BACKUP_TRIAL</code>, deliberately skipped rather than
+colliding, since both branches were cut from <code>master</code> independently and
+each just grabbed the next free slot from its own starting point). Same
+start/poll/stop action-byte shape as the RX version and
+<code>MSP2_WING_BOARD_AUTO_ALIGN</code>. Response layout is one field shorter than the
+RX version's (no <code>inverted</code> byte):</p>
+<p><code>U8 state, U8 comboIndex, U8 halfDuplex, U8 pinSwap, U16 elapsedMs</code></p>
+<h2 id="open-items-pending-bench-testing">Open items pending bench testing<a class="headerlink" href="#open-items-pending-bench-testing" title="Permanent link">&para;</a></h2>
+<p>Same category as the RX version: the settle-time tiers are informed
+starting points (this time from which decode engine a protocol uses, not a
+guess at protocol identity alone), not measurements. Needs real ESCs on the
+bench across a few different telemetry protocols before trusting the
+timing, same as CRSF needed for the RX version.</p>
 
 
 
@@ -3467,7 +3250,7 @@ and Max Rate. See each mode's page for what the fields do.</p>
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../curves/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Curves">
+          <a href="../rx-wiring-autodetect/" class="md-footer__link md-footer__link--prev" aria-label="Previous: RX Wiring Auto-detect">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -3477,27 +3260,11 @@ and Max Rate. See each mode's page for what the fields do.</p>
                 Previous
               </span>
               <div class="md-ellipsis">
-                Curves
+                RX Wiring Auto-detect
               </div>
             </div>
           </a>
         
-        
-          
-          <a href="../rates/" class="md-footer__link md-footer__link--next" aria-label="Next: Rates">
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              <div class="md-ellipsis">
-                Rates
-              </div>
-            </div>
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
-            </div>
-          </a>
         
       </nav>
     

@@ -153,6 +153,14 @@
          <lastmod>2026-09-20</lastmod>
     </url>
     <url>
+         <loc>https://doc.wingflight.org/contributing/tech/esc-signaling-autodetect/</loc>
+         <lastmod>2026-09-20</lastmod>
+    </url>
+    <url>
+         <loc>https://doc.wingflight.org/contributing/tech/flight-dynamics/</loc>
+         <lastmod>2026-09-20</lastmod>
+    </url>
+    <url>
          <loc>https://doc.wingflight.org/contributing/tech/hardware-debugging-vscode-jlink/</loc>
          <lastmod>2026-09-20</lastmod>
     </url>
@@ -162,6 +170,10 @@
     </url>
     <url>
          <loc>https://doc.wingflight.org/contributing/tech/parameter-groups/</loc>
+         <lastmod>2026-09-20</lastmod>
+    </url>
+    <url>
+         <loc>https://doc.wingflight.org/contributing/tech/rx-wiring-autodetect/</loc>
          <lastmod>2026-09-20</lastmod>
     </url>
     <url>

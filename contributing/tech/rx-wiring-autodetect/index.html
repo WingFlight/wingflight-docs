@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://doc.wingflight.org/configurator/tabs/profiles/">
+        <link rel="canonical" href="https://doc.wingflight.org/contributing/tech/rx-wiring-autodetect/">
       
       
-        <link rel="prev" href="../curves/">
+        <link rel="prev" href="../flight-dynamics/">
       
       
-        <link rel="next" href="../rates/">
+        <link rel="next" href="../esc-signaling-autodetect/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>Profiles - WingFlight Documentation</title>
+        <title>RX Wiring Auto-detect - WingFlight Documentation</title>
       
     
     
@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#profiles" class="md-skip">
+        <a href="#rx-serial-wiring-auto-detect-design" class="md-skip">
           Skip to content
         </a>
       
@@ -107,7 +107,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Profiles
+              RX Wiring Auto-detect
             
           </span>
         </div>
@@ -257,13 +257,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../../" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../../configurator/" class="md-tabs__link">
           
   
   
@@ -319,11 +317,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../../contributing/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
           
   
   
@@ -635,29 +635,24 @@
       
   
   
-    
   
   
-  
     
     
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
   
@@ -675,7 +670,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -693,7 +688,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../" class="md-nav__link">
+      <a href="../../../configurator/" class="md-nav__link">
         
   
   
@@ -721,7 +716,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../status/" class="md-nav__link">
+      <a href="../../../configurator/tabs/status/" class="md-nav__link">
         
   
   
@@ -749,7 +744,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../setup/" class="md-nav__link">
+      <a href="../../../configurator/tabs/setup/" class="md-nav__link">
         
   
   
@@ -777,7 +772,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../configuration/" class="md-nav__link">
+      <a href="../../../configurator/tabs/configuration/" class="md-nav__link">
         
   
   
@@ -805,7 +800,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../power/" class="md-nav__link">
+      <a href="../../../configurator/tabs/power/" class="md-nav__link">
         
   
   
@@ -833,7 +828,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../receiver/" class="md-nav__link">
+      <a href="../../../configurator/tabs/receiver/" class="md-nav__link">
         
   
   
@@ -861,7 +856,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../failsafe/" class="md-nav__link">
+      <a href="../../../configurator/tabs/failsafe/" class="md-nav__link">
         
   
   
@@ -889,7 +884,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../mixer/" class="md-nav__link">
+      <a href="../../../configurator/tabs/mixer/" class="md-nav__link">
         
   
   
@@ -917,7 +912,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../servos/" class="md-nav__link">
+      <a href="../../../configurator/tabs/servos/" class="md-nav__link">
         
   
   
@@ -945,7 +940,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../motors/" class="md-nav__link">
+      <a href="../../../configurator/tabs/motors/" class="md-nav__link">
         
   
   
@@ -973,7 +968,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../curves/" class="md-nav__link">
+      <a href="../../../configurator/tabs/curves/" class="md-nav__link">
         
   
   
@@ -998,37 +993,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Profiles
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../../configurator/tabs/profiles/" class="md-nav__link">
         
   
   
@@ -1044,98 +1012,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#pid-gains" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        PID Gains
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="PID Gains">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#f-and-manual-mode" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        F and MANUAL mode
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#quick-troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Quick troubleshooting
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#why-these-defaults" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Why these defaults
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#master-gain" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Master Gain
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#leveling-settings" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Leveling Settings
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1148,7 +1024,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../rates/" class="md-nav__link">
+      <a href="../../../configurator/tabs/rates/" class="md-nav__link">
         
   
   
@@ -1176,7 +1052,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../thrust-vector/" class="md-nav__link">
+      <a href="../../../configurator/tabs/thrust-vector/" class="md-nav__link">
         
   
   
@@ -1204,7 +1080,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../gyro/" class="md-nav__link">
+      <a href="../../../configurator/tabs/gyro/" class="md-nav__link">
         
   
   
@@ -1232,7 +1108,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../auxiliary/" class="md-nav__link">
+      <a href="../../../configurator/tabs/auxiliary/" class="md-nav__link">
         
   
   
@@ -1260,7 +1136,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adjustments/" class="md-nav__link">
+      <a href="../../../configurator/tabs/adjustments/" class="md-nav__link">
         
   
   
@@ -1288,7 +1164,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../logic/" class="md-nav__link">
+      <a href="../../../configurator/tabs/logic/" class="md-nav__link">
         
   
   
@@ -1316,7 +1192,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../gps/" class="md-nav__link">
+      <a href="../../../configurator/tabs/gps/" class="md-nav__link">
         
   
   
@@ -1344,7 +1220,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../led-strip/" class="md-nav__link">
+      <a href="../../../configurator/tabs/led-strip/" class="md-nav__link">
         
   
   
@@ -1372,7 +1248,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../beepers/" class="md-nav__link">
+      <a href="../../../configurator/tabs/beepers/" class="md-nav__link">
         
   
   
@@ -1400,7 +1276,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../sensors/" class="md-nav__link">
+      <a href="../../../configurator/tabs/sensors/" class="md-nav__link">
         
   
   
@@ -1428,7 +1304,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../esc-programming/" class="md-nav__link">
+      <a href="../../../configurator/tabs/esc-programming/" class="md-nav__link">
         
   
   
@@ -1456,7 +1332,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fbus-sensors/" class="md-nav__link">
+      <a href="../../../configurator/tabs/fbus-sensors/" class="md-nav__link">
         
   
   
@@ -1484,7 +1360,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../blackbox/" class="md-nav__link">
+      <a href="../../../configurator/tabs/blackbox/" class="md-nav__link">
         
   
   
@@ -1512,7 +1388,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cli/" class="md-nav__link">
+      <a href="../../../configurator/tabs/cli/" class="md-nav__link">
         
   
   
@@ -2498,24 +2374,29 @@
       
   
   
+    
   
   
+  
     
     
     
     
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
         
           
-          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
             
   
   
@@ -2533,7 +2414,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2551,7 +2432,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributing/" class="md-nav__link">
+      <a href="../../" class="md-nav__link">
         
   
   
@@ -2579,7 +2460,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributing/building-the-firmware/" class="md-nav__link">
+      <a href="../../building-the-firmware/" class="md-nav__link">
         
   
   
@@ -2607,7 +2488,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributing/developers/" class="md-nav__link">
+      <a href="../../developers/" class="md-nav__link">
         
   
   
@@ -2635,7 +2516,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributing/code-guidelines/" class="md-nav__link">
+      <a href="../../code-guidelines/" class="md-nav__link">
         
   
   
@@ -2663,7 +2544,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributing/coding-style/" class="md-nav__link">
+      <a href="../../coding-style/" class="md-nav__link">
         
   
   
@@ -2688,6 +2569,8 @@
                 
   
   
+    
+  
   
   
     
@@ -2698,11 +2581,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_6" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_6" checked>
         
           
           <label class="md-nav__link" for="__nav_6_6" id="__nav_6_6_label" tabindex="0">
@@ -2723,7 +2606,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_6_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_6_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_6_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2741,7 +2624,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributing/tech/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         
   
   
@@ -2769,7 +2652,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributing/tech/parameter-groups/" class="md-nav__link">
+      <a href="../parameter-groups/" class="md-nav__link">
         
   
   
@@ -2797,7 +2680,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributing/tech/configuration-format/" class="md-nav__link">
+      <a href="../configuration-format/" class="md-nav__link">
         
   
   
@@ -2825,7 +2708,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributing/tech/atomic-barrier/" class="md-nav__link">
+      <a href="../atomic-barrier/" class="md-nav__link">
         
   
   
@@ -2853,7 +2736,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributing/tech/customizing-the-build/" class="md-nav__link">
+      <a href="../customizing-the-build/" class="md-nav__link">
         
   
   
@@ -2881,7 +2764,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributing/tech/custom-boards/" class="md-nav__link">
+      <a href="../custom-boards/" class="md-nav__link">
         
   
   
@@ -2909,7 +2792,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributing/tech/blackbox-format/" class="md-nav__link">
+      <a href="../blackbox-format/" class="md-nav__link">
         
   
   
@@ -2937,7 +2820,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributing/tech/smartfuel/" class="md-nav__link">
+      <a href="../smartfuel/" class="md-nav__link">
         
   
   
@@ -2965,7 +2848,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributing/tech/hardware-debugging/" class="md-nav__link">
+      <a href="../hardware-debugging/" class="md-nav__link">
         
   
   
@@ -2993,7 +2876,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributing/tech/hardware-debugging-vscode-jlink/" class="md-nav__link">
+      <a href="../hardware-debugging-vscode-jlink/" class="md-nav__link">
         
   
   
@@ -3021,7 +2904,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributing/tech/flight-dynamics/" class="md-nav__link">
+      <a href="../flight-dynamics/" class="md-nav__link">
         
   
   
@@ -3046,10 +2929,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../../contributing/tech/rx-wiring-autodetect/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RX Wiring Auto-detect
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -3065,6 +2975,120 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-this-needs-a-firmware-change-not-just-a-configurator-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why this needs a firmware change, not just a configurator loop
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#firmware-new-state-machine-rxc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Firmware: new state machine (rx.c)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Firmware: new state machine (rx.c)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#debounce" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Debounce
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#per-protocol-settle-timeout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Per-protocol settle timeout
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scan-order-walk-outward-from-current-settings-not-07" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scan order — walk outward from current settings, not 0..7
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#new-msp2-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        New MSP2 commands
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configurator-side-wingflight-configurator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configurator side (wingflight-configurator)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#open-items-to-settle-beforewhile-implementing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open items to settle before/while implementing
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -3077,7 +3101,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributing/tech/esc-signaling-autodetect/" class="md-nav__link">
+      <a href="../esc-signaling-autodetect/" class="md-nav__link">
         
   
   
@@ -3140,22 +3164,33 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#pid-gains" class="md-nav__link">
+  <a href="#why-this-needs-a-firmware-change-not-just-a-configurator-loop" class="md-nav__link">
     <span class="md-ellipsis">
       
-        PID Gains
+        Why this needs a firmware change, not just a configurator loop
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="PID Gains">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#firmware-new-state-machine-rxc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Firmware: new state machine (rx.c)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Firmware: new state machine (rx.c)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#f-and-manual-mode" class="md-nav__link">
+  <a href="#debounce" class="md-nav__link">
     <span class="md-ellipsis">
       
-        F and MANUAL mode
+        Debounce
       
     </span>
   </a>
@@ -3163,10 +3198,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#quick-troubleshooting" class="md-nav__link">
+  <a href="#per-protocol-settle-timeout" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quick troubleshooting
+        Per-protocol settle timeout
       
     </span>
   </a>
@@ -3174,10 +3209,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#why-these-defaults" class="md-nav__link">
+  <a href="#scan-order-walk-outward-from-current-settings-not-07" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Why these defaults
+        Scan order — walk outward from current settings, not 0..7
       
     </span>
   </a>
@@ -3190,10 +3225,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#master-gain" class="md-nav__link">
+  <a href="#new-msp2-commands" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Master Gain
+        New MSP2 commands
       
     </span>
   </a>
@@ -3201,10 +3236,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#leveling-settings" class="md-nav__link">
+  <a href="#configurator-side-wingflight-configurator" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Leveling Settings
+        Configurator side (wingflight-configurator)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#open-items-to-settle-beforewhile-implementing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open items to settle before/while implementing
       
     </span>
   </a>
@@ -3228,7 +3274,7 @@
 
 
   
-    <a href="https://github.com/WingFlight/edit/main/docs/configurator/tabs/profiles.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/WingFlight/edit/main/docs/contributing/tech/rx-wiring-autodetect.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -3236,202 +3282,197 @@
   
 
 
-<h1 id="profiles">Profiles<a class="headerlink" href="#profiles" title="Permanent link">&para;</a></h1>
-<p>The Profiles tab manages PID tuning profiles -- the actual stabilization
-gains that control how tightly the flight controller holds your commanded
-attitude.</p>
-<p>Multiple profiles can be configured and switched between in flight (via an
-<a href="../auxiliary/">Auxiliary</a> mode mapping), which is useful for having distinct
-tunes for, e.g., calm cruising versus aggressive 3D/aerobatic flight on the
-same airframe.</p>
-<h2 id="pid-gains">PID Gains<a class="headerlink" href="#pid-gains" title="Permanent link">&para;</a></h2>
-<p>The PID Gains table holds the actual per-axis P, I, D, F (Feedforward), and B
-(Boost) terms -- the static tune itself, as distinct from Master Gain below,
-which scales it live rather than editing it directly.</p>
-<p>Most people tune by feel in the air, not by reasoning about control theory,
-so here's what each one is actually doing to the way the plane flies rather
-than a textbook definition:</p>
+<h1 id="rx-serial-wiring-auto-detect-design">RX serial wiring auto-detect — design<a class="headerlink" href="#rx-serial-wiring-auto-detect-design" title="Permanent link">&para;</a></h1>
+<p>Scope: for the <strong>currently selected serial RX protocol</strong>, detect the right
+<code>serialrx_inverted</code> / <code>serialrx_halfduplex</code> / <code>serialrx_pinswap</code> combination
+by trying each live and watching for signal. Protocol selection itself stays
+manual (see prior discussion — 8 combos per protocol is tractable, ~160 across
+all protocols is not, and most of the value is here anyway: users know "it's
+an FBUS receiver," they don't know if their board's inverter or their wiring
+guess was right).</p>
+<h2 id="why-this-needs-a-firmware-change-not-just-a-configurator-loop">Why this needs a firmware change, not just a configurator loop<a class="headerlink" href="#why-this-needs-a-firmware-change-not-just-a-configurator-loop" title="Permanent link">&para;</a></h2>
+<p><code>rxInit()</code> (<a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/rx/rx.c#L281">rx.c:281</a>) only ever runs once,
+at boot (<a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/fc/init.c#L770">init.c:770</a>). Every RX_CONFIG
+field is <code>SET</code> + <code>EEPROM_WRITE</code> + reboot today
+(<a href="https://github.com/WingFlight/wingflight-configurator/blob/master/src/tabs/receiver/Receiver.svelte#L110">Receiver.svelte:110-124</a>).
+Cycling 8 combos that way means 8 real EEPROM writes and 8 full reboot/MSP-
+reconnect cycles — slow, disruptive, and needless flash wear for something
+that's inherently transient (only the final answer should ever be persisted).</p>
+<p>The good news: closing and reopening the RX serial port generically, without
+provider cooperation, is already possible with existing plumbing:</p>
 <ul>
-<li><strong>P</strong> is how locked-in the plane feels to your stick and to gusts. Too
-  little and it's floppy/mushy -- slow to respond, wanders off your line.
-  Too much and it gets nervous: a fast buzz or bounce-back right after a
-  sharp input.</li>
-<li><strong>I</strong> is what holds a turn, a knife-edge, or a heading exactly, rather than
-  approximately. Too little and it slowly bleeds off the line in wind or if
-  the CG's slightly off. Too much and it wallows -- a slow wandering
-  oscillation, or the plane keeps rotating a beat after you've already
-  centered the stick.</li>
-<li><strong>D</strong> is the shock absorber: it stops P's correction from overshooting and
-  soaks up a gust before it upsets the plane. Too little and inputs
-  overshoot, and gusts knock the plane around more than they should. Too
-  much and servos start to growl, buzz, or run hot -- D is by far the most
-  noise-sensitive term, so if you're chasing heat/buzzing here, check
-  <a href="../gyro/">Gyro</a> filtering first.</li>
-<li><strong>F</strong> is what makes stick input feel instant instead of rubbery -- it
-  pushes toward where you're asking the plane to go the moment you move the
-  stick, rather than waiting for it to fall behind first. Too little feels
-  delayed, and the plane keeps rotating briefly after you let go of the
-  stick. Too much snaps past where you wanted and kicks back
-  ("strikeback") as the stick returns to center.</li>
-<li><strong>B</strong> is a finishing touch on top of F, reacting to how <em>fast</em> you move
-  the stick rather than how far. Too little and quick flicks feel
-  soft/rounded; too much and quick flicks get twitchy, sharing D's noise
-  sensitivity.</li>
+<li><code>findSerialPortConfig(FUNCTION_RX_SERIAL)</code> gives the identifier of whatever
+  UART is assigned to the main RX.</li>
+<li><code>findSerialPortUsageByIdentifier(identifier)</code> is already public
+  (<a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/io/serial.h#L144">serial.h:144</a>) and returns the
+  <code>serialPortUsage_t*</code> holding the live <code>serialPort_t*</code> for that identifier.</li>
+<li><code>closeSerialPort()</code> (<a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/io/serial.c#L445">serial.c:445</a>)
+  releases it and marks the slot <code>FUNCTION_NONE</code> again.</li>
+<li>Each provider's own init (e.g. <code>sbusInit</code>,
+  <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/rx/sbus.c#L225">sbus.c:225-234</a>) just reopens the port
+  itself, building <code>portOptions_e</code> straight from
+  <code>rxConfig-&gt;serialrx_inverted/halfDuplex/pinSwap</code>. Nothing provider-specific
+  needs touching — mutate those three fields in the live (RAM-only)
+  <code>rxConfigMutable()</code> and re-run the existing <code>serialRxInit()</code> dispatch
+  (<a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/rx/rx.c#L172">rx.c:172</a>) for the current
+  <code>serialrx_provider</code>.</li>
 </ul>
-<h3 id="f-and-manual-mode">F and MANUAL mode<a class="headerlink" href="#f-and-manual-mode" title="Permanent link">&para;</a></h3>
-<p>F also sets how far the surfaces move in <strong>MANUAL</strong> mode (stabilization
-off, sticks straight to the servos). MANUAL is scaled through the same
-F-term the stabilized loop uses -- "stabilized flight minus the gyro
-correction" -- so a well-tuned F puts MANUAL's throw in the neighborhood of
-what the stabilized modes settle to in flight, instead of it depending on
-the rates ceiling as it once did. Judge the match in the air: a stationary
-airframe on the bench never rotates far enough for the two to look alike.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Because MANUAL is scaled through F, it is only as big as your F and rates
-allow. With the default F of 100, a rate of 400 deg/s gives full surface
-travel. Halve F, or lower the rates, and MANUAL travel shrinks with them.
-<strong>F = 0 gives no surface movement at all in MANUAL.</strong> If you use MANUAL
-as a fallback when the stabilization misbehaves, check on the bench that
-full stick still gives full travel.</p>
-</div>
-<h3 id="quick-troubleshooting">Quick troubleshooting<a class="headerlink" href="#quick-troubleshooting" title="Permanent link">&para;</a></h3>
+<p>So the mechanism is: <strong>close current port → flip the trial bits in RAM →
+re-run the same init switch that already exists → poll
+<code>rxIsReceivingSignal()</code></strong> (<a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/rx/rx.c#L391">rx.c:391</a>),
+which is already exposed to MSP as <code>mainLinkUp</code> in
+<code>MSP2_WING_RX_INPUT_BACKUP_STATUS</code> and already polled every 200ms by the
+configurator today.</p>
+<h2 id="firmware-new-state-machine-rxc">Firmware: new state machine (rx.c)<a class="headerlink" href="#firmware-new-state-machine-rxc" title="Permanent link">&para;</a></h2>
+<p>A small non-blocking state machine, ticked from the scheduler like any other
+periodic task — <strong>not</strong> run inside the MSP handler, since a combo can take
+up to ~1s to settle and MSP processing must stay non-blocking.</p>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">RX_TRIAL_IDLE</span><span class="p">,</span>
+<span class="w">    </span><span class="n">RX_TRIAL_RUNNING</span><span class="p">,</span>
+<span class="w">    </span><span class="n">RX_TRIAL_SUCCESS</span><span class="p">,</span>
+<span class="w">    </span><span class="n">RX_TRIAL_FAILED</span><span class="p">,</span>
+<span class="p">}</span><span class="w"> </span><span class="n">rxTrialState_e</span><span class="p">;</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">rxTrialState_e</span><span class="w"> </span><span class="n">state</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">comboIndex</span><span class="p">;</span><span class="w">         </span><span class="c1">// 0..7, current attempt</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">comboOrder</span><span class="p">[</span><span class="mi">8</span><span class="p">];</span><span class="w">      </span><span class="c1">// walk order, see below</span>
+<span class="w">    </span><span class="n">timeMs_t</span><span class="w"> </span><span class="n">comboStartedAt</span><span class="p">;</span>
+<span class="w">    </span><span class="n">timeMs_t</span><span class="w"> </span><span class="n">lastPollAt</span><span class="p">;</span><span class="w">        </span><span class="c1">// watchdog: configurator must keep polling</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">savedInverted</span><span class="p">,</span><span class="w"> </span><span class="n">savedHalfDuplex</span><span class="p">,</span><span class="w"> </span><span class="n">savedPinSwap</span><span class="p">;</span><span class="w"> </span><span class="c1">// restore point</span>
+<span class="p">}</span><span class="w"> </span><span class="n">rxSerialTrial_t</span><span class="p">;</span>
+</code></pre></div>
+<ul>
+<li><strong><code>rxSerialTrialStart()</code></strong> — guards: <code>FEATURE_RX_SERIAL</code> active, a serial
+  port is actually assigned, no trial already running. Snapshots the three
+  current bits as the restore point, builds <code>comboOrder</code> (below), sets
+  <code>comboIndex = 0</code>, applies combo 0, closes+reopens the port, calls
+  <code>serialRxInit()</code>, records <code>comboStartedAt</code>.</li>
+<li><strong><code>rxSerialTrialTick()</code></strong> (called every scheduler pass, cheap early-out
+  when idle):</li>
+<li>If <code>state != RUNNING</code>, nothing to do.</li>
+<li>Watchdog: if <code>now - lastPollAt &gt; 3000ms</code>, treat as an abandoned trial
+    (configurator crashed / USB unplugged mid-scan) → restore + <code>IDLE</code>.</li>
+<li>If <code>rxIsReceivingSignal()</code> has been continuously true for the debounce
+    window (see below) → <code>SUCCESS</code>, stop touching the port further (leave
+    the winning combo live so the user can literally see channels move
+    before deciding to save).</li>
+<li>Else if <code>now - comboStartedAt &gt; settleMs[provider]</code> → advance
+    <code>comboIndex</code>; if that was the last of 8, restore original bits,
+    reinit, → <code>FAILED</code>; else apply next combo, close+reopen, reinit.</li>
+<li><strong><code>rxSerialTrialStop()</code></strong> — always restores the snapshotted bits and
+  reinits, regardless of current state. Idempotent. This is the only way a
+  <code>SUCCESS</code> combo becomes "real" from the firmware's point of view — it
+  doesn't persist anything itself, ever.</li>
+</ul>
+<h3 id="debounce">Debounce<a class="headerlink" href="#debounce" title="Permanent link">&para;</a></h3>
+<p><code>rxSignalReceived</code> already flips <code>true</code> on the very next valid frame and
+<code>false</code> after an internal invalid-frame timeout
+(<a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/rx/rx.c#L545">rx.c:545-554</a>), so a single stray
+checksum-lucky garbage byte is already unlikely to read as sustained signal.
+Still, require it held for a short continuous window (e.g. 150–250ms) before
+calling a combo a <code>SUCCESS</code>, rather than trusting one instantaneous poll —
+cheap insurance, and easy to tune from bench testing.</p>
+<h3 id="per-protocol-settle-timeout">Per-protocol settle timeout<a class="headerlink" href="#per-protocol-settle-timeout" title="Permanent link">&para;</a></h3>
+<p>Streaming protocols (S.BUS, CRSF, IBUS, FPort/FBUS, GHST) lock on within a
+frame or two — a few hundred ms of budget is generous. Handshake-based ones
+(SRXL2, Jeti EXBUS, Spektrum bind-flavored modes) need materially longer
+before anything valid shows up. Rather than guess exact numbers here, add a
+<code>settleMs[]</code> lookup keyed by <code>serialrx_provider</code> with a conservative default
+(~600ms) and larger values (~1200-1500ms) for the handshake protocols,
+then tune from real receivers on the bench. Worst case (8 combos × slowest
+timeout) is ~10-12s if every combo fails — acceptable for a manual
+"click and wait a few seconds" action, and the scan order below makes the
+common case much faster.</p>
+<h3 id="scan-order-walk-outward-from-current-settings-not-07">Scan order — walk outward from current settings, not 0..7<a class="headerlink" href="#scan-order-walk-outward-from-current-settings-not-07" title="Permanent link">&para;</a></h3>
+<p>Most real-world misconfigurations are "one thing is wrong" (usually
+<code>inverted</code>, from a board with/without a hardware inverter), not "everything
+is wrong." Order the 8 combos by Hamming distance from whatever's currently
+configured: distance 0 (current — confirms the existing setting still isn't
+the problem, cheap to rule out first), then the three distance-1 flips, then
+the three distance-2 flips, then the distance-3 (all flipped) as last
+resort. Converges in 1 try for the common single-bit-wrong case instead of
+averaging 4.</p>
+<h2 id="new-msp2-commands">New MSP2 commands<a class="headerlink" href="#new-msp2-commands" title="Permanent link">&para;</a></h2>
+<p>Next free IDs after <code>0x5F11</code> (<a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/msp/msp_protocol.h#L305">msp_protocol.h:305-322</a>):</p>
 <table>
 <thead>
 <tr>
-<th>What you're seeing in the air</th>
-<th>Try</th>
+<th>Command</th>
+<th>ID</th>
+<th>Request</th>
+<th>Response</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Floaty/mushy, wanders off your line</td>
-<td>Raise P</td>
+<td><code>MSP2_WING_RX_SERIAL_TRIAL_START</code></td>
+<td><code>0x5F12</code></td>
+<td><em>(none — always trials the currently-configured <code>serialrx_provider</code>)</em></td>
+<td><code>U8 accepted</code> (0 = rejected: no serial RX feature/port, or trial already running)</td>
 </tr>
 <tr>
-<td>Bounces or buzzes right after a sharp stick input</td>
-<td>Lower P (or raise D)</td>
+<td><code>MSP2_WING_RX_SERIAL_TRIAL_STATUS</code></td>
+<td><code>0x5F13</code></td>
+<td><em>(none)</em></td>
+<td><code>U8 state</code> (idle/running/success/failed), <code>U8 comboIndex</code>, <code>U8 inverted</code>, <code>U8 halfDuplex</code>, <code>U8 pinSwap</code>, <code>U16 elapsedMs</code> — also <strong>is</strong> the watchdog keep-alive (updates <code>lastPollAt</code>)</td>
 </tr>
 <tr>
-<td>Overshoots a gust or fast input before settling</td>
-<td>Raise D</td>
-</tr>
-<tr>
-<td>Servos growl, buzz, or run hot</td>
-<td>Lower D, check <a href="../gyro/">Gyro</a> filtering</td>
-</tr>
-<tr>
-<td>Stick input feels laggy or rubbery</td>
-<td>Raise F</td>
-</tr>
-<tr>
-<td>Keeps drifting/rotating a moment after you center the stick</td>
-<td>Lower I; if it's only on quick inputs, raise F instead</td>
-</tr>
-<tr>
-<td>Snaps past the input and kicks back as you release the stick</td>
-<td>Lower F</td>
-</tr>
-<tr>
-<td>Quick flicks feel twitchy/nervous</td>
-<td>Lower B</td>
-</tr>
-<tr>
-<td>Quick flicks feel soft, no snap</td>
-<td>Raise B</td>
+<td><code>MSP2_WING_RX_SERIAL_TRIAL_STOP</code></td>
+<td><code>0x5F14</code></td>
+<td><em>(none)</em></td>
+<td><code>U8 ack</code> — always restores + reinits, idempotent</td>
 </tr>
 </tbody>
 </table>
-<p>Master Gain and its curve (below) scale P, I, and D together as one
-percentage -- F (Feedforward) and Boost are tuned independently per-axis
-and aren't affected by Master Gain.</p>
-<h3 id="why-these-defaults">Why these defaults<a class="headerlink" href="#why-these-defaults" title="Permanent link">&para;</a></h3>
-<p>Out of the box:</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>P</th>
-<th>I</th>
-<th>D</th>
-<th>F</th>
-<th>B</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Roll</td>
-<td>50</td>
-<td>16</td>
-<td>0</td>
-<td>100</td>
-<td>0</td>
-</tr>
-<tr>
-<td>Pitch</td>
-<td>50</td>
-<td>16</td>
-<td>0</td>
-<td>100</td>
-<td>0</td>
-</tr>
-<tr>
-<td>Yaw</td>
-<td>80</td>
-<td>20</td>
-<td>0</td>
-<td>100</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-<p>The standout choice is <strong>D = 0 on every axis</strong>. A fixed-wing control
-surface doesn't live in a particularly noisy, high-vibration environment,
-so the default tune leans on Feedforward (already set to a meaningful
-F = 100 out of the box) for a responsive, instant-feeling stick rather than
-D-driven damping. Add D deliberately if a specific airframe overshoots or
-wallows in gusts -- and check <a href="../gyro/">Gyro</a> filtering first, since D is
-the term most likely to expose noise once it's non-zero.</p>
-<p>I is also deliberately kept low relative to P (16-20 vs. 50-80) -- don't
-read that gap as I being "weak." I isn't left to accumulate freely the way
-a raw integrator would: I-Term Decay Time (0.6s by default) continuously
-bleeds accumulated I-term error back off, capped by an I-Term Decay Max
-Rate (35°/s), and I-Term Relax (level 22, cutoff 10Hz by default)
-specifically suppresses I buildup while the stick is moving quickly, to
-avoid bounce-back at the end of a roll or other fast maneuver. Because
-something else is actively managing decay, a small I gain is enough to
-hold a steady bias (wind, a CG offset) -- pushing I up to "match" P instead
-just reintroduces the slow wallowing oscillation the decay/relax defaults
-are there to avoid.</p>
-<p>Yaw runs a bit hotter than Roll/Pitch (P 80 vs. 50, I 20 vs. 16) since
-rudder authority and yaw stability vary more from airframe to airframe than
-aileron/elevator response typically does.</p>
-<p>Boost defaults to 0 -- it's a finishing touch layered on an already-working
-Feedforward tune, not something you'd want fighting an airframe that hasn't
-been flown and trimmed yet.</p>
-<p>Master Gain defaults to 100% (no scaling) with no curve assigned on every
-axis, and Throttle (TPA) likewise defaults to 100% with no curve -- so the
-PID Gains table above is exactly what flies until you deliberately assign a
-curve or an Adjustments knob.</p>
-<h2 id="master-gain">Master Gain<a class="headerlink" href="#master-gain" title="Permanent link">&para;</a></h2>
-<p>Master Gain sets one overall gain per axis (Roll, Pitch, Yaw) that scales
-the P, I, and D terms of that axis's PID loop -- F (Feedforward) and Boost
-stay at their static configured values -- each with its own optional gain
-curve so the scaling can vary with stick position rather than applying a
-single flat multiplier. In expert mode a fourth row, Throttle (TPA),
-attenuates gains across the throttle range using the same shared
-gain-curve pool.</p>
-<p>Any of these gains can also be mapped to a transmitter switch/knob from the
-<a href="../adjustments/">Adjustments</a> tab for live in-flight tuning -- when a gain is
-under live adjustment control, its row shows the current effective value
-being commanded in place of the static configured number.</p>
-<h2 id="leveling-settings">Leveling Settings<a class="headerlink" href="#leveling-settings" title="Permanent link">&para;</a></h2>
-<p>Angle/Horizon-style leveling and the hold modes are tuned here as well.
-The <a href="../../../flight-modes/auto-hover/">Auto Hover</a> fields -- Gain, Max
-Angle, Max Rate, <strong>Auto Hover roll deadband</strong> and the three <strong>throttle
-assist</strong> fields -- sit in the Auto Hover group, and
-<a href="../../../flight-modes/atthold/">Attitude Hold</a> has its own Gain, Deadband
-and Max Rate. See each mode's page for what the fields do.</p>
+<p>Mirrors the existing <code>MSP2_WING_RX_INPUT_BACKUP_STATUS</code> handler pattern
+(<a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/msp/msp.c#L1321">msp.c:1321</a>) closely enough to reuse
+its shape.</p>
+<h2 id="configurator-side-wingflight-configurator">Configurator side (wingflight-configurator)<a class="headerlink" href="#configurator-side-wingflight-configurator" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>ReceiverType.svelte</code>: a "Detect wiring" button next to the protocol
+  select, enabled only when <code>RX_PROTOCOLS[rxProtoIndex]?.feature ===
+  "RX_SERIAL"</code> (same guard already used for the signaling SubSection at
+  <a href="https://github.com/WingFlight/wingflight-configurator/blob/master/src/tabs/receiver/ReceiverType.svelte#L65">ReceiverType.svelte:65</a>).</li>
+<li>On click: send <code>TRIAL_START</code>; if accepted, poll <code>TRIAL_STATUS</code> on the same
+  ~150-200ms cadence the tab already uses for
+  <code>MSP2_WING_RX_INPUT_BACKUP_STATUS</code>
+  (<a href="https://github.com/WingFlight/wingflight-configurator/blob/master/src/tabs/receiver/Receiver.svelte#L89">Receiver.svelte:89-91</a>),
+  showing "Trying combo N of 8…".</li>
+<li>On <code>SUCCESS</code>: send <code>TRIAL_STOP</code> (commits nothing on the FC, just cleans up
+  the trial and restores original live bits), then apply the <em>returned</em>
+  <code>inverted</code>/<code>halfDuplex</code>/<code>pinSwap</code> into local <code>FC.RX_CONFIG</code> — this is the
+  only place the result becomes visible, and it flows through the tab's
+  existing dirty-diff/Save/Revert machinery exactly like any manually-edited
+  field. Nothing is pushed to the FC until the user hits the normal
+  Save/Reboot button. Toast a friendly success message.</li>
+<li>On <code>FAILED</code>: send <code>TRIAL_STOP</code>, toast "no signal found on this protocol —
+  check wiring/provider," touch nothing.</li>
+<li>Always send <code>TRIAL_STOP</code> on component unmount / tab navigation, not just
+  on terminal states — covers the user clicking away mid-scan. (Firmware's
+  3s watchdog is the last-resort backstop if even that doesn't arrive.)</li>
+</ul>
+<p>This keeps the trial's blast radius genuinely contained: the FC can wander
+across up to 8 electrical configs for a few seconds while the button spins,
+but from the user's (and the rest of the tab's) point of view nothing is
+"real" until the ordinary Save button is pressed — same contract as every
+other field on this page today.</p>
+<h2 id="open-items-to-settle-beforewhile-implementing">Open items to settle before/while implementing<a class="headerlink" href="#open-items-to-settle-beforewhile-implementing" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Exact <code>settleMs[]</code> values per provider — needs bench time with real
+   receivers, not a guess from reading code.</li>
+<li>Where the scheduler task hook goes (need to check <code>fc/tasks.c</code> task table
+   conventions) and confirm ticking a lightweight trial state machine there
+   doesn't need its own <code>TASK_*</code> slot vs. piggybacking on the existing RX
+   task.</li>
+<li>Whether <code>SUCCESS</code> should leave the winning combo <em>live</em> (so the user sees
+   channel bars move as confirmation before saving) vs. immediately
+   restoring and just reporting the numbers — leaning toward "leave it live
+   until STOP," since seeing channels twitch is a much stronger confidence
+   signal than a text result, but it does mean the FC sits on unsaved wiring
+   for slightly longer.</li>
+</ol>
 
 
 
@@ -3467,7 +3508,7 @@ and Max Rate. See each mode's page for what the fields do.</p>
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../curves/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Curves">
+          <a href="../flight-dynamics/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Flight Dynamics">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -3477,20 +3518,20 @@ and Max Rate. See each mode's page for what the fields do.</p>
                 Previous
               </span>
               <div class="md-ellipsis">
-                Curves
+                Flight Dynamics
               </div>
             </div>
           </a>
         
         
           
-          <a href="../rates/" class="md-footer__link md-footer__link--next" aria-label="Next: Rates">
+          <a href="../esc-signaling-autodetect/" class="md-footer__link md-footer__link--next" aria-label="Next: ESC Signalling Auto-detect">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Rates
+                ESC Signalling Auto-detect
               </div>
             </div>
             <div class="md-footer__button md-icon">
