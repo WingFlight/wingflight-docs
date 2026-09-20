@@ -1,43 +1,76 @@
 # GPS Rescue
 
-GPS Rescue automatically returns the aircraft toward its arm location when
-triggered, typically as a [Failsafe](../configurator/tabs/failsafe.md)
-response to lost radio link, provided a GPS fix is available. It has no
-Configurator UI yet -- everything below is tuned entirely from the CLI
-(`gps_rescue_*` settings).
+!!! danger "Not suitable for fixed-wing aircraft"
+    GPS Rescue is inherited from Betaflight, where it was written for
+    multirotors. On a fixed-wing aircraft it does **not** fly the aircraft
+    home. It can also **disarm the aircraft in flight**. Do not use it as
+    your failsafe plan. Use [GPS RTH](gps-rth.md) instead, and treat that as
+    experimental too.
 
-GPS Rescue requires a working [GPS](../configurator/tabs/gps.md) fix before
-it can be relied on -- test and tune rescue behavior deliberately (in open
-space, with props at a safe altitude and heading) before trusting it as your
-failsafe plan.
+## What it actually does today
 
-## What it actually does
+When the **GPS RESCUE** mode is switched on (with a GPS fix), the
+firmware:
 
-On trigger, the aircraft climbs to `gps_rescue_initial_altitude` (default
-50m), flies back toward the arm point at `gps_rescue_ground_speed` (default
-20 m/s), then begins descending once within `gps_rescue_descent_distance`
-(default 200m) of home, aiming to reach `gps_rescue_landing_altitude`
-(default 5m) by the time it arrives. Climb/descent rates are separately
-capped (`gps_rescue_ascend_rate`/`gps_rescue_descend_rate`, default 5 m/s
-/ 1.5 m/s) so altitude changes stay gentle rather than snapping straight to
-target. Throttle and velocity are each held by their own small PID loop
-(`gps_rescue_throttle_p/i/d`, `gps_rescue_velocity_p/i/d`) around a
-configured throttle range (`gps_rescue_throttle_min/max/hover`) -- these
-rarely need touching unless the aircraft over/undershoots its climb or
-approach speed.
+- forces roll and pitch into Angle-style leveling, so the wings go level;
+- steers **pitch** with a speed controller written for multirotors. If the
+  ground speed is below `gps_rescue_ground_speed` it asks for more nose-down
+  pitch, up to the `gps_rescue_angle` limit, which on an airplane is a dive
+  rather than more thrust.
 
-## Safety gates
+It does **not**:
 
-Rescue won't start (or will abort) if conditions look unreliable rather
-than pressing on regardless:
+- turn the aircraft toward home. The heading (yaw) command the rescue
+  calculates is never applied, and no bank is commanded;
+- control the throttle. The throttle and altitude controllers still run, but
+  nothing sends their output to the motor. Throttle stays with your stick;
+- climb to, or hold, the rescue altitude.
+
+So the result is a wings-level glide whose pitch follows a speed controller
+that cannot control speed, with no steering.
+
+## It can disarm in flight
+
+The rescue state machine calls a disarm, which stops the motor, in
+these cases:
+
+- rescue is switched on without a home fix;
+- rescue is triggered by a failsafe while closer than `gps_rescue_min_dth`
+  to home;
+- the sanity checks abort the rescue (see below);
+- in the final landing phase, the accelerometer magnitude passes a
+  threshold. On a wing that can happen from turbulence or a maneuver long
+  before the aircraft is anywhere near the ground.
+
+## Failsafe does not start it
+
+Older documentation described GPS Rescue as something failsafe starts when
+the radio link is lost. That does not happen in WingFlight: the failsafe
+stage that would start it is disabled in the firmware. See
+[Failsafe](../configurator/tabs/failsafe.md). The only way to enter GPS
+Rescue is a switch mapped to **GPS RESCUE** on the
+[Auxiliary](../configurator/tabs/auxiliary.md) tab.
+
+## Settings
+
+It has no Configurator UI. The `gps_rescue_*` settings exist in the CLI:
 
 - `gps_rescue_min_sats` (default 8) -- minimum satellite count required.
-- `gps_rescue_min_dth` (default 100m) -- below this distance-to-home, a
-  rescue is considered unnecessary/too close to be worth the maneuver.
-- `gps_rescue_sanity_checks` (on by default) -- aborts a rescue already in
-  progress if GPS-derived position/velocity stops making physical sense
-  (e.g. implies impossible acceleration), rather than trusting bad data
-  and flying further off course.
+- `gps_rescue_min_dth` (default 100m) -- below this distance to home, a
+  failsafe rescue disarms rather than starting.
+- `gps_rescue_sanity_checks` (on by default) -- aborts a rescue in
+  progress, and disarms, if the GPS data stops making physical sense or the
+  aircraft is flying away from home.
 - `gps_rescue_allow_arming_without_fix` (off by default) -- keeps arming
-  blocked without a GPS fix, so you don't take off believing rescue is
-  available when it isn't.
+  blocked without a GPS fix.
+- `gps_rescue_ground_speed`, `gps_rescue_angle` and the
+  `gps_rescue_velocity_*` gains shape the pitch behaviour described above.
+- The remaining altitude, ascend/descend, landing and `gps_rescue_throttle_*`
+  settings configure parts of the state machine whose output is not applied
+  to the aircraft.
+
+## What to use instead
+
+[GPS RTH](gps-rth.md) and GPS Loiter steer by banking and hold altitude by
+pitch, the way a fixed-wing needs. They are new and experimental, and leave
+the throttle to you. Neither is a complete recovery on its own.

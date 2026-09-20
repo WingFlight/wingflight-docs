@@ -55,6 +55,14 @@ what the stabilized modes settle to in flight, instead of it depending on
 the rates ceiling as it once did. Judge the match in the air: a stationary
 airframe on the bench never rotates far enough for the two to look alike.
 
+!!! warning
+    Because MANUAL is scaled through F, it is only as big as your F and rates
+    allow. With the default F of 100, a rate of 400 deg/s gives full surface
+    travel. Halve F, or lower the rates, and MANUAL travel shrinks with them.
+    **F = 0 gives no surface movement at all in MANUAL.** If you use MANUAL
+    as a fallback when the stabilization misbehaves, check on the bench that
+    full stick still gives full travel.
+
 ### Quick troubleshooting
 
 | What you're seeing in the air | Try |
@@ -93,7 +101,7 @@ the term most likely to expose noise once it's non-zero.
 
 I is also deliberately kept low relative to P (16-20 vs. 50-80) -- don't
 read that gap as I being "weak." I isn't left to accumulate freely the way
-a raw integrator would: I-Term Decay Time (6s by default) continuously
+a raw integrator would: I-Term Decay Time (0.6s by default) continuously
 bleeds accumulated I-term error back off, capped by an I-Term Decay Max
 Rate (35°/s), and I-Term Relax (level 22, cutoff 10Hz by default)
 specifically suppresses I buildup while the stick is moving quickly, to
