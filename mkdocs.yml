@@ -146,3 +146,6 @@ nav:
           - SmartFuel Internals: contributing/tech/smartfuel.md
           - Hardware Debugging: contributing/tech/hardware-debugging.md
           - Debugging with VS Code and J-Link: contributing/tech/hardware-debugging-vscode-jlink.md
+          - Flight Dynamics: contributing/tech/flight-dynamics.md
+          - RX Wiring Auto-detect: contributing/tech/rx-wiring-autodetect.md
+          - ESC Signalling Auto-detect: contributing/tech/esc-signaling-autodetect.md

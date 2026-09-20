@@ -29,16 +29,12 @@ Configurator. Most users will not need these pages.
   use them.
 - [Hardware Debugging with VS Code and J-Link](hardware-debugging-vscode-jlink.md)
 
-## Design notes in the firmware repository
+## Flight control and wiring design
 
-A few design documents live next to the code they describe, in the firmware
-repository's `docs/` directory:
-
-- [Flight Dynamics](https://github.com/WingFlight/wingflight-firmware/blob/master/docs/FlightDynamics.md)
-  -- the flight-control signal chain, sign conventions, the rationale behind each
-  stage, and a review of known defects.
-- [RX serial wiring auto-detect](https://github.com/WingFlight/wingflight-firmware/blob/master/docs/rx-wiring-autodetect-design.md)
-  and
-  [ESC telemetry signalling auto-detect](https://github.com/WingFlight/wingflight-firmware/blob/master/docs/esc-signaling-autodetect-design.md)
-  -- the design of the live trial that finds the right inversion, half-duplex and
+- [Flight Dynamics](flight-dynamics.md) -- the flight-control signal chain, sign
+  conventions, the rationale behind each stage, and a review of known defects
+  with a test plan. Read it before changing flight-control code.
+- [RX serial wiring auto-detect](rx-wiring-autodetect.md) and
+  [ESC telemetry signalling auto-detect](esc-signaling-autodetect.md) -- the
+  design of the live trial that finds the right inversion, half-duplex and
   pin-swap settings.
