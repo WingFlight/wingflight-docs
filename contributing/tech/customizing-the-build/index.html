@@ -2286,34 +2286,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/vtx/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    VTX
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../../reference/led-strip/" class="md-nav__link">
         
   
@@ -3192,8 +3164,8 @@ flash and RAM size of your MCU.</p>
 <li>The unified target's own <code>target.h</code> (in <code>src/main/target/STM32_UNIFIED/</code>) covers what is specific
   to an MCU family.</li>
 </ul>
-<p>A feature is a <code>USE_</code> macro. To remove a feature you do not use, such as a receiver protocol,
-telemetry protocol or VTX protocol, remove or <code>#undef</code> its <code>USE_</code> macro, and rebuild to see how
+<p>A feature is a <code>USE_</code> macro. To remove a feature you do not use, such as a receiver or telemetry protocol,
+remove or <code>#undef</code> its <code>USE_</code> macro, and rebuild to see how
 much flash it saves.</p>
 <p>You can also pass a macro on the command line without editing the files:</p>
 <div class="highlight"><pre><span></span><code>make TARGET=STM32F405 OPTIONS="USE_SOMETHING"

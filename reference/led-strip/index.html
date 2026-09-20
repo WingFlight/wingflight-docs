@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://doc.wingflight.org/reference/led-strip/">
       
       
-        <link rel="prev" href="../vtx/">
+        <link rel="prev" href="../gps-hardware/">
       
       
         <link rel="next" href="../buzzer/">
@@ -2288,34 +2288,6 @@
                 
   
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../vtx/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    VTX
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
     
   
   
@@ -2706,17 +2678,6 @@
     <span class="md-ellipsis">
       
         Larson Scanner (Cylon Effect)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vtx-frequency" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        VTX Frequency
       
     </span>
   </a>
@@ -3895,17 +3856,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#vtx-frequency" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        VTX Frequency
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#flight-mode-orientation" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4341,61 +4291,6 @@ Note: this mode requires a current sensor. See <a href="../../configurator/tabs/
 <h4 id="larson-scanner-cylon-effect">Larson Scanner (Cylon Effect)<a class="headerlink" href="#larson-scanner-cylon-effect" title="Permanent link">&para;</a></h4>
 <p>The Larson Scanner replicates the scanning "eye" effect seen on the mechanical Cylons and on Kitt from Knight Rider.
 This overlay dims all of the LEDs it is assigned to and brightens certain ones at certain times in accordance with the animation. The animation is active regardless of arm state.</p>
-<h4 id="vtx-frequency">VTX Frequency<a class="headerlink" href="#vtx-frequency" title="Permanent link">&para;</a></h4>
-<p>This overlay makes the LED color dependent on the current channel of the VTX, in case it is equipped with SmartAudio or IRC Tramp.
-The color is selected according to the following table:</p>
-<table>
-<thead>
-<tr>
-<th>Frequency range</th>
-<th>Default color</th>
-<th>Color index</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>&lt;= 5672</td>
-<td>White</td>
-<td>1</td>
-</tr>
-<tr>
-<td></td>
-<td>&gt; 5672 &lt;= 5711</td>
-<td>Red</td>
-</tr>
-<tr>
-<td></td>
-<td>&gt; 5711 &lt;= 5750</td>
-<td>Orange</td>
-</tr>
-<tr>
-<td></td>
-<td>&gt; 5750 &lt;= 5789</td>
-<td>Yellow</td>
-</tr>
-<tr>
-<td></td>
-<td>&gt; 5789 &lt;= 5829</td>
-<td>Green</td>
-</tr>
-<tr>
-<td></td>
-<td>&gt; 5829 &lt;= 5867</td>
-<td>Blue</td>
-</tr>
-<tr>
-<td></td>
-<td>&gt; 5867 &lt;= 5906</td>
-<td>Dark violet</td>
-</tr>
-<tr>
-<td></td>
-<td>&gt; 5906</td>
-<td>Deep pink</td>
-</tr>
-</tbody>
-</table>
-<p>The default color can be changed by double-clicking the color and moving the Hue slider or by using the color command in the CLI.</p>
 <h4 id="flight-mode-orientation">Flight Mode &amp; Orientation<a class="headerlink" href="#flight-mode-orientation" title="Permanent link">&para;</a></h4>
 <p>This mode shows the flight mode and orientation.</p>
 <p>When flight modes are active then the LEDs are updated to show different colors depending on the mode, placement on the grid and direction.</p>
@@ -4922,7 +4817,7 @@ This also means that you can make sure that each R,G and B LED in each LED modul
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../vtx/" class="md-footer__link md-footer__link--prev" aria-label="Previous: VTX">
+          <a href="../gps-hardware/" class="md-footer__link md-footer__link--prev" aria-label="Previous: GPS Hardware and Module Setup">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -4932,7 +4827,7 @@ This also means that you can make sure that each R,G and B LED in each LED modul
                 Previous
               </span>
               <div class="md-ellipsis">
-                VTX
+                GPS Hardware and Module Setup
               </div>
             </div>
           </a>
