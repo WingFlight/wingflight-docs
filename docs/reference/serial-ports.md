@@ -113,9 +113,9 @@ Other devices can be added starting from id 50.
 | FUNCTION_BLACKBOX            | 128   |
 | FUNCTION_TELEMETRY_MAVLINK   | 512   |
 | FUNCTION_ESC_SENSOR          | 1024  |
-| FUNCTION_VTX_SMARTAUDIO      | 2048  |
+| FUNCTION_VTX_SMARTAUDIO (reserved) | 2048  |
 | FUNCTION_TELEMETRY_IBUS      | 4096  |
-| FUNCTION_VTX_TRAMP           | 8192  |
+| FUNCTION_VTX_TRAMP (reserved) | 8192  |
 | FUNCTION_RCDEVICE            | 16384 |
 | FUNCTION_LIDAR_TF            | 32768 |
 | FUNCTION_PRINTF              | 131072 |

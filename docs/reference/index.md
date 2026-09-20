@@ -31,7 +31,6 @@ Peripherals:
 
 - [GPS Hardware and Module Setup](gps-hardware.md) -- wiring and configuring
   a u-blox or NMEA GPS.
-- [VTX](vtx.md) -- controlling a video transmitter, and the VTX table.
 - [LED Strip](led-strip.md) -- addressable LED strips, functions and colors.
 - [Buzzer](buzzer.md) -- buzzer hardware and beeper sequences.
 - [OLED Display](oled-display.md) -- the optional on-board status display.
