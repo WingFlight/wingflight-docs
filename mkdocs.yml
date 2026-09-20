@@ -126,7 +126,6 @@ nav:
       - Telemetry: reference/telemetry.md
       - Castle ESC Telemetry: reference/castle-esc-telemetry.md
       - GPS Hardware and Module Setup: reference/gps-hardware.md
-      - VTX: reference/vtx.md
       - LED Strip: reference/led-strip.md
       - Buzzer: reference/buzzer.md
       - OLED Display: reference/oled-display.md

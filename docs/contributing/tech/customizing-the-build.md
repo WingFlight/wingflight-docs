@@ -34,8 +34,8 @@ flash and RAM size of your MCU.
 * The unified target's own `target.h` (in `src/main/target/STM32_UNIFIED/`) covers what is specific
   to an MCU family.
 
-A feature is a `USE_` macro. To remove a feature you do not use, such as a receiver protocol,
-telemetry protocol or VTX protocol, remove or `#undef` its `USE_` macro, and rebuild to see how
+A feature is a `USE_` macro. To remove a feature you do not use, such as a receiver or telemetry protocol,
+remove or `#undef` its `USE_` macro, and rebuild to see how
 much flash it saves.
 
 You can also pass a macro on the command line without editing the files:

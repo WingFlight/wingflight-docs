@@ -311,24 +311,6 @@ A LED with this overlay will fade to the alternate color in the profile STATUS_A
 The Larson Scanner replicates the scanning "eye" effect seen on the mechanical Cylons and on Kitt from Knight Rider.
 This overlay dims all of the LEDs it is assigned to and brightens certain ones at certain times in accordance with the animation. The animation is active regardless of arm state.
 
-#### VTX Frequency
-
-This overlay makes the LED color dependent on the current channel of the VTX, in case it is equipped with SmartAudio or IRC Tramp.
-The color is selected according to the following table:
-
- Frequency range | Default color | Color index
- --- | --- | ---
- <= 5672 | White | 1
- |> 5672 <= 5711 | Red | 2
- |> 5711 <= 5750 | Orange | 3
- |> 5750 <= 5789 | Yellow | 4
- |> 5789 <= 5829 | Green | 6
- |> 5829 <= 5867 | Blue | 10
- |> 5867 <= 5906 | Dark violet | 11
- |> 5906 | Deep pink | 13
-
-The default color can be changed by double-clicking the color and moving the Hue slider or by using the color command in the CLI.
-
 #### Flight Mode & Orientation
 
 This mode shows the flight mode and orientation.
