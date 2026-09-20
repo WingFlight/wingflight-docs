@@ -269,10 +269,8 @@ The 25% rule was added so modes can be tested on the bench without snapping (com
 
 ### Medium
 
-**M-1. AUTOHOVER throttle assist ignores the throttle stick and RX loss.** *Confirmed.*
-[mixer.c:341](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/mixer.c#L341) adds `autoHoverThrottleBoost()` to `getThrottle()` unconditionally, up to `throttle_assist_max` (default 15%, hard cap 50%). With the stick at idle the motor can spin up, and on link loss the held-on AUTOHOVER switch plus centred sticks can keep assisting (H-1 means no failsafe mode clears it). The governor has an explicit failsafe bypass for the same reason; this path does not. Disabled by default (`throttle_assist_gain=0`), so exposure is limited to users who enabled it.
-
-*Fix.* Gate the boost on the throttle stick being above off-throttle and on `rxIsReceivingSignal()`.
+**M-1. AUTOHOVER throttle assist ignored the throttle stick and RX loss. Fixed (#104).**
+The boost was added to `getThrottle()` unconditionally, up to `throttle_assist_max` (default 15%, hard cap 50%), so with the stick at idle the motor could spin up, and on link loss a held-on AUTOHOVER switch kept assisting (H-1 means no failsafe mode clears it). `autoHoverThrottleBoost()` now returns 0, and resets the ramp, whenever the throttle is at or below the off-throttle threshold or `rxIsReceivingSignal()` is false. Disabled by default (`throttle_assist_gain=0`).
 
 **M-2. Loiter direction is inverted.** *Confirmed by geometry.*
 [gps_nav.c:125](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/gps_nav.c#L125): clockwise adds +90° to the *bearing to the target*. Aircraft south of the target (bearing 0°) is sent east (90°), which is counter-clockwise. `nav_loiter_direction = CW` orbits CCW and vice versa. Also: the orbit has no radial correction, so it circles at whatever radius it entered, and it steers on GPS course over ground, which is undefined at low groundspeed.
