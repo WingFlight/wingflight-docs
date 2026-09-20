@@ -59,3 +59,8 @@ corrects RPM error but always settles a little below target, and I gain
 closes that remaining gap. Handover Throttle sets the stick position below
 which RPM Idle/Max or Throttle Idle takes over (not used in RPM Range mode,
 which spans the whole stick).
+
+!!! warning "Throttle Ceiling defaults to 30%"
+    Throttle Ceiling defaults to 30%. That is a sensible cap for an idle hold,
+    but in RPM Range mode it also limits the whole flight, so the motor cannot
+    go above 30% throttle. Raise it (usually to 100%) when you use RPM Range.

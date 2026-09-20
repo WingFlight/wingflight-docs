@@ -35,7 +35,8 @@ angle, just centered on vertical instead of level. **Max Rate** is a
 safety clamp on how fast Auto Hover is allowed to rotate the aircraft
 toward the held attitude -- most relevant the instant it engages from
 forward flight, since it commands a large, sudden attitude change toward
-vertical.
+vertical. The default is 120 deg/s, so engaging in forward flight makes a wide
+turn rather than a hard 90° snap.
 
 **Auto Hover roll deadband** (percent of roll stick, default 5) is the stick
 deflection below which roll counts as centered and is held. Above it, roll
@@ -74,6 +75,10 @@ Things worth knowing:
   by a safety mode, and never carries over into the next engagement.
 - A Max Rate of 0 disables the attitude correction, and with it the
   assist.
+- **It ignores the throttle stick and the radio link.** The boost is added
+  even with your stick at idle, so it can spin the motor up when you have
+  closed the throttle, and it is not cancelled if the link is lost while
+  Auto Hover is still switched on. Leave it off unless you need it.
 
 ## On the bench
 
@@ -85,7 +90,16 @@ until liftoff.
 
 Roll hold only starts working once the aircraft is within about 30° of
 vertical, so engaging from level on the bench won't wind up the roll hold
-while it's still swinging toward vertical.
+while it's still swinging toward vertical. It locks in two stages: between 30°
+and 10° from vertical roll only *tracks*, and it is only allowed to freeze,
+and start its settle countdown, inside 10°. That keeps it from locking a roll
+the aircraft is still spinning through while it flares up from forward
+flight. Once locked, the hold stays until the aircraft leaves the 30° band.
+
+When you release the roll stick, roll keeps tracking until it has actually
+stopped rotating (under about 15 deg/s) or 0.4 seconds have passed, and only
+then freezes. That is why letting go of the aileron mid-pirouette doesn't
+snap the aircraft back past where you stopped.
 
 If a safety mode (Failsafe, GPS Rescue, RTH, Loiter or Angle) takes over
 and later releases, Auto Hover captures a fresh target from the aircraft's

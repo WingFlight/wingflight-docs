@@ -25,3 +25,8 @@ default) resets it on every arm, so the point always matches your *most
 recent* takeoff; on captures it only on the very first arm after
 power-up, useful if you deliberately arm/disarm on the bench before walking
 to your actual takeoff spot.
+
+Wiring and configuring a u-blox or NMEA module by hand is covered in
+[GPS Hardware and Module Setup](../../reference/gps-hardware.md). The
+fixed-wing navigation modes that use the GPS are in
+[GPS RTH and Loiter](../../flight-modes/gps-rth.md).

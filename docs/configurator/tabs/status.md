@@ -18,3 +18,6 @@ configured but hasn't linked yet, so the first arm of the session is
 blocked until it does. Check the backup receiver's power, binding and
 wiring, or power-cycle it, then confirm its **Link** badge on the
 [Receiver](receiver.md) tab comes up.
+
+The full list of flags, and what clears each one, is in
+[Arming and Stick Commands](../../reference/stick-commands.md#arming-disable-flags).

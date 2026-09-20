@@ -40,3 +40,39 @@ aircraft is airborne, so you can tilt the airframe by hand on the bench and
 see a real, gentler correction. See
 [On the bench](auto-hover.md#on-the-bench) for the details, which are shared
 with Auto Hover.
+
+## Letting go of a stick
+
+An axis does not freeze the instant its stick returns to center. It keeps
+tracking until it has actually stopped rotating (under about 15 deg/s), or
+0.4 seconds have passed, whichever comes first, and only then freezes. If it
+froze at the instant of release, it would pin the target to an attitude the
+aircraft was still rotating through, and the hold would pull it back past
+where you stopped. The 0.4 second cap stops a constant disturbance, such as
+torque roll, from keeping an axis in tracking forever.
+
+## When a hold gives up
+
+If a frozen axis has more than about 5° of error and has hardly moved
+(under 5 deg/s) for 3 seconds, the correction is not achieving anything --
+the aircraft is pinned on the bench, or the surface has no authority. The
+axis then gives up and re-captures its target at the current attitude, so the
+surfaces do not stay pegged. There is no beep or indication when it happens.
+
+The surface then returns to center over a few seconds, because any build-up
+of I-term is drained at the normal fast rate for 3 seconds after the
+re-capture. A small steady error, under about 5°, never triggers this, so a
+hold that is sagging slightly against a steady disturbance keeps holding.
+
+## Known limitation: hands-off flight counts as "landed"
+
+The firmware decides whether the aircraft is airborne from stick activity and
+tilt, not from throttle or airspeed. With the sticks centered and the
+aircraft within about 26° of level, it is treated as **landed**, and the
+correction is cut to about a quarter (see
+[On the bench](auto-hover.md#on-the-bench)). A level, hands-off aircraft in
+Attitude Hold, or in Angle mode, therefore holds with much less authority
+than one being flown. It returns to full authority as soon as you move a
+stick, or the tilt passes about 37°. Keep this in mind when you tune the
+Gain: judge it with a stick touched, not with hands off. The same applies
+to Angle and Horizon mode.
