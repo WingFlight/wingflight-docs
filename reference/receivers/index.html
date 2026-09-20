@@ -1,0 +1,3810 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for the WingFlight flight controller firmware and configurator">
+      
+      
+      
+        <link rel="canonical" href="https://doc.wingflight.org/reference/receivers/">
+      
+      
+        <link rel="prev" href="../stick-commands/">
+      
+      
+        <link rel="next" href="../rssi/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Receivers - WingFlight Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#receivers-rx" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="WingFlight Documentation" class="md-header__button md-logo" aria-label="WingFlight Documentation" data-md-component="logo">
+      
+  <img src="../../assets/wf_icon_white.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            WingFlight Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Receivers
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/WingFlight" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    WingFlight
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../getting-started/" class="md-tabs__link">
+          
+  
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../configurator/" class="md-tabs__link">
+          
+  
+  
+  Configurator
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../flight-modes/" class="md-tabs__link">
+          
+  
+  
+  Flight Modes & Features
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../contributing/" class="md-tabs__link">
+          
+  
+  
+  Contributing
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="WingFlight Documentation" class="md-nav__button md-logo" aria-label="WingFlight Documentation" data-md-component="logo">
+      
+  <img src="../../assets/wf_icon_white.svg" alt="logo">
+
+    </a>
+    WingFlight Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/WingFlight" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    WingFlight
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/installing-the-configurator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installing the Configurator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/flashing-the-firmware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Flashing the Firmware
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/first-connection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    First Connection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/backup-and-restore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backup & Restore
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/safety/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Safety
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurator
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Configurator
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configurator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configurator/tabs/status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Status
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configurator/tabs/setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configurator/tabs/configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configurator/tabs/power/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Power
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configurator/tabs/receiver/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Receiver
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configurator/tabs/failsafe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Failsafe
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configurator/tabs/mixer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mixer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configurator/tabs/servos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Servos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configurator/tabs/motors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Motors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configurator/tabs/curves/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Curves
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configurator/tabs/profiles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Profiles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configurator/tabs/rates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configurator/tabs/thrust-vector/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thrust Vector
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configurator/tabs/gyro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gyro
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configurator/tabs/auxiliary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Auxiliary (Modes)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configurator/tabs/adjustments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adjustments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configurator/tabs/logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Logic Conditions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configurator/tabs/gps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configurator/tabs/led-strip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LED Strip
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configurator/tabs/beepers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Beepers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configurator/tabs/sensors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sensors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configurator/tabs/esc-programming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ESC Programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configurator/tabs/fbus-sensors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FBUS/S.Port Sensors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configurator/tabs/blackbox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Blackbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configurator/tabs/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Flight Modes & Features
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Flight Modes & Features
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flight-modes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Flight Modes &amp; Features
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flight-modes/auto-hover/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Auto Hover
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flight-modes/atthold/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Attitude Hold
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flight-modes/tv-hold/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thrust Vector Attitude Hold
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flight-modes/auto-trim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Auto Trim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flight-modes/trainer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trainer Mode
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flight-modes/traditional/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Traditional
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flight-modes/ready-to-arm-wiggle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ready-to-Arm Wiggle
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flight-modes/cross-axis-relax/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cross-Axis Relax
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flight-modes/governor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Governor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flight-modes/backup-rx-input/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backup RX Input
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flight-modes/gps-rth/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPS RTH and Loiter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../flight-modes/gps-rescue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPS Rescue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI Command Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../msp-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MSP Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fbus-sensor-ids/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FBUS/S.Port Sensor ID Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stick-commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arming and Stick Commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Receivers
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Receivers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#parallel-pwm-receivers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallel PWM Receivers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ppm-receivers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PPM Receivers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#serial-receivers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Serial Receivers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Serial Receivers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#spektrum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spektrum
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sbus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S.BUS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="S.BUS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#opentx-sbus-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenTX S.BUS configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#srxl-formerly-xbus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SRXL (formerly XBUS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SRXL (formerly XBUS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#multiplex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multiplex:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gaupner-sj-hott" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gaupner / SJ HOTT:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spektrum_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spektrum:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JR:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jeti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Jeti:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xbus-mode-b-rj01" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XBUS MODE B RJ01
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sumd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SUMD
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sumh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SUMH
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ibus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IBUS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IBUS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#combine-flysky-ibus-telemetry-and-serial-rx-on-the-same-fc-serial-port" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combine flysky ibus telemetry and serial rx on the same FC serial port
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jeti-ex-bus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Jeti EX Bus
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multiwii-serial-protocol-msp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MultiWii serial protocol (MSP)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rx-signal-loss-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RX signal-loss detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rx-loss-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RX loss configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RX loss configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rx_pulse_min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rx_pulse_min
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rx_pulse_max" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rx_pulse_max
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#serial-rx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Serial RX
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ppmpwm-input-filtering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PPM/PWM input filtering.
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#receiver-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Receiver configuration.
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Receiver configuration.">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#frsky-d4r-ii" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FrSky D4R-II
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#graupner-gr-24-pwm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Graupner GR-24 PWM
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#receiver-channel-range-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Receiver Channel Range Configuration.
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disabling-the-opentxedgetx-adc-filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Disabling the OpenTx/EdgeTx ADC Filter
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rssi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RSSI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../spektrum-bind/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spektrum Binding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../frsky-spi-rx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FrSky SPI RX
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../serial-ports/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serial Ports
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../telemetry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Telemetry
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../castle-esc-telemetry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Castle ESC Telemetry
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gps-hardware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPS Hardware and Module Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vtx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VTX
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../led-strip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LED Strip
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../buzzer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Buzzer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../oled-display/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OLED Display
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Contributing
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/building-the-firmware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Building the Firmware
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/developers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#parallel-pwm-receivers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallel PWM Receivers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ppm-receivers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PPM Receivers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#serial-receivers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Serial Receivers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Serial Receivers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#spektrum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spektrum
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sbus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S.BUS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="S.BUS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#opentx-sbus-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenTX S.BUS configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#srxl-formerly-xbus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SRXL (formerly XBUS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SRXL (formerly XBUS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#multiplex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multiplex:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gaupner-sj-hott" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gaupner / SJ HOTT:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spektrum_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spektrum:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JR:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jeti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Jeti:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xbus-mode-b-rj01" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XBUS MODE B RJ01
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sumd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SUMD
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sumh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SUMH
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ibus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IBUS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IBUS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#combine-flysky-ibus-telemetry-and-serial-rx-on-the-same-fc-serial-port" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combine flysky ibus telemetry and serial rx on the same FC serial port
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jeti-ex-bus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Jeti EX Bus
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multiwii-serial-protocol-msp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MultiWii serial protocol (MSP)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rx-signal-loss-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RX signal-loss detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rx-loss-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RX loss configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RX loss configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rx_pulse_min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rx_pulse_min
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rx_pulse_max" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rx_pulse_max
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#serial-rx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Serial RX
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ppmpwm-input-filtering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PPM/PWM input filtering.
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#receiver-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Receiver configuration.
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Receiver configuration.">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#frsky-d4r-ii" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FrSky D4R-II
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#graupner-gr-24-pwm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Graupner GR-24 PWM
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#receiver-channel-range-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Receiver Channel Range Configuration.
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disabling-the-opentxedgetx-adc-filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Disabling the OpenTx/EdgeTx ADC Filter
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/WingFlight/edit/main/docs/reference/receivers.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="receivers-rx">Receivers (RX)<a class="headerlink" href="#receivers-rx" title="Permanent link">&para;</a></h1>
+<p>A receiver is used to receive radio control signals from your transmitter and convert them into signals that the flight controller can understand.</p>
+<p>There are 3 basic types of receivers:</p>
+<ol>
+<li>Parallel PWM Receivers</li>
+<li>PPM Receivers</li>
+<li>Serial Receivers</li>
+</ol>
+<p>As of 2016 the recommendation for new purchases is a Serial or PPM based receiver.  Avoid Parallel PWM recievers (1 wire per channel).  This is due to the amount of IO pins parallel PWM based receivers use.  Some new FC's do not support parallel PWM. </p>
+<h2 id="parallel-pwm-receivers">Parallel PWM Receivers<a class="headerlink" href="#parallel-pwm-receivers" title="Permanent link">&para;</a></h2>
+<p>8 channel support, 1 channel per input pin.  On some platforms using parallel input will disable the use of serial ports
+and SoftSerial making it hard to use telemetry or GPS features.</p>
+<h2 id="ppm-receivers">PPM Receivers<a class="headerlink" href="#ppm-receivers" title="Permanent link">&para;</a></h2>
+<p>PPM is sometimes known as PPM SUM or CPPM.</p>
+<p>12 channels via a single input pin, not as accurate or jitter free as methods that use serial communications, but readily available.</p>
+<p>These receivers are reported working:</p>
+<ul>
+<li><a href="http://www.frsky-rc.com/product/pro.php?pro_id=24">FrSky D4R-II</a></li>
+<li><a href="http://www.graupner.de/en/products/33512/product.aspx">Graupner GR24</a></li>
+<li><a href="http://www.hobbyking.com/hobbyking/store/__46632__OrangeRx_R615X_DSM2_DSMX_Compatible_6Ch_2_4GHz_Receiver_w_CPPM.html">R615X Spektrum/JR DSM2/DSMX Compatible 6Ch 2.4GHz Receiver w/CPPM</a></li>
+<li><a href="http://www.frsky-rc.com/product/pro.php?pro_id=21">FrSky D8R-XP 8ch telemetry receiver, or CPPM and RSSI enabled receiver</a></li>
+<li><a href="http://www.frsky-rc.com/download/view.php?sort=&amp;down=158&amp;file=X4R-X4RSB">FrSky X4R and FrSky X4RSB</a> when flashed with CPPM firmware and bound with jumper between signal pins 2 and 3</li>
+<li>All FrSky S.Bus enabled devices when connected with <a href="http://www.frsky-rc.com/product/pro.php?pro_id=112">S.Bus CPPM converter cable</a>. Without jumper this converter cable uses 21ms frame size (Channels 1-8). When jumper is in place, it uses 28ms frame and channels 1-12 are available</li>
+<li>FlySky/Turnigy FS-iA4B, FS-iA6B, FS-iA10 receivers all provide 8channels if the tx is sending them. (FS-i6 and FS-i10 transmitters). Use setting rx-setup/ppm to enable.</li>
+</ul>
+<h2 id="serial-receivers">Serial Receivers<a class="headerlink" href="#serial-receivers" title="Permanent link">&para;</a></h2>
+<h3 id="spektrum">Spektrum<a class="headerlink" href="#spektrum" title="Permanent link">&para;</a></h3>
+<p>8 channels via serial currently supported.</p>
+<p>These receivers are reported working:</p>
+<p>Lemon Rx DSMX Compatible PPM 8-Channel Receiver + Lemon DSMX Compatible Satellite with Failsafe
+http://www.lemon-rx.com/index.php?route=product/product&amp;product_id=118</p>
+<h3 id="sbus">S.BUS<a class="headerlink" href="#sbus" title="Permanent link">&para;</a></h3>
+<p>16 channels via serial currently supported.  See below how to set up your transmitter.</p>
+<ul>
+<li>You probably need an inverter between the receiver output and the flight controller. However, many flight controllers have this built in, and don't need one.</li>
+<li>Some receivers produce a non-inverted SBUS signal. Use the <code>serialrx_inverted</code> setting to match the polarity of your receiver, if your flight controller supports it.</li>
+<li>Softserial ports cannot be used with SBUS because it runs at too high of a bitrate (1Mbps).  Refer to the chapter specific to your board to determine which port(s) may be used.</li>
+<li>You will need to configure the channel mapping in the GUI (Receiver tab) or CLI (<code>map</code> command). Note that channels above 8 are mapped "straight", with no remapping.</li>
+</ul>
+<p>These receivers are reported working:</p>
+<p>FrSky X4RSB 3/16ch Telemetry Receiver
+http://www.frsky-rc.com/product/pro.php?pro_id=135</p>
+<p>FrSky X8R 8/16ch Telemetry Receiver
+http://www.frsky-rc.com/product/pro.php?pro_id=105</p>
+<p>Futaba R2008SB 2.4GHz S-FHSS
+http://www.futaba-rc.com/systems/futk8100-8j/</p>
+<h4 id="opentx-sbus-configuration">OpenTX S.BUS configuration<a class="headerlink" href="#opentx-sbus-configuration" title="Permanent link">&para;</a></h4>
+<p>If using OpenTX set the transmitter module to D16 mode and ALSO select CH1-16 on the transmitter before binding to allow reception
+of all 16 channels. </p>
+<p>OpenTX 2.09, which is shipped on some Taranis X9D Plus transmitters, has a bug - <a href="https://github.com/opentx/opentx/issues/1701">issue:1701</a>.
+The bug prevents use of all 16 channels.  Upgrade to the latest OpenTX version to allow correct reception of all 16 channels,
+without the fix you are limited to 8 channels regardless of the CH1-16/D16 settings.</p>
+<h3 id="srxl-formerly-xbus">SRXL (formerly XBUS)<a class="headerlink" href="#srxl-formerly-xbus" title="Permanent link">&para;</a></h3>
+<p>(Serial Receiver Link Protocol)
+SRXL is an open data transfer protocol which allows to transport control data from a rc receiver to another device like a flybarless system 
+by only using one single line. This protocol has been established by SRXL.org based on the idea to create a freely available and unified protocol 
+that manufacturers can easily implement to their receivers and devices that process receiver data. The protocol does not describe an exact definition of 
+how the data must be processed. It only describes a framework in which receiver data can be packed. Each manufacturer can have his own ID, which must be 
+attached to the beginning of each data set, so that the device using this data can correctly identify and process the payload of the dataset.</p>
+<p>Supported receivers:</p>
+<h4 id="multiplex">Multiplex:<a class="headerlink" href="#multiplex" title="Permanent link">&para;</a></h4>
+<p>All receivers with SRXL (also FLEXX receivers)</p>
+<h4 id="gaupner-sj-hott">Gaupner / SJ HOTT:<a class="headerlink" href="#gaupner-sj-hott" title="Permanent link">&para;</a></h4>
+<p>All receiver with SUMD support</p>
+<h4 id="spektrum_1">Spektrum:<a class="headerlink" href="#spektrum_1" title="Permanent link">&para;</a></h4>
+<p>AR7700 / AR9020 receiver </p>
+<h4 id="jr">JR:<a class="headerlink" href="#jr" title="Permanent link">&para;</a></h4>
+<p>JR X-BUS
+Make sure to set your TX to use "MODE B" for XBUS in the TX menus!
+See here for info on JR's XBUS protocol: http://www.jrpropo.com/english/propo/XBus/
+These receivers are reported working:</p>
+<p>XG14 14ch DMSS System w/RG731BX XBus Receiver
+http://www.jramericas.com/233794/JRP00631/</p>
+<h4 id="jeti">Jeti:<a class="headerlink" href="#jeti" title="Permanent link">&para;</a></h4>
+<p>Receivers with UDI output</p>
+<h3 id="xbus-mode-b-rj01">XBUS MODE B RJ01<a class="headerlink" href="#xbus-mode-b-rj01" title="Permanent link">&para;</a></h3>
+<p>There exist a remote receiver made for small BNF-models like the Align T-Rex 150 helicopter. The code also supports using the Align DMSS RJ01 receiver directly with the cleanflight software.
+To use this receiver you must power it with 3V from the hardware, and then connect the serial line as other serial RX receivers.
+In order for this receiver to work, you need to specify the XBUS_MODE_B_RJ01 for serialrx_provider. Note that you need to set your radio mode for XBUS "MODE B" also for this receiver to work.
+Receiver name: Align DMSS RJ01 (HER15001)</p>
+<h3 id="sumd">SUMD<a class="headerlink" href="#sumd" title="Permanent link">&para;</a></h3>
+<p>16 channels via serial currently supported.</p>
+<p>These receivers are reported working:</p>
+<p>GR-24 receiver HoTT
+http://www.graupner.de/en/products/33512/product.aspx</p>
+<p>Graupner receiver GR-12SH+ HoTT
+http://www.graupner.de/en/products/870ade17-ace8-427f-943b-657040579906/33565/product.aspx</p>
+<h3 id="sumh">SUMH<a class="headerlink" href="#sumh" title="Permanent link">&para;</a></h3>
+<p>8 channels via serial currently supported.</p>
+<p>SUMH is a legacy Graupner protocol.  Graupner have issued a firmware updates for many recivers that lets them use SUMD instead.</p>
+<h3 id="ibus">IBUS<a class="headerlink" href="#ibus" title="Permanent link">&para;</a></h3>
+<p>10 channels via serial currently supported.</p>
+<p>IBUS is the FlySky digital serial protocol and is available with the FS-IA4B, FS-IA6B and
+FS-IA10 receivers. The Turnigy TGY-IA6B and TGY-IA10 are the same
+devices with a different label, therefore they also work.</p>
+<p>If you are using a 6ch tx such as the FS-I6 or TGY-I6 then you must flash a 10ch
+firmware on the tx to make use of these extra channels.</p>
+<p>These receivers are reported working (all gives 10 channels serial):</p>
+<ul>
+<li>FlySky/Turnigy FS-iA4B 4-Channel Receiver (http://www.flysky-cn.com/products_detail/productId=46.html)</li>
+<li>FlySky/Turnigy FS-iA6B 6-Channel Receiver (http://www.flysky-cn.com/products_detail/&amp;productId=51.html)</li>
+<li>FlySky/Turnigy FS-iA10 10-Channel Receiver (http://www.flysky-cn.com/products_detail/productId=53.html)</li>
+<li>FlySky/Turnigy FS-iA10B 10-Channel Receiver (http://www.flysky-cn.com/products_detail/productId=52.html)</li>
+</ul>
+<h4 id="combine-flysky-ibus-telemetry-and-serial-rx-on-the-same-fc-serial-port">Combine flysky ibus telemetry and serial rx on the same FC serial port<a class="headerlink" href="#combine-flysky-ibus-telemetry-and-serial-rx-on-the-same-fc-serial-port" title="Permanent link">&para;</a></h4>
+<p>Connect Flysky FS-iA6B receiver like this:
+<div class="highlight"><pre><span></span><code>    +---------+
+    | FS-iA6B |
+    |         |
+    | Ser RX  |---|&lt;---\       +------------+
+    |         |        |       | FC         |
+    | Sensor  |--#==#--*-------| SerialTX   |
+    +---------+                +------------+
+</code></pre></div></p>
+<p>Use a diode with cathode to receiver serial rx output (for example 1N4148),
+the anode is connected to the FC serial <em>TX</em> pin, and also via a 
+resistor (10KOhm) to the receiver ibus sensor port.</p>
+<p>Note (2018-07-27): In some cases, the value of the series resistor may be too large, and going down to 1K[ohm] may provide a good result.</p>
+<p>Enable with cli:
+<div class="highlight"><pre><span></span><code>    serial 1 1088 115200 57600 115200 115200
+    feature RX_SERIAL
+    set serialrx_provider = IBUS
+    save
+</code></pre></div></p>
+<h3 id="jeti-ex-bus">Jeti EX Bus<a class="headerlink" href="#jeti-ex-bus" title="Permanent link">&para;</a></h3>
+<p>It supports 16 channels with a transfer rate of 100Hz. The HS option (High Speed) is currently not supported.
+The receiver must be configured in the device manager to EX Bus and connected to a free FC serial <em>TX</em> pin.
+For more information on the wiring and setup see <a href="../../assets/files/jeti-ex-bus-setup.pdf">this document</a>.</p>
+<h2 id="multiwii-serial-protocol-msp">MultiWii serial protocol (MSP)<a class="headerlink" href="#multiwii-serial-protocol-msp" title="Permanent link">&para;</a></h2>
+<p>Allows you to use MSP commands as the RC input.  Only 8 channel support to maintain compatibility with MSP.</p>
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
+<p>These features control the receiver mode:</p>
+<div class="highlight"><pre><span></span><code>RX_PPM
+RX_SERIAL
+RX_PARALLEL_PWM
+RX_MSP
+RX_SPI
+</code></pre></div>
+<p>Only one receiver feature can be enabled at a time.</p>
+<h3 id="rx-signal-loss-detection">RX signal-loss detection<a class="headerlink" href="#rx-signal-loss-detection" title="Permanent link">&para;</a></h3>
+<p>The software has signal loss detection which is always enabled. It is used for safety and failsafe
+reasons.</p>
+<p>The <code>rx_pulse_min</code> and <code>rx_pulse_max</code> settings help detect when your receiver stops sending data,
+enters failsafe mode or loses signal.</p>
+<p>When signal loss is detected the flight controller holds the last values for 300 ms, and then sets
+roll, pitch and yaw to <code>rc_center</code> and the throttle to just below the off-throttle threshold. See
+<a href="../../configurator/tabs/failsafe/">Failsafe</a> for what does, and what does not, happen next.</p>
+<p>Signal loss can be detected when:</p>
+<ol>
+<li>no rx data is received (due to radio reception, receiver configuration or cabling issues),</li>
+<li>using Serial RX and the receiver indicates a failsafe condition, or</li>
+<li>any of the first 4 stick channels have a value outside the range specified by <code>rx_pulse_min</code> and <code>rx_pulse_max</code>.</li>
+</ol>
+<h3 id="rx-loss-configuration">RX loss configuration<a class="headerlink" href="#rx-loss-configuration" title="Permanent link">&para;</a></h3>
+<p>The <code>rxfail</code> cli command is used to configure per-channel rx-loss behaviour.
+You can use the <code>rxfail</code> command to change this behaviour.
+A flight channel can be AUTOMATIC, HOLD or SET. An AUX channel can be HOLD or SET.  </p>
+<ul>
+<li>AUTOMATIC - Flight channels are set to safe values (low throttle, mid position for yaw/pitch/roll).</li>
+<li>HOLD - Channel holds the last value.</li>
+<li>SET - Channel is set to a specific configured value. </li>
+</ul>
+<p>The default mode is AUTOMATIC for flight channels and HOLD for AUX channels. </p>
+<p>The rxfail command can be used in conjunction with mode ranges to trigger various actions.</p>
+<p>The <code>rxfail</code> command takes 2 or 3 arguments.
+* Index of channel (See below)
+* Mode ('a' = AUTOMATIC, 'h' = HOLD, 's' = SET)
+* A value to use when in SET mode.</p>
+<p>Channels are always specified in the same order, regardless of your channel mapping.</p>
+<ul>
+<li>Roll is 0</li>
+<li>Pitch is 1</li>
+<li>Yaw is 2</li>
+<li>Throttle is 3.</li>
+<li>Aux channels are 4 onwards.</li>
+</ul>
+<p>Examples:</p>
+<p>To make Throttle channel have an automatic value when RX loss is detected:</p>
+<p><code>rxfail 3 a</code></p>
+<p>To make AUX4 have a value of 2000 when RX loss is detected:</p>
+<p><code>rxfail 7 s 2000</code></p>
+<p>To make AUX8 hold it's value when RX loss is detected:</p>
+<p><code>rxfail 11 h</code></p>
+<p>WARNING: Always make sure you test the behavior is as expected after configuring rxfail settings!</p>
+<h4 id="rx_pulse_min"><code>rx_pulse_min</code><a class="headerlink" href="#rx_pulse_min" title="Permanent link">&para;</a></h4>
+<p>The lowest channel value considered valid.  e.g. PWM/PPM pulse length </p>
+<h4 id="rx_pulse_max"><code>rx_pulse_max</code><a class="headerlink" href="#rx_pulse_max" title="Permanent link">&para;</a></h4>
+<p>The highest channel value considered valid.  e.g. PWM/PPM pulse length </p>
+<h3 id="serial-rx">Serial RX<a class="headerlink" href="#serial-rx" title="Permanent link">&para;</a></h3>
+<p>See the Serial chapter for some some RX configuration examples.</p>
+<p>To set up serial RX in the GUI:
+1. On the "Ports" tab, make sure the UART your receiver is connected to has serial RX enabled. If not, set the checkbox, save and reboot.
+2. On the "Configuration" page choose Serial RX as the receiver type.
+3. Below that, choose the type of serial receiver you are using. Save and reboot.</p>
+<p>Using CLI:
+For Serial RX enable <code>RX_SERIAL</code> and set the <code>serialrx_provider</code> CLI setting as follows.</p>
+<p>The providers are: <code>SPEK1024</code>, <code>SPEK2048</code>, <code>SBUS</code>, <code>SUMD</code>, <code>SUMH</code>, <code>XB-B</code>, <code>XB-B-RJ01</code>, <code>IBUS</code>, <code>JETIEXBUS</code>, <code>CRSF</code>, <code>SRXL</code>, <code>CUSTOM</code>, <code>FPORT</code>, <code>SRXL2</code>, <code>GHST</code>, <code>SBUS2</code>, <code>FPORT2</code>, <code>FBUS</code>, <code>XB-A</code> and <code>IBUS2</code>. For example <code>set serialrx_provider = SBUS</code>.</p>
+<h3 id="ppmpwm-input-filtering">PPM/PWM input filtering.<a class="headerlink" href="#ppmpwm-input-filtering" title="Permanent link">&para;</a></h3>
+<p>Hardware input filtering can be enabled if you are experiencing interference on the signal sent via your PWM/PPM RX.</p>
+<p>Use the <code>input_filtering_mode</code> CLI setting to select a mode.</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OFF</td>
+<td>Disabled</td>
+</tr>
+<tr>
+<td>ON</td>
+<td>Enabled</td>
+</tr>
+</tbody>
+</table>
+<h2 id="receiver-configuration">Receiver configuration.<a class="headerlink" href="#receiver-configuration" title="Permanent link">&para;</a></h2>
+<h3 id="frsky-d4r-ii">FrSky D4R-II<a class="headerlink" href="#frsky-d4r-ii" title="Permanent link">&para;</a></h3>
+<p>Set the RX for 'No Pulses'.  Turn OFF TX and RX, Turn ON RX.  Press and release F/S button on RX.  Turn off RX.</p>
+<h3 id="graupner-gr-24-pwm">Graupner GR-24 PWM<a class="headerlink" href="#graupner-gr-24-pwm" title="Permanent link">&para;</a></h3>
+<p>Set failsafe on the throttle channel in the receiver settings (via transmitter menu) to a value below <code>rx_pulse_min</code> using channel mode FAILSAFE.
+This is the prefered way, since this is <em>much faster</em> detected by the FC then a channel that sends no pulses (OFF).</p>
+<p><strong>NOTE:</strong>
+One or more control channels may be set to OFF to signal a failsafe condition to the FC, all other channels <em>must</em> be set to either HOLD or OFF. 
+Do <strong>NOT USE</strong> the mode indicated with FAILSAFE instead, as this combination is NOT handled correctly by the FC.</p>
+<h2 id="receiver-channel-range-configuration">Receiver Channel Range Configuration.<a class="headerlink" href="#receiver-channel-range-configuration" title="Permanent link">&para;</a></h2>
+<p>The channels defined in WingFlight are as follows:</p>
+<table>
+<thead>
+<tr>
+<th>Channel number</th>
+<th>Channel name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Roll</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Pitch</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Yaw</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Throttle</td>
+</tr>
+</tbody>
+</table>
+<p>If you have a transmitter/receiver, that output a non-standard pulse range (i.e. 1070-1930 as some Spektrum receivers)
+you could use rx channel range configuration to map actual range of your transmitter to 1000-2000 as expected by WingFlight.</p>
+<p>The low and high value of a channel range are often referred to as 'End-points'.  e.g. 'End-point adjustments / EPA'.</p>
+<p>All attempts should be made to configure your transmitter/receiver to use the range 1000-2000 <em>before</em> using this feature
+as you will have less preceise control if it is used.</p>
+<p>To do this you should figure out what range your transmitter outputs and use these values for rx range configuration.
+You can do this in a few simple steps:</p>
+<p>If you have used rc range configuration previously you should reset it to prevent it from altering rc input. Do so
+by entering the following command in CLI:
+<div class="highlight"><pre><span></span><code>rxrange reset
+save
+</code></pre></div></p>
+<p>Now reboot your FC, connect the configurator, go to the <code>Receiver</code> tab move sticks on your transmitter and note min and
+max values of first 4 channels. Take caution as you can accidentally arm your craft. Best way is to move one channel at 
+a time.</p>
+<p>Go to CLI and set the min and max values with the following command:
+<div class="highlight"><pre><span></span><code>rxrange &lt;channel_number&gt; &lt;min&gt; &lt;max&gt;
+</code></pre></div></p>
+<p>For example, if you have the range 1070-1930 for the first channel you should use <code>rxrange 0 1070 1930</code> in
+the CLI. Be sure to enter the <code>save</code> command to save the settings.</p>
+<p>After configuring channel ranges use the sub-trim on your transmitter to set the middle point of pitch, roll, yaw and throttle.</p>
+<p>You can also use rxrange to reverse the direction of an input channel, e.g. <code>rxrange 0 2000 1000</code>.</p>
+<h2 id="disabling-the-opentxedgetx-adc-filter">Disabling the OpenTx/EdgeTx ADC Filter<a class="headerlink" href="#disabling-the-opentxedgetx-adc-filter" title="Permanent link">&para;</a></h2>
+<p>OpenTx and EdgeTx both enable an <code>ADC filter</code> by default.  WingFlight users should turn this off.</p>
+<p>The <code>ADC filter</code> converts what would otherwise be smooth changes in channel values into a series of steps, where each step is about 1% of the full stick travel.  It is intended to reduce 'chatter' when the Rx is connected to a *servo, so that the servo only changes position when a meaningful change has occurred.  It is not intended for use with flight controllers.</p>
+<p>When the <code>ADC Filter</code> is active, WingFlight does not receive the most recent position of the gimabl with each new RC packet.  Instead, the Rx repeatedly provides the same data, until a moving-averaged smoothed estimate of gimbal position has increased by about 1% of full stick resolution.  </p>
+<p>WingFlight needs a non-delayed, smooth and continuous representation of the stick travel to give the PID system a smooth target setpoint value.  Our RC Smoothing is based on the assumption that every packet is unique and that each is a new representation of the most recent position of the gimbal.  Feedforward is calculated from the packet-to-packet position difference, and absolutely relies on smooth and regular updates in measured gimbal position.</p>
+<p>When active with WingFlight firmware, the <code>ADC filter</code> causes:
+- delay (from the moving averaging)
+- sustained transient impacts
+- steps in setpoint
+- spikes and noise in feedforward, with reduced feedforward precision
+- spikes in motor control signals that may cause noticeable jerking in HD video</p>
+<p>This is why, whenever an OpenTx or EdgeTx user is using WingFlight, the OpenTx/EdgeTx <code>ADC Filter</code> <strong>MUST</strong> be disabled, for accurate smooth flight control.</p>
+<p>The user only has to find the <code>ADC Filter</code> checkbox in the Hardware tab of the Global Settings for their radio, and ensure it is un-checked.  For example, with the Frsky Taranis X9D+ pre 2019 model:</p>
+<ul>
+<li>Turn on your radio.</li>
+<li>Hold Menu to access Global Settings.</li>
+<li>Click the Page button 5 times to go to page 6 (HARDWARE).</li>
+<li>Scroll down and select ADC filter.</li>
+<li>Click Enter to disable the ADC filter as it's enabled by default.</li>
+<li>Click Exit (twice) to return to the startup screen.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../stick-commands/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Arming and Stick Commands">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Arming and Stick Commands
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../rssi/" class="md-footer__link md-footer__link--next" aria-label="Next: RSSI">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                RSSI
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/WingFlight" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://discord.gg/aEyyAJTXRw/" target="_blank" rel="noopener" title="discord.gg" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.action.edit", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
