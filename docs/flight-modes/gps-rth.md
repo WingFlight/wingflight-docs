@@ -2,10 +2,16 @@
 
 !!! warning "Experimental"
     RTH and Loiter are new and have not been flight-verified. A review of the
-    firmware found that the **loiter direction setting appears inverted** and
-    that the **RTH altitude hold may be reversed** (see
+    firmware found that the **RTH altitude hold may be reversed** (see
     [Known problems](#known-problems)). Test them at a safe height, in open
     space, with your hand ready on the mode switch, before you rely on them.
+
+!!! note "Loiter direction"
+    Earlier firmware orbited the opposite way to `nav_loiter_direction`: `CW`
+    orbited counter-clockwise, and the other way around. That is fixed, and the
+    setting now does what it says. If you set the opposite value as a
+    workaround, set it back to the direction you want, and check on the first
+    orbit.
 
 RTH and Loiter are the fixed-wing navigation modes. Both need a
 [GPS](../configurator/tabs/gps.md) with a fix, and both are switched on from
@@ -67,10 +73,6 @@ aircraft weaves from side to side while tracking.
 
 ## Known problems
 
-- **Loiter direction is inverted.** With `nav_loiter_direction = CW` the
-  aircraft orbits counter-clockwise, and the other way around. Until this is
-  fixed, set the opposite of the direction you want, and check on the first
-  orbit.
 - **RTH altitude may be reversed.** Pitch is positive nose-down in the
   firmware. The altitude controller commands a positive pitch when the
   aircraft is *below* the target, which would descend further. If the aircraft
@@ -81,5 +83,6 @@ aircraft weaves from side to side while tracking.
 - **Slow flight.** At a low ground speed or in strong wind the GPS course is
   not a good guide to heading.
 
-These are recorded as findings H-3 and M-2 in the firmware repository's
+The altitude problem is recorded as finding H-3, and the radius and slow-flight
+limits under M-2, in the firmware repository's
 [Flight Dynamics review](../contributing/tech/flight-dynamics.md).
