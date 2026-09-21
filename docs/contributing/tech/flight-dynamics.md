@@ -151,7 +151,20 @@ Limitations already in the source comment: no `accelerometerTrims`; heading capt
 
 ### 2.7 Acro trainer — [trainer.c](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/trainer.c)
 
-Angle-limits roll/pitch in acro using a projected-angle lookahead. Stateless (no latch). Inherited unchanged.
+Angle-limits roll/pitch in rate flight using a projected-angle lookahead. Stateless
+(no latch), with no self-leveling inside the envelope. API 22.4 adds independent
+roll and pitch limits to both TRAINER and ANGLE (including consumers of
+`angleModeApply`, such as GPS navigation). Explicit limits use 10–90° roll and
+10–75° pitch; zero inherits the existing shared limit. The separate
+`PG_ATTITUDE_LIMITS` array preserves the stored PID-profile layout. Four optional
+U8 fields are appended to `MSP_PID_PROFILE`/`MSP_SET_PID_PROFILE` in order:
+ANGLE roll, ANGLE pitch, TRAINER roll, TRAINER pitch. Old writes leave them intact;
+PID profile copy/reset includes this array. CLI uses its own profile stride.
+
+This change does not alter airborne detection, self-leveling gains or the
+trainer's prediction algorithm. Its envelope is a control objective; finite
+control authority and the body-rate-based Euler prediction can still permit
+overshoot. It does not measure angle of attack or provide stall protection.
 
 ### 2.8 Thrust-vector loop — [tv_pid.c](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/tv_pid.c), [tv_hold.c](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/tv_hold.c)
 

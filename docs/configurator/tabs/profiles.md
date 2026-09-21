@@ -139,7 +139,19 @@ Any of these gains can also be mapped to a transmitter switch/knob from the
 under live adjustment control, its row shows the current effective value
 being commanded in place of the static configured number.
 
+## Trainer (angle limits)
+
+**Trainer (angle limits)** exposes Trainer gain and independent bank/pitch
+limits with API 22.4 firmware (bank 10–90°, pitch 10–75°). Older firmware
+shows a single shared limit. Trainer settings are available without Expert Mode
+in updated Configurators; older versions show **Acro Trainer** only in Expert Mode.
+ANGLE has its own independent limits in the Angle/Horizon group, which still
+requires Expert Mode.
+See [Trainer Mode](../../flight-modes/trainer.md) for how the limits affect flight.
+
 ## Leveling Settings
+
+The remaining leveling and hold settings require Expert Mode.
 
 Angle/Horizon-style leveling and the hold modes are tuned here as well.
 The [Auto Hover](../../flight-modes/auto-hover.md) fields -- Gain, Max

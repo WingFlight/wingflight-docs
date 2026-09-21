@@ -66,7 +66,9 @@ These are CLI settings. They have no Configurator UI yet.
 | `nav_altitude_kp` | 100 | Pitch per metre of altitude error, percent |
 
 The bank and pitch the navigation asks for is added to your stick input and
-then limited by the Angle-mode limit (`angle_level_limit`, 55 by default).
+then limited by the Angle-mode limit (`angle_level_limit`, 55 by default;
+API 22.4 can override it independently with `angle_roll_limit` and
+`angle_pitch_limit`).
 With the defaults, 12.5 degrees of course error is enough to reach the 25
 degree maximum bank, which is a firm turn. Lower `nav_bearing_kp` if the
 aircraft weaves from side to side while tracking.
