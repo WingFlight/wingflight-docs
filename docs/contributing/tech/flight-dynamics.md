@@ -142,10 +142,8 @@ Euler math is acceptable here because ANGLE is limited to 55° and pitch never n
 Quaternion vertical (nose-up) attitude and heading hold for 3D prop-hang.
 
 - **Target** = vertical at the captured heading, plus pitch/yaw stick deflection (× `max_angle`, default 30°) as a small body-frame offset. Right-multiplied so stick feel does not depend on which way the held heading points.
-- **Roll is the pilot's pirouette axis** (roll coincides with world-vertical at hover). Free while the stick is deflected. Since commit `7bc87e81b` it is captured and held once the stick centres, so torque roll no longer goes uncorrected.
-- **Roll-hold only runs near vertical** (pitch+yaw error < 30°). Far from vertical the quaternion error does not decompose per axis, so `errorDeg[0]` picks up pitch/yaw error and feeds the roll-offset integrator: a bench-confirmed runaway (commit `8a2b5233c`).
-- **Two-stage roll lock** (commit `51ba254f0`). Tracking starts at 30° but freeze and the settle countdown only run inside 10°. Before this, the settle clock's 0.4 s cap expired mid-flare while torque roll still spun the aircraft, freezing a target the aircraft was still rotating through. Leaving the 30° band now clears the capture.
-- **Default `max_rate` 300 → 120 °/s** (same commit): engaging in forward flight now makes a wide turn instead of a hard 90° snap. At gain 5 that saturates at 24° of error.
+- **Roll is the pilot's pirouette axis** (roll coincides with world-vertical at hover). A pure rate pass-through, never held. A roll hold (commit `7bc87e81b`, refined by `8a2b5233c`, `05bc541c5` and `51ba254f0`) and a level-then-rotate entry (`f07a4a8bb`) were tried and removed again, restoring the `b9d03d122` behaviour. Torque roll is left to the pilot's aileron. `autohover.roll_deadband` is retained in the profile, CLI and MSP only for compatibility and is unused.
+- **Default `max_rate` 300 → 120 °/s** (commit `51ba254f0`): engaging in forward flight makes a wide turn instead of a hard 90° snap. At gain 5 that saturates at 24° of error.
 - **Optional throttle assist** (`throttle_assist_*`, gain 0 = disabled by default; commit `befd8f6cf`). Ramps a bounded throttle add when pitch correction stays pinned at `max_rate`, as a proxy for "the airframe cannot out-thrust the hold". Ramped both ways, capped by a 50% firmware backstop independent of CLI/MSP values. See finding **M-1**.
 - **Pitch sign**: `imuEulerToQuaternion(roll, −900, heading)`. Commit `89f531016` fixed an initial nose-down target.
 
@@ -232,6 +230,8 @@ Rationale reconstructed from commit messages. Dates are commit dates.
 | 2026-09-18 | `aa362d09a` | Per-servo balance curve | Twin servos on one surface can bind |
 | 2026-09-19 | `220980d8d` | Continuous servo trim is runtime-only | Saved pot trim re-applied itself every boot |
 | 2026-09-19 | `51ba254f0` | Two-stage roll lock; `max_rate` 300 → 120 | Snap-back mid-flare; hard 90° snap on engage |
+| 2026-09-21 | `f07a4a8bb` | Level the wings, then rotate the target up to vertical | Torque roll went uncorrected during the pull-up |
+| 2026-09-21 | (reverted) | Remove the roll hold and the level-then-rotate entry; roll is a free pass-through again | Flight test: the level phase was hit and miss, often rolling a full turn before levelling, and the `b9d03d122` entry flew better |
 
 ---
 
@@ -308,7 +308,7 @@ The boost was added to `getThrottle()` unconditionally, up to `throttle_assist_m
 
 - Fast 8-multiply quaternion product matches the Hamilton product (random test, max error 7e-16).
 - Hold engine: shortest-path sign fix, magnitude clamp over frozen axes only, unit renormalisation, and no drift accumulation when all axes are frozen.
-- AUTOHOVER `MaxRate > 0` guard on the assist trigger; roll-lock hysteresis; deadband clamps at load.
+- AUTOHOVER `MaxRate > 0` guard on the assist trigger.
 - PID anti-windup logic and its use of servo-travel saturation; yaw sign handling consistent between setpoint, MANUAL and PASSTHROUGH.
 - Governor failsafe bypass and the interlock guard.
 - Runtime servo trim design: trim direction folds the three reversal sources correctly.

@@ -36,7 +36,7 @@ selecting the profile you want to change):
 | `autohover_gain` | 0-250 | 50 | [Auto Hover](../flight-modes/auto-hover.md) correction strength |
 | `autohover_max_angle` | 0-90 | 30 | Max stick deflection off vertical, degrees |
 | `autohover_max_rate` | 0-1800 | 120 | Attitude-capture rate clamp, deg/s |
-| `autohover_roll_deadband` | 0-100 | 5 | Roll stick percent below which roll is held |
+| `autohover_roll_deadband` | 0-100 | 5 | Unused; roll is always a free pass-through (kept for compatibility) |
 | `autohover_throttle_assist_gain` | 0-100 | 0 | Throttle added per second under sustained saturation, percent of range; 0 = off |
 | `autohover_throttle_assist_max` | 0-50 | 15 | Ceiling on the added throttle, percent of range |
 | `autohover_throttle_assist_trigger_ms` | 0-2000 | 300 | Milliseconds of saturation before the assist starts |
