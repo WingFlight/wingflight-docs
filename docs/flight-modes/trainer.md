@@ -17,6 +17,12 @@ intervenes against commands that would carry the aircraft farther out. If an
 angle is already beyond the limit, it commands a return toward the boundary.
 Pilot input that helps return remains available.
 
+Trainer uses the normal rate PID controller. Each axis keeps normal I-term
+decay while its rate command passes through unchanged, including stronger
+pilot input back into the envelope. I-term decay is suspended only on an
+axis whose command the limiter is changing, so it can sustain the correction
+at the limit.
+
 | Mode | Stick behavior | Centered sticks | Pitch/bank envelope |
 | --- | --- | --- | --- |
 | ANGLE | Commands an attitude within the configured angle limit | Commands level flight | Limits the requested attitude |
@@ -35,12 +41,15 @@ for its distinction between angle demand and envelope protection.
 - Assign **TRAINER** to a switch range in [Auxiliary (Modes)](../configurator/tabs/auxiliary.md).
   If an older Configurator hides it, enable Expert Mode. Updated Configurators
   show TRAINER without Expert Mode.
-- Set **Gain** and **Angle limit** in [Profiles → Trainer (angle limits)](../configurator/tabs/profiles.md#trainer-angle-limits).
-  Older Configurators call this group **Acro Trainer** and require Expert Mode.
+- Set **Gain**, **Bank angle limit** and **Pitch angle limit** in [Profiles → Trainer (angle limits)](../configurator/tabs/profiles.md#trainer-angle-limits).
+  Save the TRAINER assignment first so its Profiles panel appears.
 - In the Ethos suite, assign TRAINER under **Controls → Modes** and adjust
-  **Acro Trainer → Gain** and **Trainer limits → Bank / Pitch** under
-  **Flight Tuning → Advanced → Autolevel**. On older firmware, use the shared
-  **Max** field instead; the per-axis fields are disabled.
+  **Gain**, **Bank** and **Pitch** under
+  **Flight Tuning → Advanced → Flight Modes → Acro Trainer**. The suite requires
+  MSP API **22.04 or newer**; update the firmware snapshot alongside the suite.
+  ANGLE, HORIZON, AUTO HOVER and ATT HOLD have separate tools in the same menu.
+- In EdgeTX, **Profile – Various** exposes the independent limits with API 22.4
+  firmware. Its older-firmware support retains shared limits.
 
 With **MSP API 22.4 firmware and updated clients**, ANGLE and TRAINER each have
 independent limits: **bank 10–90°** and **pitch 10–75°**, symmetric in both

@@ -161,8 +161,10 @@ U8 fields are appended to `MSP_PID_PROFILE`/`MSP_SET_PID_PROFILE` in order:
 ANGLE roll, ANGLE pitch, TRAINER roll, TRAINER pitch. Old writes leave them intact;
 PID profile copy/reset includes this array. CLI uses its own profile stride.
 
-This change does not alter airborne detection, self-leveling gains or the
-trainer's prediction algorithm. Its envelope is a control objective; finite
+Trainer retains normal rate-mode I-term decay on each axis whose command passes
+through unchanged, including helping input back into the envelope. Decay is
+suspended only while the limiter changes that axis's rate command. The limit
+extension does not change self-leveling gains or the prediction algorithm. Its envelope is a control objective; finite
 control authority and the body-rate-based Euler prediction can still permit
 overshoot. It does not measure angle of attack or provide stall protection.
 
@@ -207,7 +209,22 @@ Mahony quaternion filter (gyro integration corrected by accelerometer, plus magn
 
 ### 2.13 Airborne detection — [airborne.c](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/airborne.c)
 
-State machine: LANDED → AIRBORNE when armed and any of {peak stick > 2.5% (`rc_threshold`/1000), tilt cosine < 0.8 (≈37°), failsafe/GPS-rescue}. Back to LANDED when disarmed, or when sticks < 1.7% *and* tilt cosine > 0.9 (≈26°) *and* no failsafe. Consumers: the 25% authority scaling in leveling and the hold modes, the AUTOHOVER assist gate, blackbox. Inherited from the helicopter lineage; see **H-4**.
+The detector was replaced by [firmware PR #138](https://github.com/WingFlight/wingflight-firmware/pull/138).
+While armed with a live receiver signal, it looks for flight response.
+The replacement requires a continuous 250 ms response on roll or pitch: pilot deflection at least
+10% and gyro rate at least 15°/s in the same direction. Confirmation is separate
+for each axis and direction; loss of input, matching response or RX resets the
+pending timer. Once confirmed, flight stays latched until disarm rather than inferring touchdown
+from quiet flight. Armed GPS-rescue/failsafe still forces flight authority.
+`isHandsOn()` retains its original peak-filtered stick behavior, including yaw.
+Motor output and altitude are not used, avoiding assist feedback and altitude-source
+ambiguity. AIRBORNE debug indexes 3/5 show roll/pitch candidate duration in ms;
+6 has confirmation/disarmed flags; 7 retains state IDs 1 grounded and 2 airborne.
+This is response evidence, not proof of flight or a ground safety interlock.
+It can miss centered-stick launches and can be imitated by hand movement.
+Landing while armed retains flight authority. Unit scenarios cover boundaries,
+direction/axis changes, RX loss, disarm/rearm, timer wrap and hands-on behavior;
+bench/flight validation of the initial thresholds remains required.
 
 ### 2.14 Arming, failsafe, navigation
 
@@ -273,12 +290,14 @@ Severity reflects consequence in flight, not effort to fix. **Confirmed** = foll
 
 *Fix.* Negate the pitch term once confirmed. Add a unit test for both signs.
 
-**H-4. "Airborne" is read from stick and tilt only, so a level, hands-off aircraft counts as landed.** *Confirmed by code; effect size needs flight data.*
-[airborne.c:103](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/airborne.c#L103) `touchdown()` is true when armed, sticks < ~1.7%, tilt cosine > 0.9, no failsafe. A wing cruising level with hands off satisfies that within a few seconds of stick release (the stick peak filter decays with a 0.5 Hz cutoff). `isAirborne()` then false scales the error to **25%** in ANGLE/HORIZON ([leveling.c:215, :230](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/leveling.c#L215)), ATTHOLD/TV hold ([hold_engine.c:210](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/hold_engine.c#L210)) and AUTOHOVER ([autohover.c:341](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/autohover.c#L341)). Leaving LANDED needs tilt beyond 37° (or stick input) while re-entering it needs tilt under 26°, so a hands-off aircraft that is already LANDED and gets disturbed to 30° bank keeps the weak gain until 37°. The most common use of a hold mode (release the sticks, expect it to hold) is exactly the case where the hold is quartered. The same applies to a hand launch with centred sticks.
-
-The 25% rule was added so modes can be tested on the bench without snapping (commit `8a2b5233c`); the airborne signal was designed for a helicopter and has no throttle or airspeed input here.
-
-*Fix options.* Include throttle above idle (or motor output) in liftoff and require it below idle to land; or scale by a separate "on the ground" test (no throttle and low gyro), not by stick activity.
+**H-4. Hands-off flight reduced attitude correction to 25%. Fixed (#138).**
+The old stick/tilt detector could classify a level, hands-off aircraft as landed.
+The replacement detects sustained roll/pitch response and latches flight until
+disarm; see [Airborne detection](#213-airborne-detection-airbornec) above.
+The 25% pre-flight correction remains. Centered-stick launches may still fail to
+establish flight, and hand movement can imitate a qualifying response. Landing
+while armed does not clear the state. These limits need bench/flight validation;
+the detector is not a ground safety interlock.
 
 ### Medium
 
@@ -335,7 +354,7 @@ Dynamic notch and RPM filters, gyro/accelerometer drivers and calibration, `posi
 
 ## 5. Test coverage and verification plan
 
-Unit tests exist for PID, setpoint, curves, maths and the acro trainer. The tests for the mixer, IMU and failsafe are present but **disabled** (`flight_mixer_unittest.cc.txt`, `flight_imu_unittest.cc.txt`, `flight_failsafe_unittest.cc.txt`). There are no tests for the hold engine, AUTOHOVER, ATTHOLD, the TV loop, leveling, airborne detection, servos, or nav. Every finding above is in an untested area.
+Unit tests exist for PID, setpoint, curves, maths and the acro trainer. The tests for the mixer, IMU and failsafe are present but **disabled** (`flight_mixer_unittest.cc.txt`, `flight_imu_unittest.cc.txt`, `flight_failsafe_unittest.cc.txt`). The airborne detector now has 15 focused tests, and the trainer/leveling suite has 27 tests covering independent limits and limiter-dependent I-term state. There are still no tests for the hold engine, AUTOHOVER, ATTHOLD, the TV loop, servos, or nav. Unit coverage does not replace bench/flight validation.
 
 Suggested order, cheapest and highest-value first:
 

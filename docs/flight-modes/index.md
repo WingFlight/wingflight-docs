@@ -24,3 +24,28 @@ Most modes are enabled and mapped to a transmitter switch from the
 [Auxiliary](../configurator/tabs/auxiliary.md) tab. Backup RX Input
 is the exception -- it's enabled by assigning a serial port's
 function, not an aux switch; see its own page for setup.
+
+## Flight detection
+
+While armed with a live receiver signal, the detector requires at least 10%
+roll or pitch stick input and a gyro
+response of at least 15°/s in the same direction, continuously for 250 ms on
+one axis. Yaw steering, throttle, static tilt and arming alone do not qualify.
+The existing armed GPS-rescue/failsafe override remains.
+
+Once flight is detected it remains latched until disarm. Releasing the sticks,
+gliding at idle or losing receiver input does not reduce attitude correction.
+Disarm after landing to restore ground behavior; landing while still armed
+does not automatically clear the flight state.
+
+This changes the flight evidence, not the controllers: ANGLE/HORIZON, Attitude
+Hold, TV hold and Auto Hover retain their existing 25% correction before flight
+is detected. Auto Hover's existing airborne requirement for optional throttle
+assist also remains. Normal rate/manual control and Trainer do not use this
+state. Normal rate stabilization is available before flight detection.
+
+The thresholds need bench and flight validation. Hand movement following a
+stick command can imitate flight, while a launch without a qualifying command
+and response can remain undetected. Do not rely on this as a ground safety
+interlock. AUTO HOVER assist remains opt-in and retains its existing throttle-off
+and receiver-signal guards; no 40% throttle rule is added.
