@@ -3890,10 +3890,8 @@
 <p>Quaternion vertical (nose-up) attitude and heading hold for 3D prop-hang.</p>
 <ul>
 <li><strong>Target</strong> = vertical at the captured heading, plus pitch/yaw stick deflection (× <code>max_angle</code>, default 30°) as a small body-frame offset. Right-multiplied so stick feel does not depend on which way the held heading points.</li>
-<li><strong>Roll is the pilot's pirouette axis</strong> (roll coincides with world-vertical at hover). Free while the stick is deflected. Since commit <code>7bc87e81b</code> it is captured and held once the stick centres, so torque roll no longer goes uncorrected.</li>
-<li><strong>Roll-hold only runs near vertical</strong> (pitch+yaw error &lt; 30°). Far from vertical the quaternion error does not decompose per axis, so <code>errorDeg[0]</code> picks up pitch/yaw error and feeds the roll-offset integrator: a bench-confirmed runaway (commit <code>8a2b5233c</code>).</li>
-<li><strong>Two-stage roll lock</strong> (commit <code>51ba254f0</code>). Tracking starts at 30° but freeze and the settle countdown only run inside 10°. Before this, the settle clock's 0.4 s cap expired mid-flare while torque roll still spun the aircraft, freezing a target the aircraft was still rotating through. Leaving the 30° band now clears the capture.</li>
-<li><strong>Default <code>max_rate</code> 300 → 120 °/s</strong> (same commit): engaging in forward flight now makes a wide turn instead of a hard 90° snap. At gain 5 that saturates at 24° of error.</li>
+<li><strong>Roll is the pilot's pirouette axis</strong> (roll coincides with world-vertical at hover). A pure rate pass-through, never held. A roll hold (commit <code>7bc87e81b</code>, refined by <code>8a2b5233c</code>, <code>05bc541c5</code> and <code>51ba254f0</code>) and a level-then-rotate entry (<code>f07a4a8bb</code>) were tried and removed again, restoring the <code>b9d03d122</code> behaviour. Torque roll is left to the pilot's aileron. <code>autohover.roll_deadband</code> is retained in the profile, CLI and MSP only for compatibility and is unused.</li>
+<li><strong>Default <code>max_rate</code> 300 → 120 °/s</strong> (commit <code>51ba254f0</code>): engaging in forward flight makes a wide turn instead of a hard 90° snap. At gain 5 that saturates at 24° of error.</li>
 <li><strong>Optional throttle assist</strong> (<code>throttle_assist_*</code>, gain 0 = disabled by default; commit <code>befd8f6cf</code>). Ramps a bounded throttle add when pitch correction stays pinned at <code>max_rate</code>, as a proxy for "the airframe cannot out-thrust the hold". Ramped both ways, capped by a 50% firmware backstop independent of CLI/MSP values. See finding <strong>M-1</strong>.</li>
 <li><strong>Pitch sign</strong>: <code>imuEulerToQuaternion(roll, −900, heading)</code>. Commit <code>89f531016</code> fixed an initial nose-down target.</li>
 </ul>
@@ -4068,6 +4066,18 @@
 <td>Two-stage roll lock; <code>max_rate</code> 300 → 120</td>
 <td>Snap-back mid-flare; hard 90° snap on engage</td>
 </tr>
+<tr>
+<td>2026-09-21</td>
+<td><code>f07a4a8bb</code></td>
+<td>Level the wings, then rotate the target up to vertical</td>
+<td>Torque roll went uncorrected during the pull-up</td>
+</tr>
+<tr>
+<td>2026-09-21</td>
+<td>(reverted)</td>
+<td>Remove the roll hold and the level-then-rotate entry; roll is a free pass-through again</td>
+<td>Flight test: the level phase was hit and miss, often rolling a full turn before levelling, and the <code>b9d03d122</code> entry flew better</td>
+</tr>
 </tbody>
 </table>
 <hr />
@@ -4124,7 +4134,7 @@ The boost was added to <code>getThrottle()</code> unconditionally, up to <code>t
 <ul>
 <li>Fast 8-multiply quaternion product matches the Hamilton product (random test, max error 7e-16).</li>
 <li>Hold engine: shortest-path sign fix, magnitude clamp over frozen axes only, unit renormalisation, and no drift accumulation when all axes are frozen.</li>
-<li>AUTOHOVER <code>MaxRate &gt; 0</code> guard on the assist trigger; roll-lock hysteresis; deadband clamps at load.</li>
+<li>AUTOHOVER <code>MaxRate &gt; 0</code> guard on the assist trigger.</li>
 <li>PID anti-windup logic and its use of servo-travel saturation; yaw sign handling consistent between setpoint, MANUAL and PASSTHROUGH.</li>
 <li>Governor failsafe bypass and the interlock guard.</li>
 <li>Runtime servo trim design: trim direction folds the three reversal sources correctly.</li>
