@@ -3803,8 +3803,8 @@
 </tr>
 <tr>
 <td>I</td>
-<td><code>Ki · masterGain · crossAxisRelax · axisError</code></td>
-<td>Not attenuated by TPA. Forced to 0 output (state kept) under <code>TRADITIONAL_MODE</code>.</td>
+<td><code>Ki · masterGain · axisError</code></td>
+<td>Not attenuated by TPA. Cross-axis relax slows the accumulation of <code>axisError</code> rather than scaling this output. Forced to 0 output (state kept) under <code>TRADITIONAL_MODE</code>.</td>
 </tr>
 <tr>
 <td>D</td>
@@ -3851,7 +3851,7 @@
 <li><strong>Throttle-based gain attenuation (<code>fw_tpa_gain</code>, <code>fw_tpa_curve</code>).</strong> Throttle is used as a proxy for prop-wash over the surfaces, "not airspeed": on aircraft that hover or harrier at or past stall, surfaces stay authoritative at high throttle regardless of airspeed, so gain falls as throttle <em>rises</em>. Structured like <code>master_gain</code> + <code>gain_curve</code> (baseline scale × optional curve from the shared pool) so tuners have one mental model. Applies to P and D only.</li>
 <li><strong>Master gain applied at the point of use</strong>, not baked into <code>coef[]</code>, so any live adjustment stays correct regardless of which adjustment last touched a coefficient.</li>
 <li><strong>I-term error relax</strong> (<code>iterm_relax_*</code>): high-pass of the setpoint scales accumulation down during fast stick motion. Inherited.</li>
-<li><strong>Cross-axis relax</strong> (<code>cross_axis_relax_*</code>): yaw activity softens roll and/or pitch feedback "so rudder does not feel like an artificial hold". Default off.</li>
+<li><strong>Cross-axis relax</strong> (<code>cross_axis_relax_*</code>): yaw activity softens roll and/or pitch feedback "so rudder does not feel like an artificial hold". It scales the P and D outputs, and slows the I <em>accumulation</em> (like <code>iterm_relax</code>) instead of scaling the I output, so I does not step when rudder is applied or released. Default off.</li>
 <li><strong>Anti-windup:</strong> accumulation stops only when the mixer input for that axis is saturated <em>and</em> the error would push further into saturation (<code>pidAxisSaturated</code>). Servo travel clipping also raises saturation (<code>mixerSaturateServoOutput</code>), so trim-induced clipping is covered.</li>
 <li><strong><code>rotateAxisError()</code>:</strong> rotates roll/pitch <code>axisError</code> by the yaw gyro so a stored error stays fixed in the earth-ish frame during a yaw rotation. Physically correct for a knife-edge or hover, harmless in cruise.</li>
 <li><strong>I-term decay policy</strong> (the most-edited rule in this file):</li>
@@ -4119,7 +4119,7 @@ The boost was added to <code>getThrottle()</code> unconditionally, up to <code>t
 <ul>
 <li><strong>L-1. Heli remnants in the adjustment code. Fixed (#110).</strong> The roll D, pitch B and roll B adjustment setters in <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/pid.c">pid.c</a> scaled their coefficient by <code>pidMode == 4</code>, a mode that does not exist here. The dead branches are removed.</li>
 <li><strong>L-2. Roll D scale is 10× smaller than pitch and yaw.</strong> <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/pid.h#L40">pid.h:40</a> <code>ROLL_D_TERM_SCALE 0.1e-6</code> vs <code>1.0e-6</code>. Inherited. Confirm it is intended for wings. It is also mirrored in the TV loop.</li>
-<li><strong>L-3. Cross-axis relax is applied twice to I.</strong> <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/pid.c#L850">pid.c:850, :863</a>: it scales the accumulation <em>and</em> the I output, so I output drops immediately on rudder input and jumps back on release (limited only by the relax filter's 1–100 Hz cutoff). Default strength is 0, so latent.</li>
+<li><strong>L-3. Cross-axis relax was applied twice to I. Fixed (#137).</strong> It scaled the accumulation <em>and</em> the I output, so I output dropped immediately on rudder input and jumped back on release (limited only by the relax filter's 1–100 Hz cutoff). Now it scales the accumulation only, which is what removes the step; scaling the output only would have kept the drop and made the release jump larger. P and D are unchanged. Default strength is 0, so it was latent.</li>
 <li><strong>L-4. <code>isUpright()</code> did not check attitude. Fixed (#113).</strong> It returned "attitude established", so arming was not blocked by tilt, which is right for wings but not what the name said. It is renamed <code>isAttitudeEstimateReady()</code> and its intent is documented at the definition. <code>ARMING_DISABLED_ANGLE</code> keeps its name because it is user-visible.</li>
 <li><strong>L-5. GPS heading re-initialisation is a no-op.</strong> <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/imu.c#L481">imu.c:481</a> writes into the quaternion <em>products</em> <code>qP</code>, then <code>imuComputeRotationMatrix()</code> recomputes <code>qP</code> from the unchanged <code>q</code>. Only <code>attitudeIsEstablished</code> and the one-shot flag change. Harmless in effect, but the code does not do what its comment says.</li>
 <li><strong>L-6. Angle/horizon rate command is uncapped.</strong> <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/leveling.c#L218">leveling.c:218</a>: <code>error × gain</code> up to 180° × 4 = 720 °/s on a recovery from inverted. Surfaces saturate first, so it is safe, but it exceeds the configured rate profile.</li>
