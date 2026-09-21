@@ -58,6 +58,14 @@ Each adjustment slot has two channels:
   2-position switch you flick repeatedly to walk a value up or down
   without needing a channel that can hold a precise proportional position.
 
+Mapped ignores small movements of the Value Channel -- anything within about
+3 µs of the position it last acted on -- so a pot that isn't perfectly still
+(receiver or ADC noise, or resting right on a value boundary) doesn't flip
+the value up and down by one step every loop, which would otherwise cause a
+config write, a beep and a blackbox event each time and make PID values
+wander. Deliberate, slow movement still gets through, because the reference
+only moves once that small window is exceeded. Stepped is not affected.
+
 For [Servo Trims](servos.md#in-flight-trim) the two modes differ in more
 than how you drive them: Stepped changes the servo's saved Mid, while
 Mapped adds a runtime-only offset that is never saved and is limited to 20%

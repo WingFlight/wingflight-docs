@@ -80,8 +80,14 @@ Setup Wizard when you enable them.
 
 A rule's Role changes nothing about how it runs -- the mixer itself
 never reads it. A role-tagged rule keeps its own **Reverse** setting no
-matter what an Adjustment does to it: live adjustments only scale the
-weight's magnitude (0-1000), never its direction. What it unlocks is everything *around* the rule:
+matter what an Adjustment does to it: a live adjustment is a *signed scale*
+on top of each tagged rule's own configured direction, not a replacement for
+it. Positive values behave as the Weight and Reverse you set. A negative
+value flips every tagged rule together, so a model that needs the
+compensation the opposite way can get it without editing each rule, the two
+differential-thrust rules stay opposite each other, and same-signed
+flap-compensation rules on a V-tail or flying wing keep their relative
+polarity. What it unlocks is everything *around* the rule:
 
 - Any model type other than Custom shows a **Compensation** table
   listing just the tagged rules' weights, so tuning one doesn't require

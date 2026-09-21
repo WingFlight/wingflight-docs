@@ -51,6 +51,17 @@ aircraft was still rotating through, and the hold would pull it back past
 where you stopped. The 0.4 second cap stops a constant disturbance, such as
 torque roll, from keeping an axis in tracking forever.
 
+## I-term while holding
+
+An axis that is holding a frozen target still lets its accumulated I-term
+drain, but slowly -- at about a tenth of the normal rate, a time constant of
+roughly 6 seconds at the default I-term decay time. That is slow enough that
+a real steady disturbance, such as torque roll, is still held (the hold
+simply re-grows the I-term it needs), but not zero, so stale I-term doesn't
+keep the surfaces parked off-center when there is no error and no motion. An
+axis that is tracking or settling drains its I-term at the normal rate, the
+same as in ordinary flight.
+
 ## When a hold gives up
 
 If a frozen axis has more than about 5° of error and has hardly moved

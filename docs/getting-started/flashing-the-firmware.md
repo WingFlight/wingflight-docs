@@ -12,7 +12,7 @@ board, pulled from the project's build history.
 
 ## The flashing wizard
 
-The wizard has six steps, shown along the top. **Back** and **Next** move
+The wizard has seven steps, shown along the top. **Back** and **Next** move
 between them.
 
 1. **Connect** -- choose the port your board is on. If it isn't listed, add
@@ -24,9 +24,10 @@ between them.
    would rather choose it yourself (or the board is in DFU mode, which
    can't be auto-detected). The selected board's default config is combined
    with the firmware at flash time.
-3. **Firmware** -- choose an online release or development build for your
-   board, or switch to **Load a local firmware file instead** to flash a
-   `.hex` (and optional `.config`) you already have. Skipping the Board step
+3. **Firmware** -- **Load Online** and **Load Local** sit side by side on
+   one row: choose an online release or development build for your board, or
+   load a `.hex` (and optional `.config`) you already have. What is loaded
+   shows in a status panel beneath the buttons. Skipping the Board step
    and flashing a local file flashes it exactly as loaded, with no default
    config combined in.
 4. **Backup** -- capture your current configuration with **Back Up Now**
@@ -36,6 +37,10 @@ between them.
    (`.hex`) and config (`.config`) files. Start the flash from here.
 6. **Restore** -- once the new firmware boots, the wizard offers to restore
    the backup taken in step 4.
+7. **Finished** -- shown once the restore succeeds or is skipped, or when
+   you flashed without a backup. It says plainly that the update is
+   complete, so you know it is safe to close the window or disconnect the
+   board.
 
 **Flash Another Board** starts the wizard over when you're done. Anyone who
 prefers the previous, single-page flasher can switch to it from a link on

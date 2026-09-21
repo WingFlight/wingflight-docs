@@ -90,6 +90,10 @@ it is never saved, a knob that is misread -- for example a channel that
 isn't valid yet just after power-up -- can move a surface by at most that
 much and leaves nothing behind once the reading is right again. It also
 means the knob can't stack on top of its own saved result after a reboot.
+The firmware also ignores a trim channel until the receiver link has been
+continuously present for a full second (both at power-up and after a brief
+link drop), so a channel that comes online later than the link itself can't
+pull a servo off center in that gap.
 
 Because a Mapped trim doesn't change Mid, the **Mid** field on this tab
 doesn't move when you turn the knob. Servos that have a Servo Trim
