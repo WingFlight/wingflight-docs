@@ -64,4 +64,6 @@ load can't mask a pack that's actually further depleted). All modes except
 Current need a working voltage sensor. Voltage Drop Rate and Charge Drop
 Rate cap how fast the voltage-based estimate is allowed to fall, and Sag
 Gain compensates for voltage sag under load -- raise it if SmartFuel reads
-too pessimistic under load, lower it if too optimistic.
+too pessimistic under load, lower it if too optimistic. Sag Gain is entered
+in volts per cell at full throttle (0.40 V by default), and the
+compensation follows the motor output, so a model with no motor gets none.
