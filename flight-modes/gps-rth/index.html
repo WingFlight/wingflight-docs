@@ -3162,10 +3162,17 @@
 <div class="admonition warning">
 <p class="admonition-title">Experimental</p>
 <p>RTH and Loiter are new and have not been flight-verified. A review of the
-firmware found that the <strong>loiter direction setting appears inverted</strong> and
-that the <strong>RTH altitude hold may be reversed</strong> (see
+firmware found that the <strong>RTH altitude hold may be reversed</strong> (see
 <a href="#known-problems">Known problems</a>). Test them at a safe height, in open
 space, with your hand ready on the mode switch, before you rely on them.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Loiter direction</p>
+<p>Earlier firmware orbited the opposite way to <code>nav_loiter_direction</code>: <code>CW</code>
+orbited counter-clockwise, and the other way around. That is fixed, and the
+setting now does what it says. If you set the opposite value as a
+workaround, set it back to the direction you want, and check on the first
+orbit.</p>
 </div>
 <p>RTH and Loiter are the fixed-wing navigation modes. Both need a
 <a href="../../configurator/tabs/gps/">GPS</a> with a fix, and both are switched on from
@@ -3262,10 +3269,6 @@ degree maximum bank, which is a firm turn. Lower <code>nav_bearing_kp</code> if 
 aircraft weaves from side to side while tracking.</p>
 <h2 id="known-problems">Known problems<a class="headerlink" href="#known-problems" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Loiter direction is inverted.</strong> With <code>nav_loiter_direction = CW</code> the
-  aircraft orbits counter-clockwise, and the other way around. Until this is
-  fixed, set the opposite of the direction you want, and check on the first
-  orbit.</li>
 <li><strong>RTH altitude may be reversed.</strong> Pitch is positive nose-down in the
   firmware. The altitude controller commands a positive pitch when the
   aircraft is <em>below</em> the target, which would descend further. If the aircraft
@@ -3276,7 +3279,8 @@ aircraft weaves from side to side while tracking.</p>
 <li><strong>Slow flight.</strong> At a low ground speed or in strong wind the GPS course is
   not a good guide to heading.</li>
 </ul>
-<p>These are recorded as findings H-3 and M-2 in the firmware repository's
+<p>The altitude problem is recorded as finding H-3, and the radius and slow-flight
+limits under M-2, in the firmware repository's
 <a href="../../contributing/tech/flight-dynamics/">Flight Dynamics review</a>.</p>
 
 
