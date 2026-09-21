@@ -16,8 +16,10 @@ tab for related mixing setup.
 
 Off by default (Strength = 0) -- it does nothing until an airframe actually
 shows the coupling it's meant to fix. **Roll Strength** and **Pitch
-Strength** each set the maximum feedback reduction (%) applied to that axis
-while yaw/rudder is active -- raise Roll Strength if rudder input visibly
+Strength** each set the maximum reduction (%) applied to that axis's P and D
+response, and to how fast its I term accumulates, while yaw/rudder is active
+(what I has already built up is not reduced, so it does not step when you
+apply or release rudder) -- raise Roll Strength if rudder input visibly
 rolls the aircraft and fighting it through roll PID gains alone feels
 artificial; only touch Pitch Strength if rudder-to-elevator coupling
 specifically feels artificially held back. **Level** sets how much yaw
