@@ -143,7 +143,8 @@ being commanded in place of the static configured number.
 
 Angle/Horizon-style leveling and the hold modes are tuned here as well.
 The [Auto Hover](../../flight-modes/auto-hover.md) fields -- Gain, Max
-Angle, Max Rate, **Auto Hover roll deadband** and the three **throttle
-assist** fields -- sit in the Auto Hover group, and
+Angle, Max Rate and the three **throttle assist** fields -- sit in the Auto Hover
+group (an **Auto Hover roll deadband** field, if your Configurator still shows
+one, no longer does anything), and
 [Attitude Hold](../../flight-modes/atthold.md) has its own Gain, Deadband
 and Max Rate. See each mode's page for what the fields do.

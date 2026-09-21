@@ -13,41 +13,28 @@ part of a maneuver.
 
 ## Entering the hover
 
-Auto Hover doesn't snap the aircraft to vertical when you engage it.
-Instead it works in two steps:
+Auto Hover snaps the target straight to vertical at the heading you were
+flying when you engaged it, and the aircraft rotates up to it at up to **Max
+Rate** (120 deg/s by default). Roll is not part of the correction: your
+aileron stick passes straight through the whole way, so you keep roll
+control during the pull-up.
 
-1. **Level and hold.** The target starts at the aircraft's current pitch
-   and heading with the wings level. If you were banked, it rolls level
-   first.
-2. **Rotate to vertical.** The target's pitch then rotates up to vertical
-   at half of **Max Rate** (60 deg/s at the default of 120, so about a
-   second and a half from level), and the aircraft follows it. Roll is
-   held level the whole way, so torque roll during the pull-up is corrected
-   rather than left to build.
-
-The rotation waits whenever the aircraft can't keep up: while it is more
-than 10° out of level in roll, or while the pitch correction is pinned at
-Max Rate. It carries on as soon as the aircraft catches up. So an airframe
-that runs out of thrust part-way up is held where it got to instead of
-being dragged past what it can do, and that pinned pitch correction is also
-what triggers the [throttle assist](#throttle-assist), if you have it on.
-
-Only the aileron stick frees roll during the rotation. If you engage
-already within 30° of vertical there is nothing to rotate, and the hold
-starts straight away.
+Because the target is vertical from the first instant, the pull-up is only
+as gentle as Max Rate makes it. A low Max Rate gives a wide, slow arc; a high
+one gives a hard snap. If the airframe can't out-thrust the hold, the pitch
+correction stays pinned at Max Rate, which is also what triggers the
+[throttle assist](#throttle-assist), if you have it on.
 
 ## Holding the hover
 
 Pitch and yaw are always attitude-held, correcting back toward vertical
-when the sticks are released. Roll (aileron) works differently: in a
+when the sticks are released. Roll (aileron) is not held at all: in a
 nose-up hover the aircraft's roll axis coincides with the world vertical
 axis, so roll is the pilot's spin/pirouette control, the same role yaw
-plays in normal nose-level flight. While the roll stick is deflected, roll
-is a free rate pass-through. Once it returns to center, Auto Hover
-captures the roll the aircraft is in at that instant and holds it,
-correcting disturbance-driven drift -- torque roll, for example -- back to
-it. Unlike pitch and yaw, roll has no fixed target: it holds whatever roll
-you last stopped at.
+plays in normal nose-level flight. It is a free rate pass-through, with the
+same rates and feel as normal flight, so a held aileron gives continuous
+rotation and a centered stick stops it where it is. Torque roll is not
+corrected automatically; counter it with the aileron stick.
 
 ## Tuning
 
@@ -60,24 +47,22 @@ pitch/yaw stick input can deflect the held attitude away from vertical
 before it springs back on release -- the same idea as Angle Mode's max
 angle, just centered on vertical instead of level. **Max Rate** is a
 safety clamp on how fast Auto Hover is allowed to rotate the aircraft
-toward the held attitude. It also sets the pace of the
-[rotation up to vertical](#entering-the-hover), which runs at half of Max
-Rate. The default is 120 deg/s. Lower it for a slower, gentler pull-up;
-raise it if the aircraft has the authority and you want a snappier entry.
+toward the held attitude, so it sets how hard the
+[entry into vertical](#entering-the-hover) is. The default is 120 deg/s.
+Lower it for a slower, gentler pull-up; raise it if the aircraft has the
+authority and you want a snappier entry.
 
-**Auto Hover roll deadband** (percent of roll stick, default 5) is the stick
-deflection below which roll counts as centered and is held. Above it, roll
-is a free pass-through, so pirouettes are untouched. Raise it if the hold
-grabs when you didn't mean to stop spinning; lower it if a slightly
-off-center stick is stopping the roll hold from engaging.
+The **Auto Hover roll deadband** field no longer does anything. Roll used to
+be held once the stick centered; it is now always a free pass-through. The
+setting is kept so existing profiles and tools keep working.
 
 ## Throttle assist
 
 By default throttle stays fully manual, and the mode has no awareness of
 airspeed or whether the aircraft actually has enough thrust to sustain a
 vertical hover. Engaging it without enough thrust available won't get the
-aircraft to vertical: the rotation stops where the airframe can't keep up,
-and it will likely sink or stall rather than hover.
+aircraft to vertical: the pitch correction runs flat out at Max Rate and it
+will likely sink or stall rather than hover.
 
 Throttle assist is an optional, off-by-default nudge for the borderline
 case. When Auto Hover's pitch correction stays pinned at Max Rate for a
@@ -113,24 +98,6 @@ strength before the aircraft is airborne -- roughly a quarter of their
 in-flight authority, the same as Angle and Horizon modes -- so tilting the
 airframe by hand shows a real, gentler correction. It's not fully live
 until liftoff.
-
-The [rotation to vertical](#entering-the-hover) follows the airframe, so on
-the bench, where it can't actually rotate, the target only runs ahead until
-the pitch correction is pinned at Max Rate (about 24° ahead at the default
-Gain and Max Rate) and then waits there. It doesn't wind up toward a vertical
-target the aircraft will never reach.
-
-When you engage within about 30° of vertical there is no rotation, and roll
-locks in two stages: between 30° and 10° from vertical it only *tracks*, and
-it is only allowed to freeze, and start its settle countdown, inside 10°.
-That keeps it from locking a roll the aircraft is still spinning through as
-it settles. Once locked, the hold stays until the aircraft leaves the 30°
-band.
-
-When you release the roll stick, roll keeps tracking until it has actually
-stopped rotating (under about 15 deg/s) or 0.4 seconds have passed, and only
-then freezes. That is why letting go of the aileron mid-pirouette doesn't
-snap the aircraft back past where you stopped.
 
 If a safety mode (Failsafe, GPS Rescue, RTH, Loiter or Angle) takes over
 and later releases, Auto Hover captures a fresh target from the aircraft's

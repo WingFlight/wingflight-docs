@@ -7,7 +7,7 @@ helicopter-focused mode set.
 
 | Mode / Feature | Summary |
 |---|---|
-| [Auto Hover](auto-hover.md) | Automated hover/attitude assist for aircraft capable of hovering flight, with roll hold and optional throttle assist |
+| [Auto Hover](auto-hover.md) | Automated hover/attitude assist for aircraft capable of hovering flight, with free roll and optional throttle assist |
 | [Attitude Hold](atthold.md) | Holds commanded attitude per axis when that stick is released |
 | [Thrust Vector Attitude Hold](tv-hold.md) | Independent attitude/heading hold on the Thrust Vector loop only, decoupled from the main surfaces |
 | [Auto Trim](auto-trim.md) | Captures trim automatically from sustained stick input |
