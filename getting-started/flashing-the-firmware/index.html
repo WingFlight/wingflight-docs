@@ -3211,7 +3211,7 @@ snapshots (e.g. <code>0.0.23</code>) rather than stable releases, while the proj
 in its early stages. The Firmware Flasher lists available builds per target
 board, pulled from the project's build history.</p>
 <h2 id="the-flashing-wizard">The flashing wizard<a class="headerlink" href="#the-flashing-wizard" title="Permanent link">&para;</a></h2>
-<p>The wizard has six steps, shown along the top. <strong>Back</strong> and <strong>Next</strong> move
+<p>The wizard has seven steps, shown along the top. <strong>Back</strong> and <strong>Next</strong> move
 between them.</p>
 <ol>
 <li><strong>Connect</strong> -- choose the port your board is on. If it isn't listed, add
@@ -3223,9 +3223,10 @@ between them.</p>
    would rather choose it yourself (or the board is in DFU mode, which
    can't be auto-detected). The selected board's default config is combined
    with the firmware at flash time.</li>
-<li><strong>Firmware</strong> -- choose an online release or development build for your
-   board, or switch to <strong>Load a local firmware file instead</strong> to flash a
-   <code>.hex</code> (and optional <code>.config</code>) you already have. Skipping the Board step
+<li><strong>Firmware</strong> -- <strong>Load Online</strong> and <strong>Load Local</strong> sit side by side on
+   one row: choose an online release or development build for your board, or
+   load a <code>.hex</code> (and optional <code>.config</code>) you already have. What is loaded
+   shows in a status panel beneath the buttons. Skipping the Board step
    and flashing a local file flashes it exactly as loaded, with no default
    config combined in.</li>
 <li><strong>Backup</strong> -- capture your current configuration with <strong>Back Up Now</strong>
@@ -3235,6 +3236,10 @@ between them.</p>
    (<code>.hex</code>) and config (<code>.config</code>) files. Start the flash from here.</li>
 <li><strong>Restore</strong> -- once the new firmware boots, the wizard offers to restore
    the backup taken in step 4.</li>
+<li><strong>Finished</strong> -- shown once the restore succeeds or is skipped, or when
+   you flashed without a backup. It says plainly that the update is
+   complete, so you know it is safe to close the window or disconnect the
+   board.</li>
 </ol>
 <p><strong>Flash Another Board</strong> starts the wizard over when you're done. Anyone who
 prefers the previous, single-page flasher can switch to it from a link on

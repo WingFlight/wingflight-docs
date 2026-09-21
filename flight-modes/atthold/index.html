@@ -1655,6 +1655,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#i-term-while-holding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        I-term while holding
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#when-a-hold-gives-up" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3156,6 +3167,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#i-term-while-holding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        I-term while holding
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#when-a-hold-gives-up" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3245,6 +3267,15 @@ froze at the instant of release, it would pin the target to an attitude the
 aircraft was still rotating through, and the hold would pull it back past
 where you stopped. The 0.4 second cap stops a constant disturbance, such as
 torque roll, from keeping an axis in tracking forever.</p>
+<h2 id="i-term-while-holding">I-term while holding<a class="headerlink" href="#i-term-while-holding" title="Permanent link">&para;</a></h2>
+<p>An axis that is holding a frozen target still lets its accumulated I-term
+drain, but slowly -- at about a tenth of the normal rate, a time constant of
+roughly 6 seconds at the default I-term decay time. That is slow enough that
+a real steady disturbance, such as torque roll, is still held (the hold
+simply re-grows the I-term it needs), but not zero, so stale I-term doesn't
+keep the surfaces parked off-center when there is no error and no motion. An
+axis that is tracking or settling drains its I-term at the normal rate, the
+same as in ordinary flight.</p>
 <h2 id="when-a-hold-gives-up">When a hold gives up<a class="headerlink" href="#when-a-hold-gives-up" title="Permanent link">&para;</a></h2>
 <p>If a frozen axis has more than about 5° of error and has hardly moved
 (under 5 deg/s) for 3 seconds, the correction is not achieving anything --

@@ -1992,6 +1992,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MSP Overview
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -2008,6 +2026,36 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#version-compatibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Version compatibility
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -3024,6 +3072,25 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#version-compatibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Version compatibility
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -3058,6 +3125,23 @@ identify as WingFlight, or reports a version outside the range this
 Configurator build supports, the Configurator falls back to
 <a href="../../getting-started/first-connection/">CLI-only mode</a> rather than assuming
 MSP compatibility it can't verify.</p>
+<h2 id="version-compatibility">Version compatibility<a class="headerlink" href="#version-compatibility" title="Permanent link">&para;</a></h2>
+<p>Additive changes, such as a new read-only command, don't change the API
+version: firmware that lacks a command answers it as unsupported, which is
+how the Configurator tells. <code>MSP_SERVO_TRIM</code>, which reports the live runtime
+servo trim, works this way.</p>
+<p>Changes to an existing message's layout are different, because an old client
+would misparse the reply, or write shifted bytes into a profile. Those bump
+the API version and the client picks the layout from it. Snapshot <strong>0.0.25</strong>
+moved the API to <strong>22.3</strong>: the always-zero placeholder bytes inherited from
+Rotorflight's helicopter code were removed from <code>MSP_RC_TUNING</code>,
+<code>MSP_PID_PROFILE</code>, <code>MSP_PID_TUNING</code>, <code>MSP_SETPOINT</code>, <code>MSP_TELEMETRY_CONFIG</code>,
+<code>MSP_ESC_SENSOR_CONFIG</code>, <code>MSP_RC_CONFIG</code> and <code>MSP_SENSOR_CONFIG</code>. Use the
+Configurator and Lua suites from the same snapshot as the firmware. An older
+client that doesn't know 22.3 falls back to CLI-only mode.</p>
+<p>Commands for features that were removed (VTX, camera control and the
+rangefinder) are gone too, so <code>MSP_SONAR_ALTITUDE</code> and the others now answer
+as unsupported instead of returning a constant.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>A full MSP command reference is planned as the project stabilizes --
