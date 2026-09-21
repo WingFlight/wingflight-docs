@@ -1655,6 +1655,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trainer Mode
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1671,6 +1689,75 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#flying-with-trainer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flying with Trainer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cli-and-compatibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CLI and compatibility
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limits-of-the-protection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limits of the protection
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -3024,6 +3111,64 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#flying-with-trainer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flying with Trainer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cli-and-compatibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CLI and compatibility
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limits-of-the-protection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limits of the protection
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -3048,17 +3193,111 @@
 
 
 <h1 id="trainer-mode">Trainer Mode<a class="headerlink" href="#trainer-mode" title="Permanent link">&para;</a></h1>
-<p>Trainer Mode provides an assisted flight envelope suited to learning --
-limiting attitude/rate extremes to make an aircraft harder to lose control
-of, similar in spirit to a self-leveling "beginner mode" on other platforms.</p>
-<p>Unlike Angle/Horizon-style self-leveling, Trainer Mode does <em>not</em> actively
-level the aircraft -- it flies exactly like normal acro/manual flight right
-up until the pitch/roll angle would exceed <strong>Limit</strong> (default 20°), at
-which point it tilts back toward that limit rather than letting the
-aircraft roll/pitch further. <strong>Gain</strong> sets how aggressively it corrects
-back once the limit is exceeded -- high enough to reliably catch a
-beginner's overcorrection, without fighting normal flying so hard it feels
-like it's flying itself.</p>
+<p>TRAINER provides <strong>rate control with pitch and bank angle limits</strong>, without
+self-leveling. It is the closest Wingflight equivalent to the behavior Spektrum
+calls SAFE Intermediate or Envelope mode. This is a behavioral comparison,
+not an implementation of Spektrum's proprietary controller.</p>
+<h2 id="flying-with-trainer">Flying with Trainer<a class="headerlink" href="#flying-with-trainer" title="Permanent link">&para;</a></h2>
+<p>Inside the configured limits, the sticks command rotation rate as in normal
+stabilized rate flight. Use aileron to establish a bank, center it to stop
+commanding roll, and apply opposite aileron to roll out. Centering the sticks
+does not command wings-level flight or capture an ATT HOLD target.</p>
+<p>Near a limit, Trainer uses the current gyro rate to anticipate overshoot and
+intervenes against commands that would carry the aircraft farther out. If an
+angle is already beyond the limit, it commands a return toward the boundary.
+Pilot input that helps return remains available.</p>
+<p>Trainer uses the normal rate PID controller. Each axis keeps normal I-term
+decay while its rate command passes through unchanged, including stronger
+pilot input back into the envelope. I-term decay is suspended only on an
+axis whose command the limiter is changing, so it can sustain the correction
+at the limit.</p>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Stick behavior</th>
+<th>Centered sticks</th>
+<th>Pitch/bank envelope</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ANGLE</td>
+<td>Commands an attitude within the configured angle limit</td>
+<td>Commands level flight</td>
+<td>Limits the requested attitude</td>
+</tr>
+<tr>
+<td>HORIZON</td>
+<td>Rate control with added leveling that fades with stick deflection</td>
+<td>Commands leveling</td>
+<td>No enforced envelope</td>
+</tr>
+<tr>
+<td>TRAINER</td>
+<td>Rate control inside the limits</td>
+<td>No deliberate self-leveling</td>
+<td>Intervenes near/beyond the configured limit</td>
+</tr>
+</tbody>
+</table>
+<p>ANGLE is therefore closer to SAFE Beginner/Angle Demand; TRAINER is closer to
+SAFE Intermediate/Envelope. HORIZON is a different blend, not an intermediate
+angle-limited mode. See <a href="https://wiki.spektrumrc.com/spektrum/safe-setup-guide">Spektrum's SAFE setup guide</a>
+for its distinction between angle demand and envelope protection.</p>
+<h2 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Enable and calibrate the accelerometer. The firmware only offers TRAINER
+  when an accelerometer is available and trainer support is built in.</li>
+<li>Assign <strong>TRAINER</strong> to a switch range in <a href="../../configurator/tabs/auxiliary/">Auxiliary (Modes)</a>.
+  If an older Configurator hides it, enable Expert Mode. Updated Configurators
+  show TRAINER without Expert Mode.</li>
+<li>Set <strong>Gain</strong>, <strong>Bank angle limit</strong> and <strong>Pitch angle limit</strong> in <a href="../../configurator/tabs/profiles/#trainer-angle-limits">Profiles → Trainer (angle limits)</a>.
+  Save the TRAINER assignment first so its Profiles panel appears.</li>
+<li>In the Ethos suite, assign TRAINER under <strong>Controls → Modes</strong> and adjust
+  <strong>Gain</strong>, <strong>Bank</strong> and <strong>Pitch</strong> under
+  <strong>Flight Tuning → Advanced → Flight Modes → Acro Trainer</strong>. The suite requires
+  MSP API <strong>22.04 or newer</strong>; update the firmware snapshot alongside the suite.
+  ANGLE, HORIZON, AUTO HOVER and ATT HOLD have separate tools in the same menu.</li>
+<li>In EdgeTX, <strong>Profile – Various</strong> exposes the independent limits with API 22.4
+  firmware. Its older-firmware support retains shared limits.</li>
+</ul>
+<p>With <strong>MSP API 22.4 firmware and updated clients</strong>, ANGLE and TRAINER each have
+independent limits: <strong>bank 10–90°</strong> and <strong>pitch 10–75°</strong>, symmetric in both
+directions. These match the configurable ranges documented for SAFE angle
+demand and envelope protection. They do not reproduce Spektrum's proprietary
+control algorithm or guarantee identical flight response.</p>
+<p>Existing profiles retain their shared limits until an axis is changed. On a
+fresh setup, TRAINER inherits <strong>20°</strong> for both axes and ANGLE inherits <strong>55°</strong>.
+There is no universal SAFE default to copy across different aircraft. A legacy
+shared pitch limit above 75° remains effective until overridden; new explicit
+pitch limits are capped at 75°.</p>
+<p>Trainer <strong>Gain</strong> controls correction strength when the limit is exceeded;
+its default stored value is <strong>75</strong>. Firmware also provides the CLI setting
+<code>acro_trainer_lookahead_ms</code> (default <strong>50 ms</strong>) for predictive intervention.</p>
+<h3 id="cli-and-compatibility">CLI and compatibility<a class="headerlink" href="#cli-and-compatibility" title="Permanent link">&para;</a></h3>
+<p>The per-profile settings are <code>angle_roll_limit</code>, <code>angle_pitch_limit</code>,
+<code>acro_trainer_roll_limit</code> and <code>acro_trainer_pitch_limit</code>. <strong>0</strong> means inherit
+<code>angle_level_limit</code> or <code>acro_trainer_angle_limit</code>, respectively. Nonzero
+values use a minimum effective angle of 10°, with the axis maximum above.
+The shared settings remain available for older clients and CLI backups.</p>
+<p>The new values are stored separately, so upgrading does not reset PID profiles.
+They follow profile selection, copying and reset. Updated clients show the
+effective angles and preserve inheritance when an axis is not edited. Older
+clients cannot edit the independent limits; their shared-limit changes affect
+only axes still inheriting. Upgrading the Configurator/Ethos suite is therefore
+recommended when using independent limits.</p>
+<p>Use non-overlapping switch ranges for ANGLE, HORIZON and TRAINER. These are
+alternative modes, not layers: AUTO HOVER, ATT HOLD, ANGLE and HORIZON each
+take priority over TRAINER when their mode switches overlap. Selecting HORIZON
+and TRAINER together does not produce self-leveling with Trainer limits.</p>
+<h2 id="limits-of-the-protection">Limits of the protection<a class="headerlink" href="#limits-of-the-protection" title="Permanent link">&para;</a></h2>
+<p>The angle boundary is a control objective, not a guarantee that the aircraft
+cannot cross it. Momentum, wind, tuning and available control authority can
+cause overshoot. Pitch-angle limits do not measure angle of attack or prevent
+stalls, and Trainer does not manage throttle, altitude or terrain clearance.</p>
+<p>Trainer's angle correction does not depend on the airborne estimate or motor
+output, so cutting throttle does not disable its limits during a glide.</p>
 
 
 

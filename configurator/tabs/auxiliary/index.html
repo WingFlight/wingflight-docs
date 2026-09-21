@@ -1183,6 +1183,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#choosing-a-training-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choosing a training mode
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3089,6 +3100,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#choosing-a-training-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choosing a training mode
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3144,6 +3166,18 @@ have several of either:</p>
 conditions are true, or when <em>at least one</em> OR condition is true.</p>
 <p>Changes here don't take effect on the flight controller until you hit
 Save.</p>
+<h2 id="choosing-a-training-mode">Choosing a training mode<a class="headerlink" href="#choosing-a-training-mode" title="Permanent link">&para;</a></h2>
+<p>Use <strong>ANGLE</strong> for stick-commanded attitude and a return toward level when the
+sticks are centered. Use <strong>TRAINER</strong> for normal rate control with pitch/bank
+limits and no self-leveling. <strong>HORIZON</strong> adds leveling to rate control, but does
+not enforce Trainer's envelope. See <a href="../../../flight-modes/trainer/">Trainer Mode</a>
+for a comparison and setup instructions.</p>
+<p>TRAINER is available without Expert Mode in updated Configurators; older
+versions hide it behind Expert Mode. It also requires an available
+accelerometer and firmware built with trainer support. If <strong>Hide unused modes</strong>
+is enabled, turn it off to find a mode that has no switch range yet.</p>
+<p>Give ANGLE, HORIZON and TRAINER separate switch ranges: enabling them together
+does not combine their behavior.</p>
 
 
 

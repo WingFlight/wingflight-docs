@@ -3897,7 +3897,21 @@
 </ul>
 <p>Limitations already in the source comment: no <code>accelerometerTrims</code>; heading captured from an <code>atan2</code> that degrades toward 90° pitch; attitude only, no position hold; manual throttle.</p>
 <h3 id="27-acro-trainer-trainerc">2.7 Acro trainer — <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/trainer.c">trainer.c</a><a class="headerlink" href="#27-acro-trainer-trainerc" title="Permanent link">&para;</a></h3>
-<p>Angle-limits roll/pitch in acro using a projected-angle lookahead. Stateless (no latch). Inherited unchanged.</p>
+<p>Angle-limits roll/pitch in rate flight using a projected-angle lookahead. Stateless
+(no latch), with no self-leveling inside the envelope. API 22.4 adds independent
+roll and pitch limits to both TRAINER and ANGLE (including consumers of
+<code>angleModeApply</code>, such as GPS navigation). Explicit limits use 10–90° roll and
+10–75° pitch; zero inherits the existing shared limit. The separate
+<code>PG_ATTITUDE_LIMITS</code> array preserves the stored PID-profile layout. Four optional
+U8 fields are appended to <code>MSP_PID_PROFILE</code>/<code>MSP_SET_PID_PROFILE</code> in order:
+ANGLE roll, ANGLE pitch, TRAINER roll, TRAINER pitch. Old writes leave them intact;
+PID profile copy/reset includes this array. CLI uses its own profile stride.</p>
+<p>Trainer retains normal rate-mode I-term decay on each axis whose command passes
+through unchanged, including helping input back into the envelope. Decay is
+suspended only while the limiter changes that axis's rate command. The limit
+extension does not change self-leveling gains or the prediction algorithm. Its envelope is a control objective; finite
+control authority and the body-rate-based Euler prediction can still permit
+overshoot. It does not measure angle of attack or provide stall protection.</p>
 <h3 id="28-thrust-vector-loop-tv_pidc-tv_holdc">2.8 Thrust-vector loop — <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/tv_pid.c">tv_pid.c</a>, <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/tv_hold.c">tv_hold.c</a><a class="headerlink" href="#28-thrust-vector-loop-tv_pidc-tv_holdc" title="Permanent link">&para;</a></h3>
 <p>A second, independent rate PID for vectored-thrust actuators (commit <code>107cfee43</code>), feeding <code>MIXER_IN_STABILIZED_TV_*</code>. It runs after the main PID and reuses the main loop's final setpoint, so it inherits any leveling/hold shaping. <code>BOXTHRUSTVECTOR</code> gates it live; while off it is reset so re-engaging ramps from zero instead of bumping. The optional TV hold (commit <code>83a99b1ba</code>) lets a jet hold attitude on the nozzle alone while the surfaces stay in acro, useful post-stall. It yields to the safety set so a stale target never fights a recovery.</p>
 <p>It deliberately has no TPA, cross-axis relax, <code>TRADITIONAL_MODE</code>, or <code>rotateAxisError</code>.</p>
@@ -3931,7 +3945,22 @@
 <li>Heading: magnetometer, else GPS course over ground above 5 m/s with ≥5 satellites.</li>
 </ul>
 <h3 id="213-airborne-detection-airbornec">2.13 Airborne detection — <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/airborne.c">airborne.c</a><a class="headerlink" href="#213-airborne-detection-airbornec" title="Permanent link">&para;</a></h3>
-<p>State machine: LANDED → AIRBORNE when armed and any of {peak stick &gt; 2.5% (<code>rc_threshold</code>/1000), tilt cosine &lt; 0.8 (≈37°), failsafe/GPS-rescue}. Back to LANDED when disarmed, or when sticks &lt; 1.7% <em>and</em> tilt cosine &gt; 0.9 (≈26°) <em>and</em> no failsafe. Consumers: the 25% authority scaling in leveling and the hold modes, the AUTOHOVER assist gate, blackbox. Inherited from the helicopter lineage; see <strong>H-4</strong>.</p>
+<p>The detector was replaced by <a href="https://github.com/WingFlight/wingflight-firmware/pull/138">firmware PR #138</a>.
+While armed with a live receiver signal, it looks for flight response.
+The replacement requires a continuous 250 ms response on roll or pitch: pilot deflection at least
+10% and gyro rate at least 15°/s in the same direction. Confirmation is separate
+for each axis and direction; loss of input, matching response or RX resets the
+pending timer. Once confirmed, flight stays latched until disarm rather than inferring touchdown
+from quiet flight. Armed GPS-rescue/failsafe still forces flight authority.
+<code>isHandsOn()</code> retains its original peak-filtered stick behavior, including yaw.
+Motor output and altitude are not used, avoiding assist feedback and altitude-source
+ambiguity. AIRBORNE debug indexes 3/5 show roll/pitch candidate duration in ms;
+6 has confirmation/disarmed flags; 7 retains state IDs 1 grounded and 2 airborne.
+This is response evidence, not proof of flight or a ground safety interlock.
+It can miss centered-stick launches and can be imitated by hand movement.
+Landing while armed retains flight authority. Unit scenarios cover boundaries,
+direction/axis changes, RX loss, disarm/rearm, timer wrap and hands-on behavior;
+bench/flight validation of the initial thresholds remains required.</p>
 <h3 id="214-arming-failsafe-navigation">2.14 Arming, failsafe, navigation<a class="headerlink" href="#214-arming-failsafe-navigation" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Arming.</strong> <code>isAttitudeEstimateReady()</code> checks only that the attitude estimate is established, not that the aircraft is level (see <strong>L-4</strong>). That suits hand-launched wings. A re-arm grace window after an in-flight disarm relaxes the throttle and attitude checks.</li>
@@ -4097,10 +4126,14 @@
 <p><strong>H-3. RTH altitude hold is probably inverted.</strong> <em>Needs verification (bench or SITL).</em>
 <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/gps_nav.c#L139">gps_nav.c:139</a>: <code>pitchDdeg = Kp · (target − current)</code>; positive means "aircraft is below target". <code>navAngle[PITCH]</code> is added to a target angle in <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/leveling.c">leveling.c</a> where pitch is <strong>positive nose-down</strong> (§1). So being below target commands nose-down, which descends further. Two independent code comments (AUTOHOVER <code>-900</code> = nose-up; GPS rescue positive = forward flight) support that convention. Roll sign checks out (target clockwise of course → positive → right bank).</p>
 <p><em>Fix.</em> Negate the pitch term once confirmed. Add a unit test for both signs.</p>
-<p><strong>H-4. "Airborne" is read from stick and tilt only, so a level, hands-off aircraft counts as landed.</strong> <em>Confirmed by code; effect size needs flight data.</em>
-<a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/airborne.c#L103">airborne.c:103</a> <code>touchdown()</code> is true when armed, sticks &lt; ~1.7%, tilt cosine &gt; 0.9, no failsafe. A wing cruising level with hands off satisfies that within a few seconds of stick release (the stick peak filter decays with a 0.5 Hz cutoff). <code>isAirborne()</code> then false scales the error to <strong>25%</strong> in ANGLE/HORIZON (<a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/leveling.c#L215">leveling.c:215, :230</a>), ATTHOLD/TV hold (<a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/hold_engine.c#L210">hold_engine.c:210</a>) and AUTOHOVER (<a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/autohover.c#L341">autohover.c:341</a>). Leaving LANDED needs tilt beyond 37° (or stick input) while re-entering it needs tilt under 26°, so a hands-off aircraft that is already LANDED and gets disturbed to 30° bank keeps the weak gain until 37°. The most common use of a hold mode (release the sticks, expect it to hold) is exactly the case where the hold is quartered. The same applies to a hand launch with centred sticks.</p>
-<p>The 25% rule was added so modes can be tested on the bench without snapping (commit <code>8a2b5233c</code>); the airborne signal was designed for a helicopter and has no throttle or airspeed input here.</p>
-<p><em>Fix options.</em> Include throttle above idle (or motor output) in liftoff and require it below idle to land; or scale by a separate "on the ground" test (no throttle and low gyro), not by stick activity.</p>
+<p><strong>H-4. Hands-off flight reduced attitude correction to 25%. Fixed (#138).</strong>
+The old stick/tilt detector could classify a level, hands-off aircraft as landed.
+The replacement detects sustained roll/pitch response and latches flight until
+disarm; see <a href="#213-airborne-detection-airbornec">Airborne detection</a> above.
+The 25% pre-flight correction remains. Centered-stick launches may still fail to
+establish flight, and hand movement can imitate a qualifying response. Landing
+while armed does not clear the state. These limits need bench/flight validation;
+the detector is not a ground safety interlock.</p>
 <h3 id="medium">Medium<a class="headerlink" href="#medium" title="Permanent link">&para;</a></h3>
 <p><strong>M-1. AUTOHOVER throttle assist ignored the throttle stick and RX loss. Fixed (#104).</strong>
 The boost was added to <code>getThrottle()</code> unconditionally, up to <code>throttle_assist_max</code> (default 15%, hard cap 50%), so with the stick at idle the motor could spin up, and on link loss a held-on AUTOHOVER switch kept assisting (H-1 means no failsafe mode clears it). <code>autoHoverThrottleBoost()</code> now returns 0, and resets the ramp, whenever the throttle is at or below the off-throttle threshold or <code>rxIsReceivingSignal()</code> is false. Disabled by default (<code>throttle_assist_gain=0</code>).</p>
@@ -4144,7 +4177,7 @@ The boost was added to <code>getThrottle()</code> unconditionally, up to <code>t
 <p>Dynamic notch and RPM filters, gyro/accelerometer drivers and calibration, <code>position.c</code> altitude estimation, <code>logic_condition.c</code>, <code>wiggle.c</code>, blackbox, MSP and CLI plumbing. The pilot-facing docs in <code>docs/</code> were audited separately.</p>
 <hr />
 <h2 id="5-test-coverage-and-verification-plan">5. Test coverage and verification plan<a class="headerlink" href="#5-test-coverage-and-verification-plan" title="Permanent link">&para;</a></h2>
-<p>Unit tests exist for PID, setpoint, curves, maths and the acro trainer. The tests for the mixer, IMU and failsafe are present but <strong>disabled</strong> (<code>flight_mixer_unittest.cc.txt</code>, <code>flight_imu_unittest.cc.txt</code>, <code>flight_failsafe_unittest.cc.txt</code>). There are no tests for the hold engine, AUTOHOVER, ATTHOLD, the TV loop, leveling, airborne detection, servos, or nav. Every finding above is in an untested area.</p>
+<p>Unit tests exist for PID, setpoint, curves, maths and the acro trainer. The tests for the mixer, IMU and failsafe are present but <strong>disabled</strong> (<code>flight_mixer_unittest.cc.txt</code>, <code>flight_imu_unittest.cc.txt</code>, <code>flight_failsafe_unittest.cc.txt</code>). The airborne detector now has 15 focused tests, and the trainer/leveling suite has 27 tests covering independent limits and limiter-dependent I-term state. There are still no tests for the hold engine, AUTOHOVER, ATTHOLD, the TV loop, servos, or nav. Unit coverage does not replace bench/flight validation.</p>
 <p>Suggested order, cheapest and highest-value first:</p>
 <ol>
 <li><strong>Signs (H-3, M-2).</strong> Unit tests for <code>updateGpsNav()</code> with fixtures: aircraft south/north/east/west of target for CW and CCW, and above/below target altitude. Then one SITL confirmation of the pitch sign.</li>
