@@ -139,12 +139,28 @@ Any of these gains can also be mapped to a transmitter switch/knob from the
 under live adjustment control, its row shows the current effective value
 being commanded in place of the static configured number.
 
-## Leveling Settings
+## Trainer (angle limits)
 
-Angle/Horizon-style leveling and the hold modes are tuned here as well.
-The [Auto Hover](../../flight-modes/auto-hover.md) fields -- Gain, Max
-Angle, Max Rate and the three **throttle assist** fields -- sit in the Auto Hover
-group (an **Auto Hover roll deadband** field, if your Configurator still shows
-one, no longer does anything), and
-[Attitude Hold](../../flight-modes/atthold.md) has its own Gain, Deadband
-and Max Rate. See each mode's page for what the fields do.
+**Trainer (angle limits)** exposes Trainer gain and independent bank/pitch
+limits with API 22.4 firmware (bank 10–90°, pitch 10–75°). Older firmware
+shows a single shared limit. Save a TRAINER assignment in
+[Auxiliary (Modes)](auxiliary.md) to show this panel. Expert Mode is not required.
+See [Trainer Mode](../../flight-modes/trainer.md) for how the limits affect flight.
+
+## Flight-mode settings
+
+ANGLE, HORIZON, TRAINER, AUTO HOVER and ATT HOLD each have their own panel.
+These panels are available in both basic and Expert Mode, and appear only for
+modes with a saved switch range or linked-mode assignment. Visibility follows
+the configuration, not the current position of the transmitter switch.
+
+ANGLE provides leveling gain and independent bank/pitch limits. HORIZON has its
+own leveling gain; its leveling correction uses the ANGLE limits. Those shared
+limits appear in the HORIZON panel when ANGLE is not configured, otherwise edit
+them in the ANGLE panel. They do not turn HORIZON into a Trainer-style envelope.
+
+The [Auto Hover](../../flight-modes/auto-hover.md) panel contains Gain, Max Angle,
+Max Rate, Roll Deadband and the throttle-assist gain, ceiling and trigger time.
+The current controller does not use Roll Deadband; the field remains in the
+protocol and UI. [Attitude Hold](../../flight-modes/atthold.md) has its own
+Gain, Deadband and Max Rate. See each mode's page for what these settings do.
