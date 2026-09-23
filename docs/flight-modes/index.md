@@ -16,7 +16,7 @@ helicopter-focused mode set.
 | [Ready-to-Arm Wiggle](ready-to-arm-wiggle.md) | Visual servo-wiggle confirmation before arming |
 | [Cross-Axis Relax](cross-axis-relax.md) | Reduces unwanted coupling between control axes |
 | [GPS RTH and Loiter](gps-rth.md) | Experimental fixed-wing return-to-home and orbit, by banking and pitching under Angle-mode leveling |
-| [GPS Rescue](gps-rescue.md) | Inherited from multirotors. Does not steer or hold altitude on a wing, and can disarm in flight. Not recommended |
+| [GPS Rescue](gps-rescue.md) | Same controller as GPS RTH; also reachable as a Failsafe Stage 2 procedure |
 | [Governor](governor.md) | Idle-hold or RPM governing of motor throttle response, from Off through fixed idle to full RPM Range control |
 | [Backup RX Input](backup-rx-input.md) | Instant backup receiver takeover from a second RX port if the main RF link is lost |
 

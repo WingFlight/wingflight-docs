@@ -10,8 +10,11 @@ Model aircraft can be dangerous, particularly on the test bench. Some simple rul
 ## Before installing
 
 Read [Cli](../reference/cli-reference.md), [Controls](../reference/stick-commands.md), [Failsafe](../configurator/tabs/failsafe.md) and [Modes](../configurator/tabs/auxiliary.md). In
-particular, read [Failsafe](../configurator/tabs/failsafe.md): the flight controller does **not** disarm or land the
-aircraft on its own when the link is lost, so configure the receiver's failsafe and check it.
+particular, read [Failsafe](../configurator/tabs/failsafe.md) and set a `Stage 2 - Failsafe Procedure`
+deliberately: the flight controller can self-level, cut the motor and disarm, or fly home, once the link has
+been down for `Guard Delay`, but it only reaches that stage after its own ~100ms/300ms detection and hold.
+The receiver's own failsafe is still faster and does not depend on the flight controller at all, so configure
+it too, and bench-test both before you fly.
 
 Use the Receiver tab in the Configurator to check that your channels are centred at 1500 (1520 for
 Futaba) and reach 1000 and 2000 at the ends of travel. If they do not, you may be unable to arm

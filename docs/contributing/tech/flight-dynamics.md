@@ -195,7 +195,7 @@ Order: mixer output → geometry correction → **balance curve** → speed limi
 Throttle goes `getThrottle()` → AUTOHOVER assist → `governorApply()` → mixer M1 → `motorUpdate()`. The governor has four modes (off, RPM idle-hold, fixed throttle, RPM range) plus an RPM max limiter. Notable decisions:
 
 - When a governor mode is configured **and** a switch is assigned to `BOXGOVERNOR`, that switch is a **hard motor interlock**: stick has no authority until it is engaged. The `isModeActivationConditionPresent()` guard stops a configured-but-unwired governor from hard-cutting the motor forever.
-- **RX loss bypasses the governor** so a held-on governor switch cannot override the failsafe throttle cut. It tests `!rxIsReceivingSignal()` first because `failsafeIsActive()` is unreliable while monitoring is disabled (see **H-1**).
+- **RX loss bypasses the governor** so a held-on governor switch cannot override the failsafe throttle cut. It tests `!rxIsReceivingSignal()` first, ahead of `failsafeIsActive()`, to close the ~100ms gap before the failsafe phase machine (see **H-1**) actually engages; `failsafeIsActive()` is a second, belt-and-suspenders check once it has.
 - The P term is low-passed at 2 Hz for idle modes because a fixed-wing prop has almost no inertia and an unfiltered P limit-cycles on RPM quantisation.
 
 ### 2.12 Attitude estimator — [imu.c](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/imu.c)
@@ -229,9 +229,9 @@ bench/flight validation of the initial thresholds remains required.
 ### 2.14 Arming, failsafe, navigation
 
 - **Arming.** `isAttitudeEstimateReady()` checks only that the attitude estimate is established, not that the aircraft is level (see **L-4**). That suits hand-launched wings. A re-arm grace window after an in-flight disarm relaxes the throttle and attitude checks.
-- **Failsafe.** See **H-1**. Effective behaviour today is receiver-side substitution in [rx.c](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/rx/rx.c) only.
-- **RTH and Loiter** ([gps_nav.c](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/gps_nav.c), commit `255829c23`): produce roll and pitch *angle* targets that flow through the ANGLE-mode path. Track error → bank (P only, default 2.0 °/°, max 25°); altitude error → pitch (default 1 °/m, max 15°). No throttle, no wind compensation.
-- **GPS Rescue** ([gps_rescue.c](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/gps_rescue.c)) is Betaflight's quad code. See **H-2**.
+- **Failsafe.** Re-enabled, see **H-1**. `failsafe_procedure` now selects AUTO-LAND or DROP (self-level under ANGLE, then motor cut and disarm after `failsafe_off_delay`) or GPS-RESCUE (flies home via the RTH controller below, then falls back to the same self-level/motor-cut ending once `failsafe_off_delay` elapses). `failsafe_throttle` is applied to the mixer while any procedure is active; before this it was accepted by the CLI/MSP but never read.
+- **RTH and Loiter** ([gps_nav.c](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/gps_nav.c), commit `255829c23`): produce roll and pitch *angle* targets that flow through the ANGLE-mode path. Track error → bank (P only, default 2.0 °/°, max 25°); altitude error → pitch (default 1 °/m, max 15°, sign fixed, see **H-3**). No throttle, no wind compensation. Also driven by `BOXGPSRESCUE` and the failsafe GPS-RESCUE procedure now, not only `BOXRTH` (see **H-2**).
+- **GPS Rescue** ([gps_rescue.c](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/gps_rescue.c)) is Betaflight's quad code and is no longer reachable from anywhere. See **H-2**.
 
 ---
 
@@ -262,6 +262,7 @@ Rationale reconstructed from commit messages. Dates are commit dates.
 | 2026-09-19 | `51ba254f0` | Two-stage roll lock; `max_rate` 300 → 120 | Snap-back mid-flare; hard 90° snap on engage |
 | 2026-09-21 | `f07a4a8bb` | Level the wings, then rotate the target up to vertical | Torque roll went uncorrected during the pull-up |
 | 2026-09-21 | (reverted) | Remove the roll hold and the level-then-rotate entry; roll is a free pass-through again | Flight test: the level phase was hit and miss, often rolling a full turn before levelling, and the `b9d03d122` entry flew better |
+| 2026-09-23 | [firmware#146](https://github.com/WingFlight/wingflight-firmware/pull/146) | Re-enable failsafe stage 2; retarget `BOXGPSRESCUE` and the failsafe GPS-RESCUE procedure to the existing fixed-wing RTH controller instead of Betaflight's quad GPS Rescue code; fix the inverted RTH/loiter altitude sign; expose `nav_*` GPS Navigation settings over MSP | Stage 2 was a disabled stub (H-1); the quad rescue algorithm doesn't fly a wing home (H-2); the altitude controller commanded a descent when below target (H-3); those settings were CLI-only |
 
 ---
 
@@ -271,24 +272,18 @@ Severity reflects consequence in flight, not effort to fix. **Confirmed** = foll
 
 ### High
 
-**H-1. The flight-controller failsafe state machine never runs.** *Confirmed.*
-[failsafe.c:118](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/failsafe.c#L118) `failsafeStartMonitoring()` has its body commented out ("RTFL: Keep disabled until code refactored"), so `failsafeIsMonitoring()` is always false and [failsafe.c:204](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/failsafe.c#L204) makes `failsafeUpdateState()` return immediately. Consequences:
-- `FAILSAFE_MODE` is never set from link loss. No landing, no drop/disarm, and `failsafe_procedure`, `failsafe_delay`, `failsafe_off_delay` and `failsafe_throttle_low_delay` have no effect on link loss.
-- `GPS_RESCUE` cannot be entered by failsafe.
-- What does happen is [rx.c](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/rx/rx.c) `detectAndApplySignalLossBehaviour()`: hold last value 300 ms, then per-channel fallback (default AUTO: roll/pitch/yaw centred, throttle just below the off-throttle threshold, **all other channels hold last value**, including the arm switch and any mode switches).
-- The user docs used to describe `failsafe_procedure`, `failsafe_delay` and `failsafe_off_delay` as if stage 2 worked, and GPS Rescue as a working failsafe. The `failsafe` and `gps-rescue` pages in the wingflight-docs repo are corrected in WingFlight/wingflight-docs#20. The governor code already knew about the stub; the CLI settings still exist and do nothing.
+**H-1. The flight-controller failsafe state machine never runs. Fixed ([firmware#146](https://github.com/WingFlight/wingflight-firmware/pull/146)).**
+[failsafe.c:118](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/failsafe.c#L118) `failsafeStartMonitoring()` had its body commented out ("RTFL: Keep disabled until code refactored"), so `failsafeIsMonitoring()` was always false and `failsafeUpdateState()` returned immediately. That call is uncommented and `FAILSAFE_MODE` now engages on link loss as configured by `failsafe_procedure`: AUTO-LAND/DROP self-level under ANGLE and then cut the motor and disarm after `failsafe_delay`/`failsafe_off_delay`; GPS-RESCUE flies home and orbits instead (see **H-2**), then falls back to the same ending once `failsafe_off_delay` elapses if it hasn't recovered. `failsafe_throttle`, previously accepted by the CLI/MSP but never read anywhere, is now applied to the mixer while a procedure is active (default 1000 = off, so existing configs see no change). See [Failsafe](../../configurator/tabs/failsafe.md).
+- What used to happen -- and still happens up to the ~100ms/300ms detection and hold, before a procedure takes over -- is [rx.c](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/rx/rx.c) `detectAndApplySignalLossBehaviour()`: hold last value 300 ms, then per-channel fallback (default AUTO: roll/pitch/yaw centred, throttle just below the off-throttle threshold, **all other channels hold last value**, including the arm switch and any mode switches). That per-channel Channel Fallback behaviour is unchanged by this fix.
+- The `failsafe` and `gps-rescue` docs pages, corrected for the disabled state in wingflight-docs#20, are updated again to describe the re-enabled behaviour.
 
-*Fix.* Either enable and adapt stage 2 for wings (what should a plane do: level and cut, or RTH?), or delete the dead settings. Until then, tell pilots to configure the receiver's own failsafe, including the mode switches.
+*Still open:* no altitude-managed powered landing or flare -- deliberately out of scope, see [GPS RTH](../../flight-modes/gps-rth.md). `flight_failsafe_unittest.cc.txt` remains disabled; there is still no automated test coverage for the phase machine itself (§5, item 3).
 
-**H-2. GPS Rescue does not steer or control altitude on a wing.** *Confirmed.*
-`gpsRescueGetYawRate()` and `gpsRescueGetThrottle()` ([gps_rescue.c:653](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/gps_rescue.c#L653), [:658](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/gps_rescue.c#L658)) are declared but called from nowhere, and `gpsRescueAngle[AI_ROLL]` is only ever set to 0. What remains active is the pitch angle from Betaflight's *quad* speed controller: below target ground speed it commands more nose-down pitch. In `GPS_RESCUE_MODE` a wing therefore levels the wings and pitches down with no heading correction and no thrust control. Only reachable via `BOXGPSRESCUE` today (see H-1), but it is a selectable mode.
+**H-2. GPS Rescue does not steer or control altitude on a wing. Fixed ([firmware#146](https://github.com/WingFlight/wingflight-firmware/pull/146)), by retargeting rather than repairing.**
+`gpsRescueGetYawRate()` and `gpsRescueGetThrottle()` ([gps_rescue.c:653](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/gps_rescue.c#L653), [:658](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/gps_rescue.c#L658)) are still declared but called from nowhere, and `gpsRescueAngle[AI_ROLL]` is still only ever set to 0 -- that code itself is untouched. Both routes that used to reach it are gone instead: `BOXGPSRESCUE` and the failsafe GPS-RESCUE procedure now both drive the existing fixed-wing [gps_nav.c](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/gps_nav.c) controller through `RTH_MODE`, exactly like `BOXRTH` already did (see [GPS RTH](../../flight-modes/gps-rth.md)). `gps_rescue.c` and `USE_GPS_RESCUE` are still compiled in but permanently unreachable -- a good candidate for a follow-up pruning PR, not bundled into this safety-critical change.
 
-*Fix.* Hide/disable it for wings and point pilots at RTH, or reimplement on the RTH path.
-
-**H-3. RTH altitude hold is probably inverted.** *Needs verification (bench or SITL).*
-[gps_nav.c:139](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/gps_nav.c#L139): `pitchDdeg = Kp · (target − current)`; positive means "aircraft is below target". `navAngle[PITCH]` is added to a target angle in [leveling.c](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/leveling.c) where pitch is **positive nose-down** (§1). So being below target commands nose-down, which descends further. Two independent code comments (AUTOHOVER `-900` = nose-up; GPS rescue positive = forward flight) support that convention. Roll sign checks out (target clockwise of course → positive → right bank).
-
-*Fix.* Negate the pitch term once confirmed. Add a unit test for both signs.
+**H-3. RTH altitude hold was inverted. Fixed ([firmware#146](https://github.com/WingFlight/wingflight-firmware/pull/146)).**
+[gps_nav.c:139](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/gps_nav.c#L139) is now `pitchDdeg = -Kp · (target − current)`: being below target now commands nose-up (climb), matching the positive-nose-down convention (§1). Covered by a new test, `GpsNavAltitudeTest` in `gps_nav_unittest.cc`, which fails against the old sign and passes against the fix -- that is unit-test confirmation of the sign, not the bench/SITL check this finding originally asked for (§5, item 1); worth a bench check of the actual pitch response before trusting it in the field.
 
 **H-4. Hands-off flight reduced attitude correction to 25%. Fixed (#138).**
 The old stick/tilt detector could classify a level, hands-off aircraft as landed.
@@ -358,9 +353,9 @@ Unit tests exist for PID, setpoint, curves, maths and the acro trainer. The test
 
 Suggested order, cheapest and highest-value first:
 
-1. **Signs (H-3, M-2).** Unit tests for `updateGpsNav()` with fixtures: aircraft south/north/east/west of target for CW and CCW, and above/below target altitude. Then one SITL confirmation of the pitch sign.
+1. **Signs (H-3, M-2). Both fixed, both unit-tested.** `updateGpsNav()` now has fixtures for aircraft south/north/east/west of target for CW and CCW (M-2), and above/below target altitude (H-3). Still open: one SITL or bench confirmation of the actual pitch response, which was not done as part of either fix.
 2. **Airborne (H-4).** Test the state machine directly: armed, level, sticks centred → must stay AIRBORNE if throttle is up. Then a SITL or blackbox replay of a hands-off hold.
-3. **Failsafe (H-1).** Decide the intended behaviour first, then re-enable `flight_failsafe_unittest`.
+3. **Failsafe (H-1). Fixed, still no automated test.** The intended behaviour was decided and implemented (see H-1). `flight_failsafe_unittest.cc.txt` remains disabled; re-enabling and adapting it is still open.
 4. **Hold engine.** Synthetic quaternion sequences: release mid-rotation (no snap-back), disturbance while frozen, stall timeout, per-axis independence, and a 90°/180° error.
 5. **Throttle assist (M-1).** Assist must be zero with the stick at idle and with no RX signal.
 6. **NaN guard (M-4).** Inject NaN into a mixer input and assert servo output stays finite.

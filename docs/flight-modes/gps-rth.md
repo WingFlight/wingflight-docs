@@ -1,22 +1,22 @@
 # GPS RTH and Loiter
 
 !!! warning "Experimental"
-    RTH and Loiter are new and have not been flight-verified. A review of the
-    firmware found that the **RTH altitude hold may be reversed** (see
-    [Known problems](#known-problems)). Test them at a safe height, in open
-    space, with your hand ready on the mode switch, before you rely on them.
+    RTH and Loiter are new and have not been flight-verified. Test them at a
+    safe height, in open space, with your hand ready on the mode switch,
+    before you rely on them -- including before relying on GPS Rescue or a
+    GPS Rescue failsafe procedure, which now use this same controller.
 
-!!! note "Loiter direction"
-    Earlier firmware orbited the opposite way to `nav_loiter_direction`: `CW`
-    orbited counter-clockwise, and the other way around. That is fixed, and the
-    setting now does what it says. If you set the opposite value as a
-    workaround, set it back to the direction you want, and check on the first
-    orbit.
+!!! note "Loiter direction and RTH altitude sign, both fixed"
+    Earlier firmware orbited the opposite way to `nav_loiter_direction` (`CW`
+    orbited counter-clockwise and vice versa), and pitched down instead of up
+    when below the RTH altitude. Both are fixed. If you set either as a
+    workaround, set it back and check on the first flight.
 
 RTH and Loiter are the fixed-wing navigation modes. Both need a
 [GPS](../configurator/tabs/gps.md) with a fix, and both are switched on from
 the [Auxiliary](../configurator/tabs/auxiliary.md) tab (**GPS RTH** and
-**GPS LOITER**).
+**GPS LOITER**). [GPS Rescue](gps-rescue.md) and the Failsafe tab's GPS
+Rescue procedure now use this same controller too.
 
 - **GPS RTH** flies back to the point where the aircraft was armed, and
   climbs or descends toward the RTH altitude.
@@ -45,14 +45,15 @@ Angle mode.
   navigation stops. The aircraft is left in Angle-style leveling with no
   navigation target.
 
-The flight controller does not start either mode on its own when the radio
-link is lost. See [Failsafe](../configurator/tabs/failsafe.md). To use
-one as a recovery, map its switch to a receiver failsafe value on that
-channel, and test that it works.
+Switching either mode on yourself, from the Auxiliary tab, is one way in.
+The other is the [Failsafe](../configurator/tabs/failsafe.md) tab's GPS
+Rescue procedure, which starts RTH automatically if the radio link is lost
+and stays lost -- see that page for the full staged behavior.
 
 ## Settings
 
-These are CLI settings. They have no Configurator UI yet.
+Set on the [GPS Navigation](../configurator/tabs/gps-navigation.md) tab, or
+from the CLI:
 
 | Setting | Default | Meaning |
 |---|---|---|
@@ -75,16 +76,16 @@ aircraft weaves from side to side while tracking.
 
 ## Known problems
 
-- **RTH altitude may be reversed.** Pitch is positive nose-down in the
-  firmware. The altitude controller commands a positive pitch when the
-  aircraft is *below* the target, which would descend further. If the aircraft
-  dives when it is below the RTH altitude, switch out of the mode at once and
-  do not use it.
 - **The loiter does not correct its radius.** It circles at whatever radius it
   entered, so a wind can push it off the circle.
 - **Slow flight.** At a low ground speed or in strong wind the GPS course is
   not a good guide to heading.
+- **No altitude-managed powered landing or flare.** RTH and Loiter (and GPS
+  Rescue) hold altitude and steer; they don't fly a landing. As a failsafe
+  procedure, GPS Rescue hands off to the same self-level-and-cut ending as
+  the other procedures once its own delay elapses.
 
-The altitude problem is recorded as finding H-3, and the radius and slow-flight
-limits under M-2, in the firmware repository's
-[Flight Dynamics review](../contributing/tech/flight-dynamics.md).
+These are recorded as finding M-2 (radius, slow-flight) in the firmware
+repository's [Flight Dynamics review](../contributing/tech/flight-dynamics.md),
+which also has the full signal chain and sign conventions if you're changing
+this code.
