@@ -2295,45 +2295,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#frsky-telemetry" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        FrSky telemetry
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="FrSky telemetry">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#available-sensors" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Available sensors
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#precision-setting-for-vfas" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Precision setting for VFAS
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#hott-telemetry" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2373,28 +2334,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#lighttelemetry-ltm" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        LightTelemetry (LTM)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#mavlink-telemetry" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        MAVLink telemetry
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#smartport-sport" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2407,7 +2346,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#available-sensors_1" class="md-nav__link">
+  <a href="#available-sensors" class="md-nav__link">
     <span class="md-ellipsis">
       
         Available sensors
@@ -2507,7 +2446,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#available-sensors_2" class="md-nav__link">
+  <a href="#available-sensors_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         Available sensors
@@ -3374,45 +3313,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#frsky-telemetry" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        FrSky telemetry
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="FrSky telemetry">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#available-sensors" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Available sensors
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#precision-setting-for-vfas" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Precision setting for VFAS
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#hott-telemetry" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3452,28 +3352,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#lighttelemetry-ltm" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        LightTelemetry (LTM)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#mavlink-telemetry" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        MAVLink telemetry
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#smartport-sport" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3486,7 +3364,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#available-sensors_1" class="md-nav__link">
+  <a href="#available-sensors" class="md-nav__link">
     <span class="md-ellipsis">
       
         Available sensors
@@ -3586,7 +3464,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#available-sensors_2" class="md-nav__link">
+  <a href="#available-sensors_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         Available sensors
@@ -3682,137 +3560,16 @@
 <p>Telemetry is enabled using the 'TELEMETRY` feature.</p>
 <div class="highlight"><pre><span></span><code>feature TELEMETRY
 </code></pre></div>
-<p>Multiple telemetry providers are currently supported, FrSky, Graupner
-HoTT V4, SmartPort (S.Port), LightTelemetry (LTM) and Ibus</p>
+<p>Multiple telemetry providers are currently supported: SmartPort (S.Port),
+Graupner HoTT V4, Ibus, Jeti EX Bus and Futaba SBUS2, plus the telemetry built
+into CRSF, F.PORT, FBUS and SRXL receivers.</p>
+<p>FrSky Hub (D-series), LightTelemetry (LTM) and MAVLink telemetry are not
+supported in WingFlight.</p>
 <p>All telemetry systems use serial ports, configure serial ports to use the telemetry system required.</p>
-<h2 id="frsky-telemetry">FrSky telemetry<a class="headerlink" href="#frsky-telemetry" title="Permanent link">&para;</a></h2>
-<p>FrSky telemetry is transmit only and just requires a single connection from the TX pin of a serial port to the RX pin on an FrSky telemetry receiver.</p>
-<p>FrSky telemetry signals are inverted.  To connect a WingFlight capable board to an FrSKy receiver you have some options.</p>
-<ol>
-<li>A hardware inverter - Built in to some flight controllers.</li>
-<li>Use software serial and enable frsky_inversion.</li>
-<li>Use a flight controller that has software configurable hardware inversion .</li>
-</ol>
-<p>For 1, just connect your inverter to a usart or software serial port.</p>
-<p>For 2 and 3 use the CLI command as follows:</p>
+<p>Some telemetry signals, such as FrSky SmartPort, are inverted. Use a flight controller with a built-in inverter or
+software-configurable inversion, and set:</p>
 <div class="highlight"><pre><span></span><code>set tlm_inverted = ON
 </code></pre></div>
-<h3 id="available-sensors">Available sensors<a class="headerlink" href="#available-sensors" title="Permanent link">&para;</a></h3>
-<p>The following sensors are transmitted :</p>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Vspd</td>
-<td>vertical speed, unit is cm/s.</td>
-</tr>
-<tr>
-<td>Hdg</td>
-<td>heading, North is 0°, South is 180°.</td>
-</tr>
-<tr>
-<td>AccX,Y,Z</td>
-<td>accelerometers values.</td>
-</tr>
-<tr>
-<td>Tmp1</td>
-<td>baro temp if available, gyro otherwise.</td>
-</tr>
-<tr>
-<td>RPM</td>
-<td>if armed, throttle value. battery capacity otherwise. (Blade number needs to be set to 12 in Taranis).</td>
-</tr>
-<tr>
-<td>VFAS</td>
-<td>actual vbat value (see VFAS precision section bellow).</td>
-</tr>
-<tr>
-<td>Curr</td>
-<td>actual current comsuption, in amp.</td>
-</tr>
-<tr>
-<td>Fuel</td>
-<td>if capacity set, remaining battery percentage mah drawn otherwise.</td>
-</tr>
-<tr>
-<td>GPS</td>
-<td>GPS coordinates.</td>
-</tr>
-<tr>
-<td>Alt</td>
-<td>barometer based altitude, init level is zero.</td>
-</tr>
-<tr>
-<td>Date</td>
-<td>time since powered.</td>
-</tr>
-<tr>
-<td>GSpd</td>
-<td>current speed, calculated by GPS.</td>
-</tr>
-<tr>
-<td>GAlt</td>
-<td>GPS altitude, sea level is zero.</td>
-</tr>
-<tr>
-<td>Tmp2</td>
-<td>number of sats. Every second, a number &gt; 100 is sent to represent GPS signal quality.</td>
-</tr>
-<tr>
-<td>Cels</td>
-<td>average cell value, vbat divided by cell number.</td>
-</tr>
-<tr>
-<td>&gt; Note: cell voltage values are an assumed reputation of the cell voltage based on the packs voltage. Actual cell voltage may differ.</td>
-<td></td>
-</tr>
-<tr>
-<td>&gt;</td>
-<td></td>
-</tr>
-<tr>
-<td>&gt; To view individual cells or more importantly to get lowest cell (all cells are the sum of vbat, so each cell is the same in this case):</td>
-<td></td>
-</tr>
-<tr>
-<td>&gt; See <a href="http://openrcforums.com/forum/viewtopic.php?t=7266">OpenTX 2.1 &amp; FrSky FLVSS Individual Cell Voltages</a>.</td>
-<td></td>
-</tr>
-<tr>
-<td>&gt; Add a new sensor, to display the lowest cell voltage set it up like this:</td>
-<td></td>
-</tr>
-<tr>
-<td>&gt; - Type: Calculated</td>
-<td></td>
-</tr>
-<tr>
-<td>&gt; - Formula: Cell</td>
-<td></td>
-</tr>
-<tr>
-<td>&gt; - Cell Sensor: Cels <em>(pack total voltage, sum of all cells)</em></td>
-<td></td>
-</tr>
-<tr>
-<td>&gt; - Cell Index: Lowest</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<h3 id="precision-setting-for-vfas">Precision setting for VFAS<a class="headerlink" href="#precision-setting-for-vfas" title="Permanent link">&para;</a></h3>
-<p>WingFlight can send VFAS (FrSky Ampere Sensor Voltage) in two ways:</p>
-<p><div class="highlight"><pre><span></span><code>set frsky_vfas_precision  = 0
-</code></pre></div>
-This is default setting which supports VFAS resolution of 0.2 volts and is supported on all FrSky hardware.</p>
-<p><div class="highlight"><pre><span></span><code>set frsky_vfas_precision  = 1
-</code></pre></div>
-This is new setting which supports VFAS resolution of 0.1 volts and is only supported by OpenTX radios (this method uses custom ID 0x39).</p>
 <h2 id="hott-telemetry">HoTT telemetry<a class="headerlink" href="#hott-telemetry" title="Permanent link">&para;</a></h2>
 <p>Only Electric Air Modules and GPS Modules are emulated.</p>
 <p>Use the latest Graupner firmware for your transmitter and receiver.</p>
@@ -3835,36 +3592,10 @@ a serial port should be connected using a diode and a single wire to the <code>T
 <p>You can use a single connection, connect HoTT RX/TX only to serial TX, leave serial RX open and make sure <code>tlm_halfduplex</code> is ON.</p>
 <p>As noticed by Skrebber the GR-12 (and probably GR-16/24, too) are based on a PIC 24FJ64GA-002, which has 5V tolerant digital pins.</p>
 <p>Note: The SoftSerial ports may not be 5V tolerant on your board.  Verify if you require a 5v/3.3v level shifters.</p>
-<h2 id="lighttelemetry-ltm">LightTelemetry (LTM)<a class="headerlink" href="#lighttelemetry-ltm" title="Permanent link">&para;</a></h2>
-<p>LTM is a lightweight streaming telemetry protocol supported by a
-number of OSDs, ground stations and antenna trackers.</p>
-<p>The WingFlight implementation of LTM implements the following frames:</p>
-<ul>
-<li>G-FRAME: GPS information (lat, long, ground speed, altitude, sat
-  info)</li>
-<li>A-FRAME: Attitude (pitch, roll, heading)</li>
-<li>S-FRAME: Status (voltage, current+, RSSI, airspeed+, status). Item
-  suffixed '+' not implemented in WingFlight.</li>
-<li>O-FRAME: Origin (home position, lat, long, altitude, fix)</li>
-</ul>
-<p>In addition, in the inav (navigation-rewrite) fork:
-* N-FRAME: Navigation information (GPS mode, Nav mode, Nav action,
-  Waypoint number, Nav Error, Nav Flags).</p>
-<p>LTM is transmit only, and can work at any supported baud rate. It is
-designed to operate over 2400 baud (9600 in WingFlight) and does not
-benefit from higher rates. It is thus usable on soft serial.</p>
-<p>More information about the fields, encoding and enumerations may be
-found at
-https://github.com/stronnag/mwptools/blob/master/docs/ltm-definition.txt</p>
-<h2 id="mavlink-telemetry">MAVLink telemetry<a class="headerlink" href="#mavlink-telemetry" title="Permanent link">&para;</a></h2>
-<p>MAVLink is a very lightweight, header-only message marshalling library for micro air vehicles.
-WingFlight supports MAVLink for compatibility with ground stations, OSDs and antenna trackers built
-for PX4, PIXHAWK, APM and Parrot AR.Drone platforms.</p>
-<p>MAVLink implementation in WingFlight is transmit-only and usable on low baud rates and can be used over soft serial.</p>
 <h2 id="smartport-sport">SmartPort (S.Port)<a class="headerlink" href="#smartport-sport" title="Permanent link">&para;</a></h2>
 <p>Smartport is a telemetry system used by newer FrSky transmitters and receivers such as the Taranis/XJR and X8R, X6R and X4R(SB).</p>
 <p>More information about the implementation can be found here: https://github.com/frank26080115/cleanflight/wiki/Using-Smart-Port</p>
-<h3 id="available-sensors_1">Available sensors<a class="headerlink" href="#available-sensors_1" title="Permanent link">&para;</a></h3>
+<h3 id="available-sensors">Available sensors<a class="headerlink" href="#available-sensors" title="Permanent link">&para;</a></h3>
 <p>The following sensors are transmitted :</p>
 <table>
 <thead>
@@ -3989,7 +3720,7 @@ It runs at a fixed baud rate of 115200.</p>
 <p>CLI setting to determine if the voltage reported is Vbatt or calculated average cell voltage
 <div class="highlight"><pre><span></span><code>set report_cell_voltage=[ON/OFF]
 </code></pre></div></p>
-<h3 id="available-sensors_2">Available sensors<a class="headerlink" href="#available-sensors_2" title="Permanent link">&para;</a></h3>
+<h3 id="available-sensors_1">Available sensors<a class="headerlink" href="#available-sensors_1" title="Permanent link">&para;</a></h3>
 <p>The following sensors are transmitted :</p>
 <p>Tmp1 : baro temp if available, gyro otherwise.</p>
 <p>RPM : throttle value</p>
