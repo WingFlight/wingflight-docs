@@ -1,14 +1,14 @@
 # GPS Navigation
 
 The GPS Navigation tab configures [GPS RTH and Loiter](../../flight-modes/gps-rth.md)
-and [GPS Rescue](../../flight-modes/gps-rescue.md) -- the fixed-wing
-navigation controller behind all three. It only appears once the
-**GPS** feature is enabled (Configuration tab).
+-- the fixed-wing navigation controller behind both, and behind the
+Failsafe tab's [GPS Rescue](../../flight-modes/gps-rescue.md) procedure too.
+It only appears once the **GPS** feature is enabled (Configuration tab).
 
 These settings used to be CLI-only, then briefly lived on the Failsafe tab;
-they moved here because they aren't failsafe-specific -- **GPS RTH**,
-**GPS LOITER** and **GPS RESCUE** (whether switched on by hand or started
-by the Failsafe tab's GPS Rescue procedure) all use them.
+they moved here because they aren't failsafe-specific -- **GPS RTH** and
+**GPS LOITER** (whether switched on by hand or started by the Failsafe
+tab's GPS Rescue procedure) all use them.
 
 ## Settings
 

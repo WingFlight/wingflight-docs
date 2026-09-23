@@ -11,7 +11,7 @@ Two GPS protocols are supported. NMEA text and UBLOX binary.
 ## RTH and Loiter
 
 GPS RTH and Loiter are described on their own page: [GPS RTH and Loiter](../flight-modes/gps-rth.md). They are
-experimental. `GPS RESCUE` now uses the same controller; see [GPS Rescue](../flight-modes/gps-rescue.md).
+experimental. The Failsafe tab's [GPS Rescue](../flight-modes/gps-rescue.md) procedure uses the same controller.
 
 ## Configuration
 

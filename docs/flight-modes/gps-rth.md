@@ -3,8 +3,8 @@
 !!! warning "Experimental"
     RTH and Loiter are new and have not been flight-verified. Test them at a
     safe height, in open space, with your hand ready on the mode switch,
-    before you rely on them -- including before relying on GPS Rescue or a
-    GPS Rescue failsafe procedure, which now use this same controller.
+    before you rely on them -- including before relying on the Failsafe
+    tab's GPS Rescue procedure, which uses this same controller.
 
 !!! note "Loiter direction and RTH altitude sign, both fixed"
     Earlier firmware orbited the opposite way to `nav_loiter_direction` (`CW`
@@ -12,11 +12,23 @@
     when below the RTH altitude. Both are fixed. If you set either as a
     workaround, set it back and check on the first flight.
 
+!!! note "There used to be a separate GPS RESCUE switch"
+    Earlier firmware had a **GPS RESCUE** switch alongside **GPS RTH**, both
+    driving this same controller -- a leftover from Betaflight, where GPS
+    Rescue was a different, multirotor-only hover-throttle-learning descent
+    algorithm that never worked correctly on a fixed-wing aircraft. That old
+    algorithm is still in the firmware but has not been reachable from
+    anywhere for a while (its `gps_rescue_*` CLI settings still exist but
+    have no effect), and the redundant **GPS RESCUE** switch itself has now
+    been removed -- **GPS RTH** is the only switch for this behavior. The
+    Failsafe tab's GPS Rescue *procedure* (below) is unrelated to that old
+    switch and still works the same as ever.
+
 RTH and Loiter are the fixed-wing navigation modes. Both need a
 [GPS](../configurator/tabs/gps.md) with a fix, and both are switched on from
 the [Auxiliary](../configurator/tabs/auxiliary.md) tab (**GPS RTH** and
-**GPS LOITER**). [GPS Rescue](gps-rescue.md) and the Failsafe tab's GPS
-Rescue procedure now use this same controller too.
+**GPS LOITER**). The Failsafe tab's GPS Rescue procedure uses this same
+controller too, automatically, if the radio link is lost and stays lost.
 
 - **GPS RTH** flies back to the point where the aircraft was armed, and
   climbs or descends toward the RTH altitude.
@@ -80,10 +92,11 @@ aircraft weaves from side to side while tracking.
   entered, so a wind can push it off the circle.
 - **Slow flight.** At a low ground speed or in strong wind the GPS course is
   not a good guide to heading.
-- **No altitude-managed powered landing or flare.** RTH and Loiter (and GPS
-  Rescue) hold altitude and steer; they don't fly a landing. As a failsafe
-  procedure, GPS Rescue hands off to the same self-level-and-cut ending as
-  the other procedures once its own delay elapses.
+- **No altitude-managed powered landing or flare.** RTH and Loiter (and the
+  GPS Rescue failsafe procedure) hold altitude and steer; they don't fly a
+  landing. As a failsafe procedure, GPS Rescue hands off to the same
+  self-level-and-cut ending as the other procedures once its own delay
+  elapses.
 
 These are recorded as finding M-2 (radius, slow-flight) in the firmware
 repository's [Flight Dynamics review](../contributing/tech/flight-dynamics.md),
