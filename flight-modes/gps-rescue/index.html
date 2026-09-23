@@ -1136,6 +1136,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../configurator/tabs/gps-navigation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPS Navigation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../configurator/tabs/adjustments/" class="md-nav__link">
         
   
@@ -1851,24 +1879,6 @@
         
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    GPS Rescue
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1885,80 +1895,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#what-it-actually-does-today" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What it actually does today
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#it-can-disarm-in-flight" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        It can disarm in flight
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#failsafe-does-not-start-it" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Failsafe does not start it
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#settings" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Settings
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#what-to-use-instead" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What to use instead
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
       
     </li>
   
@@ -3116,69 +3052,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#what-it-actually-does-today" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What it actually does today
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#it-can-disarm-in-flight" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        It can disarm in flight
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#failsafe-does-not-start-it" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Failsafe does not start it
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#settings" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Settings
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#what-to-use-instead" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What to use instead
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -3203,74 +3076,27 @@
 
 
 <h1 id="gps-rescue">GPS Rescue<a class="headerlink" href="#gps-rescue" title="Permanent link">&para;</a></h1>
-<div class="admonition danger">
-<p class="admonition-title">Not suitable for fixed-wing aircraft</p>
-<p>GPS Rescue is inherited from Betaflight, where it was written for
-multirotors. On a fixed-wing aircraft it does <strong>not</strong> fly the aircraft
-home. It can also <strong>disarm the aircraft in flight</strong>. Do not use it as
-your failsafe plan. Use <a href="../gps-rth/">GPS RTH</a> instead, and treat that as
-experimental too.</p>
+<div class="admonition note">
+<p class="admonition-title">Now part of GPS RTH</p>
+<p>GPS Rescue was inherited from Betaflight, where it was written for
+multirotors, and did not work correctly on a fixed-wing aircraft. It was
+first made to drive the same fixed-wing-native controller as
+<a href="../gps-rth/">GPS RTH</a> instead
+(<a href="https://github.com/WingFlight/wingflight-firmware/pull/146">firmware#146</a>),
+and the redundant <strong>GPS RESCUE</strong> switch that duplicated <strong>GPS RTH</strong> has
+since been removed entirely -- see the <a href="../gps-rth/">GPS RTH</a> page for
+how the controller actually behaves, the settings, and its known
+limits.</p>
 </div>
-<h2 id="what-it-actually-does-today">What it actually does today<a class="headerlink" href="#what-it-actually-does-today" title="Permanent link">&para;</a></h2>
-<p>When the <strong>GPS RESCUE</strong> mode is switched on (with a GPS fix), the
-firmware:</p>
-<ul>
-<li>forces roll and pitch into Angle-style leveling, so the wings go level;</li>
-<li>steers <strong>pitch</strong> with a speed controller written for multirotors. If the
-  ground speed is below <code>gps_rescue_ground_speed</code> it asks for more nose-down
-  pitch, up to the <code>gps_rescue_angle</code> limit, which on an airplane is a dive
-  rather than more thrust.</li>
-</ul>
-<p>It does <strong>not</strong>:</p>
-<ul>
-<li>turn the aircraft toward home. The heading (yaw) command the rescue
-  calculates is never applied, and no bank is commanded;</li>
-<li>control the throttle. The throttle and altitude controllers still run, but
-  nothing sends their output to the motor. Throttle stays with your stick;</li>
-<li>climb to, or hold, the rescue altitude.</li>
-</ul>
-<p>So the result is a wings-level glide whose pitch follows a speed controller
-that cannot control speed, with no steering.</p>
-<h2 id="it-can-disarm-in-flight">It can disarm in flight<a class="headerlink" href="#it-can-disarm-in-flight" title="Permanent link">&para;</a></h2>
-<p>The rescue state machine calls a disarm, which stops the motor, in
-these cases:</p>
-<ul>
-<li>rescue is switched on without a home fix;</li>
-<li>rescue is triggered by a failsafe while closer than <code>gps_rescue_min_dth</code>
-  to home;</li>
-<li>the sanity checks abort the rescue (see below);</li>
-<li>in the final landing phase, the accelerometer magnitude passes a
-  threshold. On a wing that can happen from turbulence or a maneuver long
-  before the aircraft is anywhere near the ground.</li>
-</ul>
-<h2 id="failsafe-does-not-start-it">Failsafe does not start it<a class="headerlink" href="#failsafe-does-not-start-it" title="Permanent link">&para;</a></h2>
-<p>Older documentation described GPS Rescue as something failsafe starts when
-the radio link is lost. That does not happen in WingFlight: the failsafe
-stage that would start it is disabled in the firmware. See
-<a href="../../configurator/tabs/failsafe/">Failsafe</a>. The only way to enter GPS
-Rescue is a switch mapped to <strong>GPS RESCUE</strong> on the
-<a href="../../configurator/tabs/auxiliary/">Auxiliary</a> tab.</p>
-<h2 id="settings">Settings<a class="headerlink" href="#settings" title="Permanent link">&para;</a></h2>
-<p>It has no Configurator UI. The <code>gps_rescue_*</code> settings exist in the CLI:</p>
-<ul>
-<li><code>gps_rescue_min_sats</code> (default 8) -- minimum satellite count required.</li>
-<li><code>gps_rescue_min_dth</code> (default 100m) -- below this distance to home, a
-  failsafe rescue disarms rather than starting.</li>
-<li><code>gps_rescue_sanity_checks</code> (on by default) -- aborts a rescue in
-  progress, and disarms, if the GPS data stops making physical sense or the
-  aircraft is flying away from home.</li>
-<li><code>gps_rescue_allow_arming_without_fix</code> (off by default) -- keeps arming
-  blocked without a GPS fix.</li>
-<li><code>gps_rescue_ground_speed</code>, <code>gps_rescue_angle</code> and the
-  <code>gps_rescue_velocity_*</code> gains shape the pitch behaviour described above.</li>
-<li>The remaining altitude, ascend/descend, landing and <code>gps_rescue_throttle_*</code>
-  settings configure parts of the state machine whose output is not applied
-  to the aircraft.</li>
-</ul>
-<h2 id="what-to-use-instead">What to use instead<a class="headerlink" href="#what-to-use-instead" title="Permanent link">&para;</a></h2>
-<p><a href="../gps-rth/">GPS RTH</a> and GPS Loiter steer by banking and hold altitude by
-pitch, the way a fixed-wing needs. They are new and experimental, and leave
-the throttle to you. Neither is a complete recovery on its own.</p>
+<p>The Failsafe tab's Stage 2 <strong>GPS Rescue</strong> <em>procedure</em> is unaffected and
+still exists -- selecting it on the <a href="../../configurator/tabs/failsafe/">Failsafe</a>
+tab starts the same GPS RTH controller automatically if the radio link is
+lost and stays lost. See that page for the full staged behavior, and
+<a href="../gps-rth/">GPS RTH</a> for how the controller itself works.</p>
+<p>The old multirotor rescue code (a hover-throttle-learning descent
+algorithm, wrong for a wing) is still in the firmware but has not been
+reachable from anywhere for a while. The <code>gps_rescue_*</code> CLI settings still
+exist but have no effect.</p>
 
 
 

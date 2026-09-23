@@ -954,6 +954,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#stage-2-failsafe-procedure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 2 - Failsafe Procedure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#setting-up-a-safe-failsafe" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1223,6 +1234,34 @@
     
   
     Auxiliary (Modes)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gps-navigation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPS Navigation
   
 
     
@@ -3156,6 +3195,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#stage-2-failsafe-procedure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 2 - Failsafe Procedure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#setting-up-a-safe-failsafe" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3204,10 +3254,8 @@
 
 <h1 id="failsafe">Failsafe<a class="headerlink" href="#failsafe" title="Permanent link">&para;</a></h1>
 <p>The Failsafe tab configures how the flight controller <em>detects</em> a lost
-radio link and what value each channel takes once it has. That is all the
-flight controller does on its own: it does not land, cut the motor or return
-home by itself. See <a href="#what-happens-when-the-link-is-lost">What happens when the link is lost</a>,
-and set up your receiver's failsafe as well.</p>
+radio link, what value each channel takes once it has, and what the
+aircraft does if the link stays down.</p>
 <p>Configure and bench-test failsafe behavior <em>before</em> flying -- turn off your
 transmitter at a safe distance from the aircraft (props off) and confirm the
 flight controller actually enters failsafe and behaves the way you expect.</p>
@@ -3234,17 +3282,6 @@ Channel Fallback behavior below and the overall link-loss detection.</p>
 <li><strong>Set</strong> drives it to a specific value you choose.</li>
 </ul>
 <h2 id="what-happens-when-the-link-is-lost">What happens when the link is lost<a class="headerlink" href="#what-happens-when-the-link-is-lost" title="Permanent link">&para;</a></h2>
-<div class="admonition warning">
-<p class="admonition-title">The flight-controller failsafe stages are disabled</p>
-<p>WingFlight's inherited failsafe state machine (Betaflight's "stage 2":
-drop, auto-land, GPS Rescue) is switched off in the firmware. The
-settings <code>failsafe_procedure</code>, <code>failsafe_delay</code>, <code>failsafe_off_delay</code>,
-<code>failsafe_throttle_low_delay</code>, <code>failsafe_recovery_delay</code>,
-<code>failsafe_stick_threshold</code> and <code>failsafe_switch_mode</code> still exist in the
-CLI, but <strong>they do nothing</strong>. The flight controller does <strong>not</strong> disarm,
-land, cut the motor by itself, or return home when the link drops.</p>
-</div>
-<p>What the flight controller does do, on this tab's settings:</p>
 <ol>
 <li><strong>Detects the loss.</strong> No valid frame for about 100ms, a receiver failsafe
    flag, or a control channel outside the Pulse Width Limit counts as a bad
@@ -3252,20 +3289,60 @@ land, cut the motor by itself, or return home when the link drops.</p>
 <li><strong>Holds for 300ms.</strong> Each channel keeps its last good value.</li>
 <li><strong>Applies Channel Fallback.</strong> After 300ms each channel takes the value
    set above. With the defaults, roll, pitch and yaw go to center and
-   throttle goes just below the off-throttle threshold, so the motor
-   stops. Channels set to <strong>Hold</strong>, which is the default for everything
-   after the four stick channels, keep their last value, so an arm switch
-   or mode switch that was on stays on.</li>
+   throttle goes just below the off-throttle threshold. Channels set to
+   <strong>Hold</strong>, which is the default for everything after the four stick
+   channels, keep their last value, so an arm switch or mode switch that was
+   on stays on.</li>
+<li><strong>Runs the Stage 2 - Failsafe Procedure</strong>, below, if the link is still
+   down after <code>Guard Delay</code>.</li>
 <li><strong>Blocks arming</strong> while there is no valid signal.</li>
 <li><strong>Bypasses the <a href="../../../flight-modes/governor/">Governor</a></strong>, so a
-   governor switch held on cannot keep the motor running.</li>
+   governor switch held on cannot keep the motor running past what the
+   procedure commands.</li>
 </ol>
-<p>With roll, pitch and yaw at center, the surfaces go neutral, or the aircraft
-levels if Angle, Horizon or another self-leveling mode is still selected by a
-held switch. Nothing else happens.</p>
+<h2 id="stage-2-failsafe-procedure">Stage 2 - Failsafe Procedure<a class="headerlink" href="#stage-2-failsafe-procedure" title="Permanent link">&para;</a></h2>
+<p>Once <code>Guard Delay</code> (0.1s units, <code>failsafe_delay</code>) elapses with the link
+still down, the flight controller takes over:</p>
+<ul>
+<li><strong>Land</strong> and <strong>Drop</strong> both switch the aircraft to Angle-style
+  self-leveling immediately -- wings level, controlled pitch -- then cut the
+  motor and disarm after <code>Land Delay</code> (<code>failsafe_off_delay</code>). Nothing
+  currently distinguishes the two: neither one flares or manages descent
+  rate, so pick either.</li>
+<li><strong>GPS Rescue</strong> flies the aircraft home and orbits there, using the
+  settings on the <a href="../gps-navigation/">GPS Navigation</a> tab -- the same
+  controller as <a href="../../../flight-modes/gps-rth/">GPS RTH</a>, started
+  automatically. If there is no GPS fix or no home position yet, it falls
+  back to the same self-level-and-cut behavior as Land/Drop instead of
+  steering toward an unknown location. If it can't recover the link, it
+  also falls back to the self-level-and-cut ending, after <code>Land Delay</code>.</li>
+</ul>
+<p>While a procedure is running:</p>
+<ul>
+<li><strong>Throttle</strong> is driven to the <code>Throttle</code> setting on this tab
+  (<code>failsafe_throttle</code>, PWM, default 1000 = off/motor cut), not to whatever
+  Channel Fallback set for the throttle channel. Raise it if you want the
+  motor to keep running during GPS Rescue or a glide-assisted landing;
+  leave it at the default for a dead-stick landing.</li>
+<li>Control surfaces keep flying the aircraft regardless of arm state --
+  disarming only cuts the motor.</li>
+<li>If the link recovers and you bring the sticks back near center, the
+  flight controller hands control back to you (a brief, deliberate check,
+  so a flickering link doesn't hand control back and forth). Once
+  <code>Recovery Delay</code> (<code>failsafe_recovery_delay</code>) has passed since recovery,
+  the procedure fully exits.</li>
+</ul>
+<p>There is no altitude-managed powered landing or flare here -- once the
+motor is cut, it's a glide down in whatever attitude self-leveling holds.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>GPS Rescue flies home and orbits using the aircraft's GPS Navigation
+settings, on the <a href="../gps-navigation/">GPS Navigation</a> tab.</p>
+</div>
 <h2 id="setting-up-a-safe-failsafe">Setting up a safe failsafe<a class="headerlink" href="#setting-up-a-safe-failsafe" title="Permanent link">&para;</a></h2>
-<p>Because the flight controller will not act on its own, <strong>the receiver's own
-failsafe is what protects the aircraft</strong>:</p>
+<p><strong>The receiver's own failsafe is still your first line of defense</strong> -- it
+acts faster (no ~100ms detection window) and does not depend on the flight
+controller's own logic:</p>
 <ol>
 <li>On your receiver or transmitter, set failsafe to throttle off (or idle for
    a glider) and a switch position that selects self-leveling (Angle).</li>
@@ -3279,17 +3356,23 @@ failsafe is what protects the aircraft</strong>:</p>
 </code></pre></div>
 <p><code>rxfail &lt;channel&gt; &lt;a|h|s&gt; [value]</code>, with the channel counted from 0. <code>a</code> is
    Auto (stick channels only), <code>h</code> is Hold, and <code>s</code> is Set.
-4. Test it: turn the transmitter off with the props off, and check the
-   surfaces and the motor. A receiver that keeps sending normal-looking
-   frames when the link is lost cannot be detected by the flight controller.</p>
-<p><a href="../../../flight-modes/gps-rth/">GPS RTH</a> can be mapped to a failsafe value the
-same way. It is experimental, so test it thoroughly first. The GPS Rescue
-mode does not work on a wing; see <a href="../../../flight-modes/gps-rescue/">GPS Rescue</a>.</p>
+4. Pick a <code>Stage 2 - Failsafe Procedure</code> and set <code>Throttle</code> deliberately --
+   the default (1000, motor off) means a dead-stick landing; raising it
+   means the motor keeps running through the procedure.
+5. Test it: turn the transmitter off with the props off, and check the
+   surfaces and the motor for each procedure you might use. A receiver that
+   keeps sending normal-looking frames when the link is lost cannot be
+   detected by the flight controller.</p>
 <h2 id="failsafe-switch">Failsafe switch<a class="headerlink" href="#failsafe-switch" title="Permanent link">&para;</a></h2>
 <p>The <strong>FAILSAFE</strong> mode on the <a href="../auxiliary/">Auxiliary</a> tab makes the flight
-controller treat the four stick channels as invalid. After the 300ms hold
-they take their Channel Fallback values, exactly as for a real signal loss.
-Use it to test your fallback values, or as a panic switch.</p>
+controller treat the four stick channels as invalid, which after the 300ms
+hold and <code>Guard Delay</code> runs the same Stage 2 procedure as a real link loss.
+Use it to bench-test your procedure and fallback values, or as a panic
+switch, without needing to actually turn off the transmitter.</p>
+<p><code>Switch Mode</code> picks what the <strong>FAILSAFE</strong> switch does: <strong>Stage 1</strong> runs
+Channel Fallback only (as if the link were still there but the four stick
+channels were invalid); <strong>Kill</strong> disarms immediately; <strong>Stage 2</strong> runs the
+full procedure above.</p>
 
 
 

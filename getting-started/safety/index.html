@@ -1210,6 +1210,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../configurator/tabs/gps-navigation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPS Navigation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../configurator/tabs/adjustments/" class="md-nav__link">
         
   
@@ -3146,8 +3174,11 @@
 </ul>
 <h2 id="before-installing">Before installing<a class="headerlink" href="#before-installing" title="Permanent link">&para;</a></h2>
 <p>Read <a href="../../reference/cli-reference/">Cli</a>, <a href="../../reference/stick-commands/">Controls</a>, <a href="../../configurator/tabs/failsafe/">Failsafe</a> and <a href="../../configurator/tabs/auxiliary/">Modes</a>. In
-particular, read <a href="../../configurator/tabs/failsafe/">Failsafe</a>: the flight controller does <strong>not</strong> disarm or land the
-aircraft on its own when the link is lost, so configure the receiver's failsafe and check it.</p>
+particular, read <a href="../../configurator/tabs/failsafe/">Failsafe</a> and set a <code>Stage 2 - Failsafe Procedure</code>
+deliberately: the flight controller can self-level, cut the motor and disarm, or fly home, once the link has
+been down for <code>Guard Delay</code>, but it only reaches that stage after its own ~100ms/300ms detection and hold.
+The receiver's own failsafe is still faster and does not depend on the flight controller at all, so configure
+it too, and bench-test both before you fly.</p>
 <p>Use the Receiver tab in the Configurator to check that your channels are centred at 1500 (1520 for
 Futaba) and reach 1000 and 2000 at the ends of travel. If they do not, you may be unable to arm
 (the endpoints are not reachable) or you may trigger failsafe unexpectedly. Adjust the endpoints
