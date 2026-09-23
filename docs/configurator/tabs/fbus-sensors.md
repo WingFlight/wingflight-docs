@@ -68,7 +68,7 @@ The Forwarded toggle is only enabled when the receiver protocol itself is
 FrSky-family -- **F.Port, F.Port2, or FBUS**, set on the
 [Receiver](receiver.md) tab; otherwise it shows dimmed, and hovering it
 explains why. It works by relaying frames over that protocol's own
-telemetry return channel, which other protocols (CRSF, Ghost, and the rest)
+telemetry return channel, which other protocols (CRSF and the rest)
 don't have. Reading sensors as a bus master, and using them directly, both
 work regardless of receiver protocol -- only forwarding to the radio needs
 FrSky-family.
