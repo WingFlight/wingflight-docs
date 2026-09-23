@@ -87,6 +87,7 @@ nav:
       - Thrust Vector: configurator/tabs/thrust-vector.md
       - Gyro: configurator/tabs/gyro.md
       - Auxiliary (Modes): configurator/tabs/auxiliary.md
+      - GPS Navigation: configurator/tabs/gps-navigation.md
       - Adjustments: configurator/tabs/adjustments.md
       - Logic Conditions: configurator/tabs/logic.md
       - GPS: configurator/tabs/gps.md
