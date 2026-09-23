@@ -1,7 +1,7 @@
 # Receiver
 
 The Receiver tab configures how the flight controller talks to your RC
-receiver: protocol selection (serial RX protocols, PWM/PPM, RX-SPI, etc.),
+receiver: protocol selection (serial RX protocols, PWM, RX-SPI, etc.),
 channel mapping, and live channel monitoring.
 
 ## Protocol and signal options

@@ -4,11 +4,11 @@ RSSI is a measurement of signal strength and is very handy so you know when your
 
 Some receivers have RSSI outputs. 3 types are supported.
 
-1. RSSI via PPM channel
+1. RSSI via RC channel
 1. RSSI via Parallel PWM channel
-1. RSSI via ADC with PPM RC that has an RSSI output - aka RSSI ADC
+1. RSSI via ADC with a receiver that has an analog RSSI output - aka RSSI ADC
 
-## RSSI via PPM
+## RSSI via RC channel
 
 Configure your receiver to output RSSI on a spare channel, then select the channel used via the CLI.
 
@@ -26,7 +26,7 @@ Default is set to "OFF" for normal operation ( 100 = Full signal / 0 = Lost sign
 
 ## RSSI via Parallel PWM channel
 
-Connect the RSSI signal to any PWM input channel then set the RSSI channel as you would for RSSI via PPM
+Connect the RSSI signal to any PWM input channel then set the RSSI channel as you would for RSSI via RC channel
 
 ## RSSI from Futaba S.Bus receiver
 
@@ -42,7 +42,7 @@ Note that RSSI stands for Received Signal Strength Indicator; the detection of S
 
 Connect the RSSI signal to the RC2/CH2 input. The signal must be between 0v and 3.3v.
 Use inline resistors to lower voltage if required; inline smoothing capacitors may also help.
-A simple PPM->RSSI conditioner can easily be made. See [the PPM RSSI conditioning circuit](../assets/files/ppm-rssi-conditioning.pdf) for details.
+A simple RSSI conditioner can easily be made. See [the RSSI conditioning circuit](../assets/files/ppm-rssi-conditioning.pdf) for details.
 
 Under CLI :
 - enable using the RSSI_ADC feature  :  `feature RSSI_ADC`

@@ -10,76 +10,21 @@ Telemetry is enabled using the 'TELEMETRY` feature.
 feature TELEMETRY
 ```
 
-Multiple telemetry providers are currently supported, FrSky, Graupner
-HoTT V4, SmartPort (S.Port), LightTelemetry (LTM) and Ibus
+Multiple telemetry providers are currently supported: SmartPort (S.Port),
+Graupner HoTT V4, Ibus, Jeti EX Bus and Futaba SBUS2, plus the telemetry built
+into CRSF, F.PORT, FBUS and SRXL receivers.
+
+FrSky Hub (D-series), LightTelemetry (LTM) and MAVLink telemetry are not
+supported in WingFlight.
 
 All telemetry systems use serial ports, configure serial ports to use the telemetry system required.
 
-## FrSky telemetry
-
-FrSky telemetry is transmit only and just requires a single connection from the TX pin of a serial port to the RX pin on an FrSky telemetry receiver.
-
-FrSky telemetry signals are inverted.  To connect a WingFlight capable board to an FrSKy receiver you have some options.
-
-1. A hardware inverter - Built in to some flight controllers.
-2. Use software serial and enable frsky_inversion.
-3. Use a flight controller that has software configurable hardware inversion .
-
-For 1, just connect your inverter to a usart or software serial port.
-
-For 2 and 3 use the CLI command as follows:
+Some telemetry signals, such as FrSky SmartPort, are inverted. Use a flight controller with a built-in inverter or
+software-configurable inversion, and set:
 
 ```
 set tlm_inverted = ON
 ```
-
-
-### Available sensors
-
-The following sensors are transmitted :
-
-| Name     | Description                                                                                            |
-|----------|--------------------------------------------------------------------------------------------------------|
-| Vspd     | vertical speed, unit is cm/s.                                                                          |
-| Hdg      | heading, North is 0°, South is 180°.                                                                   |
-| AccX,Y,Z | accelerometers values.                                                                                 |
-| Tmp1     | baro temp if available, gyro otherwise.                                                                |
-| RPM      | if armed, throttle value. battery capacity otherwise. (Blade number needs to be set to 12 in Taranis). |
-| VFAS     | actual vbat value (see VFAS precision section bellow).                                                 |
-| Curr     | actual current comsuption, in amp.                                                                     |
-| Fuel     | if capacity set, remaining battery percentage mah drawn otherwise.                                     |
-| GPS      | GPS coordinates.                                                                                       |
-| Alt      | barometer based altitude, init level is zero.                                                          |
-| Date     | time since powered.                                                                                    |
-| GSpd     | current speed, calculated by GPS.                                                                      |
-| GAlt     | GPS altitude, sea level is zero.                                                                       |
-| Tmp2     | number of sats. Every second, a number > 100 is sent to represent GPS signal quality.                  |
-| Cels     | average cell value, vbat divided by cell number.                                                       |
-> Note: cell voltage values are an assumed reputation of the cell voltage based on the packs voltage. Actual cell voltage may differ.
->
-> To view individual cells or more importantly to get lowest cell (all cells are the sum of vbat, so each cell is the same in this case):
-> See [OpenTX 2.1 & FrSky FLVSS Individual Cell Voltages](http://openrcforums.com/forum/viewtopic.php?t=7266).
-> Add a new sensor, to display the lowest cell voltage set it up like this:
-> - Type: Calculated
-> - Formula: Cell
-> - Cell Sensor: Cels _(pack total voltage, sum of all cells)_
-> - Cell Index: Lowest
-
-### Precision setting for VFAS
-
-WingFlight can send VFAS (FrSky Ampere Sensor Voltage) in two ways:
-
-```
-set frsky_vfas_precision  = 0
-```
-This is default setting which supports VFAS resolution of 0.2 volts and is supported on all FrSky hardware.
-
-```
-set frsky_vfas_precision  = 1
-```
-This is new setting which supports VFAS resolution of 0.1 volts and is only supported by OpenTX radios (this method uses custom ID 0x39).
-
-
 
 ## HoTT telemetry
 
@@ -116,40 +61,6 @@ You can use a single connection, connect HoTT RX/TX only to serial TX, leave ser
 As noticed by Skrebber the GR-12 (and probably GR-16/24, too) are based on a PIC 24FJ64GA-002, which has 5V tolerant digital pins.
 
 Note: The SoftSerial ports may not be 5V tolerant on your board.  Verify if you require a 5v/3.3v level shifters.
-
-## LightTelemetry (LTM)
-
-LTM is a lightweight streaming telemetry protocol supported by a
-number of OSDs, ground stations and antenna trackers.
-
-The WingFlight implementation of LTM implements the following frames:
-
-* G-FRAME: GPS information (lat, long, ground speed, altitude, sat
-  info)
-* A-FRAME: Attitude (pitch, roll, heading)
-* S-FRAME: Status (voltage, current+, RSSI, airspeed+, status). Item
-  suffixed '+' not implemented in WingFlight.
-* O-FRAME: Origin (home position, lat, long, altitude, fix)
-
-In addition, in the inav (navigation-rewrite) fork:
-* N-FRAME: Navigation information (GPS mode, Nav mode, Nav action,
-  Waypoint number, Nav Error, Nav Flags).
-
-LTM is transmit only, and can work at any supported baud rate. It is
-designed to operate over 2400 baud (9600 in WingFlight) and does not
-benefit from higher rates. It is thus usable on soft serial.
-
-More information about the fields, encoding and enumerations may be
-found at
-https://github.com/stronnag/mwptools/blob/master/docs/ltm-definition.txt
-
-## MAVLink telemetry
-
-MAVLink is a very lightweight, header-only message marshalling library for micro air vehicles.
-WingFlight supports MAVLink for compatibility with ground stations, OSDs and antenna trackers built
-for PX4, PIXHAWK, APM and Parrot AR.Drone platforms.
-
-MAVLink implementation in WingFlight is transmit-only and usable on low baud rates and can be used over soft serial.
 
 ## SmartPort (S.Port)
 

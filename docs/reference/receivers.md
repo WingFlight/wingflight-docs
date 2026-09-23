@@ -2,36 +2,17 @@
 
 A receiver is used to receive radio control signals from your transmitter and convert them into signals that the flight controller can understand.
 
-There are 3 basic types of receivers:
+There are 2 basic types of receivers:
 
 1. Parallel PWM Receivers
-2. PPM Receivers
-3. Serial Receivers
+2. Serial Receivers
 
-As of 2016 the recommendation for new purchases is a Serial or PPM based receiver.  Avoid Parallel PWM recievers (1 wire per channel).  This is due to the amount of IO pins parallel PWM based receivers use.  Some new FC's do not support parallel PWM. 
+The recommendation for new purchases is a Serial receiver.  Avoid Parallel PWM recievers (1 wire per channel).  This is due to the amount of IO pins parallel PWM based receivers use.  Some new FC's do not support parallel PWM. 
 
 ## Parallel PWM Receivers
 
 8 channel support, 1 channel per input pin.  On some platforms using parallel input will disable the use of serial ports
 and SoftSerial making it hard to use telemetry or GPS features.
-
-## PPM Receivers
-
-PPM is sometimes known as PPM SUM or CPPM.
-
-12 channels via a single input pin, not as accurate or jitter free as methods that use serial communications, but readily available.
-
-These receivers are reported working:
-
-* [FrSky D4R-II](http://www.frsky-rc.com/product/pro.php?pro_id=24)
-* [Graupner GR24](http://www.graupner.de/en/products/33512/product.aspx)
-* [R615X Spektrum/JR DSM2/DSMX Compatible 6Ch 2.4GHz Receiver w/CPPM](http://www.hobbyking.com/hobbyking/store/__46632__OrangeRx_R615X_DSM2_DSMX_Compatible_6Ch_2_4GHz_Receiver_w_CPPM.html)
-* [FrSky D8R-XP 8ch telemetry receiver, or CPPM and RSSI enabled receiver](http://www.frsky-rc.com/product/pro.php?pro_id=21)
-* [FrSky X4R and FrSky X4RSB](http://www.frsky-rc.com/download/view.php?sort=&down=158&file=X4R-X4RSB) when flashed with CPPM firmware and bound with jumper between signal pins 2 and 3
-* All FrSky S.Bus enabled devices when connected with [S.Bus CPPM converter cable](http://www.frsky-rc.com/product/pro.php?pro_id=112). Without jumper this converter cable uses 21ms frame size (Channels 1-8). When jumper is in place, it uses 28ms frame and channels 1-12 are available
-* FlySky/Turnigy FS-iA4B, FS-iA6B, FS-iA10 receivers all provide 8channels if the tx is sending them. (FS-i6 and FS-i10 transmitters). Use setting rx-setup/ppm to enable.
-
-
 
 ## Serial Receivers
 
@@ -41,7 +22,7 @@ These receivers are reported working:
 
 These receivers are reported working:
 
-Lemon Rx DSMX Compatible PPM 8-Channel Receiver + Lemon DSMX Compatible Satellite with Failsafe
+Lemon Rx DSMX Compatible 8-Channel Receiver + Lemon DSMX Compatible Satellite with Failsafe
 http://www.lemon-rx.com/index.php?route=product/product&product_id=118
 
 
@@ -266,11 +247,11 @@ WARNING: Always make sure you test the behavior is as expected after configuring
 
 #### `rx_pulse_min`
 
-The lowest channel value considered valid.  e.g. PWM/PPM pulse length 
+The lowest channel value considered valid.  e.g. PWM pulse length 
 
 #### `rx_pulse_max`
 
-The highest channel value considered valid.  e.g. PWM/PPM pulse length 
+The highest channel value considered valid.  e.g. PWM pulse length 
 
 ### Serial RX
 
@@ -284,12 +265,15 @@ To set up serial RX in the GUI:
 Using CLI:
 For Serial RX enable `RX_SERIAL` and set the `serialrx_provider` CLI setting as follows.
 
-The providers are: `SPEK1024`, `SPEK2048`, `SBUS`, `SUMD`, `SUMH`, `XB-B`, `XB-B-RJ01`, `IBUS`, `JETIEXBUS`, `CRSF`, `SRXL`, `CUSTOM`, `FPORT`, `SRXL2`, `GHST`, `SBUS2`, `FPORT2`, `FBUS`, `XB-A` and `IBUS2`. For example `set serialrx_provider = SBUS`.
+The providers are: `SPEK1024`, `SPEK2048`, `SBUS`, `SUMD`, `SUMH`, `XB-B`, `XB-B-RJ01`, `IBUS`, `JETIEXBUS`, `CRSF`, `SRXL`, `CUSTOM`, `FPORT`, `SRXL2`, `SBUS2`, `FPORT2`, `FBUS`, `XB-A` and `IBUS2`. For example `set serialrx_provider = SBUS`.
+
+ImmersionRC GHOST (`GHST`) and CPPM receivers are not supported in WingFlight. `GHST` is still accepted by the CLI so saved
+configurations load, but the receiver will not work.
 
 
-### PPM/PWM input filtering.
+### PWM input filtering.
 
-Hardware input filtering can be enabled if you are experiencing interference on the signal sent via your PWM/PPM RX.
+Hardware input filtering can be enabled if you are experiencing interference on the signal sent via your PWM RX.
 
 Use the `input_filtering_mode` CLI setting to select a mode.
 
