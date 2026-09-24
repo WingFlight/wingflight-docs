@@ -2076,6 +2076,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#bus-servo-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bus servo output
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#mixer-rules" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3173,6 +3184,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#bus-servo-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bus servo output
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#mixer-rules" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3376,6 +3398,33 @@ from older firmware will now reject as an invalid name:</p>
 </tr>
 </tbody>
 </table>
+<h2 id="bus-servo-output">Bus servo output<a class="headerlink" href="#bus-servo-output" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Values</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fbus_master_channels</code></td>
+<td><code>8</code>, <code>12</code>, <code>16</code>, <code>24</code></td>
+<td><code>24</code></td>
+<td>Channels F.Bus output sends. 8 uses the 8-channel frame, 12 and 16 the 16-channel frame, 24 the 24-channel frame</td>
+</tr>
+<tr>
+<td><code>sbus_out_channels</code></td>
+<td><code>8</code>, <code>12</code>, <code>16</code></td>
+<td><code>16</code></td>
+<td>Channels SBUS output sends, always in the 16-channel frame</td>
+</tr>
+</tbody>
+</table>
+<p>Channels past the count are sent at center. Also on the Servos tab; see
+<a href="../../configurator/tabs/servos/#bus-output-channel-count">Servos → Bus output channel count</a>.</p>
 <h2 id="mixer-rules">Mixer rules<a class="headerlink" href="#mixer-rules" title="Permanent link">&para;</a></h2>
 <p>The <code>mixer rule</code> command takes an optional last argument, the rule's
 <a href="../../configurator/tabs/mixer/#rule-roles">role</a>: <code>0</code> for none (the default
@@ -3386,6 +3435,62 @@ The full argument order is:</p>
 <p>Everything after <code>&lt;offset&gt;</code> is optional: <code>&lt;weight-neg&gt;</code> defaults to the
 symmetric value, and the rest default to off. <code>dump</code> and <code>diff</code> print rules
 in this form.</p>
+<p><code>&lt;output&gt;</code> is a number. Motors stay at 27-30, so bus servos 19-24 come after
+them:</p>
+<table>
+<thead>
+<tr>
+<th>Output</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>None</td>
+</tr>
+<tr>
+<td>1-8</td>
+<td>PWM servos 1-8 (S1-S8)</td>
+</tr>
+<tr>
+<td>9-26</td>
+<td>Bus servos 1-18 (S9-S26)</td>
+</tr>
+<tr>
+<td>27-30</td>
+<td>Motors 1-4 (M1-M4)</td>
+</tr>
+<tr>
+<td>31-36</td>
+<td>Bus servos 19-24 (S27-S32)</td>
+</tr>
+</tbody>
+</table>
+<p><code>&lt;input&gt;</code> is a number too. RC channels 19-24 were added after the
+thrust-vector inputs, so they are 30-35 rather than following CH18 (26):</p>
+<table>
+<thead>
+<tr>
+<th>Input</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>13-26</td>
+<td>RC channels 5-18</td>
+</tr>
+<tr>
+<td>27-29</td>
+<td>Thrust-vector roll, pitch, yaw</td>
+</tr>
+<tr>
+<td>30-35</td>
+<td>RC channels 19-24</td>
+</tr>
+</tbody>
+</table>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This page covers general CLI usage. A full per-command and per-setting

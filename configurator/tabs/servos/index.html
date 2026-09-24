@@ -1033,6 +1033,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#bus-output-channel-count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bus output channel count
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#clone-pwm-outputs-to-bus-servos" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3224,6 +3235,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#bus-output-channel-count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bus output channel count
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#clone-pwm-outputs-to-bus-servos" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3369,10 +3391,53 @@ and can be tried with the Configurator connected.</p>
 <h2 id="bus-servos">Bus Servos<a class="headerlink" href="#bus-servos" title="Permanent link">&para;</a></h2>
 <p>Enabling <strong>SBUS Output</strong> or <strong>FBUS Master</strong> on a serial port (see
 <a href="../configuration/">Configuration</a>) adds a second "Bus Servo Configuration"
-table below the PWM one, covering up to 18 additional outputs -- for
-digital bus servos wired to that UART instead of individual PWM wires.
+table below the PWM one -- for digital bus servos wired to that UART instead
+of individual PWM wires. The table lists as many bus servos as the output's
+channel count (see <a href="#bus-output-channel-count">Bus output channel count</a>).
 Each bus output has the same Min/Max/Scale/Speed/Reverse fields as a PWM
-servo, above.</p>
+servo, above. Bus servo N is channel N on the bus.</p>
+<h3 id="bus-output-channel-count">Bus output channel count<a class="headerlink" href="#bus-output-channel-count" title="Permanent link">&para;</a></h3>
+<p>How many channels each bus output sends is set with <strong>F.Bus output channels</strong>
+and <strong>SBUS output channels</strong>, below the clone switch in the Bus Servo
+Configuration section. Each appears only when a port has that output
+assigned. A change applies straight away, the table resizes to match, and it
+is saved with the rest of this tab. The CLI settings are
+<code>fbus_master_channels</code> and <code>sbus_out_channels</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Output</th>
+<th>Channel counts</th>
+<th>Default</th>
+<th>Frame</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F.Bus</td>
+<td>8, 12, 16, 24</td>
+<td>24</td>
+<td>8 uses the 8-channel frame, 12 and 16 the 16-channel frame, 24 the 24-channel frame</td>
+</tr>
+<tr>
+<td>SBUS</td>
+<td>8, 12, 16</td>
+<td>16</td>
+<td>Always the 16-channel SBUS frame</td>
+</tr>
+</tbody>
+</table>
+<p>Channels past the count are sent at center. Pick 16 or less for F.Bus if
+anything on the bus only accepts the 16-channel frame.</p>
+<p>SBUS and F.Bus output can run at the same time, each with its own count. Bus
+servo N is channel N on both, and the table lists the larger of the two
+counts.</p>
+<p>With a count of 16, channels 17 and 18 are also sent as on/off channels: on
+when that bus servo's output is at 1500 µs or above. They aren't listed in
+the table. The 24-channel F.Bus frame has no on/off channels.</p>
+<p>With a 24-channel F.Bus receiver, receiver channels 19-24 are available too
+(see <a href="../receiver/#channel-assignment">Receiver</a>), so they can be mixed
+straight to bus servos 19-24.</p>
 <h3 id="clone-pwm-outputs-to-bus-servos">Clone PWM outputs to bus servos<a class="headerlink" href="#clone-pwm-outputs-to-bus-servos" title="Permanent link">&para;</a></h3>
 <p><strong>Clone PWM outputs to bus servos</strong> is <strong>ON</strong> by default: bus channel 1
 mirrors PWM servo 1's final output, bus channel 2 mirrors PWM servo 2, and
