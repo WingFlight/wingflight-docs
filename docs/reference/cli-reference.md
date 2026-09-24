@@ -61,8 +61,7 @@ from older firmware will now reject as an invalid name:
 | `fbus_master_channels` | `8`, `12`, `16`, `24` | `24` | Channels F.Bus output sends. 8 uses the 8-channel frame, 12 and 16 the 16-channel frame, 24 the 24-channel frame |
 | `sbus_out_channels` | `8`, `12`, `16` | `16` | Channels SBUS output sends, always in the 16-channel frame |
 
-Channels past the count are sent at center. Also on the
-[Receiver](../configurator/tabs/receiver.md#bus-servo-output) tab; see
+Channels past the count are sent at center. Also on the Servos tab; see
 [Servos → Bus output channel count](../configurator/tabs/servos.md#bus-output-channel-count).
 
 ## Mixer rules

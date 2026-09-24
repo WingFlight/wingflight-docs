@@ -126,8 +126,11 @@ servo, above. Bus servo N is channel N on the bus.
 
 ### Bus output channel count
 
-How many channels each bus output sends is set on the
-[Receiver](receiver.md#bus-servo-output) tab, or with the CLI settings
+How many channels each bus output sends is set with **F.Bus output channels**
+and **SBUS output channels**, below the clone switch in the Bus Servo
+Configuration section. Each appears only when a port has that output
+assigned. A change applies straight away, the table resizes to match, and it
+is saved with the rest of this tab. The CLI settings are
 `fbus_master_channels` and `sbus_out_channels`:
 
 | Output | Channel counts | Default | Frame |
