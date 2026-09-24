@@ -141,6 +141,10 @@ is saved with the rest of this tab. The CLI settings are
 Channels past the count are sent at center. Pick 16 or less for F.Bus if
 anything on the bus only accepts the 16-channel frame.
 
+SBUS and F.Bus output can run at the same time, each with its own count. Bus
+servo N is channel N on both, and the table lists the larger of the two
+counts.
+
 With a count of 16, channels 17 and 18 are also sent as on/off channels: on
 when that bus servo's output is at 1500 µs or above. They aren't listed in
 the table. The 24-channel F.Bus frame has no on/off channels.
