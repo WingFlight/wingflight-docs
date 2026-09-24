@@ -118,10 +118,28 @@ change on this tab.
 
 Enabling **SBUS Output** or **FBUS Master** on a serial port (see
 [Configuration](configuration.md)) adds a second "Bus Servo Configuration"
-table below the PWM one, covering up to 18 additional outputs -- for
-digital bus servos wired to that UART instead of individual PWM wires.
-Each bus output has the same Min/Max/Scale/Speed/Reverse fields as a PWM
-servo, above.
+table below the PWM one, covering 16 additional outputs (24 with
+[24-channel F.Bus output](#24-channel-fbus-output) on) -- for digital bus
+servos wired to that UART instead of individual PWM wires. Each bus output
+has the same Min/Max/Scale/Speed/Reverse fields as a PWM servo, above.
+Bus servo N is channel N on the bus.
+
+### 24-channel F.Bus output
+
+With a port set to **FBUS Master**, a **24-channel F.Bus output** switch
+appears above the bus servo table. It is **OFF** by default, which sends the
+standard 16-channel F.Bus frame. Turn it **ON** to send the 24-channel frame
+and drive bus servos 17-24, for example FrSky F.Bus servos assigned to those
+channels. Leave it off if anything on the bus only accepts the 16-channel
+frame.
+
+The last two channels of each frame (17-18 in the 16-channel frame, 25-26 in
+the 24-channel frame) are on/off only: they are on when that bus servo's
+output is at 1500 µs or above. They aren't listed in the table.
+
+SBUS output always sends 16 channels plus the two on/off channels. The CLI
+setting is `fbus_master_channels` (`16` or `24`); see the
+[CLI Reference](../../reference/cli-reference.md#fbus-output).
 
 ### Clone PWM outputs to bus servos
 

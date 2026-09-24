@@ -54,6 +54,12 @@ from older firmware will now reject as an invalid name:
 | `pitch_deadband` | 0-100 | 5 | Pitch stick deadband around center, µs |
 | `yaw_deadband` | 0-100 | 5 | Yaw stick deadband around center, µs |
 
+## FBUS output
+
+| Setting | Values | Default | Description |
+|---|---|---|---|
+| `fbus_master_channels` | `16`, `24` | `16` | F.Bus output frame: 16 channels, or 24 channels for bus servos 17-24. See [Servos → 24-channel F.Bus output](../configurator/tabs/servos.md#24-channel-fbus-output) |
+
 ## Mixer rules
 
 The `mixer rule` command takes an optional last argument, the rule's
@@ -68,6 +74,17 @@ mixer rule <index> <operator> <input> <output> <weight> <offset> <weight-neg> <s
 Everything after `<offset>` is optional: `<weight-neg>` defaults to the
 symmetric value, and the rest default to off. `dump` and `diff` print rules
 in this form.
+
+`<output>` is a number. Motors stay at 27-30, so bus servos 19-26 come after
+them:
+
+| Output | Meaning |
+|---|---|
+| 0 | None |
+| 1-8 | PWM servos 1-8 (S1-S8) |
+| 9-26 | Bus servos 1-18 (S9-S26) |
+| 27-30 | Motors 1-4 (M1-M4) |
+| 31-38 | Bus servos 19-26 (S27-S34) |
 
 !!! note
     This page covers general CLI usage. A full per-command and per-setting
