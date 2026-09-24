@@ -54,11 +54,16 @@ from older firmware will now reject as an invalid name:
 | `pitch_deadband` | 0-100 | 5 | Pitch stick deadband around center, µs |
 | `yaw_deadband` | 0-100 | 5 | Yaw stick deadband around center, µs |
 
-## FBUS output
+## Bus servo output
 
 | Setting | Values | Default | Description |
 |---|---|---|---|
-| `fbus_master_channels` | `16`, `24` | `16` | F.Bus output frame: 16 channels, or 24 channels for bus servos 17-24. See [Servos → 24-channel F.Bus output](../configurator/tabs/servos.md#24-channel-fbus-output) |
+| `fbus_master_channels` | `8`, `12`, `16`, `24` | `24` | Channels F.Bus output sends. 8 uses the 8-channel frame, 12 and 16 the 16-channel frame, 24 the 24-channel frame |
+| `sbus_out_channels` | `8`, `12`, `16` | `16` | Channels SBUS output sends, always in the 16-channel frame |
+
+Channels past the count are sent at center. Also on the
+[Receiver](../configurator/tabs/receiver.md#bus-servo-output) tab; see
+[Servos → Bus output channel count](../configurator/tabs/servos.md#bus-output-channel-count).
 
 ## Mixer rules
 

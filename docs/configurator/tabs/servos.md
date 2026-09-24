@@ -118,33 +118,33 @@ change on this tab.
 
 Enabling **SBUS Output** or **FBUS Master** on a serial port (see
 [Configuration](configuration.md)) adds a second "Bus Servo Configuration"
-table below the PWM one, covering 16 additional outputs (24 with
-[24-channel F.Bus output](#24-channel-fbus-output) on) -- for digital bus
-servos wired to that UART instead of individual PWM wires. Each bus output
-has the same Min/Max/Scale/Speed/Reverse fields as a PWM servo, above.
-Bus servo N is channel N on the bus.
+table below the PWM one -- for digital bus servos wired to that UART instead
+of individual PWM wires. The table lists as many bus servos as the output's
+channel count (see [Bus output channel count](#bus-output-channel-count)).
+Each bus output has the same Min/Max/Scale/Speed/Reverse fields as a PWM
+servo, above. Bus servo N is channel N on the bus.
 
-### 24-channel F.Bus output
+### Bus output channel count
 
-With a port set to **FBUS Master**, a **24-channel F.Bus output** switch
-appears above the bus servo table. It is **OFF** by default, which sends the
-standard 16-channel F.Bus frame. Turn it **ON** to send the 24-channel frame
-and drive bus servos 17-24, for example FrSky F.Bus servos assigned to those
-channels. Leave it off if anything on the bus only accepts the 16-channel
-frame.
+How many channels each bus output sends is set on the
+[Receiver](receiver.md#bus-servo-output) tab, or with the CLI settings
+`fbus_master_channels` and `sbus_out_channels`:
 
-In the 16-channel frame, channels 17 and 18 are on/off only: they are on when
-that bus servo's output is at 1500 µs or above, and they aren't listed in the
-table. The 24-channel frame carries channels 1-24 as normal channels and has
-no on/off channels.
+| Output | Channel counts | Default | Frame |
+|---|---|---|---|
+| F.Bus | 8, 12, 16, 24 | 24 | 8 uses the 8-channel frame, 12 and 16 the 16-channel frame, 24 the 24-channel frame |
+| SBUS | 8, 12, 16 | 16 | Always the 16-channel SBUS frame |
+
+Channels past the count are sent at center. Pick 16 or less for F.Bus if
+anything on the bus only accepts the 16-channel frame.
+
+With a count of 16, channels 17 and 18 are also sent as on/off channels: on
+when that bus servo's output is at 1500 µs or above. They aren't listed in
+the table. The 24-channel F.Bus frame has no on/off channels.
 
 With a 24-channel F.Bus receiver, receiver channels 19-24 are available too
 (see [Receiver](receiver.md#channel-assignment)), so they can be mixed
 straight to bus servos 19-24.
-
-SBUS output always sends 16 channels plus the two on/off channels. The CLI
-setting is `fbus_master_channels` (`16` or `24`); see the
-[CLI Reference](../../reference/cli-reference.md#fbus-output).
 
 ### Clone PWM outputs to bus servos
 
