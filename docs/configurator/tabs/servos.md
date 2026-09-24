@@ -133,9 +133,14 @@ and drive bus servos 17-24, for example FrSky F.Bus servos assigned to those
 channels. Leave it off if anything on the bus only accepts the 16-channel
 frame.
 
-The last two channels of each frame (17-18 in the 16-channel frame, 25-26 in
-the 24-channel frame) are on/off only: they are on when that bus servo's
-output is at 1500 µs or above. They aren't listed in the table.
+In the 16-channel frame, channels 17 and 18 are on/off only: they are on when
+that bus servo's output is at 1500 µs or above, and they aren't listed in the
+table. The 24-channel frame carries channels 1-24 as normal channels and has
+no on/off channels.
+
+With a 24-channel F.Bus receiver, receiver channels 19-24 are available too
+(see [Receiver](receiver.md#channel-assignment)), so they can be mixed
+straight to bus servos 19-24.
 
 SBUS output always sends 16 channels plus the two on/off channels. The CLI
 setting is `fbus_master_channels` (`16` or `24`); see the

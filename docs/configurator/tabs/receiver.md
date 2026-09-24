@@ -51,6 +51,12 @@ instead of manually reassigning each channel; the live bars next to each
 channel let you confirm the remap actually matches real stick movement
 before wiring up the [Mixer](mixer.md).
 
+Up to 24 channels are shown. Most receiver protocols carry 16 or 18; FrSky
+F.Bus in its 24-channel mode carries all 24. Channels 19-24 can be used for
+modes, adjustments, failsafe and as [Mixer](mixer.md) inputs, for example to
+drive bus servos 19-24 through
+[24-channel F.Bus output](servos.md#24-channel-fbus-output).
+
 **RSSI** can be read from Auto (protocol-reported, if the link supports
 it), the board's analog RSSI ADC input, or repurposed from any spare channel (CH #5 onward)
 your receiver outputs an analog-ish RSSI value on.

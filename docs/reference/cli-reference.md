@@ -75,7 +75,7 @@ Everything after `<offset>` is optional: `<weight-neg>` defaults to the
 symmetric value, and the rest default to off. `dump` and `diff` print rules
 in this form.
 
-`<output>` is a number. Motors stay at 27-30, so bus servos 19-26 come after
+`<output>` is a number. Motors stay at 27-30, so bus servos 19-24 come after
 them:
 
 | Output | Meaning |
@@ -84,7 +84,16 @@ them:
 | 1-8 | PWM servos 1-8 (S1-S8) |
 | 9-26 | Bus servos 1-18 (S9-S26) |
 | 27-30 | Motors 1-4 (M1-M4) |
-| 31-38 | Bus servos 19-26 (S27-S34) |
+| 31-36 | Bus servos 19-24 (S27-S32) |
+
+`<input>` is a number too. RC channels 19-24 were added after the
+thrust-vector inputs, so they are 30-35 rather than following CH18 (26):
+
+| Input | Meaning |
+|---|---|
+| 13-26 | RC channels 5-18 |
+| 27-29 | Thrust-vector roll, pitch, yaw |
+| 30-35 | RC channels 19-24 |
 
 !!! note
     This page covers general CLI usage. A full per-command and per-setting
