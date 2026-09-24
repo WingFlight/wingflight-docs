@@ -44,6 +44,16 @@ selecting the profile you want to change):
 | `atthold_deadband` | 0-100 | 5 | Per-axis stick percent below which that axis is held |
 | `atthold_max_rate` | 0-1800 | 300 | Correction rate clamp, deg/s |
 
+Stick deadbands are global (not per-profile). `roll_deadband` and
+`pitch_deadband` replace the old shared `deadband` setting, which a diff
+from older firmware will now reject as an invalid name:
+
+| Setting | Range | Default | Description |
+|---|---|---|---|
+| `roll_deadband` | 0-100 | 5 | Roll stick deadband around center, µs |
+| `pitch_deadband` | 0-100 | 5 | Pitch stick deadband around center, µs |
+| `yaw_deadband` | 0-100 | 5 | Yaw stick deadband around center, µs |
+
 ## Mixer rules
 
 The `mixer rule` command takes an optional last argument, the rule's

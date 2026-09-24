@@ -30,6 +30,17 @@ This is CLI-only -- set it with `set srxl2_unit_id = 0`. Note the
 default is `1`, not `0`, so this needs setting explicitly for a receiver
 that requires it.
 
+## Channel Range
+
+**Stick Center** and **Stick Travel** set the channel value your sticks
+rest at and how far they move from it, in µs.
+
+**Roll Deadband**, **Pitch Deadband** and **Yaw Deadband** set how far each
+stick must move from center, in µs, before it counts as an input (default
+5 µs each, range 0-100). Each axis is set separately. Older firmware had one
+shared Roll/Pitch value, a leftover from helicopter "cyclic" controls. The
+CLI settings are `roll_deadband`, `pitch_deadband` and `yaw_deadband`.
+
 ## Channel Assignment
 
 Different transmitter brands don't agree on which physical channel carries
