@@ -118,10 +118,40 @@ change on this tab.
 
 Enabling **SBUS Output** or **FBUS Master** on a serial port (see
 [Configuration](configuration.md)) adds a second "Bus Servo Configuration"
-table below the PWM one, covering up to 18 additional outputs -- for
-digital bus servos wired to that UART instead of individual PWM wires.
+table below the PWM one -- for digital bus servos wired to that UART instead
+of individual PWM wires. The table lists as many bus servos as the output's
+channel count (see [Bus output channel count](#bus-output-channel-count)).
 Each bus output has the same Min/Max/Scale/Speed/Reverse fields as a PWM
-servo, above.
+servo, above. Bus servo N is channel N on the bus.
+
+### Bus output channel count
+
+How many channels each bus output sends is set with **F.Bus output channels**
+and **SBUS output channels**, below the clone switch in the Bus Servo
+Configuration section. Each appears only when a port has that output
+assigned. A change applies straight away, the table resizes to match, and it
+is saved with the rest of this tab. The CLI settings are
+`fbus_master_channels` and `sbus_out_channels`:
+
+| Output | Channel counts | Default | Frame |
+|---|---|---|---|
+| F.Bus | 8, 12, 16, 24 | 24 | 8 uses the 8-channel frame, 12 and 16 the 16-channel frame, 24 the 24-channel frame |
+| SBUS | 8, 12, 16 | 16 | Always the 16-channel SBUS frame |
+
+Channels past the count are sent at center. Pick 16 or less for F.Bus if
+anything on the bus only accepts the 16-channel frame.
+
+SBUS and F.Bus output can run at the same time, each with its own count. Bus
+servo N is channel N on both, and the table lists the larger of the two
+counts.
+
+With a count of 16, channels 17 and 18 are also sent as on/off channels: on
+when that bus servo's output is at 1500 µs or above. They aren't listed in
+the table. The 24-channel F.Bus frame has no on/off channels.
+
+With a 24-channel F.Bus receiver, receiver channels 19-24 are available too
+(see [Receiver](receiver.md#channel-assignment)), so they can be mixed
+straight to bus servos 19-24.
 
 ### Clone PWM outputs to bus servos
 

@@ -82,7 +82,13 @@ is reserved but not decoding anything.
 - **Full channel takeover.** All channels are taken from the backup port
   during fallback, not just roll/pitch/yaw/throttle -- aux switches
   (flight mode, arming, etc.) are driven from the backup stick exactly
-  as they would be from the main receiver.
+  as they would be from the main receiver. Channels the backup doesn't
+  carry go to stick center (1500 by default): for example CH19-24 when the
+  main receiver sends 24 channels but the backup sends a 16-channel F.Bus
+  frame. A mode or switch on those channels moves to its middle position on
+  takeover, so keep safety-relevant switches on channels both receivers
+  carry. F.Bus and F.Port2 backups carry up to 24 channels, SBUS and F.Port
+  18.
 - **Auto-revert.** As soon as the main receiver's signal is valid again
   (within that same ~100ms window), control reverts to it -- the backup
   does not latch for the rest of the flight.

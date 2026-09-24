@@ -54,6 +54,16 @@ from older firmware will now reject as an invalid name:
 | `pitch_deadband` | 0-100 | 5 | Pitch stick deadband around center, µs |
 | `yaw_deadband` | 0-100 | 5 | Yaw stick deadband around center, µs |
 
+## Bus servo output
+
+| Setting | Values | Default | Description |
+|---|---|---|---|
+| `fbus_master_channels` | `8`, `12`, `16`, `24` | `24` | Channels F.Bus output sends. 8 uses the 8-channel frame, 12 and 16 the 16-channel frame, 24 the 24-channel frame |
+| `sbus_out_channels` | `8`, `12`, `16` | `16` | Channels SBUS output sends, always in the 16-channel frame |
+
+Channels past the count are sent at center. Also on the Servos tab; see
+[Servos → Bus output channel count](../configurator/tabs/servos.md#bus-output-channel-count).
+
 ## Mixer rules
 
 The `mixer rule` command takes an optional last argument, the rule's
@@ -68,6 +78,26 @@ mixer rule <index> <operator> <input> <output> <weight> <offset> <weight-neg> <s
 Everything after `<offset>` is optional: `<weight-neg>` defaults to the
 symmetric value, and the rest default to off. `dump` and `diff` print rules
 in this form.
+
+`<output>` is a number. Motors stay at 27-30, so bus servos 19-24 come after
+them:
+
+| Output | Meaning |
+|---|---|
+| 0 | None |
+| 1-8 | PWM servos 1-8 (S1-S8) |
+| 9-26 | Bus servos 1-18 (S9-S26) |
+| 27-30 | Motors 1-4 (M1-M4) |
+| 31-36 | Bus servos 19-24 (S27-S32) |
+
+`<input>` is a number too. RC channels 19-24 were added after the
+thrust-vector inputs, so they are 30-35 rather than following CH18 (26):
+
+| Input | Meaning |
+|---|---|
+| 13-26 | RC channels 5-18 |
+| 27-29 | Thrust-vector roll, pitch, yaw |
+| 30-35 | RC channels 19-24 |
 
 !!! note
     This page covers general CLI usage. A full per-command and per-setting
