@@ -3343,6 +3343,39 @@ selecting the profile you want to change):</p>
 </tr>
 </tbody>
 </table>
+<p>Stick deadbands are global (not per-profile). <code>roll_deadband</code> and
+<code>pitch_deadband</code> replace the old shared <code>deadband</code> setting, which a diff
+from older firmware will now reject as an invalid name:</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Range</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>roll_deadband</code></td>
+<td>0-100</td>
+<td>5</td>
+<td>Roll stick deadband around center, µs</td>
+</tr>
+<tr>
+<td><code>pitch_deadband</code></td>
+<td>0-100</td>
+<td>5</td>
+<td>Pitch stick deadband around center, µs</td>
+</tr>
+<tr>
+<td><code>yaw_deadband</code></td>
+<td>0-100</td>
+<td>5</td>
+<td>Yaw stick deadband around center, µs</td>
+</tr>
+</tbody>
+</table>
 <h2 id="mixer-rules">Mixer rules<a class="headerlink" href="#mixer-rules" title="Permanent link">&para;</a></h2>
 <p>The <code>mixer rule</code> command takes an optional last argument, the rule's
 <a href="../../configurator/tabs/mixer/#rule-roles">role</a>: <code>0</code> for none (the default

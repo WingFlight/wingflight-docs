@@ -915,6 +915,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#channel-range" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Channel Range
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#channel-assignment" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3184,6 +3195,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#channel-range" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Channel Range
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#channel-assignment" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3278,6 +3300,14 @@ the normal handshake process as usual.</p>
 <p>This is CLI-only -- set it with <code>set srxl2_unit_id = 0</code>. Note the
 default is <code>1</code>, not <code>0</code>, so this needs setting explicitly for a receiver
 that requires it.</p>
+<h2 id="channel-range">Channel Range<a class="headerlink" href="#channel-range" title="Permanent link">&para;</a></h2>
+<p><strong>Stick Center</strong> and <strong>Stick Travel</strong> set the channel value your sticks
+rest at and how far they move from it, in µs.</p>
+<p><strong>Roll Deadband</strong>, <strong>Pitch Deadband</strong> and <strong>Yaw Deadband</strong> set how far each
+stick must move from center, in µs, before it counts as an input (default
+5 µs each, range 0-100). Each axis is set separately. Older firmware had one
+shared Roll/Pitch value, a leftover from helicopter "cyclic" controls. The
+CLI settings are <code>roll_deadband</code>, <code>pitch_deadband</code> and <code>yaw_deadband</code>.</p>
 <h2 id="channel-assignment">Channel Assignment<a class="headerlink" href="#channel-assignment" title="Permanent link">&para;</a></h2>
 <p>Different transmitter brands don't agree on which physical channel carries
 which stick -- FrSky/ELRS/Futaba send <code>AETR</code> (Aileron, Elevator, Throttle,
