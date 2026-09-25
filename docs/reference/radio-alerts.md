@@ -12,9 +12,11 @@ This page explains what each one means and what to do about it.
 
 ## What you need
 
-- Telemetry working between the flight controller and the radio. New and reset
-  configurations have telemetry on, and use custom CRSF telemetry for
-  ELRS/Crossfire. See [Telemetry](telemetry.md).
+- Telemetry working between the flight controller and the radio, over FrSky
+  S.Port, F.Port or FBUS, or over CRSF (ELRS and Crossfire). Telemetry is on in
+  new and reset configurations. For CRSF, `crsf_telemetry_mode` must be
+  `CUSTOM`, which is the default; native CRSF telemetry doesn't carry the
+  status sensors. See [Telemetry](telemetry.md).
 - The **System Status** and **System Config** telemetry sensors selected on the
   [Receiver tab](../configurator/tabs/receiver.md#telemetry-sensors). They are
   in the default sensor list, and the suite's **Default** button on the radio
