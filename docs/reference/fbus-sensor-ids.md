@@ -72,3 +72,8 @@ sequence bit and isn't meaningful on its own.
 For example, a GPS sensor's App IDs column showing `2048, 2080, 2096, 2128`
 is lat/long, altitude, speed, and time -- not course or satellite count,
 which that particular GPS unit isn't reporting.
+
+When an FBUS GPS does not report the satellite-count App ID (`0x0860`),
+WingFlight shows the satellite count as `0` rather than guessing. This keeps
+RTH, Loiter, GPS Rescue and other minimum-satellite checks from being satisfied
+by an unknown value.
