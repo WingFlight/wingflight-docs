@@ -125,6 +125,7 @@ nav:
       - FrSky SPI RX: reference/frsky-spi-rx.md
       - Serial Ports: reference/serial-ports.md
       - Telemetry: reference/telemetry.md
+      - Radio Callouts and Alerts: reference/radio-alerts.md
       - Castle ESC Telemetry: reference/castle-esc-telemetry.md
       - GPS Hardware and Module Setup: reference/gps-hardware.md
       - LED Strip: reference/led-strip.md

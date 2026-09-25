@@ -4,11 +4,111 @@ Telemetry allows you to know what is happening on your aircraft while you are fl
 
 Telemetry can be either always on, or enabled when armed.  If a serial port for telemetry is shared with other functionality then telemetry will only be enabled when armed on that port.
 
-Telemetry is enabled using the 'TELEMETRY` feature.
+Telemetry is enabled using the `TELEMETRY` feature. It is on by default in new
+and reset configurations.
 
 ```
 feature TELEMETRY
 ```
+
+## Telemetry sensors
+
+The sensors sent to the radio over S.Port, F.Port, FBUS and custom CRSF are
+chosen on the [Receiver tab](../configurator/tabs/receiver.md#telemetry-sensors),
+or with the `telemetry_sensors` CLI setting (a list of sensor IDs, up to 40).
+
+New and reset configurations select the sensors the WingFlight Lua suites use:
+
+```
+set telemetry_sensors = 3,4,5,6,15,43,50,52,58,59,60,89,91,99,120,121,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+```
+
+| ID | Sensor | ID | Sensor |
+|---|---|---|---|
+| 3 | Battery voltage | 58 | Altitude |
+| 4 | Battery current | 59 | Vario |
+| 5 | Consumption (mAh) | 60 | Motor speed |
+| 6 | Charge level (SmartFuel) | 89 | Flight mode |
+| 15 | Throttle | 91 | Arming disable flags |
+| 43 | BEC voltage | 99 | Adjustments |
+| 50 | ESC temperature | 120 | System status |
+| 52 | MCU temperature | 121 | System config |
+
+The Ethos Lua suite's **Default** button writes the same list, so a model set
+up either way shows no difference in `diff`. Existing configurations keep
+their own list when you upgrade.
+
+### CRSF telemetry mode
+
+For CRSF (ELRS and Crossfire), `crsf_telemetry_mode` selects what is sent:
+
+- `CUSTOM` (the default): the sensors selected above, which the WingFlight Lua
+  suites decode.
+- `NATIVE`: the standard CRSF frames (battery, attitude, altitude, GPS, flight
+  mode, RPM and temperature) that any radio understands without a script.
+
+### Status sensors
+
+Two sensors carry the flight controller's status as bitfields, so a radio
+script can read many flags from one sensor. The WingFlight Lua suites decode
+them for their [callouts and dashboard alerts](radio-alerts.md).
+
+| ID | Sensor | S.Port | CRSF | Sent every |
+|---|---|---|---|---|
+| 120 | System Status | `0x5140` | `0x1230` | 100 ms |
+| 121 | System Config | `0x5141` | `0x1231` | 500 ms |
+
+They replace the older arming flags (90), PID, rate, battery, LED and thrust
+vector profile (95-98, 118) and GPS fix type (119) sensors, which are no
+longer sent. Bit 31 of both words is never set, because S.Port sends the value
+as a signed number.
+
+**System Status (120)**
+
+| Bits | Meaning |
+|---|---|
+| 0 | Armed |
+| 1 | Airborne |
+| 2 | Motors running |
+| 3 | Main receiver has signal |
+| 4 | Backup receiver has signal |
+| 5 | Backup receiver in control (main receiver down) |
+| 6-8 | Failsafe phase: 0 idle, 1 RX loss detected, 2 landing, 3 landed, 4 RX loss monitoring, 5 RX loss recovered, 6 GPS rescue |
+| 9-10 | GPS fix: 0 none, 1 fix, 2 fix and home recorded |
+| 11 | GPS module communicating |
+| 12-13 | GPS mode blocked: 0 none, 1 Loiter switched on but can't fly, 2 RTH switched on but can't fly |
+| 14-16 | Battery state: 0 OK, 1 warning, 2 critical, 3 not present, 4 initialising |
+| 17 | Control surfaces at their limit (held for 500 ms) |
+| 18 | Gyro overflow |
+| 19 | Accelerometer not calibrated |
+| 20 | Configurator test override active |
+| 21 | A flight aid is holding (Attitude Hold, thrust vector hold, Auto Hover, or the Trainer limiting) |
+| 22-23 | Auto Trim: 0 idle, 1 capturing, 2 captured, saved on disarm |
+| 24 | Blackbox logging |
+| 25-28 | Logic conditions 1-4 |
+
+**System Config (121)**
+
+| Bits | Meaning |
+|---|---|
+| 0-2 | PID profile (1-6) |
+| 3-5 | Rate profile (1-6) |
+| 6-8 | Battery profile (1-6) |
+| 9-11 | Thrust vector profile (1-6) |
+| 12 | Unsaved settings |
+| 13 | Saving settings |
+| 14 | Reboot required |
+| 15 | Beeper sounding |
+| 16 | Accelerometer present |
+| 17 | Barometer present |
+| 18 | Magnetometer present |
+| 19 | GPS present |
+| 20 | Backup receiver configured |
+| 21 | Blackbox full |
+| 22 | Motor RPM telemetry present |
+
+Bit positions can change between firmware versions, together with the Lua
+suites that decode them. Use matching firmware and Lua suite versions.
 
 Multiple telemetry providers are currently supported: SmartPort (S.Port),
 Graupner HoTT V4, Ibus, Jeti EX Bus and Futaba SBUS2, plus the telemetry built

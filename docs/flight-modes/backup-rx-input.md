@@ -114,6 +114,22 @@ successfully, a backup that later drops out (between flights or batteries,
 say) will not block re-arming for the rest of the session. If you leave the
 backup port unconfigured (no protocol chosen), no check applies.
 
+## Alerts on the radio
+
+With the WingFlight Lua suite on an Ethos radio, the backup receiver's state
+is also shown on the dashboard and announced:
+
+- **BACKUP RX NO SIGNAL** (amber banner, "Backup receiver lost" /
+  "Backup receiver OK"): a backup is configured but isn't receiving. Check
+  this before takeoff.
+- **BACKUP RX IN CONTROL** (red banner, "Backup receiver active" /
+  "Main receiver restored"): the backup is flying the model.
+
+Telemetry normally travels over the main link, so while the main link is
+down the radio often can't hear the flight controller. See
+[Radio Callouts and Alerts](../reference/radio-alerts.md) for when each
+callout can reach you.
+
 ## Bench-testing before you fly
 
 As with any failsafe-adjacent behavior, test this on the bench (props off)

@@ -60,8 +60,11 @@ A fuel-gauge charge estimate, more informative than raw voltage alone:
 **Current** mode integrates measured mAh drawn against the configured
 battery capacity, and **Combined** reports whichever of the two is more
 pessimistic at any given moment (so an optimistic voltage reading under
-load can't mask a pack that's actually further depleted). All modes except
-Current need a working voltage sensor. Voltage Drop Rate and Charge Drop
+load can't mask a pack that's actually further depleted). New configurations
+default to **Current**. Until mAh used and the pack capacity are both known,
+Current mode uses the voltage estimate instead, so it also works without a
+current sensor. Every mode needs a battery voltage source; SmartFuel stays
+inactive until one is set. Voltage Drop Rate and Charge Drop
 Rate cap how fast the voltage-based estimate is allowed to fall, and Sag
 Gain compensates for voltage sag under load -- raise it if SmartFuel reads
 too pessimistic under load, lower it if too optimistic. Sag Gain is entered
