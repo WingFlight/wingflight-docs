@@ -16,7 +16,7 @@
         <link rel="prev" href="../serial-ports/">
       
       
-        <link rel="next" href="../castle-esc-telemetry/">
+        <link rel="next" href="../radio-alerts/">
       
       
         
@@ -2295,6 +2295,45 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#telemetry-sensors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Telemetry sensors
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Telemetry sensors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#crsf-telemetry-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CRSF telemetry mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#status-sensors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Status sensors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#hott-telemetry" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2515,6 +2554,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../radio-alerts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Radio Callouts and Alerts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -3313,6 +3380,45 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#telemetry-sensors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Telemetry sensors
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Telemetry sensors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#crsf-telemetry-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CRSF telemetry mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#status-sensors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Status sensors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#hott-telemetry" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3557,9 +3663,317 @@
 <h1 id="telemetry">Telemetry<a class="headerlink" href="#telemetry" title="Permanent link">&para;</a></h1>
 <p>Telemetry allows you to know what is happening on your aircraft while you are flying it.  Among other things you can receive battery voltages and GPS positions on your transmitter.</p>
 <p>Telemetry can be either always on, or enabled when armed.  If a serial port for telemetry is shared with other functionality then telemetry will only be enabled when armed on that port.</p>
-<p>Telemetry is enabled using the 'TELEMETRY` feature.</p>
+<p>Telemetry is enabled using the <code>TELEMETRY</code> feature. It is on by default in new
+and reset configurations.</p>
 <div class="highlight"><pre><span></span><code>feature TELEMETRY
 </code></pre></div>
+<h2 id="telemetry-sensors">Telemetry sensors<a class="headerlink" href="#telemetry-sensors" title="Permanent link">&para;</a></h2>
+<p>The sensors sent to the radio over S.Port, F.Port, FBUS and custom CRSF are
+chosen on the <a href="../../configurator/tabs/receiver/#telemetry-sensors">Receiver tab</a>,
+or with the <code>telemetry_sensors</code> CLI setting (a list of sensor IDs, up to 40).</p>
+<p>New and reset configurations select the sensors the WingFlight Lua suites use:</p>
+<div class="highlight"><pre><span></span><code>set telemetry_sensors = 3,4,5,6,15,43,50,52,58,59,60,89,91,99,120,121,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Sensor</th>
+<th>ID</th>
+<th>Sensor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3</td>
+<td>Battery voltage</td>
+<td>58</td>
+<td>Altitude</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Battery current</td>
+<td>59</td>
+<td>Vario</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Consumption (mAh)</td>
+<td>60</td>
+<td>Motor speed</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Charge level (SmartFuel)</td>
+<td>89</td>
+<td>Flight mode</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Throttle</td>
+<td>91</td>
+<td>Arming disable flags</td>
+</tr>
+<tr>
+<td>43</td>
+<td>BEC voltage</td>
+<td>99</td>
+<td>Adjustments</td>
+</tr>
+<tr>
+<td>50</td>
+<td>ESC temperature</td>
+<td>120</td>
+<td>System status</td>
+</tr>
+<tr>
+<td>52</td>
+<td>MCU temperature</td>
+<td>121</td>
+<td>System config</td>
+</tr>
+</tbody>
+</table>
+<p>The Ethos Lua suite's <strong>Default</strong> button writes the same list, so a model set
+up either way shows no difference in <code>diff</code>. Existing configurations keep
+their own list when you upgrade.</p>
+<h3 id="crsf-telemetry-mode">CRSF telemetry mode<a class="headerlink" href="#crsf-telemetry-mode" title="Permanent link">&para;</a></h3>
+<p>For CRSF (ELRS and Crossfire), <code>crsf_telemetry_mode</code> selects what is sent:</p>
+<ul>
+<li><code>CUSTOM</code> (the default): the sensors selected above, which the WingFlight Lua
+  suites decode.</li>
+<li><code>NATIVE</code>: the standard CRSF frames (battery, attitude, altitude, GPS, flight
+  mode, RPM and temperature) that any radio understands without a script.</li>
+</ul>
+<h3 id="status-sensors">Status sensors<a class="headerlink" href="#status-sensors" title="Permanent link">&para;</a></h3>
+<p>Two sensors carry the flight controller's status as bitfields, so a radio
+script can read many flags from one sensor. The WingFlight Lua suites decode
+them for their <a href="../radio-alerts/">callouts and dashboard alerts</a>.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Sensor</th>
+<th>S.Port</th>
+<th>CRSF</th>
+<th>Sent every</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>120</td>
+<td>System Status</td>
+<td><code>0x5140</code></td>
+<td><code>0x1230</code></td>
+<td>100 ms</td>
+</tr>
+<tr>
+<td>121</td>
+<td>System Config</td>
+<td><code>0x5141</code></td>
+<td><code>0x1231</code></td>
+<td>500 ms</td>
+</tr>
+</tbody>
+</table>
+<p>They replace the older arming flags (90), PID, rate, battery, LED and thrust
+vector profile (95-98, 118) and GPS fix type (119) sensors, which are no
+longer sent. Bit 31 of both words is never set, because S.Port sends the value
+as a signed number.</p>
+<p><strong>System Status (120)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Armed</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Airborne</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Motors running</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Main receiver has signal</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Backup receiver has signal</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Backup receiver in control (main receiver down)</td>
+</tr>
+<tr>
+<td>6-8</td>
+<td>Failsafe phase: 0 idle, 1 RX loss detected, 2 landing, 3 landed, 4 RX loss monitoring, 5 RX loss recovered, 6 GPS rescue</td>
+</tr>
+<tr>
+<td>9-10</td>
+<td>GPS fix: 0 none, 1 fix, 2 fix and home recorded</td>
+</tr>
+<tr>
+<td>11</td>
+<td>GPS module communicating</td>
+</tr>
+<tr>
+<td>12-13</td>
+<td>GPS mode blocked: 0 none, 1 Loiter switched on but can't fly, 2 RTH switched on but can't fly</td>
+</tr>
+<tr>
+<td>14-16</td>
+<td>Battery state: 0 OK, 1 warning, 2 critical, 3 not present, 4 initialising</td>
+</tr>
+<tr>
+<td>17</td>
+<td>Control surfaces at their limit (held for 500 ms)</td>
+</tr>
+<tr>
+<td>18</td>
+<td>Gyro overflow</td>
+</tr>
+<tr>
+<td>19</td>
+<td>Accelerometer not calibrated</td>
+</tr>
+<tr>
+<td>20</td>
+<td>Configurator test override active</td>
+</tr>
+<tr>
+<td>21</td>
+<td>A flight aid is holding (Attitude Hold, thrust vector hold, Auto Hover, or the Trainer limiting)</td>
+</tr>
+<tr>
+<td>22-23</td>
+<td>Auto Trim: 0 idle, 1 capturing, 2 captured, saved on disarm</td>
+</tr>
+<tr>
+<td>24</td>
+<td>Blackbox logging</td>
+</tr>
+<tr>
+<td>25-28</td>
+<td>Logic conditions 1-4</td>
+</tr>
+</tbody>
+</table>
+<p><strong>System Config (121)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0-2</td>
+<td>PID profile (1-6)</td>
+</tr>
+<tr>
+<td>3-5</td>
+<td>Rate profile (1-6)</td>
+</tr>
+<tr>
+<td>6-8</td>
+<td>Battery profile (1-6)</td>
+</tr>
+<tr>
+<td>9-11</td>
+<td>Thrust vector profile (1-6)</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Unsaved settings</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Saving settings</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Reboot required</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Beeper sounding</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Accelerometer present</td>
+</tr>
+<tr>
+<td>17</td>
+<td>Barometer present</td>
+</tr>
+<tr>
+<td>18</td>
+<td>Magnetometer present</td>
+</tr>
+<tr>
+<td>19</td>
+<td>GPS present</td>
+</tr>
+<tr>
+<td>20</td>
+<td>Backup receiver configured</td>
+</tr>
+<tr>
+<td>21</td>
+<td>Blackbox full</td>
+</tr>
+<tr>
+<td>22</td>
+<td>Motor RPM telemetry present</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Manual decoding examples</strong></p>
+<p>Read bit 0 from the right-hand end of the value. For multi-bit fields, read
+the whole range as one number; for example, System Status bits 9-10 are the
+GPS fix field, not two separate GPS flags.</p>
+<table>
+<thead>
+<tr>
+<th>Sensor</th>
+<th>Radio value</th>
+<th>Bit string, bits 31-0</th>
+<th>Manual reading</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>System Status</td>
+<td><code>2568</code> (<code>0x00000A08</code>)</td>
+<td><code>00000000000000000000101000001000</code></td>
+<td>Bit 3 is set, so the main receiver has signal. Bits 9-10 read as <code>1</code>, so GPS has a fix. Bit 11 is set, so the GPS module is communicating.</td>
+</tr>
+<tr>
+<td>System Status</td>
+<td><code>18893839</code> (<code>0x01204C0F</code>)</td>
+<td><code>00000001001000000100110000001111</code></td>
+<td>Bits 0-3 are set, so the aircraft is armed, airborne, motors are running and the main receiver has signal. Bits 9-10 read as <code>2</code>, so GPS has a fix and home is recorded. Bits 14-16 read as <code>1</code>, so battery state is warning. Bits 21 and 24 show an assist is holding and Blackbox is logging.</td>
+</tr>
+<tr>
+<td>System Config</td>
+<td><code>1774154</code> (<code>0x001B124A</code>)</td>
+<td><code>00000000000110110001001001001010</code></td>
+<td>Bits 0-2 read as <code>2</code>, so PID profile 2 is active. Bits 3-5, 6-8 and 9-11 each read as <code>1</code>, so rate, battery and thrust-vector profile 1 are active. Bit 12 shows unsaved settings. Bits 16, 17, 19 and 20 show accelerometer, barometer and GPS present, with backup RX configured.</td>
+</tr>
+</tbody>
+</table>
+<p>Bit positions can change between firmware versions, together with the Lua
+suites that decode them. Use matching firmware and Lua suite versions.</p>
 <p>Multiple telemetry providers are currently supported: SmartPort (S.Port),
 Graupner HoTT V4, Ibus, Jeti EX Bus and Futaba SBUS2, plus the telemetry built
 into CRSF, F.PORT, FBUS and SRXL receivers.</p>
@@ -3936,13 +4350,13 @@ It runs at a fixed baud rate of 100000 8e2.</p>
         
         
           
-          <a href="../castle-esc-telemetry/" class="md-footer__link md-footer__link--next" aria-label="Next: Castle ESC Telemetry">
+          <a href="../radio-alerts/" class="md-footer__link md-footer__link--next" aria-label="Next: Radio Callouts and Alerts">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Castle ESC Telemetry
+                Radio Callouts and Alerts
               </div>
             </div>
             <div class="md-footer__button md-icon">

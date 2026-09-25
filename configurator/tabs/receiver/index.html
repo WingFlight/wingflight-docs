@@ -2387,6 +2387,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../reference/radio-alerts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Radio Callouts and Alerts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../reference/castle-esc-telemetry/" class="md-nav__link">
         
   
@@ -3330,6 +3358,13 @@ for protocols with a fixed transmission sequence (e.g. Smart Port), what
 order they go out in -- data earlier in the list updates more often.
 Available sensors depend on what the connected protocol and firmware build
 actually support (e.g. RPM only appears with a configured RPM source).</p>
+<p>New configurations start with the sensors the WingFlight Lua suites use,
+including <strong>System Status</strong> and <strong>System Config</strong> in the Status group. These
+two carry the flight controller's status (arm state, receiver links, failsafe,
+GPS, profiles and more) for the radio's
+<a href="../../../reference/radio-alerts/">callouts and dashboard alerts</a>. See
+<a href="../../../reference/telemetry/#telemetry-sensors">Telemetry sensors</a> for the
+default list and what each status bit means.</p>
 <h2 id="virtual-tx">Virtual TX<a class="headerlink" href="#virtual-tx" title="Permanent link">&para;</a></h2>
 <p>For bench-testing without a real transmitter bound, a virtual RX input tool
 is available (desktop app only) to simulate channel input.</p>

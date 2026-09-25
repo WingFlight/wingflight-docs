@@ -1907,6 +1907,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#alerts-on-the-radio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alerts on the radio
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#bench-testing-before-you-fly" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2334,6 +2345,34 @@
     
   
     Telemetry
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/radio-alerts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Radio Callouts and Alerts
   
 
     
@@ -3173,6 +3212,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#alerts-on-the-radio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alerts on the radio
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#bench-testing-before-you-fly" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3319,6 +3369,20 @@ backup can't go unnoticed until the moment you need it.</p>
 successfully, a backup that later drops out (between flights or batteries,
 say) will not block re-arming for the rest of the session. If you leave the
 backup port unconfigured (no protocol chosen), no check applies.</p>
+<h2 id="alerts-on-the-radio">Alerts on the radio<a class="headerlink" href="#alerts-on-the-radio" title="Permanent link">&para;</a></h2>
+<p>With the WingFlight Lua suite on an Ethos radio, the backup receiver's state
+is also shown on the dashboard and announced:</p>
+<ul>
+<li><strong>BACKUP RX NO SIGNAL</strong> (amber banner, "Backup receiver lost" /
+  "Backup receiver OK"): a backup is configured but isn't receiving. Check
+  this before takeoff.</li>
+<li><strong>BACKUP RX IN CONTROL</strong> (red banner, "Backup receiver active" /
+  "Main receiver restored"): the backup is flying the model.</li>
+</ul>
+<p>Telemetry normally travels over the main link, so while the main link is
+down the radio often can't hear the flight controller. See
+<a href="../../reference/radio-alerts/">Radio Callouts and Alerts</a> for when each
+callout can reach you.</p>
 <h2 id="bench-testing-before-you-fly">Bench-testing before you fly<a class="headerlink" href="#bench-testing-before-you-fly" title="Permanent link">&para;</a></h2>
 <p>As with any failsafe-adjacent behavior, test this on the bench (props off)
 before relying on it in the air:</p>
