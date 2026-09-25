@@ -18,7 +18,7 @@ own Physical ID.
 | `0x00` | 0 | VARIO2 | Variometer (altitude/climb rate) |
 | `0x01` | 1 | FLVSS | Per-cell LiPo voltage sensor |
 | `0x02` | 2 | CURRENT | Current/voltage sensor |
-| `0x03` | 3 | GPS | Position, altitude, speed, course, time |
+| `0x03` | 3 | GPS | Position, altitude, speed, course, time, satellite count |
 | `0x04` | 4 | RPM | RPM sensor (also reports temperature) |
 | `0x05` | 5 | SP2UART_A | S.Port-to-UART bridge (host side) |
 | `0x06` | 6 | SP2UART_B | S.Port-to-UART bridge (remote side) |
@@ -63,11 +63,23 @@ sequence bit and isn't meaningful on its own.
 | `0x0830` | 2096 | GPS | Ground speed |
 | `0x0840` | 2112 | GPS | Course |
 | `0x0850` | 2128 | GPS | UTC date/time |
+| `0x0860` | 2144 | GPS | Satellite count |
 | `0x0B50` | 2896 | ESC | Voltage/current |
 | `0x0B60` | 2912 | ESC | RPM/consumption |
 | `0x0B70` | 2928 | ESC | Temperature |
 | `0x6800` | 26624 | XACT_SERVO | Current/voltage/temperature |
 
 For example, a GPS sensor's App IDs column showing `2048, 2080, 2096, 2128`
-is lat/long, altitude, speed, and time -- everything except course, which
-that particular GPS unit isn't reporting.
+is lat/long, altitude, speed, and time -- not course or satellite count,
+which that particular GPS unit isn't reporting.
+
+When an FBUS GPS does not report the satellite-count App ID (`0x0860`),
+WingFlight shows the satellite count as `0` rather than guessing. This keeps
+RTH, Loiter, GPS Rescue and other minimum-satellite checks from being satisfied
+by an unknown value.
+
+If you deliberately want to use an older FBUS GPS for navigation features
+without a reported satellite count, set `gps_fbus_assumed_sats` in CLI. A value
+of `0` keeps the safe default above; a value from `1` to `50` is used only when
+the FBUS GPS has position data but does not report `0x0860`. Real satellite
+count data always overrides the assumed value when the sensor provides it.

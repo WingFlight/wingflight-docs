@@ -69,6 +69,14 @@ order they go out in -- data earlier in the list updates more often.
 Available sensors depend on what the connected protocol and firmware build
 actually support (e.g. RPM only appears with a configured RPM source).
 
+New configurations start with the sensors the WingFlight Lua suites use,
+including **System Status** and **System Config** in the Status group. These
+two carry the flight controller's status (arm state, receiver links, failsafe,
+GPS, profiles and more) for the radio's
+[callouts and dashboard alerts](../../reference/radio-alerts.md). See
+[Telemetry sensors](../../reference/telemetry.md#telemetry-sensors) for the
+default list and what each status bit means.
+
 ## Virtual TX
 
 For bench-testing without a real transmitter bound, a virtual RX input tool

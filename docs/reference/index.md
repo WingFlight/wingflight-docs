@@ -26,6 +26,8 @@ Receivers, serial ports and telemetry:
 - [Telemetry](telemetry.md) and
   [Castle ESC Telemetry](castle-esc-telemetry.md) -- telemetry protocols and
   sensors.
+- [Radio Callouts and Alerts](radio-alerts.md) -- what the Lua suite's spoken
+  callouts and dashboard banners mean, and what to do about them.
 
 Peripherals:
 
