@@ -77,3 +77,9 @@ When an FBUS GPS does not report the satellite-count App ID (`0x0860`),
 WingFlight shows the satellite count as `0` rather than guessing. This keeps
 RTH, Loiter, GPS Rescue and other minimum-satellite checks from being satisfied
 by an unknown value.
+
+If you deliberately want to use an older FBUS GPS for navigation features
+without a reported satellite count, set `gps_fbus_assumed_sats` in CLI. A value
+of `0` keeps the safe default above; a value from `1` to `50` is used only when
+the FBUS GPS has position data but does not report `0x0860`. Real satellite
+count data always overrides the assumed value when the sensor provides it.
