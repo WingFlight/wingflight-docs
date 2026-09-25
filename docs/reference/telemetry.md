@@ -107,6 +107,18 @@ as a signed number.
 | 21 | Blackbox full |
 | 22 | Motor RPM telemetry present |
 
+**Manual decoding examples**
+
+Read bit 0 from the right-hand end of the value. For multi-bit fields, read
+the whole range as one number; for example, System Status bits 9-10 are the
+GPS fix field, not two separate GPS flags.
+
+| Sensor | Radio value | Bit string, bits 31-0 | Manual reading |
+|---|---|---|---|
+| System Status | `2568` (`0x00000A08`) | `00000000000000000000101000001000` | Bit 3 is set, so the main receiver has signal. Bits 9-10 read as `1`, so GPS has a fix. Bit 11 is set, so the GPS module is communicating. |
+| System Status | `18893839` (`0x01204C0F`) | `00000001001000000100110000001111` | Bits 0-3 are set, so the aircraft is armed, airborne, motors are running and the main receiver has signal. Bits 9-10 read as `2`, so GPS has a fix and home is recorded. Bits 14-16 read as `1`, so battery state is warning. Bits 21 and 24 show an assist is holding and Blackbox is logging. |
+| System Config | `1774154` (`0x001B124A`) | `00000000000110110001001001001010` | Bits 0-2 read as `2`, so PID profile 2 is active. Bits 3-5, 6-8 and 9-11 each read as `1`, so rate, battery and thrust-vector profile 1 are active. Bit 12 shows unsaved settings. Bits 16, 17, 19 and 20 show accelerometer, barometer and GPS present, with backup RX configured. |
+
 Bit positions can change between firmware versions, together with the Lua
 suites that decode them. Use matching firmware and Lua suite versions.
 
