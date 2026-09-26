@@ -231,6 +231,17 @@ bench/flight validation of the initial thresholds remains required.
 - **Arming.** `isAttitudeEstimateReady()` checks only that the attitude estimate is established, not that the aircraft is level (see **L-4**). That suits hand-launched wings. A re-arm grace window after an in-flight disarm relaxes the throttle and attitude checks.
 - **Failsafe.** Re-enabled, see **H-1**. `failsafe_procedure` now selects AUTO-LAND or DROP (self-level under ANGLE, then motor cut and disarm after `failsafe_off_delay`) or GPS-RESCUE (flies home via the RTH controller below, then falls back to the same self-level/motor-cut ending once `failsafe_off_delay` elapses). `failsafe_throttle` is applied to the mixer while any procedure is active; before this it was accepted by the CLI/MSP but never read.
 - **RTH and Loiter** ([gps_nav.c](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/gps_nav.c), commit `255829c23`): produce roll and pitch *angle* targets that flow through the ANGLE-mode path. Track error → bank (P only, default 2.0 °/°, max 25°); altitude error → pitch (default 1 °/m, max 15°, sign fixed, see **H-3**). No throttle, no wind compensation. Also driven by `BOXGPSRESCUE` and the failsafe GPS-RESCUE procedure now, not only `BOXRTH` (see **H-2**).
+- **GPS health and dead reckoning** ([firmware#157](https://github.com/WingFlight/wingflight-firmware/pull/157)). A GPS sample counts when the link is receiving, `GPS_FIX` is set and `numSat >= nav_min_sats`. It is the same test for every provider: CRSF and FBUS supply no HDOP or `hAcc`, so neither is used. Each good sample records position, ground speed, course and the IMU heading. Through a dropout the position is carried forward at that speed along the course turned by the IMU heading change since, taking the chord of the turn. It stays valid for 5 s. While the estimate is fresh, `nav_min_sats − 1` (floor 4) is accepted, so the count can't chatter on the threshold. Engaging always activates nav; the target is captured when a position is first usable, because `core.c` only starts nav on the switch's off→on edge. RTH with no `GPS_FIX_HOME` never steers. Pitch is held level when `hasEstimatedAltitude()` is false.
+
+### 2.15 Altitude and vario — [position.c](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/position.c), [alt_fusion.c](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/alt_fusion.c)
+
+`position.c` picks the measurement: the barometer relative to its disarmed ground offset, else GPS altitude relative to its own (GPS needs `position_gps_min_sats`, default 6). While armed with both, the baro offset slowly follows GPS. `alt_fusion.c` fuses that measurement with the earth-frame vertical acceleration, `rMat[2]·accADC / acc_1G − 1 g`.
+
+- **Filter.** Third-order complementary filter, as INAV's `navigation_pos_estimator.c` vertical channel and ArduPilot's AP_InertialNav. The gains are 3/τ on altitude, 3/τ² on velocity and 1/τ³ on accelerometer bias, placing all three poles at −1/τ. τ is `position_fusion_baro_tc` (2 s) or `position_fusion_gps_tc` (4 s), depending on the measurement.
+- **Why.** Vario used to be a filtered derivative of the filtered baro, so it lagged, and the GPS nav altitude PD damps on it. A constant vertical-acceleration error (calibration, or IMU attitude error from centripetal load in a sustained turn) is absorbed as bias with no steady-state altitude error.
+- **Limits.** Vertical acceleration is clipped at ±30 m/s² and bias at ±2 m/s², so a snap or a tumbled attitude estimate can't run it away. With no measurement it coasts on the accelerometer for 5 s, then goes invalid: the altitude is held, vario reads 0 and `hasEstimatedAltitude()` is false. A returning measurement restarts the estimate from it.
+- **Without an accelerometer** the filtered measurement and its derivative are used directly.
+- `DEBUG_ALTITUDE` logs fused and measured altitude/vario, baro and GPS altitude, vertical acceleration and bias.
 - **GPS Rescue** ([gps_rescue.c](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/gps_rescue.c)) is Betaflight's quad code and is no longer reachable from anywhere. See **H-2**.
 
 ---
@@ -263,6 +274,7 @@ Rationale reconstructed from commit messages. Dates are commit dates.
 | 2026-09-21 | `f07a4a8bb` | Level the wings, then rotate the target up to vertical | Torque roll went uncorrected during the pull-up |
 | 2026-09-21 | (reverted) | Remove the roll hold and the level-then-rotate entry; roll is a free pass-through again | Flight test: the level phase was hit and miss, often rolling a full turn before levelling, and the `b9d03d122` entry flew better |
 | 2026-09-23 | [firmware#146](https://github.com/WingFlight/wingflight-firmware/pull/146) | Re-enable failsafe stage 2; retarget `BOXGPSRESCUE` and the failsafe GPS-RESCUE procedure to the existing fixed-wing RTH controller instead of Betaflight's quad GPS Rescue code; fix the inverted RTH/loiter altitude sign; expose `nav_*` GPS Navigation settings over MSP | Stage 2 was a disabled stub (H-1); the quad rescue algorithm doesn't fly a wing home (H-2); the altitude controller commanded a descent when below target (H-3); those settings were CLI-only |
+| 2026-09-26 | [firmware#157](https://github.com/WingFlight/wingflight-firmware/pull/157) | Dead-reckon GPS nav through dropouts (5 s), `nav_min_sats` hysteresis, engage without a fix; accelerometer-fused altitude/vario; GPS altitude on the default source; `nav_min_sats` 8 → 6, `position_gps_min_sats` 12 → 6 | Flight test: LOITER called "unavailable" in flight at 9 satellites; baro-derivative vario lagged; boards without a baro had no altitude (`source & ALT_SOURCE_DEFAULT` is always 0) |
 
 ---
 
@@ -343,7 +355,7 @@ The boost was added to `getThrottle()` unconditionally, up to `throttle_assist_m
 
 ### Not reviewed
 
-Dynamic notch and RPM filters, gyro/accelerometer drivers and calibration, `position.c` altitude estimation, `logic_condition.c`, `wiggle.c`, blackbox, MSP and CLI plumbing. The pilot-facing docs in `docs/` were audited separately.
+Dynamic notch and RPM filters, gyro/accelerometer drivers and calibration, `logic_condition.c`, `wiggle.c`, blackbox, MSP and CLI plumbing. The pilot-facing docs in `docs/` were audited separately.
 
 ---
 
