@@ -54,6 +54,29 @@ from older firmware will now reject as an invalid name:
 | `pitch_deadband` | 0-100 | 5 | Pitch stick deadband around center, µs |
 | `yaw_deadband` | 0-100 | 5 | Yaw stick deadband around center, µs |
 
+## Debug modes
+
+`debug_mode` modes that no longer record anything are named `UNUSED_<n>`,
+where `<n>` is the mode's number. The numbers are unchanged, so older logs
+still decode, but a diff from older firmware that sets one of the old names
+is rejected as an invalid value. Set `debug_mode = NONE` instead.
+
+| Number | Old name |
+|---|---|
+| 8 | `RC_SETPOINT` |
+| 25-27 | `RANGEFINDER`, `RANGEFINDER_QUALITY`, `LIDAR_TF` |
+| 29 | `GOVERNOR` |
+| 30 | `SDIO` |
+| 33 | `SMARTAUDIO` |
+| 46 | `TTA` |
+| 56-57 | `FEEDFORWARD_LIMIT`, `FEEDFORWARD` |
+| 61-62 | `D_LPF`, `VTX_TRAMP` |
+| 69-77 | `PITCH_PRECOMP`, `YAW_PRECOMP`, `RESCUE`, `RESCUE_ALTHOLD`, `CROSS_COUPLING`, `ERROR_DECAY`, `HS_OFFSET`, `HS_BLEED`, `GOV_MOTOR` |
+
+For Wingflight's own diagnostics use `ATTHOLD`, `TVHOLD`, `AUTOHOVER` or
+`AIRBORNE`. The first three log one axis at a time, picked with
+`debug_axis`.
+
 ## Bus servo output
 
 | Setting | Values | Default | Description |
