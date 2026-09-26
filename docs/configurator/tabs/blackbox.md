@@ -30,7 +30,9 @@ what most tuning advice is read from.
 **Debug Mode** adds a further 8 extra values on top of the normal fields,
 for a specific diagnostic (its exact meaning depends on which mode is
 selected) -- leave it on `NONE` unless you're chasing something specific
-that calls for it.
+that calls for it. Modes inherited from Rotorflight that no longer record
+anything are named `UNUSED_<n>` and are left out of the list; see
+[CLI reference → Debug modes](../../reference/cli-reference.md#debug-modes).
 
 ## Flash storage
 
