@@ -1,10 +1,12 @@
-# Logic Conditions
+# Conditions
 
-The Logic Conditions tab exposes a small in-firmware logic engine: simple
+The Conditions tab exposes a small in-firmware logic engine: simple
 conditional rules (based on flight mode, RC channel values, sensor values,
-etc.) that can drive outputs like LEDs, beepers, or other logic conditions.
+etc.) that can drive outputs like LEDs, beepers, or other conditions.
 This is the tool to reach for when you need custom behavior that isn't a
 built-in flight mode.
+
+![Conditions tab](../../assets/images/configurator-logic.png)
 
 Define conditions here, then gate any [Mixer](mixer.md) rule on one from
 its Condition column -- a gated rule contributes nothing while its

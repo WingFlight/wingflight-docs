@@ -20,7 +20,7 @@ helicopter-focused mode set.
 | [Backup RX Input](backup-rx-input.md) | Instant backup receiver takeover from a second RX port if the main RF link is lost |
 
 Most modes are enabled and mapped to a transmitter switch from the
-[Auxiliary](../configurator/tabs/auxiliary.md) tab. Backup RX Input
+[Modes](../configurator/tabs/auxiliary.md) tab. Backup RX Input
 is the exception -- it's enabled by assigning a serial port's
 function, not an aux switch; see its own page for setup.
 

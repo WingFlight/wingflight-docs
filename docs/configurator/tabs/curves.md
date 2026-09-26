@@ -11,6 +11,8 @@ things identically at once. Servo balance curves work differently: there is
 one per physical servo, not a shared pool (see [Servo Balance
 Curves](#servo-balance-curves)).
 
+![Curves tab](../../assets/images/configurator-curves.png)
+
 
 ## Mixer Curves
 

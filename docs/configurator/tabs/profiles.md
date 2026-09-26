@@ -4,8 +4,10 @@ The Profiles tab manages PID tuning profiles -- the actual stabilization
 gains that control how tightly the flight controller holds your commanded
 attitude.
 
+![Profiles tab](../../assets/images/configurator-profiles.png)
+
 Multiple profiles can be configured and switched between in flight (via an
-[Auxiliary](auxiliary.md) mode mapping), which is useful for having distinct
+[Modes](auxiliary.md) mode mapping), which is useful for having distinct
 tunes for, e.g., calm cruising versus aggressive 3D/aerobatic flight on the
 same airframe.
 
@@ -144,7 +146,7 @@ being commanded in place of the static configured number.
 **Trainer (angle limits)** exposes Trainer gain and independent bank/pitch
 limits with API 22.4 firmware (bank 10–90°, pitch 10–75°). Older firmware
 shows a single shared limit. Save a TRAINER assignment in
-[Auxiliary (Modes)](auxiliary.md) to show this panel. Expert Mode is not required.
+[Modes](auxiliary.md) to show this panel. Expert Mode is not required.
 See [Trainer Mode](../../flight-modes/trainer.md) for how the limits affect flight.
 
 ## Flight-mode settings

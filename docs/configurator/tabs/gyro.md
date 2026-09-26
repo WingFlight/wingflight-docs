@@ -4,6 +4,8 @@ The Gyro tab configures gyro signal filtering: removing airframe/motor
 vibration noise from the gyro signal before it reaches the PID loop, without
 adding so much delay that the filtering itself starts to hurt tracking.
 
+![Gyro tab](../../assets/images/configurator-gyro.png)
+
 There are four different tools here, each catching noise a different way.
 It's tempting to turn all of them up "to be safe," but every filter trades
 noise removal for delay, and that delay comes straight out of how sharp and

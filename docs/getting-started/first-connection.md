@@ -10,6 +10,8 @@ Configurator window (not the Firmware Flasher tab).
 2. Select the correct port in the port picker at the top of the window.
 3. Click **Connect**.
 
+![Configurator welcome screen, with the port picker and Connect button at the top right](../assets/images/configurator-welcome.png)
+
 ## If the firmware version isn't recognized
 
 If the Configurator can't validate the firmware version or type it just

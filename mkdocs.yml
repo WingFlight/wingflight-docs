@@ -86,10 +86,10 @@ nav:
       - Rates: configurator/tabs/rates.md
       - Thrust Vector: configurator/tabs/thrust-vector.md
       - Gyro: configurator/tabs/gyro.md
-      - Auxiliary (Modes): configurator/tabs/auxiliary.md
+      - Modes: configurator/tabs/auxiliary.md
       - GPS Navigation: configurator/tabs/gps-navigation.md
       - Adjustments: configurator/tabs/adjustments.md
-      - Logic Conditions: configurator/tabs/logic.md
+      - Conditions: configurator/tabs/logic.md
       - GPS: configurator/tabs/gps.md
       - LED Strip: configurator/tabs/led-strip.md
       - Beepers: configurator/tabs/beepers.md

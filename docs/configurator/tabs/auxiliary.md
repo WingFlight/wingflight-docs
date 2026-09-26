@@ -1,12 +1,14 @@
-# Auxiliary (Modes)
+# Modes
 
-The Auxiliary tab (sometimes called "Modes") maps flight modes and other
+The Modes tab maps flight modes and other
 switchable features onto transmitter auxiliary channels -- defining which
 switch position(s) activate ARM, [Auto Hover](../../flight-modes/auto-hover.md),
 [Attitude Hold](../../flight-modes/atthold.md),
 [Auto Trim](../../flight-modes/auto-trim.md),
 [Trainer Mode](../../flight-modes/trainer.md), and any other mode
 supported by the firmware.
+
+![Modes tab](../../assets/images/configurator-auxiliary.png)
 
 Each mode card shows the live channel position (a marker on the slider) so
 you can confirm a switch flip actually lands inside the range you've set,

@@ -4,6 +4,8 @@ The Failsafe tab configures how the flight controller *detects* a lost
 radio link, what value each channel takes once it has, and what the
 aircraft does if the link stays down.
 
+![Failsafe tab](../../assets/images/configurator-failsafe.png)
+
 Configure and bench-test failsafe behavior *before* flying -- turn off your
 transmitter at a safe distance from the aircraft (props off) and confirm the
 flight controller actually enters failsafe and behaves the way you expect.
@@ -121,7 +123,7 @@ controller's own logic:
 
 ## Failsafe switch
 
-The **FAILSAFE** mode on the [Auxiliary](auxiliary.md) tab makes the flight
+The **FAILSAFE** mode on the [Modes](auxiliary.md) tab makes the flight
 controller treat the four stick channels as invalid, which after the 300ms
 hold and `Guard Delay` runs the same Stage 2 procedure as a real link loss.
 Use it to bench-test your procedure and fallback values, or as a panic

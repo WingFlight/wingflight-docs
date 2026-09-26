@@ -6,6 +6,8 @@ Blackbox logs are the primary tool for diagnosing tuning issues after a
 flight, and are usually the first thing to attach when asking for tuning
 help.
 
+![Blackbox tab](../../assets/images/configurator-blackbox.png)
+
 ## When it logs
 
 **Device** picks where logs go: onboard flash, an SD card, or an external
@@ -60,3 +62,30 @@ When the flight controller is plugged in as a USB drive (mass storage), log
 files are named after the craft name from your pilot settings, followed by
 a sequence number and timestamp. With no craft name set, the prefix is
 `wflt` (it used to be `rtfl`), for example `wflt_002_20251012_141213.bbl`.
+
+## Reviewing logs
+
+Open a `.bbl` file in the WingFlight Blackbox viewer to play the flight
+back. Each graph stacks related fields -- here, setpoint against gyro for
+each axis, then the servo outputs and motor -- with the legend on the right
+showing every field's value at the red cursor line. The craft model and
+stick overlays follow the cursor, and the strip along the bottom shows the
+whole log so you can jump to any part of the flight. The status bar lists
+the firmware, loop rate, and flight modes active at the cursor (here `ARM`
+and `ATTHOLD`). **Graph setup** chooses which fields each graph shows.
+
+![Blackbox viewer showing setpoint vs gyro, servos and motor](../../assets/images/blackbox-viewer.png)
+
+The **Overlay** buttons add analysis views on top of the graphs. The
+spectrum analyser plots the frequency content of a field over the visible
+window, with the gyro filter cutoffs marked -- useful for finding the
+frequency of a vibration before changing filter settings.
+
+![Blackbox viewer spectrum analyser overlay](../../assets/images/blackbox-viewer-analyser.png)
+
+The step response graph shows how quickly and cleanly the gyro follows a
+change in setpoint on roll, pitch and yaw, with each axis' PID gains noted
+alongside. A trace that overshoots well past 1.0 or keeps ringing points to
+gains that are too high on that axis.
+
+![Blackbox viewer step response overlay](../../assets/images/blackbox-viewer-step-response.png)

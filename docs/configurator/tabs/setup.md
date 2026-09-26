@@ -4,6 +4,8 @@ The Setup tab shows a live 3D model of the aircraft that mirrors the flight
 controller's reported attitude in real time, alongside sensor status
 indicators (gyro, accelerometer, magnetometer, barometer, GPS).
 
+![Setup tab](../../assets/images/configurator-setup.png)
+
 Use this tab to:
 
 - Confirm the board orientation setting matches how the flight controller is

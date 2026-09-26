@@ -5,6 +5,8 @@ map onto your aircraft's actual control surfaces and motor(s) -- the core of
 what makes WingFlight a *fixed-wing* mixer rather than a helicopter swashplate
 mixer.
 
+![Mixer tab](../../assets/images/configurator-mixer.png)
+
 Typical fixed-wing mixer setups include conventional aileron/elevator/rudder
 layouts, flying wings (elevon mixing), V-tails, and multi-motor
 configurations. The **Mixer Setup Wizard** builds a starting rule set from a
@@ -56,7 +58,7 @@ Other per-rule fields:
   slower/softer mechanical response on a specific surface.
 - **Curve** assigns a reshaping curve from the [Curves](curves.md) tab to
   this rule's input before it's weighted onto the output.
-- **Condition** gates the rule on a [Logic](logic.md) condition -- while
+- **Condition** gates the rule on a condition from the [Conditions](logic.md) tab -- while
   false, the rule doesn't apply, and its row dims in the table so it's
   obvious at a glance which rules are actually contributing right now.
 - The rule's **Input** can be a stabilized axis, throttle, or an RC channel,

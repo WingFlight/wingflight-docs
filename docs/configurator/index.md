@@ -23,9 +23,9 @@ relevant feature is enabled or detected.
 | [Rates](tabs/rates.md) | Stick response/rate profiles |
 | [Thrust Vector](tabs/thrust-vector.md) | Independent vectored-thrust PID loop and profiles |
 | [Gyro](tabs/gyro.md) | Gyro filtering |
-| [Auxiliary (Modes)](tabs/auxiliary.md) | Flight-mode-to-switch mapping |
+| [Modes](tabs/auxiliary.md) | Flight-mode-to-switch mapping |
 | [Adjustments](tabs/adjustments.md) | In-flight tuning via transmitter switches |
-| [Logic Conditions](tabs/logic.md) | Custom in-flight logic |
+| [Conditions](tabs/logic.md) | Custom in-flight logic |
 | [GPS](tabs/gps.md) | GPS setup and rescue |
 | [LED Strip](tabs/led-strip.md) | Addressable LED configuration |
 | [Beepers](tabs/beepers.md) | Audible alert configuration |

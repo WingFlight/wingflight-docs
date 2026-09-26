@@ -38,7 +38,7 @@ for its distinction between angle demand and envelope protection.
 
 - Enable and calibrate the accelerometer. The firmware only offers TRAINER
   when an accelerometer is available and trainer support is built in.
-- Assign **TRAINER** to a switch range in [Auxiliary (Modes)](../configurator/tabs/auxiliary.md).
+- Assign **TRAINER** to a switch range in [Modes](../configurator/tabs/auxiliary.md).
   If an older Configurator hides it, enable Expert Mode. Updated Configurators
   show TRAINER without Expert Mode.
 - Set **Gain**, **Bank angle limit** and **Pitch angle limit** in [Profiles → Trainer (angle limits)](../configurator/tabs/profiles.md#trainer-angle-limits).

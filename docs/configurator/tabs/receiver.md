@@ -4,6 +4,8 @@ The Receiver tab configures how the flight controller talks to your RC
 receiver: protocol selection (serial RX protocols, PWM, RX-SPI, etc.),
 channel mapping, and live channel monitoring.
 
+![Receiver tab](../../assets/images/configurator-receiver.png)
+
 ## Protocol and signal options
 
 Once a serial RX protocol is selected, three signal-level switches appear

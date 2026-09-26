@@ -5,6 +5,8 @@ channel/switch to live-adjust a setting (like a PID gain or rate) without
 reconnecting the Configurator. Useful for fine-tuning while flying, or for
 A/B comparing two settings values in the air.
 
+![Adjustments tab](../../assets/images/configurator-adjustments.png)
+
 Adjustable functions are grouped by category -- Master Gains
 ([Profiles](profiles.md)), [Servo Trims](servos.md#in-flight-trim)
 (roll/pitch/yaw), Accelerometer Trim, Setpoint Boost, PID/Rate/TV Profile
@@ -28,7 +30,7 @@ from there.
 ## Channel names
 
 Every channel picker in the Configurator -- here, on [Mixer](mixer.md),
-[Logic Conditions](logic.md) and [Auxiliary](auxiliary.md) -- uses one
+[Conditions](logic.md) and [Modes](auxiliary.md) -- uses one
 naming scheme: **CH #N**, where N is the receiver channel number. The four
 channels after the stick channels that older versions called AUX 1-4 are
 now simply CH #5-8, and so on up.

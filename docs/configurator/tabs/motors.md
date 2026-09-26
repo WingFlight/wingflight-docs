@@ -8,6 +8,8 @@ In RPM Idle/Max mode, **Idle Throttle Floor** is the minimum powered idle
 output the governor is allowed to command below handover; in Throttle Idle
 mode, the same field is the fixed idle output.
 
+![Motors tab](../../assets/images/configurator-motors.png)
+
 !!! danger
     Always remove propellers before testing motor outputs from this tab.
 

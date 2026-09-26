@@ -9,7 +9,7 @@ output, independent of attitude stabilization.
 It's configured from the Governor section of the
 [Motors](../configurator/tabs/motors.md) tab. Setting a mode other than
 **Off** and assigning the **GOVERNOR** switch on the
-[Auxiliary](../configurator/tabs/auxiliary.md) tab turns that switch into a
+[Modes](../configurator/tabs/auxiliary.md) tab turns that switch into a
 hard motor interlock, not just something that shapes the bottom of the
 throttle curve:
 

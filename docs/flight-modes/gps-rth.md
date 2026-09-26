@@ -26,7 +26,7 @@
 
 RTH and Loiter are the fixed-wing navigation modes. Both need a
 [GPS](../configurator/tabs/gps.md) with a fix, and both are switched on from
-the [Auxiliary](../configurator/tabs/auxiliary.md) tab (**GPS RTH** and
+the [Modes](../configurator/tabs/auxiliary.md) tab (**GPS RTH** and
 **GPS LOITER**). The Failsafe tab's GPS Rescue procedure uses this same
 controller too, automatically, if the radio link is lost and stays lost.
 
@@ -57,7 +57,7 @@ Angle mode.
   navigation stops. The aircraft is left in Angle-style leveling with no
   navigation target.
 
-Switching either mode on yourself, from the Auxiliary tab, is one way in.
+Switching either mode on yourself, from the Modes tab, is one way in.
 The other is the [Failsafe](../configurator/tabs/failsafe.md) tab's GPS
 Rescue procedure, which starts RTH automatically if the radio link is lost
 and stays lost -- see that page for the full staged behavior.

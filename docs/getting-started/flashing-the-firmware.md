@@ -3,6 +3,8 @@
 Firmware is flashed from the Configurator's **Firmware Flasher** tab, which
 walks you through the whole process as a step-by-step wizard.
 
+![Firmware Flasher wizard on its first (Connect) step](../assets/images/configurator-firmware-flasher.png)
+
 ## Picking a build
 
 WingFlight firmware is currently published as numbered development
