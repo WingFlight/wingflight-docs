@@ -2076,6 +2076,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#debug-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Debug modes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#bus-servo-output" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3212,6 +3223,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#debug-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Debug modes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#bus-servo-output" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3426,6 +3448,60 @@ from older firmware will now reject as an invalid name:</p>
 </tr>
 </tbody>
 </table>
+<h2 id="debug-modes">Debug modes<a class="headerlink" href="#debug-modes" title="Permanent link">&para;</a></h2>
+<p><code>debug_mode</code> modes that no longer record anything are named <code>UNUSED_&lt;n&gt;</code>,
+where <code>&lt;n&gt;</code> is the mode's number. The numbers are unchanged, so older logs
+still decode, but a diff from older firmware that sets one of the old names
+is rejected as an invalid value. Set <code>debug_mode = NONE</code> instead.</p>
+<table>
+<thead>
+<tr>
+<th>Number</th>
+<th>Old name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>8</td>
+<td><code>RC_SETPOINT</code></td>
+</tr>
+<tr>
+<td>25-27</td>
+<td><code>RANGEFINDER</code>, <code>RANGEFINDER_QUALITY</code>, <code>LIDAR_TF</code></td>
+</tr>
+<tr>
+<td>29</td>
+<td><code>GOVERNOR</code></td>
+</tr>
+<tr>
+<td>30</td>
+<td><code>SDIO</code></td>
+</tr>
+<tr>
+<td>33</td>
+<td><code>SMARTAUDIO</code></td>
+</tr>
+<tr>
+<td>46</td>
+<td><code>TTA</code></td>
+</tr>
+<tr>
+<td>56-57</td>
+<td><code>FEEDFORWARD_LIMIT</code>, <code>FEEDFORWARD</code></td>
+</tr>
+<tr>
+<td>61-62</td>
+<td><code>D_LPF</code>, <code>VTX_TRAMP</code></td>
+</tr>
+<tr>
+<td>69-77</td>
+<td><code>PITCH_PRECOMP</code>, <code>YAW_PRECOMP</code>, <code>RESCUE</code>, <code>RESCUE_ALTHOLD</code>, <code>CROSS_COUPLING</code>, <code>ERROR_DECAY</code>, <code>HS_OFFSET</code>, <code>HS_BLEED</code>, <code>GOV_MOTOR</code></td>
+</tr>
+</tbody>
+</table>
+<p>For Wingflight's own diagnostics use <code>ATTHOLD</code>, <code>TVHOLD</code>, <code>AUTOHOVER</code> or
+<code>AIRBORNE</code>. The first three log one axis at a time, picked with
+<code>debug_axis</code>.</p>
 <h2 id="bus-servo-output">Bus servo output<a class="headerlink" href="#bus-servo-output" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

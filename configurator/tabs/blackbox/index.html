@@ -3284,7 +3284,9 @@ what most tuning advice is read from.</p>
 <p><strong>Debug Mode</strong> adds a further 8 extra values on top of the normal fields,
 for a specific diagnostic (its exact meaning depends on which mode is
 selected) -- leave it on <code>NONE</code> unless you're chasing something specific
-that calls for it.</p>
+that calls for it. Modes inherited from Rotorflight that no longer record
+anything are named <code>UNUSED_&lt;n&gt;</code> and are left out of the list; see
+<a href="../../../reference/cli-reference/#debug-modes">CLI reference → Debug modes</a>.</p>
 <h2 id="flash-storage">Flash storage<a class="headerlink" href="#flash-storage" title="Permanent link">&para;</a></h2>
 <p><strong>Initial Erase</strong> guarantees a minimum amount of free space before
 recording starts, erasing old logs if needed -- note that erasing can take
