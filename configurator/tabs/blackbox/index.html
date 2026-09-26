@@ -1120,7 +1120,7 @@
   <span class="md-ellipsis">
     
   
-    Auxiliary (Modes)
+    Modes
   
 
     
@@ -1204,7 +1204,7 @@
   <span class="md-ellipsis">
     
   
-    Logic Conditions
+    Conditions
   
 
     
@@ -1529,6 +1529,17 @@
     <span class="md-ellipsis">
       
         Log files over USB
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reviewing-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reviewing logs
       
     </span>
   </a>
@@ -3233,6 +3244,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#reviewing-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reviewing logs
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3264,6 +3286,7 @@ recorded, logging rate, and (if fitted) onboard flash/SD storage management.
 Blackbox logs are the primary tool for diagnosing tuning issues after a
 flight, and are usually the first thing to attach when asking for tuning
 help.</p>
+<p><img alt="Blackbox tab" src="../../../assets/images/configurator-blackbox.png" /></p>
 <h2 id="when-it-logs">When it logs<a class="headerlink" href="#when-it-logs" title="Permanent link">&para;</a></h2>
 <p><strong>Device</strong> picks where logs go: onboard flash, an SD card, or an external
 serial logger (each only appears if actually fitted/supported). <strong>Mode</strong>
@@ -3308,6 +3331,26 @@ first word.</p>
 files are named after the craft name from your pilot settings, followed by
 a sequence number and timestamp. With no craft name set, the prefix is
 <code>wflt</code> (it used to be <code>rtfl</code>), for example <code>wflt_002_20251012_141213.bbl</code>.</p>
+<h2 id="reviewing-logs">Reviewing logs<a class="headerlink" href="#reviewing-logs" title="Permanent link">&para;</a></h2>
+<p>Open a <code>.bbl</code> file in the WingFlight Blackbox viewer to play the flight
+back. Each graph stacks related fields -- here, setpoint against gyro for
+each axis, then the servo outputs and motor -- with the legend on the right
+showing every field's value at the red cursor line. The craft model and
+stick overlays follow the cursor, and the strip along the bottom shows the
+whole log so you can jump to any part of the flight. The status bar lists
+the firmware, loop rate, and flight modes active at the cursor (here <code>ARM</code>
+and <code>ATTHOLD</code>). <strong>Graph setup</strong> chooses which fields each graph shows.</p>
+<p><img alt="Blackbox viewer showing setpoint vs gyro, servos and motor" src="../../../assets/images/blackbox-viewer.png" /></p>
+<p>The <strong>Overlay</strong> buttons add analysis views on top of the graphs. The
+spectrum analyser plots the frequency content of a field over the visible
+window, with the gyro filter cutoffs marked -- useful for finding the
+frequency of a vibration before changing filter settings.</p>
+<p><img alt="Blackbox viewer spectrum analyser overlay" src="../../../assets/images/blackbox-viewer-analyser.png" /></p>
+<p>The step response graph shows how quickly and cleanly the gyro follows a
+change in setpoint on roll, pitch and yaw, with each axis' PID gains noted
+alongside. A trace that overshoots well past 1.0 or keeps ringing points to
+gains that are too high on that axis.</p>
+<p><img alt="Blackbox viewer step response overlay" src="../../../assets/images/blackbox-viewer-step-response.png" /></p>
 
 
 

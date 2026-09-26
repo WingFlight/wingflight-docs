@@ -1233,7 +1233,7 @@
   <span class="md-ellipsis">
     
   
-    Auxiliary (Modes)
+    Modes
   
 
     
@@ -1317,7 +1317,7 @@
   <span class="md-ellipsis">
     
   
-    Logic Conditions
+    Conditions
   
 
     
@@ -3284,6 +3284,7 @@
 <p>The Failsafe tab configures how the flight controller <em>detects</em> a lost
 radio link, what value each channel takes once it has, and what the
 aircraft does if the link stays down.</p>
+<p><img alt="Failsafe tab" src="../../../assets/images/configurator-failsafe.png" /></p>
 <p>Configure and bench-test failsafe behavior <em>before</em> flying -- turn off your
 transmitter at a safe distance from the aircraft (props off) and confirm the
 flight controller actually enters failsafe and behaves the way you expect.</p>
@@ -3392,7 +3393,7 @@ controller's own logic:</p>
    keeps sending normal-looking frames when the link is lost cannot be
    detected by the flight controller.</p>
 <h2 id="failsafe-switch">Failsafe switch<a class="headerlink" href="#failsafe-switch" title="Permanent link">&para;</a></h2>
-<p>The <strong>FAILSAFE</strong> mode on the <a href="../auxiliary/">Auxiliary</a> tab makes the flight
+<p>The <strong>FAILSAFE</strong> mode on the <a href="../auxiliary/">Modes</a> tab makes the flight
 controller treat the four stick channels as invalid, which after the 300ms
 hold and <code>Guard Delay</code> runs the same Stage 2 procedure as a real link loss.
 Use it to bench-test your procedure and fallback values, or as a panic
