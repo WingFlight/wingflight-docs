@@ -29,8 +29,8 @@ the [Mixer](mixer.md) tab.
 **X**: stick deflection, 0% (centered) to 100% (full throw) -- the same
 curve applies in both directions, it doesn't distinguish left from right.
 **Y**: a gain multiplier, 0-500%, where 100% means no change. The gain
-actually applied in flight is Gain (set per axis in Flight Feel on
-[Profiles](profiles.md#flight-feel)) multiplied by this curve's value at
+actually applied in flight is Gain (set per axis in Flight Feel on(profiles.md#flight-feel), with the curve assigned in the Expert
+Mode [Gain Curves](profiles.md#gain-curves) panel) multiplied by this curve's value at
 the current stick position -- so a flat line at 100% has no effect at all.
 Drag a point below 100 to taper gain out as the stick moves that way (a
 softer response out toward the ends of the stick), or above 100 to sharpen
