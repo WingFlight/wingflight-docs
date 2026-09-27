@@ -199,10 +199,12 @@ place.
 - **Higher cutoff:** only quick flicks are suppressed, so I keeps working
   through long, sustained rolls and loops. Better high-rate precision.
 
-As a starting point: 15-30 Hz for small, light aircraft, 10-15 Hz for
-mid-size, and below 10 Hz for large, heavy aircraft. The default is 10 Hz.
-Each axis is also an [Adjustments](adjustments.md) function (I-Term Relax
-Cutoff Roll/Pitch/Yaw), so you can sweep it in the air.
+The default is 10 Hz, and most airframes end up between 5 and 10 Hz. If the
+model bounces back at the end of a roll or loop, lower the cutoff on that
+axis a step at a time. The 15-30 Hz figures quoted for Betaflight are for
+quads and don't carry over to wings. Each axis is also an
+[Adjustments](adjustments.md) function (I-Term Relax Cutoff
+Roll/Pitch/Yaw), so you can sweep it in the air.
 
 Relax is always on for roll, pitch and yaw; there is no type or off
 switch. The relax **level** (default 22°/s, lower = stronger) is under PID
