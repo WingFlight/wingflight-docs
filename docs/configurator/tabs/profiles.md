@@ -139,7 +139,6 @@ feel in the air, one value per axis:
 | Column | What it changes | Raise it if... | Lower it if... |
 |---|---|---|---|
 | **Gain** | How hard the axis pushes back against a disturbance | It feels soft or wanders | It oscillates or buzzes |
-| **Curve** | How Gain changes with stick position (or throttle, on the Throttle row) | | |
 | **Lock** [s] | How long the axis holds on to a correction after a gust | It doesn't feel pinned | It feels too locked in or pushes back after a manoeuvre |
 | **Bounce Back** (1-10) | How strongly a fast roll or loop is stopped from bouncing back | It bounces back when you centre the stick | Long, sustained rolls or loops lose rate |
 
@@ -152,13 +151,25 @@ shows the value being commanded.
 
 Gain sets one overall gain per axis (Roll, Pitch, Yaw) that scales the P, I
 and D terms of that axis together -- F (Feedforward) and Boost stay at their
-configured values. **Curve** optionally shapes it by stick position, from
-the shared pool on the [Curves](curves.md) tab, so gain can taper in or out
-as the stick moves away from centre.
+configured values. A gain curve can optionally shape it by stick position,
+so gain tapers in or out as the stick moves away from centre -- see
+[Gain Curves](#gain-curves). A **CURVE** badge on Gain shows when one is
+shaping that axis.
 
 The **Throttle** row scales all three axes' gain with throttle instead:
 surfaces in prop wash gain authority as throttle rises, so it is usually
-used to reduce gain at high throttle, with its curve evaluated on throttle.
+used to reduce gain at high throttle. Its gain curve, if any, is evaluated
+on throttle.
+
+### Gain Curves
+
+Gain curves are an advanced shaping tool, so they are assigned in the
+**Gain Curves** panel, which appears in Expert Mode, rather than in Flight
+Feel. Pick a curve slot for Roll, Pitch, Yaw and Throttle; the shapes
+themselves are edited on the [Curves](curves.md) tab. "-" means no curve,
+so Gain applies as set. Whenever a curve is assigned, the Gain cell in
+Flight Feel shows a **CURVE** badge, with the curve number in its tooltip,
+so the shaping is visible even outside Expert Mode.
 
 ### Lock
 

@@ -12,7 +12,7 @@ This tab only appears once **THRUST VECTOR** is enabled as a feature.
 
 The PID Gains and Flight Feel tables work exactly like their
 [Profiles](profiles.md) counterparts -- P/I/D/F/B per axis, and per-axis
-Gain, Curve, Lock and Bounce Back. See
+Gain, Lock and Bounce Back, plus an Expert Mode Gain Curves panel. See
 [Profiles -- PID Gains](profiles.md#pid-gains) and
 [Profiles -- Flight Feel](profiles.md#flight-feel) for what each one does
 and how to tune it; the same reasoning applies here, just for the
@@ -20,7 +20,7 @@ thrust-vector loop instead of the main one, with its own values and its
 own Adjustments functions (TV Gain, TV Lock and TV Bounce Back
 Roll/Pitch/Yaw).
 
-One difference: the thrust-vector Gain (and so its Curve) also scales F,
+One difference: the thrust-vector Gain (and so its gain curve) also scales F,
 where the main loop's does not. The relax level is under PID Settings in
 Expert Mode.
 
