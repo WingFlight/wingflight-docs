@@ -3224,6 +3224,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#215-altitude-and-vario-positionc-alt_fusionc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.15 Altitude and vario — position.c, alt_fusion.c
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3634,6 +3645,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#215-altitude-and-vario-positionc-alt_fusionc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.15 Altitude and vario — position.c, alt_fusion.c
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4022,6 +4044,16 @@ bench/flight validation of the initial thresholds remains required.</p>
 <li><strong>Arming.</strong> <code>isAttitudeEstimateReady()</code> checks only that the attitude estimate is established, not that the aircraft is level (see <strong>L-4</strong>). That suits hand-launched wings. A re-arm grace window after an in-flight disarm relaxes the throttle and attitude checks.</li>
 <li><strong>Failsafe.</strong> Re-enabled, see <strong>H-1</strong>. <code>failsafe_procedure</code> now selects AUTO-LAND or DROP (self-level under ANGLE, then motor cut and disarm after <code>failsafe_off_delay</code>) or GPS-RESCUE (flies home via the RTH controller below, then falls back to the same self-level/motor-cut ending once <code>failsafe_off_delay</code> elapses). <code>failsafe_throttle</code> is applied to the mixer while any procedure is active; before this it was accepted by the CLI/MSP but never read.</li>
 <li><strong>RTH and Loiter</strong> (<a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/gps_nav.c">gps_nav.c</a>, commit <code>255829c23</code>): produce roll and pitch <em>angle</em> targets that flow through the ANGLE-mode path. Track error → bank (P only, default 2.0 °/°, max 25°); altitude error → pitch (default 1 °/m, max 15°, sign fixed, see <strong>H-3</strong>). No throttle, no wind compensation. Also driven by <code>BOXGPSRESCUE</code> and the failsafe GPS-RESCUE procedure now, not only <code>BOXRTH</code> (see <strong>H-2</strong>).</li>
+<li><strong>GPS health and dead reckoning</strong> (<a href="https://github.com/WingFlight/wingflight-firmware/pull/157">firmware#157</a>). A GPS sample counts when the link is receiving, <code>GPS_FIX</code> is set and <code>numSat &gt;= nav_min_sats</code>. It is the same test for every provider: CRSF and FBUS supply no HDOP or <code>hAcc</code>, so neither is used. Each good sample records position, ground speed, course and the IMU heading. Through a dropout the position is carried forward at that speed along the course turned by the IMU heading change since, taking the chord of the turn. It stays valid for 5 s. While the estimate is fresh, <code>nav_min_sats − 1</code> (floor 4) is accepted, so the count can't chatter on the threshold. Engaging always activates nav; the target is captured when a position is first usable, because <code>core.c</code> only starts nav on the switch's off→on edge. RTH with no <code>GPS_FIX_HOME</code> never steers. Pitch is held level when <code>hasEstimatedAltitude()</code> is false.</li>
+</ul>
+<h3 id="215-altitude-and-vario-positionc-alt_fusionc">2.15 Altitude and vario — <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/position.c">position.c</a>, <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/alt_fusion.c">alt_fusion.c</a><a class="headerlink" href="#215-altitude-and-vario-positionc-alt_fusionc" title="Permanent link">&para;</a></h3>
+<p><code>position.c</code> picks the measurement: the barometer relative to its disarmed ground offset, else GPS altitude relative to its own (GPS needs <code>position_gps_min_sats</code>, default 6). While armed with both, the baro offset slowly follows GPS. <code>alt_fusion.c</code> fuses that measurement with the earth-frame vertical acceleration, <code>rMat[2]·accADC / acc_1G − 1 g</code>.</p>
+<ul>
+<li><strong>Filter.</strong> Third-order complementary filter, as INAV's <code>navigation_pos_estimator.c</code> vertical channel and ArduPilot's AP_InertialNav. The gains are 3/τ on altitude, 3/τ² on velocity and 1/τ³ on accelerometer bias, placing all three poles at −1/τ. τ is <code>position_fusion_baro_tc</code> (2 s) or <code>position_fusion_gps_tc</code> (4 s), depending on the measurement.</li>
+<li><strong>Why.</strong> Vario used to be a filtered derivative of the filtered baro, so it lagged, and the GPS nav altitude PD damps on it. A constant vertical-acceleration error (calibration, or IMU attitude error from centripetal load in a sustained turn) is absorbed as bias with no steady-state altitude error.</li>
+<li><strong>Limits.</strong> Vertical acceleration is clipped at ±30 m/s² and bias at ±2 m/s², so a snap or a tumbled attitude estimate can't run it away. With no measurement it coasts on the accelerometer for 5 s, then goes invalid: the altitude is held, vario reads 0 and <code>hasEstimatedAltitude()</code> is false. A returning measurement restarts the estimate from it.</li>
+<li><strong>Without an accelerometer</strong> the filtered measurement and its derivative are used directly.</li>
+<li><code>DEBUG_ALTITUDE</code> logs fused and measured altitude/vario, baro and GPS altitude, vertical acceleration and bias.</li>
 <li><strong>GPS Rescue</strong> (<a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/gps_rescue.c">gps_rescue.c</a>) is Betaflight's quad code and is no longer reachable from anywhere. See <strong>H-2</strong>.</li>
 </ul>
 <hr />
@@ -4169,6 +4201,12 @@ bench/flight validation of the initial thresholds remains required.</p>
 <td>Re-enable failsafe stage 2; retarget <code>BOXGPSRESCUE</code> and the failsafe GPS-RESCUE procedure to the existing fixed-wing RTH controller instead of Betaflight's quad GPS Rescue code; fix the inverted RTH/loiter altitude sign; expose <code>nav_*</code> GPS Navigation settings over MSP</td>
 <td>Stage 2 was a disabled stub (H-1); the quad rescue algorithm doesn't fly a wing home (H-2); the altitude controller commanded a descent when below target (H-3); those settings were CLI-only</td>
 </tr>
+<tr>
+<td>2026-09-26</td>
+<td><a href="https://github.com/WingFlight/wingflight-firmware/pull/157">firmware#157</a></td>
+<td>Dead-reckon GPS nav through dropouts (5 s), <code>nav_min_sats</code> hysteresis, engage without a fix; accelerometer-fused altitude/vario; GPS altitude on the default source; <code>nav_min_sats</code> 8 → 6, <code>position_gps_min_sats</code> 12 → 6</td>
+<td>Flight test: LOITER called "unavailable" in flight at 9 satellites; baro-derivative vario lagged; boards without a baro had no altitude (<code>source &amp; ALT_SOURCE_DEFAULT</code> is always 0)</td>
+</tr>
 </tbody>
 </table>
 <hr />
@@ -4232,7 +4270,7 @@ The boost was added to <code>getThrottle()</code> unconditionally, up to <code>t
 <li>Mode arbitration: safety modes cleanly preempt AUTOHOVER/ATTHOLD and force a re-capture on release.</li>
 </ul>
 <h3 id="not-reviewed">Not reviewed<a class="headerlink" href="#not-reviewed" title="Permanent link">&para;</a></h3>
-<p>Dynamic notch and RPM filters, gyro/accelerometer drivers and calibration, <code>position.c</code> altitude estimation, <code>logic_condition.c</code>, <code>wiggle.c</code>, blackbox, MSP and CLI plumbing. The pilot-facing docs in <code>docs/</code> were audited separately.</p>
+<p>Dynamic notch and RPM filters, gyro/accelerometer drivers and calibration, <code>logic_condition.c</code>, <code>wiggle.c</code>, blackbox, MSP and CLI plumbing. The pilot-facing docs in <code>docs/</code> were audited separately.</p>
 <hr />
 <h2 id="5-test-coverage-and-verification-plan">5. Test coverage and verification plan<a class="headerlink" href="#5-test-coverage-and-verification-plan" title="Permanent link">&para;</a></h2>
 <p>Unit tests exist for PID, setpoint, curves, maths and the acro trainer. The tests for the mixer, IMU and failsafe are present but <strong>disabled</strong> (<code>flight_mixer_unittest.cc.txt</code>, <code>flight_imu_unittest.cc.txt</code>, <code>flight_failsafe_unittest.cc.txt</code>). The airborne detector now has 15 focused tests, and the trainer/leveling suite has 27 tests covering independent limits and limiter-dependent I-term state. There are still no tests for the hold engine, AUTOHOVER, ATTHOLD, the TV loop, servos, or nav. Unit coverage does not replace bench/flight validation.</p>
