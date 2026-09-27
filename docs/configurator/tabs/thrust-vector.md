@@ -18,6 +18,12 @@ Master Gain that live-scales P/I/D together. See
 and how to tune it; the same reasoning applies here, just for the
 thrust-vector loop instead of the main one.
 
+The **Curve** column shapes each axis's Master Gain by stick deflection,
+exactly like the main loop's gain curves, and picks from the same shared
+pool on the [Curves](curves.md) tab. One difference: the thrust-vector
+Master Gain (and so its curve) also scales F, where the main loop's does
+not.
+
 The **Decay [s]** column of the Master Gain table is the thrust-vector
 loop's own per-axis copy of the setting described in
 [Profiles -- I-Term Decay Time](profiles.md#i-term-decay-time): 0.01-1.00 s,
