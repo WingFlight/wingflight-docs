@@ -137,9 +137,8 @@ Master Gain sets one overall gain per axis (Roll, Pitch, Yaw) that scales
 the P, I, and D terms of that axis's PID loop -- F (Feedforward) and Boost
 stay at their static configured values -- each with its own optional gain
 curve so the scaling can vary with stick position rather than applying a
-single flat multiplier. In expert mode a fourth row, Throttle (TPA),
-attenuates gains across the throttle range using the same shared
-gain-curve pool.
+single flat multiplier. A fourth row, Throttle (TPA), attenuates gains
+across the throttle range using the same shared gain-curve pool.
 
 Any of these gains can also be mapped to a transmitter switch/knob from the
 [Adjustments](adjustments.md) tab for live in-flight tuning -- when a gain is
