@@ -7,9 +7,8 @@ A/B comparing two settings values in the air.
 
 ![Adjustments tab](../../assets/images/configurator-adjustments.png)
 
-Adjustable functions are grouped by category -- Master Gains and
-[I-Term Decay Time](profiles.md#i-term-decay-time) and
-[Relax](profiles.md#relax-bounce-back-suppression) ([Profiles](profiles.md)), [Servo Trims](servos.md#in-flight-trim)
+Adjustable functions are grouped by category -- [Flight Feel](profiles.md#flight-feel)
+(Gain, Lock and Bounce-back Suppression), [Servo Trims](servos.md#in-flight-trim)
 (roll/pitch/yaw), Accelerometer Trim, Setpoint Boost, PID/Rate/TV Profile
 switching, [Mixer](mixer.md#rule-roles) (Flap Compensation Gain,
 Differential Thrust Yaw Gain), and others -- and any function currently

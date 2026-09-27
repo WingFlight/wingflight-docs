@@ -8,32 +8,21 @@ without touching the main [Profiles](profiles.md) tune at all.
 
 This tab only appears once **THRUST VECTOR** is enabled as a feature.
 
-## PID Gains and Master Gain
+## PID Gains and Flight Feel
 
-The PID Gains and Master Gain tables work exactly like their
-[Profiles](profiles.md) counterparts -- P/I/D/F/B per axis, and a per-axis
-Master Gain that live-scales P/I/D together. See
+The PID Gains and Flight Feel tables work exactly like their
+[Profiles](profiles.md) counterparts -- P/I/D/F/B per axis, and per-axis
+Gain, Curve, Lock and Bounce-back Suppression. See
 [Profiles -- PID Gains](profiles.md#pid-gains) and
-[Profiles -- Master Gain](profiles.md#master-gain) for what each term does
+[Profiles -- Flight Feel](profiles.md#flight-feel) for what each one does
 and how to tune it; the same reasoning applies here, just for the
-thrust-vector loop instead of the main one.
+thrust-vector loop instead of the main one, with its own values and its
+own Adjustments functions (TV Gain, TV Lock and TV Bounce-back Suppression
+Roll/Pitch/Yaw).
 
-The **Curve** column shapes each axis's Master Gain by stick deflection,
-exactly like the main loop's gain curves, and picks from the same shared
-pool on the [Curves](curves.md) tab. One difference: the thrust-vector
-Master Gain (and so its curve) also scales F, where the main loop's does
-not.
-
-The **Decay [s]** column of the Master Gain table is the thrust-vector
-loop's own per-axis copy of the setting described in
-[Profiles -- I-Term Decay Time](profiles.md#i-term-decay-time): 0.01-1.00 s,
-0.60 s by default, with its own Adjustments functions (TV I-Term Decay
-Time Roll/Pitch/Yaw).
-
-The **Relax [Hz]** column is likewise the thrust-vector loop's own
-per-axis [relax cutoff](profiles.md#relax-bounce-back-suppression), with
-Adjustments functions TV I-Term Relax Cutoff Roll/Pitch/Yaw. Relax is
-always on; its level is under PID Settings in Expert Mode.
+One difference: the thrust-vector Gain (and so its Curve) also scales F,
+where the main loop's does not. The relax level is under PID Settings in
+Expert Mode.
 
 ## Attitude / Heading Hold
 
