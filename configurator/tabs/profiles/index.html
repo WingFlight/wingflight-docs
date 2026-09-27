@@ -1134,6 +1134,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#gain-curves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gain Curves
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#lock" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3319,6 +3330,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#gain-curves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gain Curves
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#lock" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3610,12 +3632,6 @@ feel in the air, one value per axis:</p>
 <td>It oscillates or buzzes</td>
 </tr>
 <tr>
-<td><strong>Curve</strong></td>
-<td>How Gain changes with stick position (or throttle, on the Throttle row)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
 <td><strong>Lock</strong> [s]</td>
 <td>How long the axis holds on to a correction after a gust</td>
 <td>It doesn't feel pinned</td>
@@ -3636,12 +3652,22 @@ shows the value being commanded.</p>
 <h3 id="gain">Gain<a class="headerlink" href="#gain" title="Permanent link">&para;</a></h3>
 <p>Gain sets one overall gain per axis (Roll, Pitch, Yaw) that scales the P, I
 and D terms of that axis together -- F (Feedforward) and Boost stay at their
-configured values. <strong>Curve</strong> optionally shapes it by stick position, from
-the shared pool on the <a href="../curves/">Curves</a> tab, so gain can taper in or out
-as the stick moves away from centre.</p>
+configured values. A gain curve can optionally shape it by stick position,
+so gain tapers in or out as the stick moves away from centre -- see
+<a href="#gain-curves">Gain Curves</a>. A <strong>CURVE</strong> badge on Gain shows when one is
+shaping that axis.</p>
 <p>The <strong>Throttle</strong> row scales all three axes' gain with throttle instead:
 surfaces in prop wash gain authority as throttle rises, so it is usually
-used to reduce gain at high throttle, with its curve evaluated on throttle.</p>
+used to reduce gain at high throttle. Its gain curve, if any, is evaluated
+on throttle.</p>
+<h3 id="gain-curves">Gain Curves<a class="headerlink" href="#gain-curves" title="Permanent link">&para;</a></h3>
+<p>Gain curves are an advanced shaping tool, so they are assigned in the
+<strong>Gain Curves</strong> panel, which appears in Expert Mode, rather than in Flight
+Feel. Pick a curve slot for Roll, Pitch, Yaw and Throttle; the shapes
+themselves are edited on the <a href="../curves/">Curves</a> tab. "-" means no curve,
+so Gain applies as set. Whenever a curve is assigned, the Gain cell in
+Flight Feel shows a <strong>CURVE</strong> badge, with the curve number in its tooltip,
+so the shaping is visible even outside Expert Mode.</p>
 <h3 id="lock">Lock<a class="headerlink" href="#lock" title="Permanent link">&para;</a></h3>
 <p>Lock is the other half of how "locked" each axis feels. Gain sets how hard
 the axis pushes back against a disturbance; Lock sets how long it holds on
