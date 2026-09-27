@@ -78,8 +78,8 @@ airframe on the bench never rotates far enough for the two to look alike.
 | Feels too locked in, pushes back after a manoeuvre (3D) | Shorten [Lock](#lock) |
 | Wanders with gusts, doesn't feel pinned | Lengthen [Lock](#lock) |
 | Heading wanders in knife-edge or hover | Lengthen yaw [Lock](#lock) only |
-| Bounces back at the end of a roll or loop | Raise [Bounce-back Suppression](#bounce-back-suppression) on that axis |
-| Sustained rolls or loops lose rate or drift off line | Lower [Bounce-back Suppression](#bounce-back-suppression) on that axis |
+| Bounces back at the end of a roll or loop | Raise [Bounce Back](#bounce-back) on that axis |
+| Sustained rolls or loops lose rate or drift off line | Lower [Bounce Back](#bounce-back) on that axis |
 | Snaps past the input and kicks back as you release the stick | Lower F |
 | Quick flicks feel twitchy/nervous | Lower B |
 | Quick flicks feel soft, no snap | Raise B |
@@ -110,7 +110,7 @@ I is also deliberately kept low relative to P (16-20 vs. 50-80) -- don't
 read that gap as I being "weak." I isn't left to accumulate freely the way
 a raw integrator would: [Lock](#lock) (0.60 s by default) continuously
 bleeds accumulated I-term error back off, capped by an I-Term Decay Max
-Rate (35°/s), and [Bounce-back Suppression](#bounce-back-suppression) (5, level 22°/s by default)
+Rate (35°/s), and [Bounce Back](#bounce-back) (5, level 22°/s by default)
 specifically suppresses I buildup while the stick is moving quickly, to
 avoid bounce-back at the end of a roll or other fast maneuver. Because
 something else is actively managing decay, a small I gain is enough to
@@ -141,7 +141,7 @@ feel in the air, one value per axis:
 | **Gain** | How hard the axis pushes back against a disturbance | It feels soft or wanders | It oscillates or buzzes |
 | **Curve** | How Gain changes with stick position (or throttle, on the Throttle row) | | |
 | **Lock** [s] | How long the axis holds on to a correction after a gust | It doesn't feel pinned | It feels too locked in or pushes back after a manoeuvre |
-| **Bounce-back Suppression** (1-10) | How strongly a fast roll or loop is stopped from bouncing back | It bounces back when you centre the stick | Long, sustained rolls or loops lose rate |
+| **Bounce Back** (1-10) | How strongly a fast roll or loop is stopped from bouncing back | It bounces back when you centre the stick | Long, sustained rolls or loops lose rate |
 
 The PID Gains table above is for detailed tuning; most pilots only need
 Flight Feel. Every column is also an [Adjustments](adjustments.md) function,
@@ -193,12 +193,12 @@ Technically, Lock is the I-term decay time (`iterm_decay_time` in the CLI).
 Its maximum bleed rate, I-Term Decay Max Rate (35°/s), stays under PID
 Settings in Expert Mode; leave it at the default.
 
-### Bounce-back Suppression
+### Bounce Back
 
-While the stick is moving quickly, Bounce-back Suppression stops the I-term
+While the stick is moving quickly, Bounce Back stops the I-term
 building up from your own input, so the model doesn't bounce back at the end
 of a roll, loop or snap. Lock deals with what the model remembers after a
-manoeuvre; Bounce-back Suppression stops it collecting the manoeuvre in the
+manoeuvre; Bounce Back stops it collecting the manoeuvre in the
 first place.
 
 It is a score from 1 to 10, default 5. **Higher means less bounce-back**;
