@@ -54,6 +54,27 @@ from older firmware will now reject as an invalid name:
 | `pitch_deadband` | 0-100 | 5 | Pitch stick deadband around center, µs |
 | `yaw_deadband` | 0-100 | 5 | Yaw stick deadband around center, µs |
 
+### Altitude estimation
+
+Altitude and vario (used by telemetry, Blackbox and GPS RTH/Loiter altitude
+hold) come from the accelerometer fused with a measured altitude. The
+measurement is the barometer, or GPS altitude on boards without one. The
+accelerometer gives a vario that responds straight away; the measurement
+keeps the altitude from drifting and corrects the accelerometer's own error
+over a few seconds. If the measurement drops out, the estimate carries on
+from the accelerometer for 5 seconds, then reports no altitude. Without an
+accelerometer, altitude is the filtered measurement on its own.
+
+| Setting | Range | Default | Description |
+|---|---|---|---|
+| `position_fusion_baro_tc` | 5-100 | 20 | How long the accelerometer is trusted over the barometer, in 0.1 s. Higher is smoother but slower to correct |
+| `position_fusion_gps_tc` | 5-200 | 40 | The same over GPS altitude, in 0.1 s. GPS altitude is noisier than a barometer, so the default is longer |
+| `position_gps_min_sats` | 0-50 | 6 | Satellites needed before GPS altitude is used. The default was 12, which left most boards without a barometer with no altitude at all; saved configs keep their value, so set it to 6 on those |
+
+A board without a barometer gets its altitude from GPS with the default
+`position_alt_source`. Before this, it had none unless the source was set to
+GPS only.
+
 ## Debug modes
 
 `debug_mode` modes that no longer record anything are named `UNUSED_<n>`,
@@ -73,9 +94,23 @@ is rejected as an invalid value. Set `debug_mode = NONE` instead.
 | 61-62 | `D_LPF`, `VTX_TRAMP` |
 | 69-77 | `PITCH_PRECOMP`, `YAW_PRECOMP`, `RESCUE`, `RESCUE_ALTHOLD`, `CROSS_COUPLING`, `ERROR_DECAY`, `HS_OFFSET`, `HS_BLEED`, `GOV_MOTOR` |
 
-For Wingflight's own diagnostics use `ATTHOLD`, `TVHOLD`, `AUTOHOVER` or
-`AIRBORNE`. The first three log one axis at a time, picked with
-`debug_axis`.
+For Wingflight's own diagnostics use `ATTHOLD`, `TVHOLD`, `AUTOHOVER`,
+`AIRBORNE` or `ALTITUDE`. The first three log one axis at a time, picked
+with `debug_axis`.
+
+`ALTITUDE` shows the [altitude estimate](#altitude-estimation) next to its
+sources, to check the fusion against the raw readings:
+
+| Field | Value |
+|---|---|
+| 0 | Altitude, cm (what telemetry and navigation use) |
+| 1 | Vario, cm/s |
+| 2 | Measured altitude before fusion, cm |
+| 3 | Measured vario (derivative of the measured altitude), cm/s |
+| 4 | Barometer altitude, cm |
+| 5 | GPS altitude, cm |
+| 6 | Vertical acceleration, gravity removed, cm/s² |
+| 7 | Learned accelerometer error, cm/s² |
 
 ## Bus servo output
 

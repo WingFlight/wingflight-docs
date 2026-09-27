@@ -53,9 +53,26 @@ Angle mode.
   target, so you can nudge the aircraft.
 - **No wind or airspeed correction.** Course is taken from GPS ground track,
   which is unreliable at very low speed.
-- **If the GPS gets unhealthy** or has fewer than `nav_min_sats` satellites,
-  navigation stops. The aircraft is left in Angle-style leveling with no
-  navigation target.
+- **Short GPS dropouts are ridden through.** If the fix drops out (a satellite
+  or two lost in a bank, a bad frame, a brief serial gap), navigation carries
+  on from the last good fix. It moves the position forward at the last ground
+  speed and turns it with the aircraft's heading, so it follows the loiter
+  circle. This lasts up to 5 seconds. Once navigating, one satellite fewer than
+  `nav_min_sats` is still accepted, so a count sitting on the limit doesn't
+  switch navigation on and off.
+- **Longer dropouts.** After 5 seconds without a usable fix, navigation eases
+  the wings level and holds level pitch. The radio calls the mode
+  "unavailable". As soon as the fix returns, navigation resumes toward the
+  same target. You don't need to cycle the switch.
+- **Switching on without a fix.** The mode still engages. Loiter picks its
+  orbit point as soon as a fix is available, and holds the altitude from when
+  you flipped the switch. RTH without a recorded home (no fix at arming) flies
+  level rather than steering anywhere.
+- **Altitude needs an altitude estimate.** Altitude hold uses the flight
+  controller's altitude estimate: the barometer, or GPS altitude on boards
+  without one, fused with the accelerometer. See
+  [Altitude estimation](../reference/cli-reference.md#altitude-estimation).
+  With no estimate the pitch target is held level instead of guessed.
 
 Switching either mode on yourself, from the Modes tab, is one way in.
 The other is the [Failsafe](../configurator/tabs/failsafe.md) tab's GPS
@@ -72,7 +89,7 @@ from the CLI:
 | `nav_rth_altitude` | 50 | RTH altitude, metres |
 | `nav_loiter_radius` | 75 | Loiter radius, metres |
 | `nav_loiter_direction` | CW | Loiter direction |
-| `nav_min_sats` | 8 | Minimum satellites |
+| `nav_min_sats` | 6 | Minimum satellites (was 8; saved configs keep their value) |
 | `nav_max_bank_angle` | 25 | Largest bank the navigation commands, degrees |
 | `nav_max_pitch_angle` | 15 | Largest pitch the navigation commands, degrees |
 | `nav_bearing_kp` | 200 | Bank per degree of course error, percent |

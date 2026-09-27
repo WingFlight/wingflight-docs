@@ -17,7 +17,7 @@ tab's GPS Rescue procedure) all use them.
 | RTH Altitude | `nav_rth_altitude` | 50m | Altitude RTH climbs or descends toward |
 | Loiter Radius | `nav_loiter_radius` | 75m | Orbit radius for GPS LOITER |
 | Loiter Direction | `nav_loiter_direction` | CW | Orbit direction, clockwise or counter-clockwise |
-| Min Satellites | `nav_min_sats` | 8 | Minimum satellite count for navigation to run |
+| Min Satellites | `nav_min_sats` | 6 | Minimum satellite count for navigation to run. Once navigating, one fewer is tolerated, and short dropouts are ridden through (see [GPS RTH and Loiter](../../flight-modes/gps-rth.md#how-they-work)) |
 | Max Bank Angle | `nav_max_bank_angle` | 25° | Largest bank the navigation commands |
 | Max Pitch Angle | `nav_max_pitch_angle` | 15° | Largest pitch the navigation commands |
 
