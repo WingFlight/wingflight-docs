@@ -75,6 +75,8 @@ airframe on the bench never rotates far enough for the two to look alike.
 | Servos growl, buzz, or run hot | Lower D, check [Gyro](gyro.md) filtering |
 | Stick input feels laggy or rubbery | Raise F |
 | Keeps drifting/rotating a moment after you center the stick | Lower I; if it's only on quick inputs, raise F instead |
+| Feels too locked in, pushes back after a manoeuvre (3D) | Shorten [I-Term Decay Time](#i-term-decay-time) |
+| Wanders with gusts, doesn't feel pinned | Lengthen [I-Term Decay Time](#i-term-decay-time) |
 | Snaps past the input and kicks back as you release the stick | Lower F |
 | Quick flicks feel twitchy/nervous | Lower B |
 | Quick flicks feel soft, no snap | Raise B |
@@ -103,7 +105,7 @@ the term most likely to expose noise once it's non-zero.
 
 I is also deliberately kept low relative to P (16-20 vs. 50-80) -- don't
 read that gap as I being "weak." I isn't left to accumulate freely the way
-a raw integrator would: I-Term Decay Time (0.6s by default) continuously
+a raw integrator would: [I-Term Decay Time](#i-term-decay-time) (0.60 s by default) continuously
 bleeds accumulated I-term error back off, capped by an I-Term Decay Max
 Rate (35°/s), and I-Term Relax (level 22, cutoff 10Hz by default)
 specifically suppresses I buildup while the stick is moving quickly, to
@@ -140,6 +142,42 @@ Any of these gains can also be mapped to a transmitter switch/knob from the
 [Adjustments](adjustments.md) tab for live in-flight tuning -- when a gain is
 under live adjustment control, its row shows the current effective value
 being commanded in place of the static configured number.
+
+### I-Term Decay Time
+
+I-Term Decay Time sits under the Master Gain table because it is the other
+half of how "locked" the model feels. Master Gain sets how hard the model
+pushes back against a disturbance. Decay time sets how long it remembers
+that disturbance before letting it go.
+
+The I-term in the rate loop builds up the angle a gust knocked the model
+off by, and pushes it back. Decay makes that memory fade. Anything faster
+than the decay time (a gust, a bump, a wobble) is fully corrected, and the
+model returns to where it was. Anything slower (a slow drift, a trim
+offset, the attitude you've just flown into) is forgotten, so the model
+never pulls you back towards where you were a few seconds ago.
+
+| Decay time | Feel |
+|---|---|
+| 0.10-0.30 s | Free. Close to a plain rate gyro; suits 3D flying. |
+| 0.40-0.60 s | Locked but flyable. 0.60 s is the default. |
+| 0.70-1.00 s | Very locked. Starts to hold trim errors and can push back at the end of a manoeuvre. |
+
+The range is 0.01-1.00 s in 0.01 s steps. Longer memory than that would
+feel like attitude hold, which is what [Attitude Hold](../../flight-modes/atthold.md)
+is for. The same value is also an [Adjustments](adjustments.md) function
+(I-Term Decay Time, in 0.01 s units, so 60 = 0.60 s), so you can sweep it in
+the air.
+
+Decay time and I gain overlap: under a steady load, a longer decay time
+holds more I, much as a higher I gain would. Set I gain for how firmly a
+gust is corrected, then use decay time for how long the correction lasts.
+
+The ANGLE, HORIZON, AUTO HOVER and ATT HOLD modes manage decay themselves
+while they are holding, so this setting mainly shapes normal rate flight.
+
+I-Term Decay Max Rate (35°/s) stays under PID Settings in Expert Mode. It
+only matters for large accumulated errors; leave it at the default.
 
 ## Trainer (angle limits)
 
