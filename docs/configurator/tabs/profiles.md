@@ -61,9 +61,15 @@ airframe on the bench never rotates far enough for the two to look alike.
     Because MANUAL is scaled through F, it is only as big as your F and rates
     allow. With the default F of 100, a rate of 400 deg/s gives full surface
     travel. Halve F, or lower the rates, and MANUAL travel shrinks with them.
-    **F = 0 gives no surface movement at all in MANUAL.** If you use MANUAL
-    as a fallback when the stabilization misbehaves, check on the bench that
-    full stick still gives full travel.
+    If you use MANUAL as a fallback when the stabilization misbehaves, check
+    on the bench that full stick still gives full travel.
+
+F can't be set below **50** on roll, pitch or yaw: at 0, MANUAL would have
+no surface movement at all. At 400 deg/s rates, F = 50 still gives half
+surface travel at full stick. The minimum applies in the Configurator, the
+CLI, the Lua scripts and in-flight adjustments, and a saved profile below 50
+is raised to 50 when the flight controller starts. Thrust Vector F gains
+don't drive MANUAL and can still be 0.
 
 ### Quick troubleshooting
 
