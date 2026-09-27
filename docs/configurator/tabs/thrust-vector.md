@@ -30,6 +30,11 @@ loop's own per-axis copy of the setting described in
 0.60 s by default, with its own Adjustments functions (TV I-Term Decay
 Time Roll/Pitch/Yaw).
 
+The **Relax [Hz]** column is likewise the thrust-vector loop's own
+per-axis [relax cutoff](profiles.md#relax-bounce-back-suppression), with
+Adjustments functions TV I-Term Relax Cutoff Roll/Pitch/Yaw. Relax is
+always on; its level is under PID Settings in Expert Mode.
+
 ## Attitude / Heading Hold
 
 **Gain**, **Deadband**, and **Max Rate** here configure

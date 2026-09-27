@@ -78,6 +78,8 @@ airframe on the bench never rotates far enough for the two to look alike.
 | Feels too locked in, pushes back after a manoeuvre (3D) | Shorten [I-Term Decay Time](#i-term-decay-time) |
 | Wanders with gusts, doesn't feel pinned | Lengthen [I-Term Decay Time](#i-term-decay-time) |
 | Heading wanders in knife-edge or hover | Lengthen yaw [I-Term Decay Time](#i-term-decay-time) only |
+| Bounces back at the end of a roll or loop | Lower [Relax](#relax-bounce-back-suppression) on that axis |
+| Sustained rolls or loops lose rate or drift off line | Raise [Relax](#relax-bounce-back-suppression) on that axis |
 | Snaps past the input and kicks back as you release the stick | Lower F |
 | Quick flicks feel twitchy/nervous | Lower B |
 | Quick flicks feel soft, no snap | Raise B |
@@ -108,7 +110,7 @@ I is also deliberately kept low relative to P (16-20 vs. 50-80) -- don't
 read that gap as I being "weak." I isn't left to accumulate freely the way
 a raw integrator would: [I-Term Decay Time](#i-term-decay-time) (0.60 s by default) continuously
 bleeds accumulated I-term error back off, capped by an I-Term Decay Max
-Rate (35°/s), and I-Term Relax (level 22, cutoff 10Hz by default)
+Rate (35°/s), and [Relax](#relax-bounce-back-suppression) (cutoff 10 Hz, level 22°/s by default)
 specifically suppresses I buildup while the stick is moving quickly, to
 avoid bounce-back at the end of a roll or other fast maneuver. Because
 something else is actively managing decay, a small I gain is enough to
@@ -183,6 +185,30 @@ while they are holding, so this setting mainly shapes normal rate flight.
 
 I-Term Decay Max Rate (35°/s) stays under PID Settings in Expert Mode. It
 only matters for large accumulated errors; leave it at the default.
+
+### Relax (bounce-back suppression)
+
+The **Relax [Hz]** column of the Master Gain table is the I-term relax
+cutoff for each axis. While the stick is moving quickly, relax stops the
+I-term building up from your own input, so the model doesn't bounce back
+at the end of a roll, loop or snap. Decay deals with what I remembers
+after a manoeuvre; relax stops it collecting the manoeuvre in the first
+place.
+
+- **Lower cutoff:** more of each stick move counts as "fast", and
+  suppression lasts longer after the stick stops. Less bounce-back.
+- **Higher cutoff:** only quick flicks are suppressed, so I keeps working
+  through long, sustained rolls and loops. Better high-rate precision.
+
+As a starting point: 15-30 Hz for small, light aircraft, 10-15 Hz for
+mid-size, and below 10 Hz for large, heavy aircraft. The default is 10 Hz.
+Each axis is also an [Adjustments](adjustments.md) function (I-Term Relax
+Cutoff Roll/Pitch/Yaw), so you can sweep it in the air.
+
+Relax is always on for roll, pitch and yaw; there is no type or off
+switch. The relax **level** (default 22°/s, lower = stronger) is under PID
+Settings in Expert Mode. Leave it at the default unless the cutoff alone
+doesn't remove the bounce-back.
 
 ## Trainer (angle limits)
 
