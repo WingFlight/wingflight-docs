@@ -77,6 +77,7 @@ airframe on the bench never rotates far enough for the two to look alike.
 | Keeps drifting/rotating a moment after you center the stick | Lower I; if it's only on quick inputs, raise F instead |
 | Feels too locked in, pushes back after a manoeuvre (3D) | Shorten [I-Term Decay Time](#i-term-decay-time) |
 | Wanders with gusts, doesn't feel pinned | Lengthen [I-Term Decay Time](#i-term-decay-time) |
+| Heading wanders in knife-edge or hover | Lengthen yaw [I-Term Decay Time](#i-term-decay-time) only |
 | Snaps past the input and kicks back as you release the stick | Lower F |
 | Quick flicks feel twitchy/nervous | Lower B |
 | Quick flicks feel soft, no snap | Raise B |
@@ -145,10 +146,10 @@ being commanded in place of the static configured number.
 
 ### I-Term Decay Time
 
-I-Term Decay Time sits under the Master Gain table because it is the other
-half of how "locked" the model feels. Master Gain sets how hard the model
-pushes back against a disturbance. Decay time sets how long it remembers
-that disturbance before letting it go.
+I-Term Decay Time is the **Decay [s]** column of the Master Gain table, set
+per axis, because it is the other half of how "locked" each axis feels.
+Master Gain sets how hard the axis pushes back against a disturbance. Decay
+time sets how long it remembers that disturbance before letting it go.
 
 The I-term in the rate loop builds up the angle a gust knocked the model
 off by, and pushes it back. Decay makes that memory fade. Anything faster
@@ -165,9 +166,13 @@ never pulls you back towards where you were a few seconds ago.
 
 The range is 0.01-1.00 s in 0.01 s steps. Longer memory than that would
 feel like attitude hold, which is what [Attitude Hold](../../flight-modes/atthold.md)
-is for. The same value is also an [Adjustments](adjustments.md) function
-(I-Term Decay Time, in 0.01 s units, so 60 = 0.60 s), so you can sweep it in
-the air.
+is for. Each axis is also an [Adjustments](adjustments.md) function
+(I-Term Decay Time Roll/Pitch/Yaw, in 0.01 s units, so 60 = 0.60 s), so you
+can sweep it in the air.
+
+Axes don't have to match. Yaw is the one most worth setting apart: a longer
+yaw decay holds rudder lock in knife-edge and hover, while a shorter roll
+decay keeps rolls free.
 
 Decay time and I gain overlap: under a steady load, a longer decay time
 holds more I, much as a higher I gain would. Set I gain for how firmly a

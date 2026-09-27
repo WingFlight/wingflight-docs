@@ -18,11 +18,11 @@ Master Gain that live-scales P/I/D together. See
 and how to tune it; the same reasoning applies here, just for the
 thrust-vector loop instead of the main one.
 
-**I-Term Decay Time** below the Master Gain table is the thrust-vector
-loop's own copy of the setting described in
+The **Decay [s]** column of the Master Gain table is the thrust-vector
+loop's own per-axis copy of the setting described in
 [Profiles -- I-Term Decay Time](profiles.md#i-term-decay-time): 0.01-1.00 s,
-0.60 s by default, and it has its own Adjustments function (TV I-Term Decay
-Time).
+0.60 s by default, with its own Adjustments functions (TV I-Term Decay
+Time Roll/Pitch/Yaw).
 
 ## Attitude / Heading Hold
 
