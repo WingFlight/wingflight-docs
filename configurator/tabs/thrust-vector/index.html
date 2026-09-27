@@ -1117,10 +1117,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#pid-gains-and-master-gain" class="md-nav__link">
+  <a href="#pid-gains-and-flight-feel" class="md-nav__link">
     <span class="md-ellipsis">
       
-        PID Gains and Master Gain
+        PID Gains and Flight Feel
       
     </span>
   </a>
@@ -3157,10 +3157,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#pid-gains-and-master-gain" class="md-nav__link">
+  <a href="#pid-gains-and-flight-feel" class="md-nav__link">
     <span class="md-ellipsis">
       
-        PID Gains and Master Gain
+        PID Gains and Flight Feel
       
     </span>
   </a>
@@ -3221,28 +3221,19 @@ roll/pitch/yaw setpoint as the main flight loop, but with its own gains,
 filters, and I-term state -- so it can be tuned, adjusted, or disabled
 without touching the main <a href="../profiles/">Profiles</a> tune at all.</p>
 <p>This tab only appears once <strong>THRUST VECTOR</strong> is enabled as a feature.</p>
-<h2 id="pid-gains-and-master-gain">PID Gains and Master Gain<a class="headerlink" href="#pid-gains-and-master-gain" title="Permanent link">&para;</a></h2>
-<p>The PID Gains and Master Gain tables work exactly like their
-<a href="../profiles/">Profiles</a> counterparts -- P/I/D/F/B per axis, and a per-axis
-Master Gain that live-scales P/I/D together. See
+<h2 id="pid-gains-and-flight-feel">PID Gains and Flight Feel<a class="headerlink" href="#pid-gains-and-flight-feel" title="Permanent link">&para;</a></h2>
+<p>The PID Gains and Flight Feel tables work exactly like their
+<a href="../profiles/">Profiles</a> counterparts -- P/I/D/F/B per axis, and per-axis
+Gain, Curve, Lock and Bounce Back. See
 <a href="../profiles/#pid-gains">Profiles -- PID Gains</a> and
-<a href="../profiles/#master-gain">Profiles -- Master Gain</a> for what each term does
+<a href="../profiles/#flight-feel">Profiles -- Flight Feel</a> for what each one does
 and how to tune it; the same reasoning applies here, just for the
-thrust-vector loop instead of the main one.</p>
-<p>The <strong>Curve</strong> column shapes each axis's Master Gain by stick deflection,
-exactly like the main loop's gain curves, and picks from the same shared
-pool on the <a href="../curves/">Curves</a> tab. One difference: the thrust-vector
-Master Gain (and so its curve) also scales F, where the main loop's does
-not.</p>
-<p>The <strong>Decay [s]</strong> column of the Master Gain table is the thrust-vector
-loop's own per-axis copy of the setting described in
-<a href="../profiles/#i-term-decay-time">Profiles -- I-Term Decay Time</a>: 0.01-1.00 s,
-0.60 s by default, with its own Adjustments functions (TV I-Term Decay
-Time Roll/Pitch/Yaw).</p>
-<p>The <strong>Relax [Hz]</strong> column is likewise the thrust-vector loop's own
-per-axis <a href="../profiles/#relax-bounce-back-suppression">relax cutoff</a>, with
-Adjustments functions TV I-Term Relax Cutoff Roll/Pitch/Yaw. Relax is
-always on; its level is under PID Settings in Expert Mode.</p>
+thrust-vector loop instead of the main one, with its own values and its
+own Adjustments functions (TV Gain, TV Lock and TV Bounce Back
+Roll/Pitch/Yaw).</p>
+<p>One difference: the thrust-vector Gain (and so its Curve) also scales F,
+where the main loop's does not. The relax level is under PID Settings in
+Expert Mode.</p>
 <h2 id="attitude-heading-hold">Attitude / Heading Hold<a class="headerlink" href="#attitude-heading-hold" title="Permanent link">&para;</a></h2>
 <p><strong>Gain</strong>, <strong>Deadband</strong>, and <strong>Max Rate</strong> here configure
 <a href="../../../flight-modes/tv-hold/">Thrust Vector Attitude Hold</a> -- an

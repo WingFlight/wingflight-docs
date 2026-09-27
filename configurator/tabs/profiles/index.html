@@ -1111,22 +1111,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#master-gain" class="md-nav__link">
+  <a href="#flight-feel" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Master Gain
+        Flight Feel
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Master Gain">
+    <nav class="md-nav" aria-label="Flight Feel">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#i-term-decay-time" class="md-nav__link">
+  <a href="#gain" class="md-nav__link">
     <span class="md-ellipsis">
       
-        I-Term Decay Time
+        Gain
       
     </span>
   </a>
@@ -1134,10 +1134,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#relax-bounce-back-suppression" class="md-nav__link">
+  <a href="#lock" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Relax (bounce-back suppression)
+        Lock
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bounce-back" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bounce Back
       
     </span>
   </a>
@@ -3285,22 +3296,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#master-gain" class="md-nav__link">
+  <a href="#flight-feel" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Master Gain
+        Flight Feel
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Master Gain">
+    <nav class="md-nav" aria-label="Flight Feel">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#i-term-decay-time" class="md-nav__link">
+  <a href="#gain" class="md-nav__link">
     <span class="md-ellipsis">
       
-        I-Term Decay Time
+        Gain
       
     </span>
   </a>
@@ -3308,10 +3319,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#relax-bounce-back-suppression" class="md-nav__link">
+  <a href="#lock" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Relax (bounce-back suppression)
+        Lock
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bounce-back" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bounce Back
       
     </span>
   </a>
@@ -3381,7 +3403,7 @@ tunes for, e.g., calm cruising versus aggressive 3D/aerobatic flight on the
 same airframe.</p>
 <h2 id="pid-gains">PID Gains<a class="headerlink" href="#pid-gains" title="Permanent link">&para;</a></h2>
 <p>The PID Gains table holds the actual per-axis P, I, D, F (Feedforward), and B
-(Boost) terms -- the static tune itself, as distinct from Master Gain below,
+(Boost) terms -- the static tune itself, as distinct from Flight Feel Gain below,
 which scales it live rather than editing it directly.</p>
 <p>Most people tune by feel in the air, not by reasoning about control theory,
 so here's what each one is actually doing to the way the plane flies rather
@@ -3465,23 +3487,23 @@ full stick still gives full travel.</p>
 </tr>
 <tr>
 <td>Feels too locked in, pushes back after a manoeuvre (3D)</td>
-<td>Shorten <a href="#i-term-decay-time">I-Term Decay Time</a></td>
+<td>Shorten <a href="#lock">Lock</a></td>
 </tr>
 <tr>
 <td>Wanders with gusts, doesn't feel pinned</td>
-<td>Lengthen <a href="#i-term-decay-time">I-Term Decay Time</a></td>
+<td>Lengthen <a href="#lock">Lock</a></td>
 </tr>
 <tr>
 <td>Heading wanders in knife-edge or hover</td>
-<td>Lengthen yaw <a href="#i-term-decay-time">I-Term Decay Time</a> only</td>
+<td>Lengthen yaw <a href="#lock">Lock</a> only</td>
 </tr>
 <tr>
 <td>Bounces back at the end of a roll or loop</td>
-<td>Lower <a href="#relax-bounce-back-suppression">Relax</a> on that axis</td>
+<td>Raise <a href="#bounce-back">Bounce Back</a> on that axis</td>
 </tr>
 <tr>
 <td>Sustained rolls or loops lose rate or drift off line</td>
-<td>Raise <a href="#relax-bounce-back-suppression">Relax</a> on that axis</td>
+<td>Lower <a href="#bounce-back">Bounce Back</a> on that axis</td>
 </tr>
 <tr>
 <td>Snaps past the input and kicks back as you release the stick</td>
@@ -3497,9 +3519,9 @@ full stick still gives full travel.</p>
 </tr>
 </tbody>
 </table>
-<p>Master Gain and its curve (below) scale P, I, and D together as one
+<p>Flight Feel Gain and its curve (below) scale P, I, and D together as one
 percentage -- F (Feedforward) and Boost are tuned independently per-axis
-and aren't affected by Master Gain.</p>
+and aren't affected by Gain.</p>
 <h3 id="why-these-defaults">Why these defaults<a class="headerlink" href="#why-these-defaults" title="Permanent link">&para;</a></h3>
 <p>Out of the box:</p>
 <table>
@@ -3549,14 +3571,14 @@ wallows in gusts -- and check <a href="../gyro/">Gyro</a> filtering first, since
 the term most likely to expose noise once it's non-zero.</p>
 <p>I is also deliberately kept low relative to P (16-20 vs. 50-80) -- don't
 read that gap as I being "weak." I isn't left to accumulate freely the way
-a raw integrator would: <a href="#i-term-decay-time">I-Term Decay Time</a> (0.60 s by default) continuously
+a raw integrator would: <a href="#lock">Lock</a> (0.60 s by default) continuously
 bleeds accumulated I-term error back off, capped by an I-Term Decay Max
-Rate (35°/s), and <a href="#relax-bounce-back-suppression">Relax</a> (cutoff 10 Hz, level 22°/s by default)
+Rate (35°/s), and <a href="#bounce-back">Bounce Back</a> (5, level 22°/s by default)
 specifically suppresses I buildup while the stick is moving quickly, to
 avoid bounce-back at the end of a roll or other fast maneuver. Because
 something else is actively managing decay, a small I gain is enough to
 hold a steady bias (wind, a CG offset) -- pushing I up to "match" P instead
-just reintroduces the slow wallowing oscillation the decay/relax defaults
+just reintroduces the slow wallowing oscillation the Lock and Bounce-back defaults
 are there to avoid.</p>
 <p>Yaw runs a bit hotter than Roll/Pitch (P 80 vs. 50, I 20 vs. 16) since
 rudder authority and yaw stability vary more from airframe to airframe than
@@ -3564,36 +3586,74 @@ aileron/elevator response typically does.</p>
 <p>Boost defaults to 0 -- it's a finishing touch layered on an already-working
 Feedforward tune, not something you'd want fighting an airframe that hasn't
 been flown and trimmed yet.</p>
-<p>Master Gain defaults to 100% (no scaling) with no curve assigned on every
-axis, and Throttle (TPA) likewise defaults to 100% with no curve -- so the
-PID Gains table above is exactly what flies until you deliberately assign a
+<p>Flight Feel's Gain defaults to 100% (no scaling) with no curve on every axis,
+and the Throttle row likewise defaults to 100% with no curve -- so the PID
+Gains table above is exactly what flies until you deliberately assign a
 curve or an Adjustments knob.</p>
-<h2 id="master-gain">Master Gain<a class="headerlink" href="#master-gain" title="Permanent link">&para;</a></h2>
-<p>Master Gain sets one overall gain per axis (Roll, Pitch, Yaw) that scales
-the P, I, and D terms of that axis's PID loop -- F (Feedforward) and Boost
-stay at their static configured values -- each with its own optional gain
-curve so the scaling can vary with stick position rather than applying a
-single flat multiplier. A fourth row, Throttle (TPA), attenuates gains
-across the throttle range using the same shared gain-curve pool.</p>
-<p>Any of these gains can also be mapped to a transmitter switch/knob from the
-<a href="../adjustments/">Adjustments</a> tab for live in-flight tuning -- when a gain is
-under live adjustment control, its row shows the current effective value
-being commanded in place of the static configured number.</p>
-<h3 id="i-term-decay-time">I-Term Decay Time<a class="headerlink" href="#i-term-decay-time" title="Permanent link">&para;</a></h3>
-<p>I-Term Decay Time is the <strong>Decay [s]</strong> column of the Master Gain table, set
-per axis, because it is the other half of how "locked" each axis feels.
-Master Gain sets how hard the axis pushes back against a disturbance. Decay
-time sets how long it remembers that disturbance before letting it go.</p>
-<p>The I-term in the rate loop builds up the angle a gust knocked the model
-off by, and pushes it back. Decay makes that memory fade. Anything faster
-than the decay time (a gust, a bump, a wobble) is fully corrected, and the
-model returns to where it was. Anything slower (a slow drift, a trim
-offset, the attitude you've just flown into) is forgotten, so the model
-never pulls you back towards where you were a few seconds ago.</p>
+<h2 id="flight-feel">Flight Feel<a class="headerlink" href="#flight-feel" title="Permanent link">&para;</a></h2>
+<p>Flight Feel is where to start tuning. Each column is named for what you
+feel in the air, one value per axis:</p>
 <table>
 <thead>
 <tr>
-<th>Decay time</th>
+<th>Column</th>
+<th>What it changes</th>
+<th>Raise it if...</th>
+<th>Lower it if...</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Gain</strong></td>
+<td>How hard the axis pushes back against a disturbance</td>
+<td>It feels soft or wanders</td>
+<td>It oscillates or buzzes</td>
+</tr>
+<tr>
+<td><strong>Curve</strong></td>
+<td>How Gain changes with stick position (or throttle, on the Throttle row)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Lock</strong> [s]</td>
+<td>How long the axis holds on to a correction after a gust</td>
+<td>It doesn't feel pinned</td>
+<td>It feels too locked in or pushes back after a manoeuvre</td>
+</tr>
+<tr>
+<td><strong>Bounce Back</strong> (1-10)</td>
+<td>How strongly a fast roll or loop is stopped from bouncing back</td>
+<td>It bounces back when you centre the stick</td>
+<td>Long, sustained rolls or loops lose rate</td>
+</tr>
+</tbody>
+</table>
+<p>The PID Gains table above is for detailed tuning; most pilots only need
+Flight Feel. Every column is also an <a href="../adjustments/">Adjustments</a> function,
+so you can sweep it on a knob in the air -- a column under live adjustment
+shows the value being commanded.</p>
+<h3 id="gain">Gain<a class="headerlink" href="#gain" title="Permanent link">&para;</a></h3>
+<p>Gain sets one overall gain per axis (Roll, Pitch, Yaw) that scales the P, I
+and D terms of that axis together -- F (Feedforward) and Boost stay at their
+configured values. <strong>Curve</strong> optionally shapes it by stick position, from
+the shared pool on the <a href="../curves/">Curves</a> tab, so gain can taper in or out
+as the stick moves away from centre.</p>
+<p>The <strong>Throttle</strong> row scales all three axes' gain with throttle instead:
+surfaces in prop wash gain authority as throttle rises, so it is usually
+used to reduce gain at high throttle, with its curve evaluated on throttle.</p>
+<h3 id="lock">Lock<a class="headerlink" href="#lock" title="Permanent link">&para;</a></h3>
+<p>Lock is the other half of how "locked" each axis feels. Gain sets how hard
+the axis pushes back against a disturbance; Lock sets how long it holds on
+to that correction before letting it go.</p>
+<p>Anything faster than the Lock time (a gust, a bump, a wobble) is fully
+corrected, and the model returns to where it was. Anything slower (a slow
+drift, a trim offset, the attitude you've just flown into) is let go, so the
+model never pulls you back towards where you were a few seconds ago.</p>
+<table>
+<thead>
+<tr>
+<th>Lock</th>
 <th>Feel</th>
 </tr>
 </thead>
@@ -3612,44 +3672,34 @@ never pulls you back towards where you were a few seconds ago.</p>
 </tr>
 </tbody>
 </table>
-<p>The range is 0.01-1.00 s in 0.01 s steps. Longer memory than that would
-feel like attitude hold, which is what <a href="../../../flight-modes/atthold/">Attitude Hold</a>
-is for. Each axis is also an <a href="../adjustments/">Adjustments</a> function
-(I-Term Decay Time Roll/Pitch/Yaw, in 0.01 s units, so 60 = 0.60 s), so you
-can sweep it in the air.</p>
-<p>Axes don't have to match. Yaw is the one most worth setting apart: a longer
-yaw decay holds rudder lock in knife-edge and hover, while a shorter roll
-decay keeps rolls free.</p>
-<p>Decay time and I gain overlap: under a steady load, a longer decay time
-holds more I, much as a higher I gain would. Set I gain for how firmly a
-gust is corrected, then use decay time for how long the correction lasts.</p>
-<p>The ANGLE, HORIZON, AUTO HOVER and ATT HOLD modes manage decay themselves
-while they are holding, so this setting mainly shapes normal rate flight.</p>
-<p>I-Term Decay Max Rate (35°/s) stays under PID Settings in Expert Mode. It
-only matters for large accumulated errors; leave it at the default.</p>
-<h3 id="relax-bounce-back-suppression">Relax (bounce-back suppression)<a class="headerlink" href="#relax-bounce-back-suppression" title="Permanent link">&para;</a></h3>
-<p>The <strong>Relax [Hz]</strong> column of the Master Gain table is the I-term relax
-cutoff for each axis. While the stick is moving quickly, relax stops the
-I-term building up from your own input, so the model doesn't bounce back
-at the end of a roll, loop or snap. Decay deals with what I remembers
-after a manoeuvre; relax stops it collecting the manoeuvre in the first
-place.</p>
-<ul>
-<li><strong>Lower cutoff:</strong> more of each stick move counts as "fast", and
-  suppression lasts longer after the stick stops. Less bounce-back.</li>
-<li><strong>Higher cutoff:</strong> only quick flicks are suppressed, so I keeps working
-  through long, sustained rolls and loops. Better high-rate precision.</li>
-</ul>
-<p>The default is 10 Hz, and most airframes end up between 5 and 10 Hz. If the
-model bounces back at the end of a roll or loop, lower the cutoff on that
-axis a step at a time. The 15-30 Hz figures quoted for Betaflight are for
-quads and don't carry over to wings. Each axis is also an
-<a href="../adjustments/">Adjustments</a> function (I-Term Relax Cutoff
-Roll/Pitch/Yaw), so you can sweep it in the air.</p>
-<p>Relax is always on for roll, pitch and yaw; there is no type or off
-switch. The relax <strong>level</strong> (default 22°/s, lower = stronger) is under PID
-Settings in Expert Mode. Leave it at the default unless the cutoff alone
-doesn't remove the bounce-back.</p>
+<p>The range is 0.01-1.00 s in 0.01 s steps. Longer than that would feel like
+attitude hold, which is what <a href="../../../flight-modes/atthold/">Attitude Hold</a>
+is for. Axes don't have to match. Yaw is the one most worth setting apart:
+a longer yaw Lock holds rudder lock in knife-edge and hover, while a shorter
+roll Lock keeps rolls free.</p>
+<p>Lock and I gain overlap: under a steady load, a longer Lock holds more I,
+much as a higher I gain would. Set I gain for how firmly a gust is
+corrected, then use Lock for how long the correction lasts. The ANGLE,
+HORIZON, AUTO HOVER and ATT HOLD modes manage this themselves while they are
+holding, so Lock mainly shapes normal rate flight.</p>
+<p>Technically, Lock is the I-term decay time (<code>iterm_decay_time</code> in the CLI).
+Its maximum bleed rate, I-Term Decay Max Rate (35°/s), stays under PID
+Settings in Expert Mode; leave it at the default.</p>
+<h3 id="bounce-back">Bounce Back<a class="headerlink" href="#bounce-back" title="Permanent link">&para;</a></h3>
+<p>While the stick is moving quickly, Bounce Back stops the I-term
+building up from your own input, so the model doesn't bounce back at the end
+of a roll, loop or snap. Lock deals with what the model remembers after a
+manoeuvre; Bounce Back stops it collecting the manoeuvre in the
+first place.</p>
+<p>It is a score from 1 to 10, default 5. <strong>Higher means less bounce-back</strong>;
+lower keeps more hold through long, sustained rolls and loops. Most
+airframes end up between 5 and 9. If the model bounces back at the end of a
+manoeuvre, raise it on that axis a step at a time.</p>
+<p>It is always on for roll, pitch and yaw. Technically it sets the I-term
+relax filter cutoff (<code>bounceback</code> in the CLI), from 50 Hz at 1 to 3 Hz at 10,
+with 5 = 10 Hz. The relax <strong>level</strong> (default 22°/s, lower = stronger) is
+under PID Settings in Expert Mode; leave it at the default unless Bounce-back
+Suppression alone doesn't remove the bounce-back.</p>
 <h2 id="trainer-angle-limits">Trainer (angle limits)<a class="headerlink" href="#trainer-angle-limits" title="Permanent link">&para;</a></h2>
 <p><strong>Trainer (angle limits)</strong> exposes Trainer gain and independent bank/pitch
 limits with API 22.4 firmware (bank 10–90°, pitch 10–75°). Older firmware
