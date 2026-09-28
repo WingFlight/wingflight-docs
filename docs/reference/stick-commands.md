@@ -25,7 +25,6 @@ If the aircraft will not arm, open the [Status tab](../configurator/tabs/status.
 | `CALIB` | Sensor calibration is running |
 | `CLI` | The CLI is active |
 | `MSP` | Arming has been blocked over MSP (for example by the Configurator) |
-| `PARALYZE` | The `PARALYZE` mode is on |
 | `NO_ACC_CAL` | The accelerometer has not been calibrated |
 | `MOTOR_PROTO` | The motor protocol is not valid |
 | `OVERRIDE` | A mixer or servo override is active |
@@ -42,7 +41,7 @@ The three stick positions are:
 | HIGH | 2000 |
 
 The stick positions are combined to give these commands. They work only while disarmed, except
-arming and disarming, and are ignored when the `STICK COMMANDS DISABLE` mode is on.
+arming and disarming.
 
 | Function | Throttle | Yaw | Pitch | Roll |
 |---|---|---|---|---|
