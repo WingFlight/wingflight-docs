@@ -26,12 +26,10 @@ at the limit.
 | Mode | Stick behavior | Centered sticks | Pitch/bank envelope |
 | --- | --- | --- | --- |
 | ANGLE | Commands an attitude within the configured angle limit | Commands level flight | Limits the requested attitude |
-| HORIZON | Rate control with added leveling that fades with stick deflection | Commands leveling | No enforced envelope |
 | TRAINER | Rate control inside the limits | No deliberate self-leveling | Intervenes near/beyond the configured limit |
 
 ANGLE is therefore closer to SAFE Beginner/Angle Demand; TRAINER is closer to
-SAFE Intermediate/Envelope. HORIZON is a different blend, not an intermediate
-angle-limited mode. See [Spektrum's SAFE setup guide](https://wiki.spektrumrc.com/spektrum/safe-setup-guide)
+SAFE Intermediate/Envelope. See [Spektrum's SAFE setup guide](https://wiki.spektrumrc.com/spektrum/safe-setup-guide)
 for its distinction between angle demand and envelope protection.
 
 ## Setup
@@ -47,7 +45,7 @@ for its distinction between angle demand and envelope protection.
   **Gain**, **Bank** and **Pitch** under
   **Flight Tuning → Advanced → Flight Modes → Acro Trainer**. The suite requires
   MSP API **22.04 or newer**; update the firmware snapshot alongside the suite.
-  ANGLE, HORIZON and ATT HOLD have separate tools in the same menu.
+  ANGLE and ATT HOLD have separate tools in the same menu.
 - In EdgeTX, **Profile – Various** exposes the independent limits with API 22.4
   firmware. Its older-firmware support retains shared limits.
 
@@ -82,10 +80,10 @@ clients cannot edit the independent limits; their shared-limit changes affect
 only axes still inheriting. Upgrading the Configurator/Ethos suite is therefore
 recommended when using independent limits.
 
-Use non-overlapping switch ranges for ANGLE, HORIZON and TRAINER. These are
-alternative modes, not layers: ATT HOLD, ANGLE and HORIZON each
-take priority over TRAINER when their mode switches overlap. Selecting HORIZON
-and TRAINER together does not produce self-leveling with Trainer limits.
+Use non-overlapping switch ranges for ANGLE and TRAINER. These are
+alternative modes, not layers: ATT HOLD and ANGLE each take priority over
+TRAINER when their mode switches overlap. Selecting ANGLE and TRAINER
+together does not add Trainer limits to Angle mode.
 
 ## Limits of the protection
 

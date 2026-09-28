@@ -58,7 +58,7 @@ arming and disarming, and are ignored when the `STICK COMMANDS DISABLE` mode is 
 | Disable display page cycling | LOW | CENTER | HIGH | LOW |
 | Enable display page cycling | LOW | CENTER | HIGH | HIGH |
 
-When ANGLE or HORIZON is active, throttle HIGH and yaw CENTER trims the accelerometer level
+When ANGLE is active, throttle HIGH and yaw CENTER trims the accelerometer level
 reference with the sticks:
 
 | Function | Pitch | Roll |

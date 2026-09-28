@@ -237,8 +237,8 @@ roll I-Term Decay keeps rolls free.
 
 I-Term Decay and I gain overlap: under a steady load, a longer I-Term Decay holds more I,
 much as a higher I gain would. Set I gain for how firmly a gust is
-corrected, then use I-Term Decay for how long the correction lasts. The ANGLE,
-HORIZON and ATT HOLD modes manage this themselves while they are
+corrected, then use I-Term Decay for how long the correction lasts. The ANGLE
+and ATT HOLD modes manage this themselves while they are
 holding, so I-Term Decay mainly shapes normal rate flight.
 
 In the CLI this is `iterm_decay_time`.
@@ -274,15 +274,12 @@ See [Trainer Mode](../../flight-modes/trainer.md) for how the limits affect flig
 
 ## Flight-mode settings
 
-ANGLE, HORIZON, TRAINER and ATT HOLD each have their own panel.
+ANGLE, TRAINER and ATT HOLD each have their own panel.
 These panels are available in both basic and Expert Mode, and appear only for
 modes with a saved switch range or linked-mode assignment. Visibility follows
 the configuration, not the current position of the transmitter switch.
 
-ANGLE provides leveling gain and independent bank/pitch limits. HORIZON has its
-own leveling gain; its leveling correction uses the ANGLE limits. Those shared
-limits appear in the HORIZON panel when ANGLE is not configured, otherwise edit
-them in the ANGLE panel. They do not turn HORIZON into a Trainer-style envelope.
+ANGLE provides leveling gain and independent bank/pitch limits.
 
 [Attitude Hold](../../flight-modes/atthold.md) has its own Gain, Deadband and
 Max Rate. See each mode's page for what these settings do.

@@ -346,13 +346,6 @@ This mode flashes LEDs that correspond to roll and pitch stick positions.  i.e. 
 |Head Free   | Up     | BLUE 			|
 |Head Free   | Down   | ORANGE 		|
 | | | |
-|Horizon     | North  | BLUE			|
-|Horizon     | East   | DARK VIOLET 	|
-|Horizon     | South  | YELLOW 		|
-|Horizon     | West   | DEEP PINK 	|
-|Horizon     | Up     | BLUE 			|
-|Horizon     | Down   | ORANGE 		|
-| | | |
 |Angle       | North  | CYAN			|
 |Angle       | East   | DARK VIOLET 	|
 |Angle       | South  | YELLOW 		|
@@ -479,7 +472,6 @@ First 8 groups of ModeIndexes are :
 |------|-------------|
 | 0    | orientation |
 | 1    | headfree    |
-| 2    | horizon     |
 | 3    | angle       |
 | 4    | mag         |
 | 5    | baro        |

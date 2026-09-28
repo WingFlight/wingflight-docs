@@ -43,7 +43,7 @@ see a real, gentler correction. See [On the bench](#on-the-bench).
 
 Attitude Hold still works at reduced strength before the aircraft is
 airborne -- roughly a quarter of its in-flight authority, the same as Angle
-and Horizon modes -- so tilting the airframe by hand shows a real, gentler
+mode -- so tilting the airframe by hand shows a real, gentler
 correction. It's not fully live until liftoff.
 
 If a safety mode (Failsafe, GPS Rescue, RTH, Loiter or Angle) takes over
@@ -95,4 +95,4 @@ Attitude Hold, or in Angle mode, therefore holds with much less authority
 than one being flown. It returns to full authority as soon as you move a
 stick, or the tilt passes about 37°. Keep this in mind when you tune the
 Gain: judge it with a stick touched, not with hands off. The same applies
-to Angle and Horizon mode.
+to Angle mode.
