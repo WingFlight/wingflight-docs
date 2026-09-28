@@ -133,7 +133,7 @@ Feedforward tune, not something you'd want fighting an airframe that hasn't
 been flown and trimmed yet.
 
 Flight Feel's Gain defaults to 100% (no scaling) with no curve on every axis,
-and the Throttle row likewise defaults to 100% with no curve -- so the PID
+and the Throttle and Speed rows likewise default to 100% with no curve -- so the PID
 Gains table above is exactly what flies until you deliberately assign a
 curve or an Adjustments knob.
 
@@ -168,11 +168,45 @@ surfaces in prop wash gain authority as throttle rises, so it is usually
 used to reduce gain at high throttle. Its gain curve, if any, is evaluated
 on throttle.
 
+### Speed (GPS speed attenuation)
+
+The **Speed** row scales P and D on all three axes with GPS speed, on top of
+the Throttle row. Control surfaces get more effective as speed rises, so a
+tune that is right at cruise can wobble in a fast dive -- often with the
+throttle closed, where the Throttle row can't help. Speed reduces gain as
+the model goes faster.
+
+It needs a GPS with a fix, and it does nothing until a **Speed** curve is
+assigned in [Gain Curves](#gain-curves). The row only appears with firmware
+that supports it (MSP API 22.10 or later).
+
+- **Gain** (25-200%, default 100%) scales the whole curve.
+- The curve's X axis runs from 0 to the **speed curve range** (10-600 km/h,
+  default 150), set in the Gain Curves panel. Faster than that uses the
+  curve's last point.
+- Speed is 3D speed when the GPS reports it (u-blox), so vertical dives
+  count; otherwise ground speed. It is smoothed, so gain follows speed with
+  a short delay rather than in steps.
+- If the GPS fix is lost, gain holds for 3 seconds, then eases back to 100%
+  over a couple of seconds. When Speed engages (first fix, fix regained,
+  profile change) it also eases in rather than jumping.
+
+GPS speed is speed over the ground, not airspeed: flying into a strong wind
+reads slower than the air speed over the surfaces, and downwind reads
+faster. Leave some margin in the curve.
+
+A typical start: a curve that stays at 100% up to your cruise speed and
+falls to 60-70% at your fastest dive speed, with the speed curve range set a
+little above that dive speed. The Effective PID Gains preview shows the
+current Throttle and Speed attenuation on the bench; to see it in flight,
+log `debug_mode = GAIN_ATTEN` with [Blackbox](blackbox.md).
+
 ### Gain Curves
 
 Gain curves are an advanced shaping tool, so they are assigned in the
 **Gain Curves** panel, which appears in Expert Mode, rather than in Flight
-Feel. Pick a curve slot for Roll, Pitch, Yaw and Throttle; the shapes
+Feel. Pick a curve slot for Roll, Pitch, Yaw, Throttle and Speed (plus the
+Speed curve's range in km/h); the shapes
 themselves are edited on the [Curves](curves.md) tab. "-" means no curve,
 so Master Gain applies as set. Whenever a curve is assigned, the Master Gain cell in
 Flight Feel shows a **CURVE** badge, with the curve number in its tooltip,

@@ -43,6 +43,12 @@ selecting the profile you want to change):
 | `atthold_gain` | 0-250 | 40 | [Attitude Hold](../flight-modes/atthold.md) correction strength |
 | `atthold_deadband` | 0-100 | 5 | Per-axis stick percent below which that axis is held |
 | `atthold_max_rate` | 0-1800 | 300 | Correction rate clamp, deg/s |
+| `fw_spa_gain` | 25-200 | 100 | [GPS speed attenuation](../configurator/tabs/profiles.md#speed-gps-speed-attenuation) baseline, percent |
+| `fw_spa_curve` | 0-8 | 0 | Gain curve evaluated on GPS speed; 0 = GPS speed attenuation off |
+| `fw_spa_speed_max` | 10-600 | 150 | GPS speed at the curve's right edge, km/h |
+
+The `fw_spa_*` settings need firmware with MSP API 22.10 or later, and are
+not present on targets built without GPS.
 
 Stick deadbands are global (not per-profile). `roll_deadband` and
 `pitch_deadband` replace the old shared `deadband` setting, which a diff
@@ -95,8 +101,19 @@ is rejected as an invalid value. Set `debug_mode = NONE` instead.
 | 69-77 | `PITCH_PRECOMP`, `YAW_PRECOMP`, `RESCUE`, `RESCUE_ALTHOLD`, `CROSS_COUPLING`, `ERROR_DECAY`, `HS_OFFSET`, `HS_BLEED`, `GOV_MOTOR` |
 
 For Wingflight's own diagnostics use `ATTHOLD`, `TVHOLD`, `AUTOHOVER`,
-`AIRBORNE` or `ALTITUDE`. The first three log one axis at a time, picked
-with `debug_axis`.
+`AIRBORNE`, `ALTITUDE` or `GAIN_ATTEN`. The first three log one axis at a
+time, picked with `debug_axis`.
+
+`GAIN_ATTEN` shows the throttle (TPA) and GPS speed (SPA) gain attenuation
+that scales P and D:
+
+| Field | Value |
+|---|---|
+| 0 | Throttle attenuation, x1000 (1000 = 100%) |
+| 1 | GPS speed attenuation, x1000 |
+| 2 | Filtered GPS speed used by the curve, 0.1 km/h |
+| 3 | Raw GPS speed, cm/s |
+| 4 | GPS fix (1 = fix) |
 
 `ALTITUDE` shows the [altitude estimate](#altitude-estimation) next to its
 sources, to check the fusion against the raw readings:
