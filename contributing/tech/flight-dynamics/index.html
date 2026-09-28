@@ -1557,34 +1557,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../flight-modes/auto-hover/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Auto Hover
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../../flight-modes/atthold/" class="md-nav__link">
         
   
@@ -3126,10 +3098,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#26-autohover-autohoverc" class="md-nav__link">
+  <a href="#26-autohover-removed" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2.6 AUTOHOVER — autohover.c
+        2.6 AUTOHOVER (removed)
       
     </span>
   </a>
@@ -3547,10 +3519,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#26-autohover-autohoverc" class="md-nav__link">
+  <a href="#26-autohover-removed" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2.6 AUTOHOVER — autohover.c
+        2.6 AUTOHOVER (removed)
       
     </span>
   </a>
@@ -3800,7 +3772,7 @@
 <tr>
 <td>Pitch sign</td>
 <td><code>attitude.values.pitch</code> and <code>attitude.raw[PITCH]</code> are <strong>positive nose-down</strong> (inherited Betaflight convention). Nose-up vertical is <code>-900</code> decidegrees.</td>
-<td><a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/autohover.c">autohover.c</a> ("+900 drives the elevator toward nose-down, -900 is the physically-vertical, nose-up target"); <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/gps_rescue.c">gps_rescue.c</a> (positive angle = forward flight)</td>
+<td><a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/gps_nav.c">gps_nav.c</a> (bench-confirmed: "+900 drives the elevator toward nose-down, -900 is physically vertical nose-up"); <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/gps_rescue.c">gps_rescue.c</a> (positive angle = forward flight)</td>
 </tr>
 <tr>
 <td>Yaw sign</td>
@@ -3839,7 +3811,7 @@
                               ▼
         pid.c pidApplySetpoint(): first match wins
            ANGLE|GPS_RESCUE|FAILSAFE|LOITER|RTH → leveling.c angleModeApply
-           AUTOHOVER → autohover.c        ATTHOLD → atthold.c → hold_engine.c
+           ATTHOLD → atthold.c → hold_engine.c
            HORIZON → horizonModeApply     TRAINER → acroTrainerApply     else: acro
                               │
                               ▼
@@ -3852,8 +3824,8 @@
                     servos.c (balance curve, speed limit, trim, travel)   motors.c (+ governor)
 </code></pre></div>
 <h3 id="mode-arbitration">Mode arbitration<a class="headerlink" href="#mode-arbitration" title="Permanent link">&para;</a></h3>
-<p><a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/fc/core.c">core.c</a> <code>processRxModes()</code> picks one leveling-family mode from the BOX switches. Priority: <strong>AUTOHOVER &gt; ATTHOLD &gt; ANGLE &gt; HORIZON &gt; TRAINER</strong>; the winner clears the others' flags, so with ANGLE and AUTOHOVER both switched on, AUTOHOVER runs and <code>ANGLE_MODE</code> is off.</p>
-<p>Separately, the "safety" set (<code>ANGLE | GPS_RESCUE | FAILSAFE | LOITER | RTH</code>) preempts AUTOHOVER and ATTHOLD inside <code>pidApplySetpoint()</code>. GPS rescue, loiter and RTH are set from their own switches and are not cleared by the chain above, so they do preempt a hold. <code>core.c</code> then feeds the hold <code>mode &amp;&amp; !safetyLevelingActive</code>, so the hold re-captures a fresh target when the safety mode releases.</p>
+<p><a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/fc/core.c">core.c</a> <code>processRxModes()</code> picks one leveling-family mode from the BOX switches. Priority: <strong>ATTHOLD &gt; ANGLE &gt; HORIZON &gt; TRAINER</strong>; the winner clears the others' flags, so with ANGLE and ATTHOLD both switched on, ATTHOLD runs and <code>ANGLE_MODE</code> is off.</p>
+<p>Separately, the "safety" set (<code>ANGLE | GPS_RESCUE | FAILSAFE | LOITER | RTH</code>) preempts ATTHOLD inside <code>pidApplySetpoint()</code>. GPS rescue, loiter and RTH are set from their own switches and are not cleared by the chain above, so they do preempt a hold. <code>core.c</code> then feeds the hold <code>mode &amp;&amp; !safetyLevelingActive</code>, so the hold re-captures a fresh target when the safety mode releases.</p>
 <p><code>PASSTHROUGH</code>, <code>MANUAL</code> and <code>TRADITIONAL</code> are independent flags, not part of that chain.</p>
 <hr />
 <h2 id="2-subsystems-what-they-do-and-why">2. Subsystems: what they do and why<a class="headerlink" href="#2-subsystems-what-they-do-and-why" title="Permanent link">&para;</a></h2>
@@ -3941,7 +3913,7 @@
 <li><strong><code>rotateAxisError()</code>:</strong> rotates roll/pitch <code>axisError</code> by the yaw gyro so a stored error stays fixed in the earth-ish frame during a yaw rotation. Physically correct for a knife-edge or hover, harmless in cruise.</li>
 <li><strong>I-term decay policy</strong> (the most-edited rule in this file):</li>
 <li>Per-axis <code>iterm_decay_time</code>, default <code>60,60,60</code> (0.01 s units, range 1-100, no 0 = off) → decay rate 100/60 s⁻¹, i.e. τ ≈ 0.6 s, capped at 35 °/s. Plain acro/manual flight bleeds I at this rate.</li>
-<li><strong>Suspended</strong> on roll/pitch while any of ANGLE/HORIZON/GPS-rescue/failsafe/loiter/RTH/TRAINER shapes the setpoint, and on any AUTOHOVER axis that is holding. Reason (commit <code>8a2b5233c</code>): the decay was inherited from the helicopter lineage to stop servo creep, but it "quietly erod[es] exactly the sustained I-term those layers need … felt like the correction giving up after a couple of seconds".</li>
+<li><strong>Suspended</strong> on roll/pitch while any of ANGLE/HORIZON/GPS-rescue/failsafe/loiter/RTH/TRAINER shapes the setpoint. Reason (commit <code>8a2b5233c</code>): the decay was inherited from the helicopter lineage to stop servo creep, but it "quietly erod[es] exactly the sustained I-term those layers need … felt like the correction giving up after a couple of seconds".</li>
 <li><strong>Slowed to 10%</strong> (τ ≈ 6 s, 3.5 °/s) on an ATTHOLD axis that is holding (<code>QUATHOLD_HOLD_I_DECAY_SCALE</code>), except for 3 s after a stall re-capture, when it runs at full rate (see §2.5). Reason (commit <code>10bf9b81d</code>): with no bleed, stale I "parks the surfaces off-centre forever" at zero error and zero motion, e.g. on the bench. A real steady disturbance is still held because the outer loop re-grows the I it needs.</li>
 <li><strong>Unchanged (full rate)</strong> for an axis that is free-tracking or settling inside a hold mode. Commit <code>92c9de190</code>: it is plain rate flight, so it should not carry stale I from an earlier manoeuvre into the next hold.</li>
 <li><strong>Gyro overflow</strong> (<code>gyroOverflowDetected()</code>): <code>pidReset()</code> zeros all PID state and outputs until the gyro has read sane values for 50 ms. Protects against "yaw spin to the moon" after a crash-level over-range.</li>
@@ -3956,7 +3928,7 @@
 <p>See finding <strong>M-3</strong> for the consequence of tying MANUAL's authority to F.</p>
 <h3 id="24-angle-and-horizon-levelingc">2.4 ANGLE and HORIZON — <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/leveling.c">leveling.c</a><a class="headerlink" href="#24-angle-and-horizon-levelingc" title="Permanent link">&para;</a></h3>
 <p>Standard Betaflight Euler-angle leveling on roll and pitch only; yaw stays a pass-through so the rudder is never held. Target angle = stick × <code>level_limit</code> (default 55°) + GPS-rescue/nav offsets, clamped to the limit. Rate command = error × <code>level_strength/10</code> (default 4 °/s per °). HORIZON blends that into the acro setpoint by stick position and inclination. Below "airborne" the error is scaled to 25% (see <strong>H-4</strong>).</p>
-<p>Euler math is acceptable here because ANGLE is limited to 55° and pitch never nears ±90°. This is exactly why AUTOHOVER and ATTHOLD do <em>not</em> use it.</p>
+<p>Euler math is acceptable here because ANGLE is limited to 55° and pitch never nears ±90°. This is exactly why ATTHOLD does <em>not</em> use it.</p>
 <h3 id="25-attitude-hold-engine-hold_enginec-attholdc-tv_holdc">2.5 Attitude hold engine — <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/hold_engine.c">hold_engine.c</a>, <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/atthold.c">atthold.c</a>, <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/tv_hold.c">tv_hold.c</a><a class="headerlink" href="#25-attitude-hold-engine-hold_enginec-attholdc-tv_holdc" title="Permanent link">&para;</a></h3>
 <p><strong>What it does.</strong> Per axis, the hold either <em>tracks</em> (pilot stick outside <code>deadband</code>: setpoint passes through and the target follows the aircraft) or <em>holds</em> (stick centred and the axis has stopped rotating: rate command = attitude error × gain, clamped to <code>max_rate</code>).</p>
 <p><strong>Key decisions:</strong></p>
@@ -3968,19 +3940,11 @@
 <li><strong>Pre-airborne authority reduced, not zeroed</strong> (commit <code>8a2b5233c</code>). Forcing passthrough on the ground made both hold modes look dead on the bench. They now use the same 25% scaling that ANGLE/HORIZON already used.</li>
 <li><strong>One engine, two instances</strong> (commits <code>50b444423</code>, <code>83a5965e0</code>). ATTHOLD and the thrust-vector hold each own a <code>quatHold_t</code> but run identical code, so a fix lands in both.</li>
 <li><strong>Clamps at load, not only at the CLI</strong> (commit <code>fa54e333d</code>). MSP <code>SET_PID_PROFILE</code> writes the raw byte with no clamping, so <code>deadband &gt; 100</code> would have made the tracking test never trip and frozen the hold at full stick.</li>
-<li><strong>Re-capture after a safety mode</strong> (commit <code>fa54e333d</code>). The AUTOHOVER/ATTHOLD flag stayed set while a safety mode preempted the setpoint, so the hold never saw a rising edge and resumed a stale target. <code>core.c</code> now feeds <code>mode &amp;&amp; !safetyLevelingActive</code>.</li>
+<li><strong>Re-capture after a safety mode</strong> (commit <code>fa54e333d</code>). The ATTHOLD flag stayed set while a safety mode preempted the setpoint, so the hold never saw a rising edge and resumed a stale target. <code>core.c</code> now feeds <code>mode &amp;&amp; !safetyLevelingActive</code>.</li>
 </ul>
 <p><strong>Known limitation (documented in source):</strong> does not subtract <code>accelerometerTrims</code>, unlike <code>leveling.c</code>/<code>trainer.c</code>, so a pilot with board-mount trim dialled in will hold slightly off where the sticks were released.</p>
-<h3 id="26-autohover-autohoverc">2.6 AUTOHOVER — <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/autohover.c">autohover.c</a><a class="headerlink" href="#26-autohover-autohoverc" title="Permanent link">&para;</a></h3>
-<p>Quaternion vertical (nose-up) attitude and heading hold for 3D prop-hang.</p>
-<ul>
-<li><strong>Target</strong> = vertical at the captured heading, plus pitch/yaw stick deflection (× <code>max_angle</code>, default 30°) as a small body-frame offset. Right-multiplied so stick feel does not depend on which way the held heading points.</li>
-<li><strong>Roll is the pilot's pirouette axis</strong> (roll coincides with world-vertical at hover). A pure rate pass-through, never held. A roll hold (commit <code>7bc87e81b</code>, refined by <code>8a2b5233c</code>, <code>05bc541c5</code> and <code>51ba254f0</code>) and a level-then-rotate entry (<code>f07a4a8bb</code>) were tried and removed again, restoring the <code>b9d03d122</code> behaviour. Torque roll is left to the pilot's aileron. <code>autohover.roll_deadband</code> is retained in the profile, CLI and MSP only for compatibility and is unused.</li>
-<li><strong>Default <code>max_rate</code> 300 → 120 °/s</strong> (commit <code>51ba254f0</code>): engaging in forward flight makes a wide turn instead of a hard 90° snap. At gain 5 that saturates at 24° of error.</li>
-<li><strong>Optional throttle assist</strong> (<code>throttle_assist_*</code>, gain 0 = disabled by default; commit <code>befd8f6cf</code>). Ramps a bounded throttle add when pitch correction stays pinned at <code>max_rate</code>, as a proxy for "the airframe cannot out-thrust the hold". Ramped both ways, capped by a 50% firmware backstop independent of CLI/MSP values. See finding <strong>M-1</strong>.</li>
-<li><strong>Pitch sign</strong>: <code>imuEulerToQuaternion(roll, −900, heading)</code>. Commit <code>89f531016</code> fixed an initial nose-down target.</li>
-</ul>
-<p>Limitations already in the source comment: no <code>accelerometerTrims</code>; heading captured from an <code>atan2</code> that degrades toward 90° pitch; attitude only, no position hold; manual throttle.</p>
+<h3 id="26-autohover-removed">2.6 AUTOHOVER (removed)<a class="headerlink" href="#26-autohover-removed" title="Permanent link">&para;</a></h3>
+<p>The quaternion prop-hang hold (<code>autohover.c</code>), its optional throttle assist and the mixer's yaw-authority widening were removed in MSP API 22.11 (<a href="https://github.com/WingFlight/wingflight-firmware/pull/168">firmware#168</a>). Its slots stay reserved so nothing renumbers: box permanent ID 58, flight mode bit 9, adjustment function 87, debug mode 79 (<code>UNUSED_79</code>), and 9 zero-filled bytes in <code>MSP_PID_PROFILE</code> backed by <code>autohover_reserved</code> in <code>pidProfile_t</code>. The decision log below keeps its history.</p>
 <h3 id="27-acro-trainer-trainerc">2.7 Acro trainer — <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/trainer.c">trainer.c</a><a class="headerlink" href="#27-acro-trainer-trainerc" title="Permanent link">&para;</a></h3>
 <p>Angle-limits roll/pitch in rate flight using a projected-angle lookahead. Stateless
 (no latch), with no self-leveling inside the envelope. API 22.4 adds independent
@@ -4015,7 +3979,7 @@ overshoot. It does not measure angle of attack or provide stall protection.</p>
 <li><strong>Auto trim</strong> (from iNav's BOXAUTOTRIM): while the switch is on and armed, averages each stabilized servo's final output for 2 s and stores it as the new centre. Turning the switch off before disarm reverts it. It removes the runtime trim from what it stores.</li>
 </ul>
 <h3 id="211-throttle-governor-motors-governorc-motorsc">2.11 Throttle, governor, motors — <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/governor.c">governor.c</a>, <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/motors.c">motors.c</a><a class="headerlink" href="#211-throttle-governor-motors-governorc-motorsc" title="Permanent link">&para;</a></h3>
-<p>Throttle goes <code>getThrottle()</code> → AUTOHOVER assist → <code>governorApply()</code> → mixer M1 → <code>motorUpdate()</code>. The governor has four modes (off, RPM idle-hold, fixed throttle, RPM range) plus an RPM max limiter. Notable decisions:</p>
+<p>Throttle goes <code>getThrottle()</code> → <code>governorApply()</code> → mixer M1 → <code>motorUpdate()</code>. The governor has four modes (off, RPM idle-hold, fixed throttle, RPM range) plus an RPM max limiter. Notable decisions:</p>
 <ul>
 <li>When a governor mode is configured <strong>and</strong> a switch is assigned to <code>BOXGOVERNOR</code>, that switch is a <strong>hard motor interlock</strong>: stick has no authority until it is engaged. The <code>isModeActivationConditionPresent()</code> guard stops a configured-but-unwired governor from hard-cutting the motor forever.</li>
 <li><strong>RX loss bypasses the governor</strong> so a held-on governor switch cannot override the failsafe throttle cut. It tests <code>!rxIsReceivingSignal()</code> first, ahead of <code>failsafeIsActive()</code>, to close the ~100ms gap before the failsafe phase machine (see <strong>H-1</strong>) actually engages; <code>failsafeIsActive()</code> is a second, belt-and-suspenders check once it has.</li>
@@ -4214,6 +4178,12 @@ bench/flight validation of the initial thresholds remains required.</p>
 <td>Dead-reckon GPS nav through dropouts (5 s), <code>nav_min_sats</code> hysteresis, engage without a fix; accelerometer-fused altitude/vario; GPS altitude on the default source; <code>nav_min_sats</code> 8 → 6, <code>position_gps_min_sats</code> 12 → 6</td>
 <td>Flight test: LOITER called "unavailable" in flight at 9 satellites; baro-derivative vario lagged; boards without a baro had no altitude (<code>source &amp; ALT_SOURCE_DEFAULT</code> is always 0)</td>
 </tr>
+<tr>
+<td>2026-09-28</td>
+<td><a href="https://github.com/WingFlight/wingflight-firmware/pull/168">firmware#168</a></td>
+<td>Remove AUTOHOVER, its throttle assist and the yaw-authority widening; keep every slot reserved (box 58, mode bit 9, adjustment 87, debug 79, MSP and profile bytes)</td>
+<td>Mode dropped from the firmware; reserving the slots keeps MSP layouts and saved PID profiles valid, so no profile reset</td>
+</tr>
 </tbody>
 </table>
 <hr />
@@ -4238,7 +4208,7 @@ establish flight, and hand movement can imitate a qualifying response. Landing
 while armed does not clear the state. These limits need bench/flight validation;
 the detector is not a ground safety interlock.</p>
 <h3 id="medium">Medium<a class="headerlink" href="#medium" title="Permanent link">&para;</a></h3>
-<p><strong>M-1. AUTOHOVER throttle assist ignored the throttle stick and RX loss. Fixed (#104).</strong>
+<p><strong>M-1. AUTOHOVER throttle assist ignored the throttle stick and RX loss. Fixed (#104); the mode was later removed (<a href="https://github.com/WingFlight/wingflight-firmware/pull/168">firmware#168</a>).</strong>
 The boost was added to <code>getThrottle()</code> unconditionally, up to <code>throttle_assist_max</code> (default 15%, hard cap 50%), so with the stick at idle the motor could spin up, and on link loss a held-on AUTOHOVER switch kept assisting (H-1 means no failsafe mode clears it). <code>autoHoverThrottleBoost()</code> now returns 0, and resets the ramp, whenever the throttle is at or below the off-throttle threshold or <code>rxIsReceivingSignal()</code> is false. Disabled by default (<code>throttle_assist_gain=0</code>).</p>
 <p><strong>M-2. Loiter direction was inverted. Fixed (#139).</strong> Clockwise added +90° to the <em>bearing to the target</em>, so an aircraft south of the target (bearing 0°) was sent east (90°), which is counter-clockwise, and <code>nav_loiter_direction = CW</code> orbited CCW and vice versa. Clockwise keeps the target on the right, so it is now −90°, with fixture tests on all four sides of the target for both directions. Anyone who set the opposite value as a workaround has to set it back.
 <em>Still open:</em> the orbit has no radial correction, so it circles at whatever radius it entered, and it steers on GPS course over ground, which is undefined at low groundspeed.</p>
@@ -4248,7 +4218,7 @@ The boost was added to <code>getThrottle()</code> unconditionally, up to <code>t
 <p><strong>M-4. No guard against NaN/Inf at the servo boundary.</strong> <em>Confirmed (defence in depth).</em>
 <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/servos.c#L370">servos.c:370</a> writes <code>lrintf(pos · resolution)</code> straight to the timer compare register. <code>limitTravel</code> uses <code>&gt;</code>/<code>&lt;</code>, which are false for NaN, so a NaN from any upstream source would pass through as an undefined integer. I found no unguarded divide today (<a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/fc/rc.c#L235">rc.c:235</a> <code>range = deflection − deadband</code> would divide by zero only if the config allowed deadband ≥ deflection). One <code>isfinite</code> check in <code>servoUpdate()</code> and in <code>mixerUpdate()</code> closes it.</p>
 <p><strong>M-5. Attitude estimator assumes the accelerometer reads gravity.</strong> <em>Needs flight data.</em>
-<a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/imu.c#L320">imu.c:320</a> accepts 0.9–1.1 g. For a wing, sustained banked turns below ~25° bank and thrust acceleration both stay inside that window and bias the tilt estimate toward the turn or the acceleration. AUTOHOVER and every leveling mode depend on that estimate. There is no centripetal or airspeed correction. Kp and Ki defaults were not reviewed here. Worth checking against a blackbox of a sustained turn before tuning hold gains.</p>
+<a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/imu.c#L320">imu.c:320</a> accepts 0.9–1.1 g. For a wing, sustained banked turns below ~25° bank and thrust acceleration both stay inside that window and bias the tilt estimate toward the turn or the acceleration. ATTHOLD and every leveling mode depend on that estimate. There is no centripetal or airspeed correction. Kp and Ki defaults were not reviewed here. Worth checking against a blackbox of a sustained turn before tuning hold gains.</p>
 <p><strong>M-6. Servo <code>speed</code> limiting couples every roll/pitch surface.</strong> <em>Confirmed; default off.</em>
 <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/servos.c#L424">servos.c:424–455</a>: a slow servo's overrun scales <em>all</em> servos fed by roll or pitch (<code>cyclic_ratio</code>), so one rate-limited flap or aileron slows the elevator too. That is right for a helicopter swashplate and wrong for independent wing surfaces. <code>DEFAULT_SERVO_SPEED</code> is 0, so it only bites when a pilot sets a speed.</p>
 <h3 id="low">Low<a class="headerlink" href="#low" title="Permanent link">&para;</a></h3>
@@ -4270,17 +4240,16 @@ The boost was added to <code>getThrottle()</code> unconditionally, up to <code>t
 <ul>
 <li>Fast 8-multiply quaternion product matches the Hamilton product (random test, max error 7e-16).</li>
 <li>Hold engine: shortest-path sign fix, magnitude clamp over frozen axes only, unit renormalisation, and no drift accumulation when all axes are frozen.</li>
-<li>AUTOHOVER <code>MaxRate &gt; 0</code> guard on the assist trigger.</li>
 <li>PID anti-windup logic and its use of servo-travel saturation; yaw sign handling consistent between setpoint, MANUAL and PASSTHROUGH.</li>
 <li>Governor failsafe bypass and the interlock guard.</li>
 <li>Runtime servo trim design: trim direction folds the three reversal sources correctly.</li>
-<li>Mode arbitration: safety modes cleanly preempt AUTOHOVER/ATTHOLD and force a re-capture on release.</li>
+<li>Mode arbitration: safety modes cleanly preempt ATTHOLD and force a re-capture on release.</li>
 </ul>
 <h3 id="not-reviewed">Not reviewed<a class="headerlink" href="#not-reviewed" title="Permanent link">&para;</a></h3>
 <p>Dynamic notch and RPM filters, gyro/accelerometer drivers and calibration, <code>logic_condition.c</code>, <code>wiggle.c</code>, blackbox, MSP and CLI plumbing. The pilot-facing docs in <code>docs/</code> were audited separately.</p>
 <hr />
 <h2 id="5-test-coverage-and-verification-plan">5. Test coverage and verification plan<a class="headerlink" href="#5-test-coverage-and-verification-plan" title="Permanent link">&para;</a></h2>
-<p>Unit tests exist for PID, setpoint, curves, maths and the acro trainer. The tests for the mixer, IMU and failsafe are present but <strong>disabled</strong> (<code>flight_mixer_unittest.cc.txt</code>, <code>flight_imu_unittest.cc.txt</code>, <code>flight_failsafe_unittest.cc.txt</code>). The airborne detector now has 15 focused tests, and the trainer/leveling suite has 27 tests covering independent limits and limiter-dependent I-term state. There are still no tests for the hold engine, AUTOHOVER, ATTHOLD, the TV loop, servos, or nav. Unit coverage does not replace bench/flight validation.</p>
+<p>Unit tests exist for PID, setpoint, curves, maths and the acro trainer. The tests for the mixer, IMU and failsafe are present but <strong>disabled</strong> (<code>flight_mixer_unittest.cc.txt</code>, <code>flight_imu_unittest.cc.txt</code>, <code>flight_failsafe_unittest.cc.txt</code>). The airborne detector now has 15 focused tests, and the trainer/leveling suite has 27 tests covering independent limits and limiter-dependent I-term state. There are still no tests for the hold engine, ATTHOLD, the TV loop, servos, or nav. Unit coverage does not replace bench/flight validation.</p>
 <p>Suggested order, cheapest and highest-value first:</p>
 <ol>
 <li><strong>Signs (H-3, M-2). Both fixed, both unit-tested.</strong> <code>updateGpsNav()</code> now has fixtures for aircraft south/north/east/west of target for CW and CCW (M-2), and above/below target altitude (H-3). Still open: one SITL or bench confirmation of the actual pitch response, which was not done as part of either fix.</li>

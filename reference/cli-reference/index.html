@@ -1557,34 +1557,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../flight-modes/auto-hover/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Auto Hover
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../flight-modes/atthold/" class="md-nav__link">
         
   
@@ -3375,7 +3347,7 @@ easy to review. Paste the saved output back into the CLI and run <code>save</cod
 restore it. See <a href="../../getting-started/backup-and-restore/">Backup &amp; Restore</a>
 for the full workflow.</p>
 <h2 id="settings-added-in-recent-snapshots">Settings added in recent snapshots<a class="headerlink" href="#settings-added-in-recent-snapshots" title="Permanent link">&para;</a></h2>
-<p>Auto Hover and Attitude Hold settings are per-profile (set them after
+<p>Attitude Hold settings are per-profile (set them after
 selecting the profile you want to change):</p>
 <table>
 <thead>
@@ -3387,48 +3359,6 @@ selecting the profile you want to change):</p>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td><code>autohover_gain</code></td>
-<td>0-250</td>
-<td>50</td>
-<td><a href="../../flight-modes/auto-hover/">Auto Hover</a> correction strength</td>
-</tr>
-<tr>
-<td><code>autohover_max_angle</code></td>
-<td>0-90</td>
-<td>30</td>
-<td>Max stick deflection off vertical, degrees</td>
-</tr>
-<tr>
-<td><code>autohover_max_rate</code></td>
-<td>0-1800</td>
-<td>120</td>
-<td>Attitude-capture rate clamp, deg/s</td>
-</tr>
-<tr>
-<td><code>autohover_roll_deadband</code></td>
-<td>0-100</td>
-<td>5</td>
-<td>Unused; roll is always a free pass-through (kept for compatibility)</td>
-</tr>
-<tr>
-<td><code>autohover_throttle_assist_gain</code></td>
-<td>0-100</td>
-<td>0</td>
-<td>Throttle added per second under sustained saturation, percent of range; 0 = off</td>
-</tr>
-<tr>
-<td><code>autohover_throttle_assist_max</code></td>
-<td>0-50</td>
-<td>15</td>
-<td>Ceiling on the added throttle, percent of range</td>
-</tr>
-<tr>
-<td><code>autohover_throttle_assist_trigger_ms</code></td>
-<td>0-2000</td>
-<td>300</td>
-<td>Milliseconds of saturation before the assist starts</td>
-</tr>
 <tr>
 <td><code>atthold_gain</code></td>
 <td>0-250</td>
@@ -3467,6 +3397,9 @@ selecting the profile you want to change):</p>
 </tr>
 </tbody>
 </table>
+<p>The <code>autohover_*</code> settings were removed with the AUTO HOVER mode in MSP API
+22.11. Restoring a diff from older firmware reports them as unknown settings;
+those lines can be ignored.</p>
 <p>The <code>fw_spa_*</code> settings need firmware with MSP API 22.10 or later, and are
 not present on targets built without GPS.</p>
 <p>Stick deadbands are global (not per-profile). <code>roll_deadband</code> and
@@ -3593,10 +3526,14 @@ is rejected as an invalid value. Set <code>debug_mode = NONE</code> instead.</p>
 <td>69-77</td>
 <td><code>PITCH_PRECOMP</code>, <code>YAW_PRECOMP</code>, <code>RESCUE</code>, <code>RESCUE_ALTHOLD</code>, <code>CROSS_COUPLING</code>, <code>ERROR_DECAY</code>, <code>HS_OFFSET</code>, <code>HS_BLEED</code>, <code>GOV_MOTOR</code></td>
 </tr>
+<tr>
+<td>79</td>
+<td><code>AUTOHOVER</code> (removed with the mode in API 22.11)</td>
+</tr>
 </tbody>
 </table>
-<p>For Wingflight's own diagnostics use <code>ATTHOLD</code>, <code>TVHOLD</code>, <code>AUTOHOVER</code>,
-<code>AIRBORNE</code>, <code>ALTITUDE</code> or <code>GAIN_ATTEN</code>. The first three log one axis at a
+<p>For Wingflight's own diagnostics use <code>ATTHOLD</code>, <code>TVHOLD</code>,
+<code>AIRBORNE</code>, <code>ALTITUDE</code> or <code>GAIN_ATTEN</code>. The first two log one axis at a
 time, picked with <code>debug_axis</code>.</p>
 <p><code>GAIN_ATTEN</code> shows the throttle (TPA) and GPS speed (SPA) gain attenuation
 that scales P and D:</p>

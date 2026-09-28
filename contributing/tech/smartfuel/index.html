@@ -1557,34 +1557,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../flight-modes/auto-hover/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Auto Hover
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../../flight-modes/atthold/" class="md-nav__link">
         
   
@@ -3487,7 +3459,7 @@ smartfuel_sag_gain = 40
 <p>Units: 0.01% points per second (e.g. <code>50</code> → 0.50 %p/s). Valid range <strong>0</strong>–<strong>250</strong> in the CLI and MSP.</p>
 <p>This limiter only applies to the <strong>voltage</strong> half of the estimate. In <code>CURRENT</code> mode with non-zero used mAh, the level is <code>initial − used / capacity</code> and is not rate-limited — fall speed is determined entirely by how fast <code>used</code> accumulates. In <code>COMBINED</code> mode, the voltage half is rate-limited but the <code>initial − used / capacity</code> half is not, so the combined <code>min(…)</code> can still fall faster than this parameter would suggest. The limiter is fully in effect only on the <code>VOLTAGE</code> path and on the <code>CURRENT</code>/<code>COMBINED</code> fallback when consumption data are unavailable.</p>
 <h3 id="smartfuel_sag_gain"><code>smartfuel_sag_gain</code><a class="headerlink" href="#smartfuel_sag_gain" title="Permanent link">&para;</a></h3>
-<p>Amount of sag compensation applied to the voltage reading before it is turned into a percentage. Voltage sag follows motor current, so the compensation is driven by the motor outputs actually being sent (after the governor and any AUTOHOVER throttle assist), averaged across motors: <code>0</code> at idle, <code>1</code> at full power on every motor. The firmware adds <code>smartfuel_sag_gain</code> hundredths of a volt, multiplied by that load, to the per-cell voltage. It runs whenever the motor is working, not only when the aircraft counts as airborne.</p>
+<p>Amount of sag compensation applied to the voltage reading before it is turned into a percentage. Voltage sag follows motor current, so the compensation is driven by the motor outputs actually being sent (after the governor), averaged across motors: <code>0</code> at idle, <code>1</code> at full power on every motor. The firmware adds <code>smartfuel_sag_gain</code> hundredths of a volt, multiplied by that load, to the per-cell voltage. It runs whenever the motor is working, not only when the aircraft counts as airborne.</p>
 <ul>
 <li>Increase it if SmartFuel is too pessimistic under load.</li>
 <li>Decrease it if SmartFuel is too optimistic under load.</li>

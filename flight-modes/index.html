@@ -16,7 +16,7 @@
         <link rel="prev" href="../configurator/tabs/cli/">
       
       
-        <link rel="next" href="auto-hover/">
+        <link rel="next" href="atthold/">
       
       
         
@@ -1620,34 +1620,6 @@
   
   
     <li class="md-nav__item">
-      <a href="auto-hover/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Auto Hover
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="atthold/" class="md-nav__link">
         
   
@@ -3184,10 +3156,6 @@ helicopter-focused mode set.</p>
 </thead>
 <tbody>
 <tr>
-<td><a href="auto-hover/">Auto Hover</a></td>
-<td>Automated hover/attitude assist for aircraft capable of hovering flight, with free roll and optional throttle assist</td>
-</tr>
-<tr>
 <td><a href="atthold/">Attitude Hold</a></td>
 <td>Holds commanded attitude per axis when that stick is released</td>
 </tr>
@@ -3244,15 +3212,13 @@ gliding at idle or losing receiver input does not reduce attitude correction.
 Disarm after landing to restore ground behavior; landing while still armed
 does not automatically clear the flight state.</p>
 <p>This changes the flight evidence, not the controllers: ANGLE/HORIZON, Attitude
-Hold, TV hold and Auto Hover retain their existing 25% correction before flight
-is detected. Auto Hover's existing airborne requirement for optional throttle
-assist also remains. Normal rate/manual control and Trainer do not use this
+Hold and TV hold retain their existing 25% correction before flight is
+detected. Normal rate/manual control and Trainer do not use this
 state. Normal rate stabilization is available before flight detection.</p>
 <p>The thresholds need bench and flight validation. Hand movement following a
 stick command can imitate flight, while a launch without a qualifying command
 and response can remain undetected. Do not rely on this as a ground safety
-interlock. AUTO HOVER assist remains opt-in and retains its existing throttle-off
-and receiver-signal guards; no 40% throttle rule is added.</p>
+interlock.</p>
 
 
 
@@ -3305,13 +3271,13 @@ and receiver-signal guards; no 40% throttle rule is added.</p>
         
         
           
-          <a href="auto-hover/" class="md-footer__link md-footer__link--next" aria-label="Next: Auto Hover">
+          <a href="atthold/" class="md-footer__link md-footer__link--next" aria-label="Next: Attitude Hold">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Auto Hover
+                Attitude Hold
               </div>
             </div>
             <div class="md-footer__button md-icon">

@@ -1753,34 +1753,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../flight-modes/auto-hover/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Auto Hover
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../../flight-modes/atthold/" class="md-nav__link">
         
   
@@ -3764,7 +3736,7 @@ roll I-Term Decay keeps rolls free.</p>
 <p>I-Term Decay and I gain overlap: under a steady load, a longer I-Term Decay holds more I,
 much as a higher I gain would. Set I gain for how firmly a gust is
 corrected, then use I-Term Decay for how long the correction lasts. The ANGLE,
-HORIZON, AUTO HOVER and ATT HOLD modes manage this themselves while they are
+HORIZON and ATT HOLD modes manage this themselves while they are
 holding, so I-Term Decay mainly shapes normal rate flight.</p>
 <p>In the CLI this is <code>iterm_decay_time</code>.
 Its maximum bleed rate, I-Term Decay Max Rate (35°/s), stays under PID
@@ -3791,7 +3763,7 @@ shows a single shared limit. Save a TRAINER assignment in
 <a href="../auxiliary/">Modes</a> to show this panel. Expert Mode is not required.
 See <a href="../../../flight-modes/trainer/">Trainer Mode</a> for how the limits affect flight.</p>
 <h2 id="flight-mode-settings">Flight-mode settings<a class="headerlink" href="#flight-mode-settings" title="Permanent link">&para;</a></h2>
-<p>ANGLE, HORIZON, TRAINER, AUTO HOVER and ATT HOLD each have their own panel.
+<p>ANGLE, HORIZON, TRAINER and ATT HOLD each have their own panel.
 These panels are available in both basic and Expert Mode, and appear only for
 modes with a saved switch range or linked-mode assignment. Visibility follows
 the configuration, not the current position of the transmitter switch.</p>
@@ -3799,11 +3771,8 @@ the configuration, not the current position of the transmitter switch.</p>
 own leveling gain; its leveling correction uses the ANGLE limits. Those shared
 limits appear in the HORIZON panel when ANGLE is not configured, otherwise edit
 them in the ANGLE panel. They do not turn HORIZON into a Trainer-style envelope.</p>
-<p>The <a href="../../../flight-modes/auto-hover/">Auto Hover</a> panel contains Gain, Max Angle,
-Max Rate, Roll Deadband and the throttle-assist gain, ceiling and trigger time.
-The current controller does not use Roll Deadband; the field remains in the
-protocol and UI. <a href="../../../flight-modes/atthold/">Attitude Hold</a> has its own
-Gain, Deadband and Max Rate. See each mode's page for what these settings do.</p>
+<p><a href="../../../flight-modes/atthold/">Attitude Hold</a> has its own Gain, Deadband and
+Max Rate. See each mode's page for what these settings do.</p>
 
 
 

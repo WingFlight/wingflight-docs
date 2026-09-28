@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://doc.wingflight.org/flight-modes/atthold/">
       
       
-        <link rel="prev" href="../auto-hover/">
+        <link rel="prev" href="../">
       
       
         <link rel="next" href="../tv-hold/">
@@ -1559,34 +1559,6 @@
                 
   
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../auto-hover/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Auto Hover
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
     
   
   
@@ -1665,6 +1637,17 @@
     <span class="md-ellipsis">
       
         Tuning
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#on-the-bench" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        On the bench
       
     </span>
   </a>
@@ -3212,6 +3195,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#on-the-bench" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        On the bench
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#letting-go-of-a-stick" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3286,7 +3280,7 @@ release the sticks, rather than the aircraft continuing to fly whatever
 attitude it was last commanded (typical for a fixed-wing aircraft with no
 self-leveling). This gives a self-leveling-like behavior on demand,
 independent of full autopilot features.</p>
-<p>Unlike <a href="../auto-hover/">Auto Hover</a>, Attitude Hold doesn't bound stick
+<p>Attitude Hold doesn't bound stick
 authority to any particular orientation -- it freezes and holds whatever
 attitude the aircraft happens to be in, at any orientation, not just
 vertical or level.</p>
@@ -3312,9 +3306,15 @@ it's allowed to rotate the aircraft while doing so. These are on the
 <a href="../../configurator/tabs/profiles/">Profiles</a> tab.</p>
 <p>Attitude Hold works at reduced strength (about a quarter) before the
 aircraft is airborne, so you can tilt the airframe by hand on the bench and
-see a real, gentler correction. See
-<a href="../auto-hover/#on-the-bench">On the bench</a> for the details, which are shared
-with Auto Hover.</p>
+see a real, gentler correction. See <a href="#on-the-bench">On the bench</a>.</p>
+<h2 id="on-the-bench">On the bench<a class="headerlink" href="#on-the-bench" title="Permanent link">&para;</a></h2>
+<p>Attitude Hold still works at reduced strength before the aircraft is
+airborne -- roughly a quarter of its in-flight authority, the same as Angle
+and Horizon modes -- so tilting the airframe by hand shows a real, gentler
+correction. It's not fully live until liftoff.</p>
+<p>If a safety mode (Failsafe, GPS Rescue, RTH, Loiter or Angle) takes over
+and later releases, Attitude Hold captures a fresh target from the
+aircraft's current attitude instead of resuming a stale one.</p>
 <h2 id="letting-go-of-a-stick">Letting go of a stick<a class="headerlink" href="#letting-go-of-a-stick" title="Permanent link">&para;</a></h2>
 <p>An axis does not freeze the instant its stick returns to center. It keeps
 tracking until it has actually stopped rotating (under about 15 deg/s), or
@@ -3347,7 +3347,7 @@ hold that is sagging slightly against a steady disturbance keeps holding.</p>
 tilt, not from throttle or airspeed. With the sticks centered and the
 aircraft within about 26° of level, it is treated as <strong>landed</strong>, and the
 correction is cut to about a quarter (see
-<a href="../auto-hover/#on-the-bench">On the bench</a>). A level, hands-off aircraft in
+<a href="#on-the-bench">On the bench</a>). A level, hands-off aircraft in
 Attitude Hold, or in Angle mode, therefore holds with much less authority
 than one being flown. It returns to full authority as soon as you move a
 stick, or the tilt passes about 37°. Keep this in mind when you tune the
@@ -3388,7 +3388,7 @@ to Angle and Horizon mode.</p>
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../auto-hover/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Auto Hover">
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Flight Modes &amp;amp; Features">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -3398,7 +3398,7 @@ to Angle and Horizon mode.</p>
                 Previous
               </span>
               <div class="md-ellipsis">
-                Auto Hover
+                Flight Modes &amp; Features
               </div>
             </div>
           </a>
