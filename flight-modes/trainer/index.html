@@ -3256,12 +3256,6 @@ at the limit.</p>
 <td>Limits the requested attitude</td>
 </tr>
 <tr>
-<td>HORIZON</td>
-<td>Rate control with added leveling that fades with stick deflection</td>
-<td>Commands leveling</td>
-<td>No enforced envelope</td>
-</tr>
-<tr>
 <td>TRAINER</td>
 <td>Rate control inside the limits</td>
 <td>No deliberate self-leveling</td>
@@ -3270,8 +3264,7 @@ at the limit.</p>
 </tbody>
 </table>
 <p>ANGLE is therefore closer to SAFE Beginner/Angle Demand; TRAINER is closer to
-SAFE Intermediate/Envelope. HORIZON is a different blend, not an intermediate
-angle-limited mode. See <a href="https://wiki.spektrumrc.com/spektrum/safe-setup-guide">Spektrum's SAFE setup guide</a>
+SAFE Intermediate/Envelope. See <a href="https://wiki.spektrumrc.com/spektrum/safe-setup-guide">Spektrum's SAFE setup guide</a>
 for its distinction between angle demand and envelope protection.</p>
 <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h2>
 <ul>
@@ -3286,7 +3279,7 @@ for its distinction between angle demand and envelope protection.</p>
   <strong>Gain</strong>, <strong>Bank</strong> and <strong>Pitch</strong> under
   <strong>Flight Tuning → Advanced → Flight Modes → Acro Trainer</strong>. The suite requires
   MSP API <strong>22.04 or newer</strong>; update the firmware snapshot alongside the suite.
-  ANGLE, HORIZON and ATT HOLD have separate tools in the same menu.</li>
+  ANGLE and ATT HOLD have separate tools in the same menu.</li>
 <li>In EdgeTX, <strong>Profile – Various</strong> exposes the independent limits with API 22.4
   firmware. Its older-firmware support retains shared limits.</li>
 </ul>
@@ -3315,10 +3308,10 @@ effective angles and preserve inheritance when an axis is not edited. Older
 clients cannot edit the independent limits; their shared-limit changes affect
 only axes still inheriting. Upgrading the Configurator/Ethos suite is therefore
 recommended when using independent limits.</p>
-<p>Use non-overlapping switch ranges for ANGLE, HORIZON and TRAINER. These are
-alternative modes, not layers: ATT HOLD, ANGLE and HORIZON each
-take priority over TRAINER when their mode switches overlap. Selecting HORIZON
-and TRAINER together does not produce self-leveling with Trainer limits.</p>
+<p>Use non-overlapping switch ranges for ANGLE and TRAINER. These are
+alternative modes, not layers: ATT HOLD and ANGLE each take priority over
+TRAINER when their mode switches overlap. Selecting ANGLE and TRAINER
+together does not add Trainer limits to Angle mode.</p>
 <h2 id="limits-of-the-protection">Limits of the protection<a class="headerlink" href="#limits-of-the-protection" title="Permanent link">&para;</a></h2>
 <p>The angle boundary is a control objective, not a guarantee that the aircraft
 cannot cross it. Momentum, wind, tuning and available control authority can
