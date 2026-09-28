@@ -36,6 +36,11 @@ Drag a point below 100 to taper gain out as the stick moves that way (a
 softer response out toward the ends of the stick), or above 100 to sharpen
 it there.
 
+Assigned to the Throttle row, the X axis is throttle (0-100%) instead of
+stick deflection. Assigned to the Speed row, it is GPS speed, from 0 to the
+speed curve range set in the Gain Curves panel -- see
+[Speed](profiles.md#speed-gps-speed-attenuation).
+
 ## Servo Balance Curves
 
 When two or more servos drive the same control surface -- dual ailerons,

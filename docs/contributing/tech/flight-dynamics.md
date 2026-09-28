@@ -39,7 +39,7 @@ These are easy to get wrong and are not written down elsewhere.
            HORIZON → horizonModeApply     TRAINER → acroTrainerApply     else: acro
                               │
                               ▼
-        pid.c mode 1: P (TPA) + I + D + F + B  ─► pidSum   (mode 0: F only)
+        pid.c mode 1: P (TPA·SPA) + I + D + F + B  ─► pidSum   (mode 0: F only)
         tv_pid.c (optional, independent loop, reuses the final main setpoint)
                               │
                               ▼
@@ -73,9 +73,9 @@ Order of operations: airborne update, yaw negation, PT3 smoothing (cutoff derive
 
 | Term | Formula | Notes |
 |---|---|---|
-| P | `Kp · masterGain · gainCurve · TPA · crossAxisRelax · error` | |
-| I | `Ki · masterGain · axisError` | Not attenuated by TPA. Cross-axis relax slows the accumulation of `axisError` rather than scaling this output. Forced to 0 output (state kept) under `TRADITIONAL_MODE`. |
-| D | `Kd · masterGain · gainCurve · TPA · crossAxisRelax · d/dt(−gyro)` | Gyro-only D (no setpoint kick). Default D = 0. |
+| P | `Kp · masterGain · gainCurve · TPA · SPA · crossAxisRelax · error` | |
+| I | `Ki · masterGain · axisError` | Not attenuated by TPA or SPA. Cross-axis relax slows the accumulation of `axisError` rather than scaling this output. Forced to 0 output (state kept) under `TRADITIONAL_MODE`. |
+| D | `Kd · masterGain · gainCurve · TPA · SPA · crossAxisRelax · d/dt(−gyro)` | Gyro-only D (no setpoint kick). Default D = 0. |
 | F | `Kf · setpoint` | Default carries the whole stick response: F=100 → 0.0025/(°/s), so 400 °/s = full travel. |
 | B | `Kb · d/dt(setpoint)` | FF boost; default 0. |
 
@@ -91,6 +91,13 @@ Yaw I can therefore drive 60% of travel on its own. That is deliberate room for 
 **Design decisions:**
 
 - **Throttle-based gain attenuation (`fw_tpa_gain`, `fw_tpa_curve`).** Throttle is used as a proxy for prop-wash over the surfaces, "not airspeed": on aircraft that hover or harrier at or past stall, surfaces stay authoritative at high throttle regardless of airspeed, so gain falls as throttle *rises*. Structured like `master_gain` + `gain_curve` (baseline scale × optional curve from the shared pool) so tuners have one mental model. Applies to P and D only.
+- **GPS speed attenuation (`fw_spa_gain`, `fw_spa_curve`, `fw_spa_speed_max`), in [speed_atten.c](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/speed_atten.c).** It complements TPA for the case TPA cannot see: a fast dive with the throttle closed, where dynamic pressure (∝ speed²) makes a cruise tune oscillate. Same shape as TPA (baseline × curve from the shared pool), with the curve evaluated at `speed / fw_spa_speed_max`; multiplied with TPA on P and D. Design choices:
+  - **Speed source:** `max(speed3d, groundSpeed)`. Only u-blox reports 3D speed, other providers leave it at 0, and 3D speed is never below ground speed.
+  - **Filtering:** low-passed at 1 Hz, because GPS arrives at 5-10 Hz.
+  - **Fix loss:** hold for 3 s, then slew back to 1.0 at 0.2/s. Holding avoids a gain step at high speed on a brief dropout; easing back avoids flying on a stale low gain.
+  - **Engaging:** first fix, fix regained or a profile change slews onto the curve at the same rate instead of stepping.
+  - **Limitations:** GPS is ground-referenced, so wind shifts it. With no curve, or with no GPS or no fix from boot, SPA is exactly 1.0.
+  - **Storage:** kept in a separate per-profile PG (`PG_FW_SPA_CONFIG`), so adding it did not reset saved PID profiles. Unit-tested in `speed_atten_unittest`.
 - **Master gain applied at the point of use**, not baked into `coef[]`, so any live adjustment stays correct regardless of which adjustment last touched a coefficient.
 - **I-term error relax** (`iterm_relax_*`): high-pass of the setpoint scales accumulation down during fast stick motion. Inherited. Always on for roll, pitch and yaw in both loops since API 22.8 (`iterm_relax_type` removed). Per axis: `bounceback` (the I-Term Relax score shown in Flight Feel, 1-10, default 5, higher = more suppression; API 22.9 replaced `iterm_relax_cutoff`), which `pidBouncebackCutoff()` maps to the setpoint low-pass cutoff (50, 30, 20, 15, 10, 8, 7, 6, 5, 3 Hz) and `iterm_relax_level` (°/s, default 22, the high-pass magnitude at which accumulation stops; lower = stronger).
 - **Cross-axis relax** (`cross_axis_relax_*`): yaw activity softens roll and/or pitch feedback "so rudder does not feel like an artificial hold". It scales the P and D outputs, and slows the I *accumulation* (like `iterm_relax`) instead of scaling the I output, so I does not step when rudder is applied or released. Default off.
