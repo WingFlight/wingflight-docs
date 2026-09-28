@@ -14,7 +14,7 @@ helicopter-focused mode set.
 | [Traditional](traditional.md) | Zeroes the I-term for a snappy, no-hold rate-gyro feel, layered on top of any other stabilization |
 | [Ready-to-Arm Wiggle](ready-to-arm-wiggle.md) | Visual servo-wiggle confirmation before arming |
 | [Cross-Axis Relax](cross-axis-relax.md) | Reduces unwanted coupling between control axes |
-| [GPS RTH and Loiter](gps-rth.md) | Experimental fixed-wing return-to-home and orbit, by banking and pitching under Angle-mode leveling; also reachable as a [Failsafe Stage 2 procedure](../configurator/tabs/failsafe.md) |
+| [GPS RTH and Loiter](gps-rth.md) | Experimental fixed-wing return-to-home and orbit, by banking and pitching under self-leveling; also reachable as a [Failsafe Stage 2 procedure](../configurator/tabs/failsafe.md) |
 | [Governor](governor.md) | Idle-hold or RPM governing of motor throttle response, from Off through fixed idle to full RPM Range control |
 | [Backup RX Input](backup-rx-input.md) | Instant backup receiver takeover from a second RX port if the main RF link is lost |
 
@@ -36,8 +36,9 @@ gliding at idle or losing receiver input does not reduce attitude correction.
 Disarm after landing to restore ground behavior; landing while still armed
 does not automatically clear the flight state.
 
-This changes the flight evidence, not the controllers: ANGLE/HORIZON, Attitude
-Hold and TV hold retain their existing 25% correction before flight is
+This changes the flight evidence, not the controllers: the failsafe/GPS
+self-leveling, Attitude Hold and TV hold retain their existing 25% correction
+before flight is
 detected. Normal rate/manual control and Trainer do not use this
 state. Normal rate stabilization is available before flight detection.
 

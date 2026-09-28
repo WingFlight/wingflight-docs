@@ -29,8 +29,7 @@ Expert Mode.
 **Gain**, **Deadband**, and **Max Rate** here configure
 [Thrust Vector Attitude Hold](../../flight-modes/tv-hold.md) -- an
 independent hold engine for the vectored nozzle only, engaged by its own
-switch and completely decoupled from the main loop's Attitude Hold/Auto
-Hover/Angle mode chain.
+switch and completely decoupled from the main loop's Attitude Hold.
 
 ## Profiles
 

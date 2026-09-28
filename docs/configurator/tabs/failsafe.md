@@ -58,8 +58,8 @@ Per-channel behavior once that channel is judged failed:
 Once `Guard Delay` (0.1s units, `failsafe_delay`) elapses with the link
 still down, the flight controller takes over:
 
-- **Land** and **Drop** both switch the aircraft to Angle-style
-  self-leveling immediately -- wings level, controlled pitch -- then cut the
+- **Land** and **Drop** both switch the aircraft to self-leveling
+  immediately -- wings level, controlled pitch -- then cut the
   motor and disarm after `Land Delay` (`failsafe_off_delay`). Nothing
   currently distinguishes the two: neither one flares or manages descent
   rate, so pick either.
@@ -100,7 +100,10 @@ acts faster (no ~100ms detection window) and does not depend on the flight
 controller's own logic:
 
 1. On your receiver or transmitter, set failsafe to throttle off (or idle for
-   a glider) and a switch position that selects self-leveling (Angle).
+   a glider) and a switch position that selects TRAINER, so bank and pitch
+   stay limited. Since MSP API 22.12 there is no self-leveling switch mode:
+   self-leveling comes from the flight controller's Stage 2 procedure below
+   once the link has been down for `Guard Delay`.
 2. Do this at the receiver, rather than relying on the flight controller
    fallback alone, because auxiliary channels default to Hold.
 3. To make a mode switch fall back to a known position from the flight

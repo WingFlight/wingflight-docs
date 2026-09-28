@@ -37,9 +37,10 @@ controller too, automatically, if the radio link is lost and stays lost.
 
 ## How they work
 
-Neither mode is an autopilot. Each one gives the Angle-mode self-leveling a
-bank and a pitch target, so the aircraft is always stabilized as it is in
-Angle mode.
+Neither mode is an autopilot. Each one gives the self-leveling a bank and a
+pitch target, so the aircraft stays stabilized throughout. The leveling
+strength and limits are the Profiles tab's **Self-Leveling (Failsafe & GPS)**
+settings.
 
 - **Steering.** Bank follows the difference between the GPS course over
   ground and the direction of the target: the bigger the error, the more the
@@ -96,7 +97,7 @@ from the CLI:
 | `nav_altitude_kp` | 100 | Pitch per metre of altitude error, percent |
 
 The bank and pitch the navigation asks for is added to your stick input and
-then limited by the Angle-mode limit (`angle_level_limit`, 55 by default;
+then limited by the self-leveling limit (`angle_level_limit`, 55 by default;
 API 22.4 can override it independently with `angle_roll_limit` and
 `angle_pitch_limit`).
 With the defaults, 12.5 degrees of course error is enough to reach the 25

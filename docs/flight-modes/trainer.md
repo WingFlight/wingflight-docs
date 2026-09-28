@@ -23,16 +23,12 @@ pilot input back into the envelope. I-term decay is suspended only on an
 axis whose command the limiter is changing, so it can sustain the correction
 at the limit.
 
-| Mode | Stick behavior | Centered sticks | Pitch/bank envelope |
-| --- | --- | --- | --- |
-| ANGLE | Commands an attitude within the configured angle limit | Commands level flight | Limits the requested attitude |
-| HORIZON | Rate control with added leveling that fades with stick deflection | Commands leveling | No enforced envelope |
-| TRAINER | Rate control inside the limits | No deliberate self-leveling | Intervenes near/beyond the configured limit |
-
-ANGLE is therefore closer to SAFE Beginner/Angle Demand; TRAINER is closer to
-SAFE Intermediate/Envelope. HORIZON is a different blend, not an intermediate
-angle-limited mode. See [Spektrum's SAFE setup guide](https://wiki.spektrumrc.com/spektrum/safe-setup-guide)
-for its distinction between angle demand and envelope protection.
+TRAINER is rate control inside the limits: centered sticks do not self-level,
+and it intervenes near and beyond the configured limit. It is closer to SAFE
+Intermediate/Envelope than to angle demand. See
+[Spektrum's SAFE setup guide](https://wiki.spektrumrc.com/spektrum/safe-setup-guide)
+for its distinction between angle demand and envelope protection. ANGLE and
+HORIZON are no longer switch modes (MSP API 22.12).
 
 ## Setup
 
@@ -47,18 +43,20 @@ for its distinction between angle demand and envelope protection.
   **Gain**, **Bank** and **Pitch** under
   **Flight Tuning → Advanced → Flight Modes → Acro Trainer**. The suite requires
   MSP API **22.04 or newer**; update the firmware snapshot alongside the suite.
-  ANGLE, HORIZON and ATT HOLD have separate tools in the same menu.
+  ATT HOLD and Self-Level (the failsafe/GPS leveling) have separate tools in
+  the same menu.
 - In EdgeTX, **Profile – Various** exposes the independent limits with API 22.4
   firmware. Its older-firmware support retains shared limits.
 
-With **MSP API 22.4 firmware and updated clients**, ANGLE and TRAINER each have
-independent limits: **bank 10–90°** and **pitch 10–75°**, symmetric in both
+With **MSP API 22.4 firmware and updated clients**, TRAINER and the failsafe/GPS
+self-leveling each have independent limits: **bank 10–90°** and **pitch 10–75°**, symmetric in both
 directions. These match the configurable ranges documented for SAFE angle
 demand and envelope protection. They do not reproduce Spektrum's proprietary
 control algorithm or guarantee identical flight response.
 
 Existing profiles retain their shared limits until an axis is changed. On a
-fresh setup, TRAINER inherits **20°** for both axes and ANGLE inherits **55°**.
+fresh setup, TRAINER inherits **20°** for both axes and the self-leveling
+inherits **55°**.
 There is no universal SAFE default to copy across different aircraft. A legacy
 shared pitch limit above 75° remains effective until overridden; new explicit
 pitch limits are capped at 75°.
@@ -82,10 +80,9 @@ clients cannot edit the independent limits; their shared-limit changes affect
 only axes still inheriting. Upgrading the Configurator/Ethos suite is therefore
 recommended when using independent limits.
 
-Use non-overlapping switch ranges for ANGLE, HORIZON and TRAINER. These are
-alternative modes, not layers: ATT HOLD, ANGLE and HORIZON each
-take priority over TRAINER when their mode switches overlap. Selecting HORIZON
-and TRAINER together does not produce self-leveling with Trainer limits.
+Use non-overlapping switch ranges for ATT HOLD and TRAINER. They are
+alternative modes, not layers: ATT HOLD takes priority over TRAINER when their
+mode switches overlap.
 
 ## Limits of the protection
 

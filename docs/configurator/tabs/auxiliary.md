@@ -38,16 +38,18 @@ Save.
 
 ## Choosing a training mode
 
-Use **ANGLE** for stick-commanded attitude and a return toward level when the
-sticks are centered. Use **TRAINER** for normal rate control with pitch/bank
-limits and no self-leveling. **HORIZON** adds leveling to rate control, but does
-not enforce Trainer's envelope. See [Trainer Mode](../../flight-modes/trainer.md)
-for a comparison and setup instructions.
+Use **TRAINER** for normal rate control with pitch/bank limits. See
+[Trainer Mode](../../flight-modes/trainer.md) for setup instructions.
+
+ANGLE and HORIZON are no longer switch modes (MSP API 22.12). HORIZON is
+removed; ANGLE's self-leveling is now used only by Failsafe, GPS Rescue, RTH
+and Loiter. A model that had ANGLE on a switch keeps the saved range, but the
+firmware ignores it.
 
 TRAINER is available without Expert Mode in updated Configurators; older
 versions hide it behind Expert Mode. It also requires an available
 accelerometer and firmware built with trainer support. If **Hide unused modes**
 is enabled, turn it off to find a mode that has no switch range yet.
 
-Give ANGLE, HORIZON and TRAINER separate switch ranges: enabling them together
-does not combine their behavior.
+Give ATT HOLD and TRAINER separate switch ranges: enabling them together does
+not combine their behavior, and ATT HOLD takes priority.

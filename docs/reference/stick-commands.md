@@ -58,8 +58,11 @@ arming and disarming, and are ignored when the `STICK COMMANDS DISABLE` mode is 
 | Disable display page cycling | LOW | CENTER | HIGH | LOW |
 | Enable display page cycling | LOW | CENTER | HIGH | HIGH |
 
-When ANGLE or HORIZON is active, throttle HIGH and yaw CENTER trims the accelerometer level
-reference with the sticks:
+Firmware before MSP API 22.12 used these stick commands to trim the accelerometer level
+reference while ANGLE or HORIZON was active. Both modes are gone, so the commands no
+longer do anything; set **Accelerometer Trims** on the
+[Configuration](../configurator/tabs/configuration.md) tab, or `acc_trim_roll` /
+`acc_trim_pitch` in the CLI, instead:
 
 | Function | Pitch | Roll |
 |---|---|---|

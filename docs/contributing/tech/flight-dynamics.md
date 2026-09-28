@@ -34,9 +34,9 @@ These are easy to get wrong and are not written down elsewhere.
                               │
                               ▼
         pid.c pidApplySetpoint(): first match wins
-           ANGLE|GPS_RESCUE|FAILSAFE|LOITER|RTH → leveling.c angleModeApply
+           GPS_RESCUE|FAILSAFE|LOITER|RTH → leveling.c angleModeApply
            ATTHOLD → atthold.c → hold_engine.c
-           HORIZON → horizonModeApply     TRAINER → acroTrainerApply     else: acro
+           TRAINER → acroTrainerApply     else: acro
                               │
                               ▼
         pid.c mode 1: P (TPA·SPA) + I + D + F + B  ─► pidSum   (mode 0: F only)
@@ -50,9 +50,9 @@ These are easy to get wrong and are not written down elsewhere.
 
 ### Mode arbitration
 
-[core.c](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/fc/core.c) `processRxModes()` picks one leveling-family mode from the BOX switches. Priority: **ATTHOLD > ANGLE > HORIZON > TRAINER**; the winner clears the others' flags, so with ANGLE and ATTHOLD both switched on, ATTHOLD runs and `ANGLE_MODE` is off.
+[core.c](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/fc/core.c) `processRxModes()` picks one leveling-family mode from the BOX switches. Priority: **ATTHOLD > TRAINER**; the winner clears the other's flag. ANGLE and HORIZON are no longer in this chain (MSP API 22.12): HORIZON is removed, and a saved ANGLE range is ignored, so `ANGLE_MODE` is never set.
 
-Separately, the "safety" set (`ANGLE | GPS_RESCUE | FAILSAFE | LOITER | RTH`) preempts ATTHOLD inside `pidApplySetpoint()`. GPS rescue, loiter and RTH are set from their own switches and are not cleared by the chain above, so they do preempt a hold. `core.c` then feeds the hold `mode && !safetyLevelingActive`, so the hold re-captures a fresh target when the safety mode releases.
+Separately, the "safety" set (`ANGLE | GPS_RESCUE | FAILSAFE | LOITER | RTH`; `ANGLE` is never set now) preempts ATTHOLD inside `pidApplySetpoint()`. GPS rescue, loiter and RTH are set from their own switches and are not cleared by the chain above, so they do preempt a hold. `core.c` then feeds the hold `mode && !safetyLevelingActive`, so the hold re-captures a fresh target when the safety mode releases.
 
 `PASSTHROUGH`, `MANUAL` and `TRADITIONAL` are independent flags, not part of that chain.
 
@@ -105,7 +105,7 @@ Yaw I can therefore drive 60% of travel on its own. That is deliberate room for 
 - **`rotateAxisError()`:** rotates roll/pitch `axisError` by the yaw gyro so a stored error stays fixed in the earth-ish frame during a yaw rotation. Physically correct for a knife-edge or hover, harmless in cruise.
 - **I-term decay policy** (the most-edited rule in this file):
   - Per-axis `iterm_decay_time`, default `60,60,60` (0.01 s units, range 1-100, no 0 = off) → decay rate 100/60 s⁻¹, i.e. τ ≈ 0.6 s, capped at 35 °/s. Plain acro/manual flight bleeds I at this rate.
-  - **Suspended** on roll/pitch while any of ANGLE/HORIZON/GPS-rescue/failsafe/loiter/RTH/TRAINER shapes the setpoint. Reason (commit `8a2b5233c`): the decay was inherited from the helicopter lineage to stop servo creep, but it "quietly erod[es] exactly the sustained I-term those layers need … felt like the correction giving up after a couple of seconds".
+  - **Suspended** on roll/pitch while any of GPS-rescue/failsafe/loiter/RTH/TRAINER shapes the setpoint. Reason (commit `8a2b5233c`): the decay was inherited from the helicopter lineage to stop servo creep, but it "quietly erod[es] exactly the sustained I-term those layers need … felt like the correction giving up after a couple of seconds".
   - **Slowed to 10%** (τ ≈ 6 s, 3.5 °/s) on an ATTHOLD axis that is holding (`QUATHOLD_HOLD_I_DECAY_SCALE`), except for 3 s after a stall re-capture, when it runs at full rate (see §2.5). Reason (commit `10bf9b81d`): with no bleed, stale I "parks the surfaces off-centre forever" at zero error and zero motion, e.g. on the bench. A real steady disturbance is still held because the outer loop re-grows the I it needs.
   - **Unchanged (full rate)** for an axis that is free-tracking or settling inside a hold mode. Commit `92c9de190`: it is plain rate flight, so it should not carry stale I from an earlier manoeuvre into the next hold.
 - **Gyro overflow** (`gyroOverflowDetected()`): `pidReset()` zeros all PID state and outputs until the gyro has read sane values for 50 ms. Protects against "yaw spin to the moon" after a crash-level over-range.
@@ -121,11 +121,13 @@ Two distinct modes since commit `621dd3712`:
 
 See finding **M-3** for the consequence of tying MANUAL's authority to F.
 
-### 2.4 ANGLE and HORIZON — [leveling.c](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/leveling.c)
+### 2.4 Self-leveling (ANGLE) — [leveling.c](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/leveling.c)
 
 Standard Betaflight Euler-angle leveling on roll and pitch only; yaw stays a pass-through so the rudder is never held. Target angle = stick × `level_limit` (default 55°) + GPS-rescue/nav offsets, clamped to the limit. Rate command = error × `level_strength/10` (default 4 °/s per °). HORIZON blends that into the acro setpoint by stick position and inclination. Below "airborne" the error is scaled to 25% (see **H-4**).
 
-Euler math is acceptable here because ANGLE is limited to 55° and pitch never nears ±90°. This is exactly why ATTHOLD does *not* use it.
+Since MSP API 22.12 ([firmware#169](https://github.com/WingFlight/wingflight-firmware/pull/169)) this is not a pilot mode: `BOXANGLE` is not offered and a saved ANGLE range is ignored, so `ANGLE_MODE` is never set; only failsafe, GPS rescue, RTH and Loiter reach `angleModeApply()`. HORIZON (`horizonModeApply()`) was removed in the same change.
+
+Euler math is acceptable here because the angle limit is 55° by default and pitch never nears ±90°. This is exactly why ATTHOLD does *not* use it.
 
 ### 2.5 Attitude hold engine — [hold_engine.c](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/hold_engine.c), [atthold.c](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/atthold.c), [tv_hold.c](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/tv_hold.c)
 
@@ -275,6 +277,7 @@ Rationale reconstructed from commit messages. Dates are commit dates.
 | 2026-09-23 | [firmware#146](https://github.com/WingFlight/wingflight-firmware/pull/146) | Re-enable failsafe stage 2; retarget `BOXGPSRESCUE` and the failsafe GPS-RESCUE procedure to the existing fixed-wing RTH controller instead of Betaflight's quad GPS Rescue code; fix the inverted RTH/loiter altitude sign; expose `nav_*` GPS Navigation settings over MSP | Stage 2 was a disabled stub (H-1); the quad rescue algorithm doesn't fly a wing home (H-2); the altitude controller commanded a descent when below target (H-3); those settings were CLI-only |
 | 2026-09-26 | [firmware#157](https://github.com/WingFlight/wingflight-firmware/pull/157) | Dead-reckon GPS nav through dropouts (5 s), `nav_min_sats` hysteresis, engage without a fix; accelerometer-fused altitude/vario; GPS altitude on the default source; `nav_min_sats` 8 → 6, `position_gps_min_sats` 12 → 6 | Flight test: LOITER called "unavailable" in flight at 9 satellites; baro-derivative vario lagged; boards without a baro had no altitude (`source & ALT_SOURCE_DEFAULT` is always 0) |
 | 2026-09-28 | [firmware#168](https://github.com/WingFlight/wingflight-firmware/pull/168) | Remove AUTOHOVER, its throttle assist and the yaw-authority widening; keep every slot reserved (box 58, mode bit 9, adjustment 87, debug 79, MSP and profile bytes) | Mode dropped from the firmware; reserving the slots keeps MSP layouts and saved PID profiles valid, so no profile reset |
+| 2026-09-28 | [firmware#169](https://github.com/WingFlight/wingflight-firmware/pull/169) | Remove HORIZON; stop offering ANGLE as a switch mode and ignore saved ANGLE ranges; keep `angleModeApply()` and `angle_level_*` for failsafe/GPS; reserve box IDs 1-2, mode bit 2, adjustment 46 and the Horizon bytes | Neither mode suited the wing workflow; the leveling is still what failsafe, RTH and Loiter fly on |
 
 ---
 
@@ -335,9 +338,9 @@ The boost was added to `getThrottle()` unconditionally, up to `throttle_assist_m
 - **L-3. Cross-axis relax was applied twice to I. Fixed (#137).** It scaled the accumulation *and* the I output, so I output dropped immediately on rudder input and jumped back on release (limited only by the relax filter's 1–100 Hz cutoff). Now it scales the accumulation only, which is what removes the step; scaling the output only would have kept the drop and made the release jump larger. P and D are unchanged. Default strength is 0, so it was latent.
 - **L-4. `isUpright()` did not check attitude. Fixed (#113).** It returned "attitude established", so arming was not blocked by tilt, which is right for wings but not what the name said. It is renamed `isAttitudeEstimateReady()` and its intent is documented at the definition. `ARMING_DISABLED_ANGLE` keeps its name because it is user-visible.
 - **L-5. GPS heading re-initialisation is a no-op.** [imu.c:481](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/imu.c#L481) writes into the quaternion *products* `qP`, then `imuComputeRotationMatrix()` recomputes `qP` from the unchanged `q`. Only `attitudeIsEstablished` and the one-shot flag change. Harmless in effect, but the code does not do what its comment says.
-- **L-6. Angle/horizon rate command is uncapped.** [leveling.c:218](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/leveling.c#L218): `error × gain` up to 180° × 4 = 720 °/s on a recovery from inverted. Surfaces saturate first, so it is safe, but it exceeds the configured rate profile.
+- **L-6. Self-leveling rate command is uncapped.** [leveling.c:218](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/leveling.c#L218): `error × gain` up to 180° × 4 = 720 °/s on a recovery from inverted. Surfaces saturate first, so it is safe, but it exceeds the configured rate profile.
 - **L-7. MANUAL and PASSTHROUGH bypass mixer input limits** ([mixer.c:309–330](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/mixer.c#L309)). Intentional for bail-out; note that a tightened `min/max` on a stabilized input does not apply in those modes.
-- **L-8. TV loop I-decay ignores leveling modes.** The main loop suspends decay under ANGLE/HORIZON/RTH; the TV loop only slows it under its own hold. In ANGLE mode the two loops therefore bleed I differently.
+- **L-8. TV loop I-decay ignores leveling modes.** The main loop suspends decay under the failsafe/GPS leveling; the TV loop only slows it under its own hold. Under failsafe or GPS leveling the two loops therefore bleed I differently.
 - **L-9. Hold stall re-capture is silent to the pilot. Partly addressed (#118).** After 3 s pinned above 5° error the target ratchets to the current attitude with no beep or OSD cue. A genuine slow disturbance (cross-wind hover) could be walked off target this way without the pilot knowing. It is now visible in a Blackbox log: set the debug mode to `ATTHOLD` (or `TVHOLD`) and read `debug[1..6]` -- attitude error (°x10), stall timer (ms, fires at 3000), I-bleed timer (ms), re-capture count (all axes), last re-captured axis (-1 none) and a tracking bitmask (roll 1, pitch 2, yaw 4). `debug[0]` is the setpoint or rate as before, and the per-axis fields follow `debug_axis`. A step in the count is a re-capture. There is still no audible cue.
 - **L-10. Auto trim captures whatever the sticks and stabilization are doing** during its 2 s window, not a true neutral. It needs hands-off, straight-and-level flight to give a good centre.
 - **L-11. First IMU update integrates over a huge `dt`.** [imu.c:460](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/imu.c#L460) initialises `previousIMUUpdateTime` to 0, so the first step is seconds long. Inherited from Betaflight and converges quickly on the bench; noted because it happens once per boot.
