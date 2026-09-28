@@ -10,8 +10,8 @@ where the surfaces have little authority but the vectored thrust still
 does.
 
 It only has an effect while **THRUST VECTOR** is also engaged. It has its
-own switch and its own target, independent of [Attitude Hold](atthold.md),
-[Auto Hover](auto-hover.md), and Angle/Horizon mode -- engaging any of
+own switch and its own target, independent of [Attitude Hold](atthold.md)
+and Angle/Horizon mode -- engaging any of
 those still stabilizes the main Roll/Pitch/Yaw loop (and so the control
 surfaces) as normal, and does not move TV Hold's own target. Enable both
 switches together if you want the whole aircraft, surfaces included, to hold
@@ -28,8 +28,8 @@ release, give-up and I-term behaviour work; they are the same here.
 It defers automatically to Angle Mode, GPS Rescue, Failsafe, GPS Loiter and
 GPS RTH whenever one of those is active -- those already drive the shared
 setpoint to a safety-leveled value, and TV Hold never fights that with its own
-frozen target. Auto Hover and Attitude Hold do not switch it off: the
-Thrust Vector loop reuses the main loop's final setpoint, so while either is
+frozen target. Attitude Hold does not switch it off: the
+Thrust Vector loop reuses the main loop's final setpoint, so while it is
 active, TV Hold works on top of that setpoint.
 
 ## Tuning

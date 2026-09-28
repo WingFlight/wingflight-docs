@@ -101,7 +101,6 @@ nav:
       - CLI: configurator/tabs/cli.md
   - Flight Modes & Features:
       - flight-modes/index.md
-      - Auto Hover: flight-modes/auto-hover.md
       - Attitude Hold: flight-modes/atthold.md
       - Thrust Vector Attitude Hold: flight-modes/tv-hold.md
       - Auto Trim: flight-modes/auto-trim.md

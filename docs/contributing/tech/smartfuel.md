@@ -86,7 +86,7 @@ This limiter only applies to the **voltage** half of the estimate. In `CURRENT` 
 
 ### `smartfuel_sag_gain`
 
-Amount of sag compensation applied to the voltage reading before it is turned into a percentage. Voltage sag follows motor current, so the compensation is driven by the motor outputs actually being sent (after the governor and any AUTOHOVER throttle assist), averaged across motors: `0` at idle, `1` at full power on every motor. The firmware adds `smartfuel_sag_gain` hundredths of a volt, multiplied by that load, to the per-cell voltage. It runs whenever the motor is working, not only when the aircraft counts as airborne.
+Amount of sag compensation applied to the voltage reading before it is turned into a percentage. Voltage sag follows motor current, so the compensation is driven by the motor outputs actually being sent (after the governor), averaged across motors: `0` at idle, `1` at full power on every motor. The firmware adds `smartfuel_sag_gain` hundredths of a volt, multiplied by that load, to the per-cell voltage. It runs whenever the motor is working, not only when the aircraft counts as airborne.
 
 - Increase it if SmartFuel is too pessimistic under load.
 - Decrease it if SmartFuel is too optimistic under load.

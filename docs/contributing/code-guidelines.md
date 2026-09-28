@@ -60,7 +60,7 @@ failure. Test reports are also written by the run.
 
 Some test files are disabled by their `.cc.txt` extension, for example the
 mixer, IMU and failsafe tests, and need reviving before they can run. Several
-areas have no tests at all: the hold engine, Auto Hover, Attitude Hold, the
+areas have no tests at all: the hold engine, Attitude Hold, the
 thrust-vector loop, leveling, airborne detection, servos and GPS navigation.
 Tests for those are welcome.
 

@@ -97,7 +97,7 @@ These existed before the status alerts, and work the same way.
 | Callout | When |
 |---|---|
 | "Armed" / "Disarmed" | The model is armed or disarmed. |
-| Flight mode name ("Angle", "Horizon", "Att Hold", "Auto Hover", "RTH", "GPS Loiter", "GPS Rescue", "Failsafe", "Manual", "Passthrough", "Normal", …) | The active flight mode changes. "Unavailable" follows the name when a GPS mode is switched on but can't engage. "Traditional" is announced when it's switched on. |
+| Flight mode name ("Angle", "Horizon", "Att Hold", "RTH", "GPS Loiter", "GPS Rescue", "Failsafe", "Manual", "Passthrough", "Normal", …) | The active flight mode changes. "Unavailable" follows the name when a GPS mode is switched on but can't engage. "Traditional" is announced when it's switched on. |
 | "GPS Fix" / "GPS Fix Lost" | The GPS gains or loses its position fix. Useful on the bench while you wait to arm. |
 | "Profile" + number, "Rates" + number, "Thrust Vector" + number | The PID, rate or thrust vector profile changes. |
 | "Battery" + capacity and cell count | The battery profile changes. |
