@@ -2,7 +2,7 @@
 
 The Modes tab maps flight modes and other
 switchable features onto transmitter auxiliary channels -- defining which
-switch position(s) activate ARM, [Auto Hover](../../flight-modes/auto-hover.md),
+switch position(s) activate ARM,
 [Attitude Hold](../../flight-modes/atthold.md),
 [Auto Trim](../../flight-modes/auto-trim.md),
 [Trainer Mode](../../flight-modes/trainer.md), and any other mode

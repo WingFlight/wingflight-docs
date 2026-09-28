@@ -28,24 +28,21 @@ for the full workflow.
 
 ## Settings added in recent snapshots
 
-Auto Hover and Attitude Hold settings are per-profile (set them after
+Attitude Hold settings are per-profile (set them after
 selecting the profile you want to change):
 
 | Setting | Range | Default | Description |
 |---|---|---|---|
-| `autohover_gain` | 0-250 | 50 | [Auto Hover](../flight-modes/auto-hover.md) correction strength |
-| `autohover_max_angle` | 0-90 | 30 | Max stick deflection off vertical, degrees |
-| `autohover_max_rate` | 0-1800 | 120 | Attitude-capture rate clamp, deg/s |
-| `autohover_roll_deadband` | 0-100 | 5 | Unused; roll is always a free pass-through (kept for compatibility) |
-| `autohover_throttle_assist_gain` | 0-100 | 0 | Throttle added per second under sustained saturation, percent of range; 0 = off |
-| `autohover_throttle_assist_max` | 0-50 | 15 | Ceiling on the added throttle, percent of range |
-| `autohover_throttle_assist_trigger_ms` | 0-2000 | 300 | Milliseconds of saturation before the assist starts |
 | `atthold_gain` | 0-250 | 40 | [Attitude Hold](../flight-modes/atthold.md) correction strength |
 | `atthold_deadband` | 0-100 | 5 | Per-axis stick percent below which that axis is held |
 | `atthold_max_rate` | 0-1800 | 300 | Correction rate clamp, deg/s |
 | `fw_spa_gain` | 25-200 | 100 | [GPS speed attenuation](../configurator/tabs/profiles.md#speed-gps-speed-attenuation) baseline, percent |
 | `fw_spa_curve` | 0-8 | 0 | Gain curve evaluated on GPS speed; 0 = GPS speed attenuation off |
 | `fw_spa_speed_max` | 10-600 | 150 | GPS speed at the curve's right edge, km/h |
+
+The `autohover_*` settings were removed with the AUTO HOVER mode in MSP API
+22.11. Restoring a diff from older firmware reports them as unknown settings;
+those lines can be ignored.
 
 The `fw_spa_*` settings need firmware with MSP API 22.10 or later, and are
 not present on targets built without GPS.
@@ -99,9 +96,10 @@ is rejected as an invalid value. Set `debug_mode = NONE` instead.
 | 56-57 | `FEEDFORWARD_LIMIT`, `FEEDFORWARD` |
 | 61-62 | `D_LPF`, `VTX_TRAMP` |
 | 69-77 | `PITCH_PRECOMP`, `YAW_PRECOMP`, `RESCUE`, `RESCUE_ALTHOLD`, `CROSS_COUPLING`, `ERROR_DECAY`, `HS_OFFSET`, `HS_BLEED`, `GOV_MOTOR` |
+| 79 | `AUTOHOVER` (removed with the mode in API 22.11) |
 
-For Wingflight's own diagnostics use `ATTHOLD`, `TVHOLD`, `AUTOHOVER`,
-`AIRBORNE`, `ALTITUDE` or `GAIN_ATTEN`. The first three log one axis at a
+For Wingflight's own diagnostics use `ATTHOLD`, `TVHOLD`,
+`AIRBORNE`, `ALTITUDE` or `GAIN_ATTEN`. The first two log one axis at a
 time, picked with `debug_axis`.
 
 `GAIN_ATTEN` shows the throttle (TPA) and GPS speed (SPA) gain attenuation

@@ -6,7 +6,7 @@ attitude it was last commanded (typical for a fixed-wing aircraft with no
 self-leveling). This gives a self-leveling-like behavior on demand,
 independent of full autopilot features.
 
-Unlike [Auto Hover](auto-hover.md), Attitude Hold doesn't bound stick
+Attitude Hold doesn't bound stick
 authority to any particular orientation -- it freezes and holds whatever
 attitude the aircraft happens to be in, at any orientation, not just
 vertical or level.
@@ -37,9 +37,18 @@ it's allowed to rotate the aircraft while doing so. These are on the
 
 Attitude Hold works at reduced strength (about a quarter) before the
 aircraft is airborne, so you can tilt the airframe by hand on the bench and
-see a real, gentler correction. See
-[On the bench](auto-hover.md#on-the-bench) for the details, which are shared
-with Auto Hover.
+see a real, gentler correction. See [On the bench](#on-the-bench).
+
+## On the bench
+
+Attitude Hold still works at reduced strength before the aircraft is
+airborne -- roughly a quarter of its in-flight authority, the same as Angle
+and Horizon modes -- so tilting the airframe by hand shows a real, gentler
+correction. It's not fully live until liftoff.
+
+If a safety mode (Failsafe, GPS Rescue, RTH, Loiter or Angle) takes over
+and later releases, Attitude Hold captures a fresh target from the
+aircraft's current attitude instead of resuming a stale one.
 
 ## Letting go of a stick
 
@@ -81,7 +90,7 @@ The firmware decides whether the aircraft is airborne from stick activity and
 tilt, not from throttle or airspeed. With the sticks centered and the
 aircraft within about 26° of level, it is treated as **landed**, and the
 correction is cut to about a quarter (see
-[On the bench](auto-hover.md#on-the-bench)). A level, hands-off aircraft in
+[On the bench](#on-the-bench)). A level, hands-off aircraft in
 Attitude Hold, or in Angle mode, therefore holds with much less authority
 than one being flown. It returns to full authority as soon as you move a
 stick, or the tilt passes about 37°. Keep this in mind when you tune the

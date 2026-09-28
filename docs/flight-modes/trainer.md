@@ -47,7 +47,7 @@ for its distinction between angle demand and envelope protection.
   **Gain**, **Bank** and **Pitch** under
   **Flight Tuning → Advanced → Flight Modes → Acro Trainer**. The suite requires
   MSP API **22.04 or newer**; update the firmware snapshot alongside the suite.
-  ANGLE, HORIZON, AUTO HOVER and ATT HOLD have separate tools in the same menu.
+  ANGLE, HORIZON and ATT HOLD have separate tools in the same menu.
 - In EdgeTX, **Profile – Various** exposes the independent limits with API 22.4
   firmware. Its older-firmware support retains shared limits.
 
@@ -83,7 +83,7 @@ only axes still inheriting. Upgrading the Configurator/Ethos suite is therefore
 recommended when using independent limits.
 
 Use non-overlapping switch ranges for ANGLE, HORIZON and TRAINER. These are
-alternative modes, not layers: AUTO HOVER, ATT HOLD, ANGLE and HORIZON each
+alternative modes, not layers: ATT HOLD, ANGLE and HORIZON each
 take priority over TRAINER when their mode switches overlap. Selecting HORIZON
 and TRAINER together does not produce self-leveling with Trainer limits.
 

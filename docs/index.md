@@ -28,7 +28,7 @@ rather than swashplates, tail rotors, and rotor governors.
 - New to WingFlight? Start with [Getting Started](getting-started/index.md).
 - Setting up the app from a fresh install? See the
   [Configurator](configurator/index.md) section, organized tab-by-tab.
-- Want to understand a specific flight mode (auto-hover, auto-trim, the
+- Want to understand a specific flight mode (attitude hold, auto-trim, the
   throttle governor, etc.)? See [Flight Modes & Features](flight-modes/index.md).
 - Looking for CLI commands or MSP details? See [Reference](reference/index.md).
 - Want to build the firmware or configurator yourself, or contribute? See

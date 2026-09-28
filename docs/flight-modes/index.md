@@ -7,7 +7,6 @@ helicopter-focused mode set.
 
 | Mode / Feature | Summary |
 |---|---|
-| [Auto Hover](auto-hover.md) | Automated hover/attitude assist for aircraft capable of hovering flight, with free roll and optional throttle assist |
 | [Attitude Hold](atthold.md) | Holds commanded attitude per axis when that stick is released |
 | [Thrust Vector Attitude Hold](tv-hold.md) | Independent attitude/heading hold on the Thrust Vector loop only, decoupled from the main surfaces |
 | [Auto Trim](auto-trim.md) | Captures trim automatically from sustained stick input |
@@ -38,13 +37,11 @@ Disarm after landing to restore ground behavior; landing while still armed
 does not automatically clear the flight state.
 
 This changes the flight evidence, not the controllers: ANGLE/HORIZON, Attitude
-Hold, TV hold and Auto Hover retain their existing 25% correction before flight
-is detected. Auto Hover's existing airborne requirement for optional throttle
-assist also remains. Normal rate/manual control and Trainer do not use this
+Hold and TV hold retain their existing 25% correction before flight is
+detected. Normal rate/manual control and Trainer do not use this
 state. Normal rate stabilization is available before flight detection.
 
 The thresholds need bench and flight validation. Hand movement following a
 stick command can imitate flight, while a launch without a qualifying command
 and response can remain undetected. Do not rely on this as a ground safety
-interlock. AUTO HOVER assist remains opt-in and retains its existing throttle-off
-and receiver-signal guards; no 40% throttle rule is added.
+interlock.
