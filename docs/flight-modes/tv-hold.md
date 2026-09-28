@@ -11,7 +11,7 @@ does.
 
 It only has an effect while **THRUST VECTOR** is also engaged. It has its
 own switch and its own target, independent of [Attitude Hold](atthold.md)
-and Angle/Horizon mode -- engaging any of
+and Angle mode -- engaging either of
 those still stabilizes the main Roll/Pitch/Yaw loop (and so the control
 surfaces) as normal, and does not move TV Hold's own target. Enable both
 switches together if you want the whole aircraft, surfaces included, to hold

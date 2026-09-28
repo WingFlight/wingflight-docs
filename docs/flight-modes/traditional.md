@@ -11,7 +11,7 @@ RC-gyro feel, closer to a simple rate gyro than a stabilization system that
 leans toward holding attitude.
 
 Because it layers on top of whichever stabilization is already active
-(plain rate flight, [Angle, or Horizon](../configurator/tabs/auxiliary.md)),
+(plain rate flight or [Angle](../configurator/tabs/auxiliary.md)),
 it isn't a replacement for those modes -- switch it on alongside any of
 them to strip out I on that axis without touching P/D/F/B or any other
 mode's behavior. Turning it back off resumes I-term correction smoothly,

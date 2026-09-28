@@ -36,7 +36,7 @@ gliding at idle or losing receiver input does not reduce attitude correction.
 Disarm after landing to restore ground behavior; landing while still armed
 does not automatically clear the flight state.
 
-This changes the flight evidence, not the controllers: ANGLE/HORIZON, Attitude
+This changes the flight evidence, not the controllers: ANGLE, Attitude
 Hold and TV hold retain their existing 25% correction before flight is
 detected. Normal rate/manual control and Trainer do not use this
 state. Normal rate stabilization is available before flight detection.
