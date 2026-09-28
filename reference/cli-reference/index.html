@@ -3447,8 +3447,28 @@ selecting the profile you want to change):</p>
 <td>300</td>
 <td>Correction rate clamp, deg/s</td>
 </tr>
+<tr>
+<td><code>fw_spa_gain</code></td>
+<td>25-200</td>
+<td>100</td>
+<td><a href="../../configurator/tabs/profiles/#speed-gps-speed-attenuation">GPS speed attenuation</a> baseline, percent</td>
+</tr>
+<tr>
+<td><code>fw_spa_curve</code></td>
+<td>0-8</td>
+<td>0</td>
+<td>Gain curve evaluated on GPS speed; 0 = GPS speed attenuation off</td>
+</tr>
+<tr>
+<td><code>fw_spa_speed_max</code></td>
+<td>10-600</td>
+<td>150</td>
+<td>GPS speed at the curve's right edge, km/h</td>
+</tr>
 </tbody>
 </table>
+<p>The <code>fw_spa_*</code> settings need firmware with MSP API 22.10 or later, and are
+not present on targets built without GPS.</p>
 <p>Stick deadbands are global (not per-profile). <code>roll_deadband</code> and
 <code>pitch_deadband</code> replace the old shared <code>deadband</code> setting, which a diff
 from older firmware will now reject as an invalid name:</p>
@@ -3576,8 +3596,40 @@ is rejected as an invalid value. Set <code>debug_mode = NONE</code> instead.</p>
 </tbody>
 </table>
 <p>For Wingflight's own diagnostics use <code>ATTHOLD</code>, <code>TVHOLD</code>, <code>AUTOHOVER</code>,
-<code>AIRBORNE</code> or <code>ALTITUDE</code>. The first three log one axis at a time, picked
-with <code>debug_axis</code>.</p>
+<code>AIRBORNE</code>, <code>ALTITUDE</code> or <code>GAIN_ATTEN</code>. The first three log one axis at a
+time, picked with <code>debug_axis</code>.</p>
+<p><code>GAIN_ATTEN</code> shows the throttle (TPA) and GPS speed (SPA) gain attenuation
+that scales P and D:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Throttle attenuation, x1000 (1000 = 100%)</td>
+</tr>
+<tr>
+<td>1</td>
+<td>GPS speed attenuation, x1000</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Filtered GPS speed used by the curve, 0.1 km/h</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Raw GPS speed, cm/s</td>
+</tr>
+<tr>
+<td>4</td>
+<td>GPS fix (1 = fix)</td>
+</tr>
+</tbody>
+</table>
 <p><code>ALTITUDE</code> shows the <a href="#altitude-estimation">altitude estimate</a> next to its
 sources, to check the fusion against the raw readings:</p>
 <table>
