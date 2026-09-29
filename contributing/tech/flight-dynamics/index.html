@@ -3898,8 +3898,8 @@
 <p>Yaw I can therefore drive 60% of travel on its own. That is deliberate room for rudder trim under prop torque, but it is large enough to matter for the anti-windup review below.</p>
 <p><strong>Design decisions:</strong></p>
 <ul>
-<li><strong>Throttle-based gain attenuation (<code>fw_tpa_gain</code>, <code>fw_tpa_curve</code>).</strong> Throttle is used as a proxy for prop-wash over the surfaces, "not airspeed": on aircraft that hover or harrier at or past stall, surfaces stay authoritative at high throttle regardless of airspeed, so gain falls as throttle <em>rises</em>. Structured like <code>master_gain</code> + <code>gain_curve</code> (baseline scale × optional curve from the shared pool) so tuners have one mental model. Applies to P and D only.</li>
-<li><strong>GPS speed attenuation (<code>fw_spa_gain</code>, <code>fw_spa_curve</code>, <code>fw_spa_speed_max</code>), in <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/speed_atten.c">speed_atten.c</a>.</strong> It complements TPA for the case TPA cannot see: a fast dive with the throttle closed, where dynamic pressure (∝ speed²) makes a cruise tune oscillate. Same shape as TPA (baseline × curve from the shared pool), with the curve evaluated at <code>speed / fw_spa_speed_max</code>; multiplied with TPA on P and D. Design choices:</li>
+<li><strong>Throttle-based gain attenuation (<code>fw_tpa_gain</code>, <code>fw_tpa_curve</code>).</strong> Throttle is used as a proxy for prop-wash over the surfaces, "not airspeed": on aircraft that hover or harrier at or past stall, surfaces stay authoritative at high throttle regardless of airspeed, so gain falls as throttle <em>rises</em>. Structured like <code>master_gain</code> + <code>gain_curve</code> (baseline scale × optional curve from the shared pool) so tuners have one mental model. Applies to P, D, F and B (F since <a href="https://github.com/WingFlight/wingflight-firmware/pull/178">firmware#178</a>: F sets most of the surface deflection, so attenuating P and D alone could not hold the achieved rate as prop wash raised authority; one airframe rolled at 1.22× the setpoint at low throttle and 1.70× at high). The combined TPA × SPA factor is floored at 25% (<code>PID_ATTENUATION_MIN</code>) so no curve can remove the throw. MANUAL is not attenuated: <code>PID_F_GAIN_MIN</code> guarantees its travel.</li>
+<li><strong>GPS speed attenuation (<code>fw_spa_gain</code>, <code>fw_spa_curve</code>, <code>fw_spa_speed_max</code>), in <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/speed_atten.c">speed_atten.c</a>.</strong> It complements TPA for the case TPA cannot see: a fast dive with the throttle closed, where dynamic pressure (∝ speed²) makes a cruise tune oscillate. Same shape as TPA (baseline × curve from the shared pool), with the curve evaluated at <code>speed / fw_spa_speed_max</code>; multiplied with TPA on P, D, F and B. Design choices:</li>
 <li><strong>Speed source:</strong> <code>max(speed3d, groundSpeed)</code>. Only u-blox reports 3D speed, other providers leave it at 0, and 3D speed is never below ground speed.</li>
 <li><strong>Filtering:</strong> low-passed at 1 Hz, because GPS arrives at 5-10 Hz.</li>
 <li><strong>Fix loss:</strong> hold for 3 s, then slew back to 1.0 at 0.2/s. Holding avoids a gain step at high speed on a brief dropout; easing back avoids flying on a stale low gain.</li>
@@ -4194,6 +4194,12 @@ bench/flight validation of the initial thresholds remains required.</p>
 <td><a href="https://github.com/WingFlight/wingflight-firmware/pull/177">firmware#177</a></td>
 <td>ANGLE target slews in from the current attitude; rate command capped at the rate profile's full-stick rate; new <code>angle_level_damping</code> subtracts measured rate from the command</td>
 <td>Engaging far from level stepped the surfaces (49° asked for 196 °/s at once); L-6 uncapped command; the P-term was too small to damp the level loop</td>
+</tr>
+<tr>
+<td>2026-09-29</td>
+<td><a href="https://github.com/WingFlight/wingflight-firmware/pull/178">firmware#178</a></td>
+<td>TPA/SPA attenuation also scales F and B; combined factor floored at 25%; MANUAL not attenuated</td>
+<td>One airframe rolled at 1.22× the setpoint at low throttle and 1.70× at high; P/D-only attenuation could not correct the rate. The floor stops a curve removing all throw</td>
 </tr>
 </tbody>
 </table>

@@ -3542,7 +3542,7 @@ is rejected as an invalid value. Set <code>debug_mode = NONE</code> instead.</p>
 <code>AIRBORNE</code>, <code>ALTITUDE</code> or <code>GAIN_ATTEN</code>. The first two log one axis at a
 time, picked with <code>debug_axis</code>.</p>
 <p><code>GAIN_ATTEN</code> shows the throttle (TPA) and GPS speed (SPA) gain attenuation
-that scales P and D:</p>
+that scales P, D, F and B (their product is floored at 25%):</p>
 <table>
 <thead>
 <tr>
