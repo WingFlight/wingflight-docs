@@ -163,14 +163,24 @@ so gain tapers in or out as the stick moves away from centre -- see
 [Gain Curves](#gain-curves). A **CURVE** badge on Master Gain shows when one is
 shaping that axis.
 
-The **Throttle** row scales all three axes' gain with throttle instead:
-surfaces in prop wash gain authority as throttle rises, so it is usually
-used to reduce gain at high throttle. Its gain curve, if any, is evaluated
-on throttle.
+The **Throttle** row scales all three axes' P, D, F and Boost with throttle
+instead: surfaces in prop wash gain authority as throttle rises, so it is
+usually used to reduce gain at high throttle. Because F is included, it also
+keeps the roll and pitch rate you get for a given stick the same at any
+throttle, not just the damping. Its gain curve, if any, is evaluated on
+throttle.
+
+To tune it, first set F so the model rolls at the commanded rate at low
+throttle. Then log a few rolls at high throttle and set the curve's
+high-throttle point to low-throttle rate ÷ high-throttle rate. For example,
+if the model rolls 1.7× faster at full throttle, set about 60%.
+
+Throttle and Speed together never scale the gains below 25%, so no curve can
+leave the surfaces without throw. MANUAL mode is not attenuated.
 
 ### Speed (GPS speed attenuation)
 
-The **Speed** row scales P and D on all three axes with GPS speed, on top of
+The **Speed** row scales P, D, F and Boost on all three axes with GPS speed, on top of
 the Throttle row. Control surfaces get more effective as speed rises, so a
 tune that is right at cruise can wobble in a fast dive -- often with the
 throttle closed, where the Throttle row can't help. Speed reduces gain as
