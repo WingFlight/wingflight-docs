@@ -28,11 +28,12 @@ for the full workflow.
 
 ## Settings added in recent snapshots
 
-Attitude Hold settings are per-profile (set them after
-selecting the profile you want to change):
+These settings are per-profile (set them after selecting the profile you
+want to change):
 
 | Setting | Range | Default | Description |
 |---|---|---|---|
+| `angle_level_damping` | 0-100 | 25 | [Angle mode](../configurator/tabs/profiles.md#flight-mode-settings) damping: percent of measured roll/pitch rate taken off the leveling command; 0 = off |
 | `atthold_gain` | 0-250 | 40 | [Attitude Hold](../flight-modes/atthold.md) correction strength |
 | `atthold_deadband` | 0-100 | 5 | Per-axis stick percent below which that axis is held |
 | `atthold_max_rate` | 0-1800 | 300 | Correction rate clamp, deg/s |

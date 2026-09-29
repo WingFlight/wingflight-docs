@@ -279,7 +279,20 @@ These panels are available in both basic and Expert Mode, and appear only for
 modes with a saved switch range or linked-mode assignment. Visibility follows
 the configuration, not the current position of the transmitter switch.
 
-ANGLE provides leveling gain and independent bank/pitch limits.
+ANGLE provides leveling gain, damping and independent bank/pitch limits.
+
+- **Angle Mode leveling gain** sets how hard the model is driven toward the
+  stick angle: degrees per second of rotation per degree of error, ×10.
+- **Angle Mode damping** (0–100%, default 25) takes that percentage of the
+  measured roll and pitch rate off the leveling command, so the model settles
+  on the target angle with less overshoot. It acts through the rate PID's
+  feedforward, so it follows the rest of the tune. Higher values level more
+  slowly; 0 turns it off. It needs firmware with MSP API 22.13 or later.
+
+Angle mode never commands more roll or pitch rate than your rate profile's
+full-stick rate. When Angle mode, failsafe or a GPS mode takes over, the
+target starts at the model's current attitude and moves toward the stick angle
+at that same rate, so the model rolls level smoothly instead of snapping.
 
 [Attitude Hold](../../flight-modes/atthold.md) has its own Gain, Deadband and
 Max Rate. See each mode's page for what these settings do.
