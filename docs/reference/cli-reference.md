@@ -104,7 +104,7 @@ For Wingflight's own diagnostics use `ATTHOLD`, `TVHOLD`,
 time, picked with `debug_axis`.
 
 `GAIN_ATTEN` shows the throttle (TPA) and GPS speed (SPA) gain attenuation
-that scales P and D:
+that scales P, D, F and B (their product is floored at 25%):
 
 | Field | Value |
 |---|---|
