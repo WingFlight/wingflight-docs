@@ -189,7 +189,7 @@ The following sensors are transmitted :
 | A4 | average cell value. Warning : unlike FLVSS sensors, you do not get actual lowest value of a cell, but an average : (total lipo voltage) / (number of cells) |
 | Alt | barometer based altitude, init level is zero. |
 | Vspd | vertical speed, unit is cm/s. |
-| Hdg | heading, North is 0°, South is 180°. |
+| Hdg | GPS course over ground (direction of travel, not where the nose points), North is 0°, South is 180°. Shown as "GPS Course" in the Configurator and the Ethos suite. |
 | AccX,Y,Z | accelerometers values. |
 | Tmp1 | actual flight mode, sent as 4 digits. Number is sent as (1)1234. Please ignore the leading 1, it is just there to ensure the number as always 5 digits (the 1 + 4 digits of actual data) the numbers are aditives (for example, if first digit after the leading 1 is 6, it means GPS Home and Headfree are both active) <ol><li>1 is GPS Hold, 2 is GPS Home, 4 is Headfree</li><li>1 is mag enabled, 2 is baro enabled, 4 is sonar enabled</li><li>3. 1 is angle, 4 is passthrough</li><li>4. 1 is ok to arm, 2 is arming is prevented,  4 is armed</li></ol> |
 | Tmp2 | GPS lock status, Number is sent as 1234, the numbers are aditives<ol><li>1 is GPS Fix, 2 is GPS Home fix</li><li>HDOP (0-9, 0 is HDOP >= 5.5m, 9 is HDOP <= 1.0m)</li><li>number of sats</li><li>number of sats</li></ol> |
