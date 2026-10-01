@@ -1815,6 +1815,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../flight-modes/setup-gyro-off/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Setup and Gyro Off
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../flight-modes/ready-to-arm-wiggle/" class="md-nav__link">
         
   
@@ -3293,9 +3321,9 @@ gaps if the chip is slow to erase mid-flight.</p>
 <p>Each periodic log frame records which flight modes are active in two
 words, <code>flightModeFlags</code> and <code>flightModeFlags2</code>, together covering every
 mode. Older firmware logged only the first word, which silently dropped
-every mode past the 32nd -- including MANUAL -- so a MANUAL
+every mode past the 32nd -- including GYRO OFF (MANUAL in older firmware) -- so a GYRO OFF
 segment never showed as engaged. If you read logs with a tool that only
-knows <code>flightModeFlags</code>, modes such as MANUAL need <code>flightModeFlags2</code>
+knows <code>flightModeFlags</code>, modes such as GYRO OFF need <code>flightModeFlags2</code>
 too. The separate flight-mode change <em>event</em> still carries only the
 first word.</p>
 <h2 id="log-files-over-usb">Log files over USB<a class="headerlink" href="#log-files-over-usb" title="Permanent link">&para;</a></h2>

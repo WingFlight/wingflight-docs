@@ -10,31 +10,31 @@
       
       
       
-        <link rel="canonical" href="https://doc.wingflight.org/contributing/tech/hardware-debugging-vscode-jlink/">
+        <link rel="canonical" href="https://doc.wingflight.org/flight-modes/setup-gyro-off/">
       
       
-        <link rel="prev" href="../hardware-debugging/">
+        <link rel="prev" href="../traditional/">
       
       
-        <link rel="next" href="../flight-dynamics/">
+        <link rel="next" href="../ready-to-arm-wiggle/">
       
       
         
       
       
-      <link rel="icon" href="../../../assets/favicon.ico">
+      <link rel="icon" href="../../assets/favicon.ico">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
-        <title>Debugging with VS Code and J-Link - WingFlight Documentation</title>
+        <title>Setup and Gyro Off - WingFlight Documentation</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -47,9 +47,9 @@
       
     
     
-      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#hardware-debugging-with-vscode-and-jlink" class="md-skip">
+        <a href="#setup-and-gyro-off" class="md-skip">
           Skip to content
         </a>
       
@@ -88,9 +88,9 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../.." title="WingFlight Documentation" class="md-header__button md-logo" aria-label="WingFlight Documentation" data-md-component="logo">
+    <a href="../.." title="WingFlight Documentation" class="md-header__button md-logo" aria-label="WingFlight Documentation" data-md-component="logo">
       
-  <img src="../../../assets/wf_icon_white.svg" alt="logo">
+  <img src="../../assets/wf_icon_white.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -107,7 +107,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Debugging with VS Code and J-Link
+              Setup and Gyro Off
             
           </span>
         </div>
@@ -220,7 +220,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../.." class="md-tabs__link">
+      <a href="../.." class="md-tabs__link">
         
   
   
@@ -241,7 +241,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../getting-started/" class="md-tabs__link">
+        <a href="../../getting-started/" class="md-tabs__link">
           
   
   
@@ -261,7 +261,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../configurator/" class="md-tabs__link">
+        <a href="../../configurator/" class="md-tabs__link">
           
   
   
@@ -277,11 +277,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../../flight-modes/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
           
   
   
@@ -301,7 +303,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../reference/" class="md-tabs__link">
+        <a href="../../reference/" class="md-tabs__link">
           
   
   
@@ -317,13 +319,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../../" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../contributing/" class="md-tabs__link">
           
   
   
@@ -357,9 +357,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="WingFlight Documentation" class="md-nav__button md-logo" aria-label="WingFlight Documentation" data-md-component="logo">
+    <a href="../.." title="WingFlight Documentation" class="md-nav__button md-logo" aria-label="WingFlight Documentation" data-md-component="logo">
       
-  <img src="../../../assets/wf_icon_white.svg" alt="logo">
+  <img src="../../assets/wf_icon_white.svg" alt="logo">
 
     </a>
     WingFlight Documentation
@@ -386,7 +386,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../.." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -463,7 +463,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting-started/" class="md-nav__link">
+      <a href="../../getting-started/" class="md-nav__link">
         
   
   
@@ -491,7 +491,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting-started/installing-the-configurator/" class="md-nav__link">
+      <a href="../../getting-started/installing-the-configurator/" class="md-nav__link">
         
   
   
@@ -519,7 +519,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting-started/flashing-the-firmware/" class="md-nav__link">
+      <a href="../../getting-started/flashing-the-firmware/" class="md-nav__link">
         
   
   
@@ -547,7 +547,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting-started/first-connection/" class="md-nav__link">
+      <a href="../../getting-started/first-connection/" class="md-nav__link">
         
   
   
@@ -575,7 +575,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting-started/backup-and-restore/" class="md-nav__link">
+      <a href="../../getting-started/backup-and-restore/" class="md-nav__link">
         
   
   
@@ -603,7 +603,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting-started/safety/" class="md-nav__link">
+      <a href="../../getting-started/safety/" class="md-nav__link">
         
   
   
@@ -688,7 +688,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configurator/" class="md-nav__link">
+      <a href="../../configurator/" class="md-nav__link">
         
   
   
@@ -716,7 +716,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configurator/tabs/status/" class="md-nav__link">
+      <a href="../../configurator/tabs/status/" class="md-nav__link">
         
   
   
@@ -744,7 +744,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configurator/tabs/setup/" class="md-nav__link">
+      <a href="../../configurator/tabs/setup/" class="md-nav__link">
         
   
   
@@ -772,7 +772,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configurator/tabs/configuration/" class="md-nav__link">
+      <a href="../../configurator/tabs/configuration/" class="md-nav__link">
         
   
   
@@ -800,7 +800,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configurator/tabs/power/" class="md-nav__link">
+      <a href="../../configurator/tabs/power/" class="md-nav__link">
         
   
   
@@ -828,7 +828,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configurator/tabs/receiver/" class="md-nav__link">
+      <a href="../../configurator/tabs/receiver/" class="md-nav__link">
         
   
   
@@ -856,7 +856,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configurator/tabs/failsafe/" class="md-nav__link">
+      <a href="../../configurator/tabs/failsafe/" class="md-nav__link">
         
   
   
@@ -884,7 +884,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configurator/tabs/mixer/" class="md-nav__link">
+      <a href="../../configurator/tabs/mixer/" class="md-nav__link">
         
   
   
@@ -912,7 +912,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configurator/tabs/servos/" class="md-nav__link">
+      <a href="../../configurator/tabs/servos/" class="md-nav__link">
         
   
   
@@ -940,7 +940,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configurator/tabs/motors/" class="md-nav__link">
+      <a href="../../configurator/tabs/motors/" class="md-nav__link">
         
   
   
@@ -968,7 +968,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configurator/tabs/curves/" class="md-nav__link">
+      <a href="../../configurator/tabs/curves/" class="md-nav__link">
         
   
   
@@ -996,7 +996,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configurator/tabs/profiles/" class="md-nav__link">
+      <a href="../../configurator/tabs/profiles/" class="md-nav__link">
         
   
   
@@ -1024,7 +1024,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configurator/tabs/rates/" class="md-nav__link">
+      <a href="../../configurator/tabs/rates/" class="md-nav__link">
         
   
   
@@ -1052,7 +1052,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configurator/tabs/thrust-vector/" class="md-nav__link">
+      <a href="../../configurator/tabs/thrust-vector/" class="md-nav__link">
         
   
   
@@ -1080,7 +1080,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configurator/tabs/gyro/" class="md-nav__link">
+      <a href="../../configurator/tabs/gyro/" class="md-nav__link">
         
   
   
@@ -1108,7 +1108,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configurator/tabs/auxiliary/" class="md-nav__link">
+      <a href="../../configurator/tabs/auxiliary/" class="md-nav__link">
         
   
   
@@ -1136,7 +1136,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configurator/tabs/gps-navigation/" class="md-nav__link">
+      <a href="../../configurator/tabs/gps-navigation/" class="md-nav__link">
         
   
   
@@ -1164,7 +1164,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configurator/tabs/adjustments/" class="md-nav__link">
+      <a href="../../configurator/tabs/adjustments/" class="md-nav__link">
         
   
   
@@ -1192,7 +1192,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configurator/tabs/logic/" class="md-nav__link">
+      <a href="../../configurator/tabs/logic/" class="md-nav__link">
         
   
   
@@ -1220,7 +1220,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configurator/tabs/gps/" class="md-nav__link">
+      <a href="../../configurator/tabs/gps/" class="md-nav__link">
         
   
   
@@ -1248,7 +1248,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configurator/tabs/led-strip/" class="md-nav__link">
+      <a href="../../configurator/tabs/led-strip/" class="md-nav__link">
         
   
   
@@ -1276,7 +1276,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configurator/tabs/beepers/" class="md-nav__link">
+      <a href="../../configurator/tabs/beepers/" class="md-nav__link">
         
   
   
@@ -1304,7 +1304,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configurator/tabs/sensors/" class="md-nav__link">
+      <a href="../../configurator/tabs/sensors/" class="md-nav__link">
         
   
   
@@ -1332,7 +1332,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configurator/tabs/esc-programming/" class="md-nav__link">
+      <a href="../../configurator/tabs/esc-programming/" class="md-nav__link">
         
   
   
@@ -1360,7 +1360,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configurator/tabs/fbus-sensors/" class="md-nav__link">
+      <a href="../../configurator/tabs/fbus-sensors/" class="md-nav__link">
         
   
   
@@ -1388,7 +1388,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configurator/tabs/crsf-sensors/" class="md-nav__link">
+      <a href="../../configurator/tabs/crsf-sensors/" class="md-nav__link">
         
   
   
@@ -1416,7 +1416,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configurator/tabs/blackbox/" class="md-nav__link">
+      <a href="../../configurator/tabs/blackbox/" class="md-nav__link">
         
   
   
@@ -1444,7 +1444,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configurator/tabs/cli/" class="md-nav__link">
+      <a href="../../configurator/tabs/cli/" class="md-nav__link">
         
   
   
@@ -1476,24 +1476,29 @@
       
   
   
+    
   
   
+  
     
     
     
     
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
             
   
   
@@ -1511,7 +1516,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1529,7 +1534,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../flight-modes/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         
   
   
@@ -1557,7 +1562,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../flight-modes/atthold/" class="md-nav__link">
+      <a href="../atthold/" class="md-nav__link">
         
   
   
@@ -1585,7 +1590,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../flight-modes/tv-hold/" class="md-nav__link">
+      <a href="../tv-hold/" class="md-nav__link">
         
   
   
@@ -1613,7 +1618,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../flight-modes/auto-trim/" class="md-nav__link">
+      <a href="../auto-trim/" class="md-nav__link">
         
   
   
@@ -1641,7 +1646,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../flight-modes/trainer/" class="md-nav__link">
+      <a href="../trainer/" class="md-nav__link">
         
   
   
@@ -1669,7 +1674,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../flight-modes/traditional/" class="md-nav__link">
+      <a href="../traditional/" class="md-nav__link">
         
   
   
@@ -1694,10 +1699,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../../flight-modes/setup-gyro-off/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Setup and Gyro Off
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1713,6 +1745,65 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#setup-set-your-throws-here" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SETUP: set your throws here
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gyro-off-stabilization-off-same-sticks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GYRO OFF: stabilization off, same sticks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GYRO OFF: stabilization off, same sticks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-gyro-off-looks-smaller-than-normal-mode-on-the-bench" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why GYRO OFF looks smaller than normal mode on the bench
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1725,7 +1816,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../flight-modes/ready-to-arm-wiggle/" class="md-nav__link">
+      <a href="../ready-to-arm-wiggle/" class="md-nav__link">
         
   
   
@@ -1753,7 +1844,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../flight-modes/cross-axis-relax/" class="md-nav__link">
+      <a href="../cross-axis-relax/" class="md-nav__link">
         
   
   
@@ -1781,7 +1872,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../flight-modes/governor/" class="md-nav__link">
+      <a href="../governor/" class="md-nav__link">
         
   
   
@@ -1809,7 +1900,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../flight-modes/backup-rx-input/" class="md-nav__link">
+      <a href="../backup-rx-input/" class="md-nav__link">
         
   
   
@@ -1837,7 +1928,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../flight-modes/gps-rth/" class="md-nav__link">
+      <a href="../gps-rth/" class="md-nav__link">
         
   
   
@@ -1865,7 +1956,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../flight-modes/gps-rescue/" class="md-nav__link">
+      <a href="../gps-rescue/" class="md-nav__link">
         
   
   
@@ -1950,7 +2041,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/" class="md-nav__link">
+      <a href="../../reference/" class="md-nav__link">
         
   
   
@@ -1978,7 +2069,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/cli-reference/" class="md-nav__link">
+      <a href="../../reference/cli-reference/" class="md-nav__link">
         
   
   
@@ -2006,7 +2097,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/msp-overview/" class="md-nav__link">
+      <a href="../../reference/msp-overview/" class="md-nav__link">
         
   
   
@@ -2034,7 +2125,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/fbus-sensor-ids/" class="md-nav__link">
+      <a href="../../reference/fbus-sensor-ids/" class="md-nav__link">
         
   
   
@@ -2062,7 +2153,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/stick-commands/" class="md-nav__link">
+      <a href="../../reference/stick-commands/" class="md-nav__link">
         
   
   
@@ -2090,7 +2181,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/receivers/" class="md-nav__link">
+      <a href="../../reference/receivers/" class="md-nav__link">
         
   
   
@@ -2118,7 +2209,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/rssi/" class="md-nav__link">
+      <a href="../../reference/rssi/" class="md-nav__link">
         
   
   
@@ -2146,7 +2237,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/spektrum-bind/" class="md-nav__link">
+      <a href="../../reference/spektrum-bind/" class="md-nav__link">
         
   
   
@@ -2174,7 +2265,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/frsky-spi-rx/" class="md-nav__link">
+      <a href="../../reference/frsky-spi-rx/" class="md-nav__link">
         
   
   
@@ -2202,7 +2293,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/serial-ports/" class="md-nav__link">
+      <a href="../../reference/serial-ports/" class="md-nav__link">
         
   
   
@@ -2230,7 +2321,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/telemetry/" class="md-nav__link">
+      <a href="../../reference/telemetry/" class="md-nav__link">
         
   
   
@@ -2258,7 +2349,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/radio-alerts/" class="md-nav__link">
+      <a href="../../reference/radio-alerts/" class="md-nav__link">
         
   
   
@@ -2286,7 +2377,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/castle-esc-telemetry/" class="md-nav__link">
+      <a href="../../reference/castle-esc-telemetry/" class="md-nav__link">
         
   
   
@@ -2314,7 +2405,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/gps-hardware/" class="md-nav__link">
+      <a href="../../reference/gps-hardware/" class="md-nav__link">
         
   
   
@@ -2342,7 +2433,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/led-strip/" class="md-nav__link">
+      <a href="../../reference/led-strip/" class="md-nav__link">
         
   
   
@@ -2370,7 +2461,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/buzzer/" class="md-nav__link">
+      <a href="../../reference/buzzer/" class="md-nav__link">
         
   
   
@@ -2398,7 +2489,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/oled-display/" class="md-nav__link">
+      <a href="../../reference/oled-display/" class="md-nav__link">
         
   
   
@@ -2430,29 +2521,24 @@
       
   
   
-    
   
   
-  
     
     
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
         
           
-          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
             
   
   
@@ -2470,7 +2556,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2488,7 +2574,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../" class="md-nav__link">
+      <a href="../../contributing/" class="md-nav__link">
         
   
   
@@ -2516,7 +2602,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../building-the-firmware/" class="md-nav__link">
+      <a href="../../contributing/building-the-firmware/" class="md-nav__link">
         
   
   
@@ -2544,7 +2630,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../developers/" class="md-nav__link">
+      <a href="../../contributing/developers/" class="md-nav__link">
         
   
   
@@ -2572,7 +2658,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../code-guidelines/" class="md-nav__link">
+      <a href="../../contributing/code-guidelines/" class="md-nav__link">
         
   
   
@@ -2600,7 +2686,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../coding-style/" class="md-nav__link">
+      <a href="../../contributing/coding-style/" class="md-nav__link">
         
   
   
@@ -2625,8 +2711,6 @@
                 
   
   
-    
-  
   
   
     
@@ -2637,11 +2721,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_6" >
         
           
           <label class="md-nav__link" for="__nav_6_6" id="__nav_6_6_label" tabindex="0">
@@ -2662,7 +2746,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_6_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2680,7 +2764,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../../contributing/tech/" class="md-nav__link">
         
   
   
@@ -2708,7 +2792,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../parameter-groups/" class="md-nav__link">
+      <a href="../../contributing/tech/parameter-groups/" class="md-nav__link">
         
   
   
@@ -2736,7 +2820,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../configuration-format/" class="md-nav__link">
+      <a href="../../contributing/tech/configuration-format/" class="md-nav__link">
         
   
   
@@ -2764,7 +2848,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../atomic-barrier/" class="md-nav__link">
+      <a href="../../contributing/tech/atomic-barrier/" class="md-nav__link">
         
   
   
@@ -2792,7 +2876,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../customizing-the-build/" class="md-nav__link">
+      <a href="../../contributing/tech/customizing-the-build/" class="md-nav__link">
         
   
   
@@ -2820,7 +2904,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../custom-boards/" class="md-nav__link">
+      <a href="../../contributing/tech/custom-boards/" class="md-nav__link">
         
   
   
@@ -2848,7 +2932,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../blackbox-format/" class="md-nav__link">
+      <a href="../../contributing/tech/blackbox-format/" class="md-nav__link">
         
   
   
@@ -2876,7 +2960,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../smartfuel/" class="md-nav__link">
+      <a href="../../contributing/tech/smartfuel/" class="md-nav__link">
         
   
   
@@ -2904,7 +2988,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../hardware-debugging/" class="md-nav__link">
+      <a href="../../contributing/tech/hardware-debugging/" class="md-nav__link">
         
   
   
@@ -2929,37 +3013,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Debugging with VS Code and J-Link
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../contributing/tech/hardware-debugging-vscode-jlink/" class="md-nav__link">
         
   
   
@@ -2975,165 +3032,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#assumptions-and-prerequisites" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Assumptions and Prerequisites
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Setup
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Setup">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#jlink-host" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        JLink host
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#build-environment" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Build environment
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vscode" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        VSCode
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#advanced-debugging-topic" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Advanced debugging topic
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Advanced debugging topic">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#attach-to-a-running-target" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Attach to a running target
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#swo" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        SWO
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="SWO">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#swo-terminal" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        SWO terminal
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#swo-graphing" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        SWO graphing
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#swo-trace" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        SWO trace
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -3146,7 +3044,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../flight-dynamics/" class="md-nav__link">
+      <a href="../../contributing/tech/flight-dynamics/" class="md-nav__link">
         
   
   
@@ -3174,7 +3072,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../rx-wiring-autodetect/" class="md-nav__link">
+      <a href="../../contributing/tech/rx-wiring-autodetect/" class="md-nav__link">
         
   
   
@@ -3202,7 +3100,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../esc-signaling-autodetect/" class="md-nav__link">
+      <a href="../../contributing/tech/esc-signaling-autodetect/" class="md-nav__link">
         
   
   
@@ -3265,10 +3163,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#assumptions-and-prerequisites" class="md-nav__link">
+  <a href="#setup-set-your-throws-here" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Assumptions and Prerequisites
+        SETUP: set your throws here
       
     </span>
   </a>
@@ -3276,125 +3174,25 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#setup" class="md-nav__link">
+  <a href="#gyro-off-stabilization-off-same-sticks" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Setup
+        GYRO OFF: stabilization off, same sticks
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Setup">
+    <nav class="md-nav" aria-label="GYRO OFF: stabilization off, same sticks">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#jlink-host" class="md-nav__link">
+  <a href="#why-gyro-off-looks-smaller-than-normal-mode-on-the-bench" class="md-nav__link">
     <span class="md-ellipsis">
       
-        JLink host
+        Why GYRO OFF looks smaller than normal mode on the bench
       
     </span>
   </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#build-environment" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Build environment
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vscode" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        VSCode
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#advanced-debugging-topic" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Advanced debugging topic
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Advanced debugging topic">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#attach-to-a-running-target" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Attach to a running target
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#swo" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        SWO
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="SWO">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#swo-terminal" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        SWO terminal
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#swo-graphing" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        SWO graphing
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#swo-trace" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        SWO trace
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -3420,7 +3218,7 @@
 
 
   
-    <a href="https://github.com/WingFlight/edit/main/docs/contributing/tech/hardware-debugging-vscode-jlink.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/WingFlight/edit/main/docs/flight-modes/setup-gyro-off.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -3428,166 +3226,78 @@
   
 
 
-<h1 id="hardware-debugging-with-vscode-and-jlink">Hardware Debugging with VSCode and JLink<a class="headerlink" href="#hardware-debugging-with-vscode-and-jlink" title="Permanent link">&para;</a></h1>
-<p>This doc will guide you to set up Rotorflight firmware debugging in VSCode.</p>
-<h2 id="assumptions-and-prerequisites">Assumptions and Prerequisites<a class="headerlink" href="#assumptions-and-prerequisites" title="Permanent link">&para;</a></h2>
+<h1 id="setup-and-gyro-off">Setup and Gyro Off<a class="headerlink" href="#setup-and-gyro-off" title="Permanent link">&para;</a></h1>
+<p>Two modes turn the stabilization off. They do different things, and only
+one of them is the right place to set up your surface throws.</p>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Stick to surface</th>
+<th>Full stick gives</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SETUP</strong></td>
+<td>Raw stick, no rates, no expo, no gyro</td>
+<td>Full servo travel</td>
+</tr>
+<tr>
+<td><strong>GYRO OFF</strong></td>
+<td>Your rates and expo, no gyro</td>
+<td>Less than full travel, set by F and the rates</td>
+</tr>
+</tbody>
+</table>
+<p>Both are assigned to a switch on the <a href="../../configurator/tabs/auxiliary/">Modes</a>
+tab. If both are on, SETUP wins. If failsafe starts, it takes over from
+both, whatever the switches say.</p>
+<p>Firmware before this change called them PASSTHROUGH and MANUAL. The box IDs
+are the same, so existing switch assignments keep working.</p>
+<h2 id="setup-set-your-throws-here">SETUP: set your throws here<a class="headerlink" href="#setup-set-your-throws-here" title="Permanent link">&para;</a></h2>
+<p>In SETUP, full stick is full servo travel. That is the same limit every
+other mode is held to: the stabilized modes can use up to this much
+deflection and never more. So when a setup guide says "elevator 38° each
+way", this is the mode to measure it in.</p>
+<ol>
+<li>Remove the propeller, arm or enable servo output as you normally would on
+   the bench, and switch to SETUP.</li>
+<li>Move each stick to full deflection and measure the surface.</li>
+<li>Adjust the servo's <strong>Scale Neg</strong> / <strong>Scale Pos</strong> on the
+   <a href="../../configurator/tabs/servos/">Servos</a> tab until full stick gives the
+   throw you want. Use <strong>Min</strong> / <strong>Max</strong> only to keep the servo off a
+   mechanical stop.</li>
+</ol>
+<p>SETUP also works in flight as a raw bail-out: the sticks drive the surfaces
+directly, with nothing from the flight controller in between.</p>
+<h2 id="gyro-off-stabilization-off-same-sticks">GYRO OFF: stabilization off, same sticks<a class="headerlink" href="#gyro-off-stabilization-off-same-sticks" title="Permanent link">&para;</a></h2>
+<p>GYRO OFF keeps your rates and expo but drops the gyro correction. It flies
+the feedforward (F) part of normal flight on its own:</p>
 <ul>
-<li>JLink: This guide assumes JLink. ST-Link/OpenOCD should be possible. but unverified.</li>
-<li>Flydragon V2: Other controllers should be very similar.</li>
-<li>SWD wiring: SWDIO, SWCLK, 3.3V, GND are required. SWO pin is optional for advanced topic.\
-   <img alt="SWD" src="../assets/vscode/SWD.jpg" /></li>
-<li>Linux build environment.</li>
-<li>VSCode workspace connected to the build environment.</li>
-<li>JLink, VSCode and build environment can be on 3 different hosts.</li>
-<li>Optionally, use rotorflight-configurator to download your built firmware once, to load board config.</li>
+<li>Full-stick throw is <code>F × full-stick rate</code>. With the default F (75) and
+  rates (250 °/s roll and pitch, 350 °/s yaw), that is about 47% of full
+  travel on roll and pitch and 66% on yaw.</li>
+<li>It never drops below 30% of full travel at full stick, whatever F, the
+  rates or an in-flight adjustment are set to.</li>
+<li>Throttle and GPS speed attenuation do not reduce it.</li>
 </ul>
-<h2 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h2>
-<h3 id="jlink-host">JLink host<a class="headerlink" href="#jlink-host" title="Permanent link">&para;</a></h3>
-<p>(Skip if JLink and build environment are on the same host):
-  1. Install JLink software.
-  2. Run "JLink Remote Server" and start the server.\
-  <img alt="" src="../assets/vscode/JLink-Remote-Server.png" /></p>
-<h3 id="build-environment">Build environment<a class="headerlink" href="#build-environment" title="Permanent link">&para;</a></h3>
-<ol>
-<li>Install JLink software too.</li>
-<li>Install a recent version of <code>arm-none-eabi-gdb</code>. In my case, it is under <code>/usr/bin/arm-none-eabi-gdb</code>.</li>
-<li>Run <code>make clean</code> once, in case you have some cached <code>.o</code> and <code>.elf</code> without debug info.</li>
-</ol>
-<h3 id="vscode">VSCode<a class="headerlink" href="#vscode" title="Permanent link">&para;</a></h3>
-<ol>
-<li>Open your rotorflight-firmware workspace.</li>
-<li>Install extension <a href="https://marketplace.visualstudio.com/items/?itemName=marus25.cortex-debug">Cortex-Debug</a>.</li>
-<li>Add these settings to <code>.vscode/settings.json</code>:
-<div class="highlight"><pre><span></span><code>    "cortex-debug.armToolchainPath": "${workspaceRoot}/tools/gcc-arm-none-eabi-9-2020-q2-update/bin/",
-    "cortex-debug.gdbPath": "/usr/bin/arm-none-eabi-gdb",
-</code></pre></div></li>
-<li>Create <code>.vscode/tasks.json</code> (or merge) with the following content:
-<div class="highlight"><pre><span></span><code>{
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "type": "shell",
-            "label": "build STM32F7X2",
-            "command": "make",
-            "args": ["STM32F7X2", "DEBUG=INFO"],
-            "problemMatcher": [],
-            "options": {
-                "cwd": "${workspaceFolder}"
-            },
-            "presentation": {
-                "close": true
-            },
-        }
-    ]
-}
-</code></pre></div></li>
-<li>Create <code>.vscode/launch.json</code> (or merge) with the following content:
-<div class="highlight"><pre><span></span><code>{
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "name": "Launch STM32F7X2 JLink",
-      "cwd": "${workspaceRoot}",
-      "executable": "${workspaceRoot}/obj/main/rotorflight_STM32F7X2.elf",
-      "request": "launch",
-      "type": "cortex-debug",
-      "servertype": "jlink",
-      "serverpath": "JLinkGDBServerCLExe",
-      "ipAddress": "xxx.yyy.aaa.bbb", // Replace with your JLink host. Remove if run locally.
-      "device": "STM32F722RE",
-      "runToEntryPoint": "main",
-      "serverArgs": [
-        "-speed", "6000" // Optional: in case your jlink doesn't auto detect optimal speed for you
-      ],
-      "swoConfig": {
-        "enabled": true,
-        "source": "probe",
-        "swoFrequency": 2000000,
-        "cpuFrequency": 216000000,
-        "decoders": [
-          {
-            "port": 0,
-            "type": "console",
-            "label": "SWO output",
-            "encoding": "ascii"
-          }
-        ]
-      },
-      "preLaunchTask": "build STM32F7X2"
-    }
-  ]
-}
-</code></pre></div></li>
-<li>Now go to <code>Run and Debug</code> panel, select the configuration you just created, and click the green play button.\
-  <img alt="VSCode Launch" src="../assets/vscode/VSCode-Launch.png" />\
-  VSCode will build, download and start a debug session.</li>
-<li>JLink by default only erases affected sections. Therefore, the configuration will preserve. In case you did
-  not pre-load board config in the prerequisite steps, you can still manually download it from <a href="https://github.com/rotorflight/rotorflight-targets/blob/master/configs/FDRC-FLYDRAGONF722_V2.config">rotorflight-target (Flydragon V2)</a> and load it in cli.</li>
-</ol>
-<h2 id="advanced-debugging-topic">Advanced debugging topic<a class="headerlink" href="#advanced-debugging-topic" title="Permanent link">&para;</a></h2>
-<h3 id="attach-to-a-running-target">Attach to a running target<a class="headerlink" href="#attach-to-a-running-target" title="Permanent link">&para;</a></h3>
-<p>Use this Launch configuration:
-<div class="highlight"><pre><span></span><code>    {
-      "name": "Attach STM32F7X2 JLink",
-      "cwd": "${workspaceRoot}",
-      "executable": "${workspaceRoot}/obj/main/rotorflight_STM32F7X2.elf",
-      "request": "attach",
-      "type": "cortex-debug",
-      "servertype": "jlink",
-      "serverpath": "JLinkGDBServerCLExe",
-      "ipAddress": "xxx.yyy.aaa.bbb", // Replace with your JLink host. Remove if run locally.
-      "device": "STM32F722RE",
-      "serverArgs": [
-        "-speed", "6000" // Optional: in case your jlink doesn't auto detect optimal speed for you
-      ],
-      "swoConfig": {
-        "enabled": true,
-        "source": "probe",
-        "swoFrequency": 2000000,
-        "cpuFrequency": 216000000,
-        "decoders": [
-          {
-            "port": 0,
-            "type": "console",
-            "label": "SWO output",
-            "encoding": "ascii"
-          }
-        ]
-      }
-    }
-</code></pre></div>
-(Changes: <code>launch</code>-&gt;<code>attach</code>, remove <code>runToEntryPoint</code> and <code>preLaunchTask</code>)</p>
-<h3 id="swo">SWO<a class="headerlink" href="#swo" title="Permanent link">&para;</a></h3>
-<p>SWO is an optional debug pin can be used for various purposes (https://kb.segger.com/SWO).</p>
-<p>On Flydragon, the SWO pin (PB3) is not exposed as a pad but connects to the buzzer (through a driver circuit). You will need to carefully solder a wire to this tiny resistor:\
-<img alt="" src="../assets/vscode/SWO.jpg" />\
-<img alt="" src="../assets/vscode/SWO-2.jpg" /></p>
-<p>And also unmap the pin from buzzer:
-<div class="highlight"><pre><span></span><code>Resource BEEPER 1 NONE
-</code></pre></div></p>
-<h4 id="swo-terminal">SWO terminal<a class="headerlink" href="#swo-terminal" title="Permanent link">&para;</a></h4>
-<p>You can utilize high speed SWO terminal to print debug strings. First, add this piece of code to any (linked) .c file:
-<div class="highlight"><pre><span></span><code>int _write(int file, char *ptr, int len)
-{
-    (void) file;
-    int i;
-    for (i = 0; i &lt; len; i++) {
-        ITM_SendChar(*ptr++);
-    }
-    return len;
-}
-</code></pre></div></p>
-<p>Comment out this line from <code>src/main/common/platform.h</code> which prevents us to compile <code>printf</code>.
-<div class="highlight"><pre><span></span><code>#pragma GCC poison sprintf snprintf
-</code></pre></div></p>
-<p>Now you can <code>printf</code> anywhere in the code and the output will be shown in the "TERMINAL" -&gt; "SWO:SWO console":\
-<img alt="" src="../assets/vscode/VSCode-SWO.png" /></p>
-<h4 id="swo-graphing">SWO graphing<a class="headerlink" href="#swo-graphing" title="Permanent link">&para;</a></h4>
-<p>You can send values to different ITM channels and plot a graph.
-This is useful to track multiple variables or state machines.
-Refer to https://github.com/Marus/cortex-debug/wiki/SWO-Output#output-graphing-graphing.</p>
-<h4 id="swo-trace">SWO trace<a class="headerlink" href="#swo-trace" title="Permanent link">&para;</a></h4>
-<p>SWO trace is currently <strong>not supported</strong> by Cortex-Debug extension. I suggest to use SEGGER Embedded Studio for this task -- "An externally built executable for a Cortex-M processor" project.</p>
+<p>Because its throw follows F and the rates, don't use GYRO OFF to measure or
+set throws.</p>
+<h3 id="why-gyro-off-looks-smaller-than-normal-mode-on-the-bench">Why GYRO OFF looks smaller than normal mode on the bench<a class="headerlink" href="#why-gyro-off-looks-smaller-than-normal-mode-on-the-bench" title="Permanent link">&para;</a></h3>
+<p>On the bench, normal mode moves the surfaces further than GYRO OFF, and
+the gap grows while you hold the stick. Normal mode adds P and I to F, and
+a model sitting still never rotates at the commanded rate, so P keeps
+pushing and I keeps building. With the default tune, roll and pitch go from
+about 0.55 to about 0.70 of full travel within a fraction of a second, and
+yaw goes straight to full travel.</p>
+<p>In flight the aircraft does rotate, P and I fall away, and normal mode
+settles close to F × rate. That is what GYRO OFF gives, so the two feel
+alike in the air. If normal mode still needs much more deflection than GYRO
+OFF to reach the commanded rate in flight, F is too low for that aircraft.
+See <a href="../../configurator/tabs/profiles/#f-and-gyro-off-mode">Profiles</a>.</p>
+<p>The I-term is not built up while SETUP or GYRO OFF is active, so switching
+back to a stabilized mode doesn't kick the aircraft.</p>
 
 
 
@@ -3623,7 +3333,7 @@ Refer to https://github.com/Marus/cortex-debug/wiki/SWO-Output#output-graphing-g
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../hardware-debugging/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Hardware Debugging">
+          <a href="../traditional/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Traditional">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -3633,20 +3343,20 @@ Refer to https://github.com/Marus/cortex-debug/wiki/SWO-Output#output-graphing-g
                 Previous
               </span>
               <div class="md-ellipsis">
-                Hardware Debugging
+                Traditional
               </div>
             </div>
           </a>
         
         
           
-          <a href="../flight-dynamics/" class="md-footer__link md-footer__link--next" aria-label="Next: Flight Dynamics">
+          <a href="../ready-to-arm-wiggle/" class="md-footer__link md-footer__link--next" aria-label="Next: Ready-to-Arm Wiggle">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Flight Dynamics
+                Ready-to-Arm Wiggle
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -3710,10 +3420,10 @@ Refer to https://github.com/Marus/cortex-debug/wiki/SWO-Output#output-graphing-g
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.action.edit", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.action.edit", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>
