@@ -1201,6 +1201,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#arming-without-a-gps-fix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arming without a GPS fix
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#settings" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3107,6 +3118,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#arming-without-a-gps-fix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arming without a GPS fix
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#settings" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3151,6 +3173,27 @@ It only appears once the <strong>GPS</strong> feature is enabled (Configuration 
 they moved here because they aren't failsafe-specific -- <strong>GPS RTH</strong> and
 <strong>GPS LOITER</strong> (whether switched on by hand or started by the Failsafe
 tab's GPS Rescue procedure) all use them.</p>
+<h2 id="arming-without-a-gps-fix">Arming without a GPS fix<a class="headerlink" href="#arming-without-a-gps-fix" title="Permanent link">&para;</a></h2>
+<p>When the Failsafe tab's GPS Rescue procedure or a <strong>GPS RTH</strong> switch is set
+up, the first arm after power-up is blocked until the GPS has a fix (the
+<code>GPS</code> arming disable flag). Re-arming later in the same power cycle doesn't
+need one.</p>
+<p>If you can't get a lock at the field, turn on <strong>Allow arming without GPS
+fix</strong> (<code>gps_rescue_allow_arming_without_fix</code>, default OFF) at the top of this
+tab. On the radio it is <strong>Arm w/o GPS Fix</strong> on the Lua suite's GPS
+Navigation page.</p>
+<p>The home point is only recorded at arming, with a fix and at least 5
+satellites, so a flight armed without a fix has no home, even if the GPS
+locks later:</p>
+<ul>
+<li>A GPS Rescue failsafe falls back to self-leveling with the motor off,
+  like Land/Drop, instead of flying home.</li>
+<li>The <strong>GPS RTH</strong> switch flies level and doesn't turn toward home.</li>
+<li><strong>GPS LOITER</strong> still works once a fix arrives, since it orbits where it
+  was switched on.</li>
+</ul>
+<p>Turn the setting off again once GPS is working, so the arming check
+protects your next flights.</p>
 <h2 id="settings">Settings<a class="headerlink" href="#settings" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
