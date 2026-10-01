@@ -65,10 +65,16 @@ rates and it shrinks, but never below 30% of full travel. Set your surface
 throws in [SETUP](../../flight-modes/setup-gyro-off.md#setup-set-your-throws-here)
 mode, where full stick is full travel, not in GYRO OFF.
 
-F can't be set below **50** on roll, pitch or yaw. The minimum applies in
-the Configurator, the CLI, the Lua scripts and in-flight adjustments, and a
-saved profile below 50 is raised to 50 when the flight controller starts.
-Thrust Vector F gains don't drive GYRO OFF and can still be 0.
+F can't be set below **50** on roll, pitch or yaw. The minimum is for the
+stabilized modes, not GYRO OFF: F sets most of the surface deflection for a
+commanded rate, and P and I only correct what is left. I is capped (by
+`error_limit`), so with too little F the sticks run out of authority. With
+the default P and I and F at 0, full stick reaches only about 100 of a
+commanded 250 deg/s on roll and pitch, and only after a delay. At 50, I can
+still make up the rest. The minimum applies in the Configurator, the CLI,
+the Lua scripts and in-flight adjustments, and a saved profile below 50 is
+raised to 50 when the flight controller starts. Thrust Vector F gains have
+no minimum.
 
 ### Quick troubleshooting
 
