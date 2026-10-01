@@ -40,6 +40,10 @@ want to change):
 | `fw_spa_gain` | 25-200 | 100 | [GPS speed attenuation](../configurator/tabs/profiles.md#speed-gps-speed-attenuation) baseline, percent |
 | `fw_spa_curve` | 0-8 | 0 | Gain curve evaluated on GPS speed; 0 = GPS speed attenuation off |
 | `fw_spa_speed_max` | 10-600 | 150 | GPS speed at the curve's right edge, km/h |
+| `snap_relax_strength` | 0-100 | 100 | [Snap Relax](../flight-modes/snap-relax.md): percent of opposing roll/pitch feedback removed during a pop top, pinwheel or snap; 0 = off |
+| `snap_relax_threshold` | 20-100 | 60 | Stick percent that roll, pitch and yaw must all reach |
+| `snap_relax_window` | 0-1000 | 400 | All three sticks must pass the threshold within this many ms of each other |
+| `snap_relax_hold` | 0-1000 | 150 | Fade-out back to full feedback, ms |
 
 The `autohover_*` settings were removed with the AUTO HOVER mode in MSP API
 22.11. Restoring a diff from older firmware reports them as unknown settings;
@@ -100,7 +104,7 @@ is rejected as an invalid value. Set `debug_mode = NONE` instead.
 | 79 | `AUTOHOVER` (removed with the mode in API 22.11) |
 
 For Wingflight's own diagnostics use `ATTHOLD`, `TVHOLD`,
-`AIRBORNE`, `ALTITUDE` or `GAIN_ATTEN`. The first two log one axis at a
+`AIRBORNE`, `ALTITUDE`, `GAIN_ATTEN` or `SNAP_RELAX`. The first two log one axis at a
 time, picked with `debug_axis`.
 
 `GAIN_ATTEN` shows the throttle (TPA) and GPS speed (SPA) gain attenuation
@@ -113,6 +117,15 @@ that scales P, D, F and B (their product is floored at 25%):
 | 2 | Filtered GPS speed used by the curve, 0.1 km/h |
 | 3 | Raw GPS speed, cm/s |
 | 4 | GPS fix (1 = fix) |
+
+`SNAP_RELAX` shows [Snap Relax](../flight-modes/snap-relax.md) detection:
+
+| Field | Value |
+|---|---|
+| 0 | Relax amount, x1000 (1000 = 100%) |
+| 1 | Snap active (1 = all three sticks past the threshold) |
+| 2 | Time between the first and last stick crossing the threshold, ms |
+| 3-5 | Roll, pitch and yaw stick deflection, x1000 |
 
 `ALTITUDE` shows the [altitude estimate](#altitude-estimation) next to its
 sources, to check the fusion against the raw readings:
