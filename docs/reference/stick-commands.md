@@ -25,6 +25,8 @@ If the aircraft will not arm, open the [Status tab](../configurator/tabs/status.
 | `CALIB` | Sensor calibration is running |
 | `CLI` | The CLI is active |
 | `MSP` | Arming has been blocked over MSP (for example by the Configurator) |
+| `GPS` | GPS Rescue or a **GPS RTH** switch is set up and there is no GPS fix yet. Only the first arm after power-up needs the fix. To arm without one, see [Arming without a GPS fix](../configurator/tabs/gps-navigation.md#arming-without-a-gps-fix) |
+| `RESCUE_SW` | The **GPS RTH** or **GPS LOITER** switch is on. Switch it off to arm |
 | `NO_ACC_CAL` | The accelerometer has not been calibrated |
 | `MOTOR_PROTO` | The motor protocol is not valid |
 | `OVERRIDE` | A mixer or servo override is active |

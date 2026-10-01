@@ -66,8 +66,9 @@ Angle mode.
   same target. You don't need to cycle the switch.
 - **Switching on without a fix.** The mode still engages. Loiter picks its
   orbit point as soon as a fix is available, and holds the altitude from when
-  you flipped the switch. RTH without a recorded home (no fix at arming) flies
-  level rather than steering anywhere.
+  you flipped the switch. RTH without a recorded home (no fix at arming, see
+  [Arming without a GPS fix](../configurator/tabs/gps-navigation.md#arming-without-a-gps-fix))
+  flies level rather than steering anywhere.
 - **Altitude needs an altitude estimate.** Altitude hold uses the flight
   controller's altitude estimate: the barometer, or GPS altitude on boards
   without one, fused with the accelerometer. See
