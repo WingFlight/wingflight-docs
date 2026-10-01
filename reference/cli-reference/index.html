@@ -1781,6 +1781,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../flight-modes/snap-relax/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Snap Relax
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../flight-modes/governor/" class="md-nav__link">
         
   
@@ -3429,6 +3457,30 @@ want to change):</p>
 <td>150</td>
 <td>GPS speed at the curve's right edge, km/h</td>
 </tr>
+<tr>
+<td><code>snap_relax_strength</code></td>
+<td>0-100</td>
+<td>100</td>
+<td><a href="../../flight-modes/snap-relax/">Snap Relax</a>: percent of opposing roll/pitch feedback removed during a pop top, pinwheel or snap; 0 = off</td>
+</tr>
+<tr>
+<td><code>snap_relax_threshold</code></td>
+<td>20-100</td>
+<td>60</td>
+<td>Stick percent that roll, pitch and yaw must all reach</td>
+</tr>
+<tr>
+<td><code>snap_relax_window</code></td>
+<td>0-1000</td>
+<td>400</td>
+<td>All three sticks must pass the threshold within this many ms of each other</td>
+</tr>
+<tr>
+<td><code>snap_relax_hold</code></td>
+<td>0-1000</td>
+<td>150</td>
+<td>Fade-out back to full feedback, ms</td>
+</tr>
 </tbody>
 </table>
 <p>The <code>autohover_*</code> settings were removed with the AUTO HOVER mode in MSP API
@@ -3567,7 +3619,7 @@ is rejected as an invalid value. Set <code>debug_mode = NONE</code> instead.</p>
 </tbody>
 </table>
 <p>For Wingflight's own diagnostics use <code>ATTHOLD</code>, <code>TVHOLD</code>,
-<code>AIRBORNE</code>, <code>ALTITUDE</code> or <code>GAIN_ATTEN</code>. The first two log one axis at a
+<code>AIRBORNE</code>, <code>ALTITUDE</code>, <code>GAIN_ATTEN</code> or <code>SNAP_RELAX</code>. The first two log one axis at a
 time, picked with <code>debug_axis</code>.</p>
 <p><code>GAIN_ATTEN</code> shows the throttle (TPA) and GPS speed (SPA) gain attenuation
 that scales P, D, F and B (their product is floored at 25%):</p>
@@ -3598,6 +3650,33 @@ that scales P, D, F and B (their product is floored at 25%):</p>
 <tr>
 <td>4</td>
 <td>GPS fix (1 = fix)</td>
+</tr>
+</tbody>
+</table>
+<p><code>SNAP_RELAX</code> shows <a href="../../flight-modes/snap-relax/">Snap Relax</a> detection:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Relax amount, x1000 (1000 = 100%)</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Snap active (1 = all three sticks past the threshold)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Time between the first and last stick crossing the threshold, ms</td>
+</tr>
+<tr>
+<td>3-5</td>
+<td>Roll, pitch and yaw stick deflection, x1000</td>
 </tr>
 </tbody>
 </table>
