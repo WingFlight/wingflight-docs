@@ -50,9 +50,9 @@ gaps if the chip is slow to erase mid-flight.
 Each periodic log frame records which flight modes are active in two
 words, `flightModeFlags` and `flightModeFlags2`, together covering every
 mode. Older firmware logged only the first word, which silently dropped
-every mode past the 32nd -- including MANUAL -- so a MANUAL
+every mode past the 32nd -- including GYRO OFF (MANUAL in older firmware) -- so a GYRO OFF
 segment never showed as engaged. If you read logs with a tool that only
-knows `flightModeFlags`, modes such as MANUAL need `flightModeFlags2`
+knows `flightModeFlags`, modes such as GYRO OFF need `flightModeFlags2`
 too. The separate flight-mode change *event* still carries only the
 first word.
 
