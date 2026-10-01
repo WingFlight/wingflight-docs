@@ -25,5 +25,5 @@ and sub-trims on your transmitter to get the range.
 
 After any change to the mixer, servo reversal, or board orientation, check on the bench (with the
 propeller removed) that every surface moves the right way for the stick, and that the stabilised
-response, such as moving the aircraft by hand, opposes the motion. Check MANUAL and PASSTHROUGH
+response, such as moving the aircraft by hand, opposes the motion. Check GYRO OFF and SETUP
 too, if you use them.

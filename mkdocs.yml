@@ -106,6 +106,7 @@ nav:
       - Auto Trim: flight-modes/auto-trim.md
       - Trainer Mode: flight-modes/trainer.md
       - Traditional: flight-modes/traditional.md
+      - Setup and Gyro Off: flight-modes/setup-gyro-off.md
       - Ready-to-Arm Wiggle: flight-modes/ready-to-arm-wiggle.md
       - Cross-Axis Relax: flight-modes/cross-axis-relax.md
       - Governor: flight-modes/governor.md

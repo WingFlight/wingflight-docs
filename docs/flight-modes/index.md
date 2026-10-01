@@ -12,6 +12,7 @@ helicopter-focused mode set.
 | [Auto Trim](auto-trim.md) | Captures trim automatically from sustained stick input |
 | [Trainer Mode](trainer.md) | Rate control with pitch/bank limits, without self-leveling |
 | [Traditional](traditional.md) | Zeroes the I-term for a snappy, no-hold rate-gyro feel, layered on top of any other stabilization |
+| [Setup and Gyro Off](setup-gyro-off.md) | SETUP sends raw stick to the surfaces at full travel, for setting throws; GYRO OFF keeps your rates and expo with stabilization off |
 | [Ready-to-Arm Wiggle](ready-to-arm-wiggle.md) | Visual servo-wiggle confirmation before arming |
 | [Cross-Axis Relax](cross-axis-relax.md) | Reduces unwanted coupling between control axes |
 | [GPS RTH and Loiter](gps-rth.md) | Experimental fixed-wing return-to-home and orbit, by banking and pitching under Angle-mode leveling; also reachable as a [Failsafe Stage 2 procedure](../configurator/tabs/failsafe.md) |
