@@ -76,8 +76,8 @@ Order of operations: airborne update, yaw negation, PT3 smoothing (cutoff derive
 | P | `Kp · masterGain · gainCurve · TPA · SPA · crossAxisRelax · error` | |
 | I | `Ki · masterGain · axisError` | Not attenuated by TPA or SPA. Cross-axis relax slows the accumulation of `axisError` rather than scaling this output. Forced to 0 output (state kept) under `TRADITIONAL_MODE`. |
 | D | `Kd · masterGain · gainCurve · TPA · SPA · crossAxisRelax · d/dt(−gyro)` | Gyro-only D (no setpoint kick). Default D = 0. |
-| F | `Kf · setpoint` | Default carries the whole stick response: F=100 → 0.0025/(°/s), so 400 °/s = full travel. |
-| B | `Kb · d/dt(setpoint)` | FF boost; default 0. |
+| F | `Kf · setpoint` | Carries the steady stick response: F=100 → 0.0025/(°/s), so 400 °/s = full travel. Default F=75 (533 °/s = full travel). |
+| B | `Kb · d/dt(setpoint)` | FF boost; default 35, so stick starts and stops get a kick that cuts bounce-back. |
 
 **Default authority budget** (from [pg/pid.c](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/pg/pid.c) and [pid.h](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/pid.h) scale constants):
 
@@ -321,7 +321,7 @@ The boost was added to `getThrottle()` unconditionally, up to `throttle_assist_m
 *Still open:* the orbit has no radial correction, so it circles at whatever radius it entered, and it steers on GPS course over ground, which is undefined at low groundspeed.
 
 **M-3. MANUAL authority is coupled to F and to the rate profile.** *Confirmed.*
-[setpoint.c:182](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/setpoint.c#L182): output = `Kf · rate`. At default F=100 a 400 °/s rate is full travel; at `F=0` MANUAL outputs **nothing**, and a milder rate profile gives proportionally less throw. That was intended (commit `a40c7860a`), but MANUAL is the fallback a pilot reaches for when the stabilized loop is misbehaving, and a tuning choice made for the PID (lower F, lower rates) silently shrinks it.
+[setpoint.c:182](https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/setpoint.c#L182): output = `Kf · rate`. At F=100 a 400 °/s rate is full travel (default F=75: 533 °/s); at `F=0` MANUAL outputs **nothing**, and a milder rate profile gives proportionally less throw. That was intended (commit `a40c7860a`), but MANUAL is the fallback a pilot reaches for when the stabilized loop is misbehaving, and a tuning choice made for the PID (lower F, lower rates) silently shrinks it.
 
 *Fix.* Give MANUAL its own scale or a floor, or warn at configuration time when `F × max rate < 1`.
 

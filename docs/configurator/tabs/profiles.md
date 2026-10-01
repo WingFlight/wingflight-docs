@@ -100,14 +100,14 @@ Out of the box:
 
 | | P | I | D | F | B |
 |---|---|---|---|---|---|
-| Roll | 50 | 16 | 0 | 100 | 0 |
-| Pitch | 50 | 16 | 0 | 100 | 0 |
-| Yaw | 80 | 20 | 0 | 100 | 0 |
+| Roll | 50 | 16 | 0 | 75 | 35 |
+| Pitch | 50 | 16 | 0 | 75 | 35 |
+| Yaw | 80 | 20 | 0 | 75 | 35 |
 
 The standout choice is **D = 0 on every axis**. A fixed-wing control
 surface doesn't live in a particularly noisy, high-vibration environment,
-so the default tune leans on Feedforward (already set to a meaningful
-F = 100 out of the box) for a responsive, instant-feeling stick rather than
+so the default tune leans on Feedforward (F = 75 and B = 35 out of the
+box) for a responsive, instant-feeling stick rather than
 D-driven damping. Add D deliberately if a specific airframe overshoots or
 wallows in gusts -- and check [Gyro](gyro.md) filtering first, since D is
 the term most likely to expose noise once it's non-zero.
@@ -128,9 +128,16 @@ Yaw runs a bit hotter than Roll/Pitch (P 80 vs. 50, I 20 vs. 16) since
 rudder authority and yaw stability vary more from airframe to airframe than
 aileron/elevator response typically does.
 
-Boost defaults to 0 -- it's a finishing touch layered on an already-working
-Feedforward tune, not something you'd want fighting an airframe that hasn't
-been flown and trimmed yet.
+F and B are split 75 / 35 to cut bounce-back at the end of a roll or loop.
+F gives a steady surface deflection for as long as the stick is held, while B
+only acts while the stick is moving: it kicks the surface when the stick
+starts to move and kicks it the other way when the stick comes back to
+centre, which stops the rotation crisply. The lower F leaves less steady
+throw that has to unwind after the stick is released. If the stick feels
+sluggish, raise F; if starts and stops feel too sharp, lower B.
+
+F also sets MANUAL mode's throw (see [Flight Modes](../../flight-modes/index.md)), so
+lowering it reduces MANUAL deflection as well.
 
 Flight Feel's Gain defaults to 100% (no scaling) with no curve on every axis,
 and the Throttle and Speed rows likewise default to 100% with no curve -- so the PID
