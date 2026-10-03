@@ -40,10 +40,13 @@ want to change):
 | `fw_spa_gain` | 25-200 | 100 | [GPS speed attenuation](../configurator/tabs/profiles.md#speed-gps-speed-attenuation) baseline, percent |
 | `fw_spa_curve` | 0-8 | 0 | Gain curve evaluated on GPS speed; 0 = GPS speed attenuation off |
 | `fw_spa_speed_max` | 10-600 | 150 | GPS speed at the curve's right edge, km/h |
-| `snap_relax_strength` | 0-100 | 100 | [Snap Relax](../flight-modes/snap-relax.md): percent of opposing roll/pitch feedback removed during a pop top, pinwheel or snap; 0 = off |
+| `snap_relax_strength` | 0-100 | 100 | [Snap Relax](../flight-modes/snap-relax.md): percent of opposing roll/pitch/yaw feedback removed during a pop top, pinwheel or snap; 0 = off |
 | `snap_relax_threshold` | 20-100 | 60 | Stick percent that roll, pitch and yaw must all reach |
 | `snap_relax_window` | 0-1000 | 400 | All three sticks must pass the threshold within this many ms of each other |
-| `snap_relax_hold` | 0-1000 | 150 | Fade-out back to full feedback, ms |
+| `snap_relax_hold` | 0-1000 | 350 | Fade-out back to full feedback, ms |
+| `prop_hang_strength` | 0-100 | 100 | [Prop-Hang Relax](../flight-modes/prop-hang-relax.md): percent of the roll I-term held back in a prop hang; 0 = off |
+| `prop_hang_angle` | 5-45 | 20 | Degrees from straight up that still count as a hang |
+| `prop_hang_fade` | 0-2000 | 500 | Fade-out back to full roll I-term after the hang, ms |
 
 The `autohover_*` settings were removed with the AUTO HOVER mode in MSP API
 22.11. Restoring a diff from older firmware reports them as unknown settings;
@@ -104,7 +107,7 @@ is rejected as an invalid value. Set `debug_mode = NONE` instead.
 | 79 | `AUTOHOVER` (removed with the mode in API 22.11) |
 
 For Wingflight's own diagnostics use `ATTHOLD`, `TVHOLD`,
-`AIRBORNE`, `ALTITUDE`, `GAIN_ATTEN` or `SNAP_RELAX`. The first two log one axis at a
+`AIRBORNE`, `ALTITUDE`, `GAIN_ATTEN`, `SNAP_RELAX` or `PROP_HANG`. The first two log one axis at a
 time, picked with `debug_axis`.
 
 `GAIN_ATTEN` shows the throttle (TPA) and GPS speed (SPA) gain attenuation
@@ -126,6 +129,17 @@ that scales P, D, F and B (their product is floored at 25%):
 | 1 | Snap active (1 = all three sticks past the threshold) |
 | 2 | Time between the first and last stick crossing the threshold, ms |
 | 3-5 | Roll, pitch and yaw stick deflection, x1000 |
+
+`PROP_HANG` shows [Prop-Hang Relax](../flight-modes/prop-hang-relax.md) detection:
+
+| Field | Value |
+|---|---|
+| 0 | Roll I-term relax, x1000 (1000 = 100%) |
+| 1 | Nose-up component, x1000 (1000 = pointing straight up) |
+| 2 | Vertical speed, cm/s |
+| 3 | Time the hang conditions have held, ms (detected at 500) |
+| 4 | Altitude estimate available (1 = yes) |
+| 5 | Plain rate flight (1 = no leveling or hold mode active) |
 
 `ALTITUDE` shows the [altitude estimate](#altitude-estimation) next to its
 sources, to check the fusion against the raw readings:
