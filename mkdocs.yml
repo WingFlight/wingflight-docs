@@ -110,6 +110,7 @@ nav:
       - Ready-to-Arm Wiggle: flight-modes/ready-to-arm-wiggle.md
       - Cross-Axis Relax: flight-modes/cross-axis-relax.md
       - Snap Relax: flight-modes/snap-relax.md
+      - Prop-Hang Relax: flight-modes/prop-hang-relax.md
       - Governor: flight-modes/governor.md
       - Backup RX Input: flight-modes/backup-rx-input.md
       - GPS RTH and Loiter: flight-modes/gps-rth.md
