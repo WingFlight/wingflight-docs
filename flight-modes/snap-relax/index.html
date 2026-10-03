@@ -3249,7 +3249,8 @@ rotates much faster than the stick asks for, often two to two and a half
 times the commanded roll rate. A rate gyro sees that as an error and pushes
 back. Without Snap Relax it can put opposite aileron in while you are still
 holding full stick, and the I-term it builds up fighting the rotation comes
-back as a bump when you centre the sticks.</p>
+back as a bump when you centre the sticks. The same goes for the rudder if
+the aircraft yaws faster than the stick asks for.</p>
 <p>Snap Relax spots that stick gesture and stops the gyro fighting the
 rotation you asked for.</p>
 <h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
@@ -3258,10 +3259,13 @@ rotation you asked for.</p>
   pass the <strong>Stick threshold</strong> within the <strong>Entry window</strong> of each other.
   A slower build-up of the same inputs, such as a rolling harrier, does not
   count.</li>
-<li><strong>While it is on.</strong> On roll and pitch, P and D are reduced by <strong>Strength</strong>
-  only where they push against the direction you snapped the stick in, and
-  I stops building up against that direction. Anything that helps the
-  rotation, the stick feedforward (F and B), and yaw stay as they are.</li>
+<li><strong>While it is on.</strong> On roll, pitch and yaw, P and D are reduced by
+  <strong>Strength</strong> only where they push against the direction you snapped the
+  stick in, and I stops building up against that direction. Anything that
+  helps the rotation, and the stick feedforward (F and B), stay as they are.
+  Yaw usually lags the stick in a snap, so the rudder feedback helps and is
+  left alone; it is only relaxed when the aircraft yaws faster than you
+  asked.</li>
 <li><strong>Exit.</strong> When any of the three sticks drops below the threshold, full
   feedback comes back over the <strong>Fade-out</strong> time. Reversing the stick
   against the snap during the fade brings full feedback back at once, so
@@ -3305,7 +3309,7 @@ On the radio they are on PID Controller (Ethos) and Profile - Various
 <td>Fade-out</td>
 <td><code>snap_relax_hold</code></td>
 <td>0-1000 ms</td>
-<td>150</td>
+<td>350</td>
 </tr>
 </tbody>
 </table>
