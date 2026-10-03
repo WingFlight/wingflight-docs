@@ -170,7 +170,8 @@ shows the value being commanded.
 
 Master Gain sets one overall gain per axis (Roll, Pitch, Yaw) that scales the P, I
 and D terms of that axis together -- F (Feedforward) and Boost stay at their
-configured values. A gain curve can optionally shape it by stick position,
+configured values. It runs from 25% to 200% (default 100%). Earlier firmware
+allowed up to 1000%; a value above 200% is brought down to 200% on update. A gain curve can optionally shape it by stick position,
 so gain tapers in or out as the stick moves away from centre -- see
 [Gain Curves](#gain-curves). A **CURVE** badge on Master Gain shows when one is
 shaping that axis.
