@@ -1704,7 +1704,7 @@
   <span class="md-ellipsis">
     
   
-    Setup and Gyro Off
+    Passthrough and Manual
   
 
     
@@ -3445,11 +3445,11 @@ it starts" and "When it clears" are the callouts.</p>
 <td>Calibrate the accelerometer on the <a href="../../configurator/tabs/setup/">Setup tab</a> with the model level.</td>
 </tr>
 <tr>
-<td><strong>TEST OVERRIDE ACTIVE</strong> (amber)</td>
+<td><strong>SETUP ACTIVE</strong> (amber)</td>
+<td>(the flight mode callout says "Setup")</td>
 <td>–</td>
-<td>–</td>
-<td>A servo, motor or mixer test override from the Configurator is still on, so the outputs aren't under normal control.</td>
-<td>Turn the override off in the Configurator. Arming is blocked while a servo or mixer override is on.</td>
+<td>The model is in the <a href="../../flight-modes/setup-gyro-off/#the-setup-state">setup state</a>: a setup tool is holding it, such as the Configurator's setup wizard or a servo, motor or mixer test override. The outputs aren't under normal control, and flight mode callouts pause until it ends.</td>
+<td>Close the setup wizard or turn the override off in the Configurator. Arming is blocked meanwhile.</td>
 </tr>
 <tr>
 <td><strong>REBOOT REQUIRED</strong> (amber)</td>
@@ -3529,6 +3529,10 @@ chatter.</p>
 <tr>
 <td>Flight mode name ("Angle", "Att Hold", "RTH", "GPS Loiter", "GPS Rescue", "Failsafe", "Manual", "Passthrough", "Normal", …)</td>
 <td>The active flight mode changes. "Unavailable" follows the name when a GPS mode is switched on but can't engage. "Traditional" is announced when it's switched on.</td>
+</tr>
+<tr>
+<td>"Setup"</td>
+<td>A setup tool starts holding the model (the <a href="../../flight-modes/setup-gyro-off/#the-setup-state">setup state</a>). Flight mode callouts pause until it ends, and then only a mode that changed meanwhile is announced.</td>
 </tr>
 <tr>
 <td>"GPS Fix" / "GPS Fix Lost"</td>
