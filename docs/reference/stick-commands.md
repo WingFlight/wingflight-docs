@@ -29,7 +29,7 @@ If the aircraft will not arm, open the [Status tab](../configurator/tabs/status.
 | `RESCUE_SW` | The **GPS RTH** or **GPS LOITER** switch is on. Switch it off to arm |
 | `NO_ACC_CAL` | The accelerometer has not been calibrated |
 | `MOTOR_PROTO` | The motor protocol is not valid |
-| `OVERRIDE` | A mixer or servo override is active |
+| `SETUP` | A setup tool is holding the model: the Configurator's setup wizard, or a servo or mixer override. Called `OVERRIDE` in firmware up to 0.0.32 |
 | `ARMSWITCH` | Arming was attempted while another flag was set. Switch the arm switch off, and on again once the other flags clear |
 
 ## Stick commands

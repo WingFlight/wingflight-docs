@@ -81,7 +81,7 @@ as a signed number.
 | 17 | Control surfaces at their limit (held for 500 ms) |
 | 18 | Gyro overflow |
 | 19 | Accelerometer not calibrated |
-| 20 | Configurator test override active |
+| 20 | Setup state: a setup tool is holding the model (setup wizard, forced mode, servo probe, or servo, mixer or motor override) |
 | 21 | A flight aid is holding (Attitude Hold, thrust vector hold, or the Trainer limiting) |
 | 22-23 | Auto Trim: 0 idle, 1 capturing, 2 captured, saved on disarm |
 | 24 | Blackbox logging |
