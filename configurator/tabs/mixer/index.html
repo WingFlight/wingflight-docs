@@ -971,6 +971,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#flaps-and-flaperons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flaps and Flaperons
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#flap-to-elevator-compensation" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3257,6 +3268,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#flaps-and-flaperons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flaps and Flaperons
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#flap-to-elevator-compensation" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3404,6 +3426,35 @@ polarity. What it unlocks is everything <em>around</em> the rule:</p>
   live from a transmitter switch or pot, and keeps working no matter
   where the rule ends up if you reorder the list later.</li>
 </ul>
+<h2 id="flaps-and-flaperons">Flaps and Flaperons<a class="headerlink" href="#flaps-and-flaperons" title="Permanent link">&para;</a></h2>
+<p>Turn on <strong>Flaps</strong> in the Mixer Setup Wizard to drive flaps from channel 5
+(AUX1), and choose how they're fitted:</p>
+<ul>
+<li><strong>1 servo (shared Y-cable channel)</strong> or <strong>2 independent servos</strong> add
+  flap servos after the other surfaces.</li>
+<li><strong>No flap servos -- the ailerons droop as flaps (flaperons)</strong> adds no
+  servos. Both ailerons droop together on the flap channel, on top of
+  their normal roll travel. It's only offered with independent ailerons,
+  since each aileron needs its own servo.</li>
+</ul>
+<p>Flaperons use the same channel as flap servos: centre is neutral, and the
+ailerons droop as the channel moves one way and rise as it moves the
+other. The wizard starts the droop at half the aileron's travel, which
+leaves room for roll with the flaps fully down. Set the aileron directions
+in the Setup Wizard or on the <a href="../servos/">Servos</a> tab first; the
+flaperon rules then droop both ailerons the same way without any
+reversing of their own.</p>
+<p>Full flap plus full roll moves the down-going aileron furthest, so check
+it doesn't hit its servo limit. The Setup Wizard's travel step counts the
+flaps when it checks this.</p>
+<div class="admonition warning">
+<p class="admonition-title">ExpressLRS</p>
+<p>Flaps and flaperons need channel 5 as a full-resolution channel. With
+ExpressLRS, set the switch mode to <strong>Full Res 16ch Rate/2</strong> (100Hz Full
+or 333Hz Full packet rate). In the other switch modes channel 5 is only
+a two-position arm switch. See
+<a href="../receiver/#expresslrs-switch-mode">Receiver → ExpressLRS switch mode</a>.</p>
+</div>
 <h2 id="flap-to-elevator-compensation">Flap-to-Elevator Compensation<a class="headerlink" href="#flap-to-elevator-compensation" title="Permanent link">&para;</a></h2>
 <p>Many airframes pitch when flaps go down -- often a nose-up "balloon,"
 sometimes the opposite. If you don't correct for it, the stabilizer will
@@ -3414,8 +3465,8 @@ low -- the plane can suddenly pitch up (or down) on you during the flare,
 with no warning it was coming.</p>
 <p>The fix is to cancel the pitch change yourself, right in the mixer, so
 the elevator moves with the flaps automatically. If you enabled <strong>Flaps</strong>
-in the Mixer Setup Wizard (choose <strong>1 servo (shared Y-cable channel)</strong> or
-<strong>2 independent servos</strong> for the flaps), this is already set up for you: the wizard
+in the Mixer Setup Wizard (with flap servos or
+<a href="#flaps-and-flaperons">flaperons</a>), this is already set up for you: the wizard
 adds a <strong>Flap Compensation</strong>-<a href="#rule-roles">tagged</a> rule, at zero weight,
 onto every surface that carries pitch -- the elevator, or both sides of
 a V-tail or elevon layout. Find it in the <strong>Compensation</strong> table (or the

@@ -904,6 +904,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#expresslrs-switch-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ExpressLRS switch mode
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#srxl2-full-size-receivers" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3268,6 +3279,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#expresslrs-switch-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ExpressLRS switch mode
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#srxl2-full-size-receivers" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3374,6 +3396,21 @@ you'll see no signal at all rather than a subtle problem:</p>
   for SBUS2, F.Port, SRXL, and SRXL2.</li>
 <li><strong>Pin Swap</strong> swaps the Rx/Tx pins, for wiring that comes in reversed.</li>
 </ul>
+<h2 id="expresslrs-switch-mode">ExpressLRS switch mode<a class="headerlink" href="#expresslrs-switch-mode" title="Permanent link">&para;</a></h2>
+<p>ExpressLRS receivers use the <strong>TBS CRSF</strong> protocol.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Wingflight only supports the ExpressLRS <strong>Full Res 16ch Rate/2</strong> switch
+mode, at the <strong>100Hz Full</strong> or <strong>333Hz Full</strong> packet rate. It sends all
+16 channels at full (10-bit) resolution, including channel 5, at half
+the packet refresh rate.</p>
+<p>The other switch modes send channel 5 (AUX1) only as a two-position arm
+switch. Wingflight uses channel 5 as a normal channel, for example for
+<a href="../mixer/#flaps-and-flaperons">flaps and flaperons</a>, so in those modes
+it can only be fully one way or the other.</p>
+</div>
+<p>When the protocol is TBS CRSF, the Receiver tab, the Setup Wizard's
+receiver step and the Mixer Setup Wizard's flap options show this warning.</p>
 <h2 id="srxl2-full-size-receivers">SRXL2 full-size receivers<a class="headerlink" href="#srxl2-full-size-receivers" title="Permanent link">&para;</a></h2>
 <p>Some Spektrum full-size receivers (e.g. the AR6610T) need to see a valid
 SRXL2 handshake within about 200ms of power-on, or they revert their
