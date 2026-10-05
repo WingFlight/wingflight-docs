@@ -98,6 +98,37 @@ polarity. What it unlocks is everything *around* the rule:
   live from a transmitter switch or pot, and keeps working no matter
   where the rule ends up if you reorder the list later.
 
+## Flaps and Flaperons
+
+Turn on **Flaps** in the Mixer Setup Wizard to drive flaps from channel 5
+(AUX1), and choose how they're fitted:
+
+- **1 servo (shared Y-cable channel)** or **2 independent servos** add
+  flap servos after the other surfaces.
+- **No flap servos -- the ailerons droop as flaps (flaperons)** adds no
+  servos. Both ailerons droop together on the flap channel, on top of
+  their normal roll travel. It's only offered with independent ailerons,
+  since each aileron needs its own servo.
+
+Flaperons use the same channel as flap servos: centre is neutral, and the
+ailerons droop as the channel moves one way and rise as it moves the
+other. The wizard starts the droop at half the aileron's travel, which
+leaves room for roll with the flaps fully down. Set the aileron directions
+in the Setup Wizard or on the [Servos](servos.md) tab first; the
+flaperon rules then droop both ailerons the same way without any
+reversing of their own.
+
+Full flap plus full roll moves the down-going aileron furthest, so check
+it doesn't hit its servo limit. The Setup Wizard's travel step counts the
+flaps when it checks this.
+
+!!! warning "ExpressLRS"
+    Flaps and flaperons need channel 5 as a full-resolution channel. With
+    ExpressLRS, set the switch mode to **Full Res 16ch Rate/2** (100Hz Full
+    or 333Hz Full packet rate). In the other switch modes channel 5 is only
+    a two-position arm switch. See
+    [Receiver → ExpressLRS switch mode](receiver.md#expresslrs-switch-mode).
+
 ## Flap-to-Elevator Compensation
 
 Many airframes pitch when flaps go down -- often a nose-up "balloon,"
@@ -110,8 +141,8 @@ with no warning it was coming.
 
 The fix is to cancel the pitch change yourself, right in the mixer, so
 the elevator moves with the flaps automatically. If you enabled **Flaps**
-in the Mixer Setup Wizard (choose **1 servo (shared Y-cable channel)** or
-**2 independent servos** for the flaps), this is already set up for you: the wizard
+in the Mixer Setup Wizard (with flap servos or
+[flaperons](#flaps-and-flaperons)), this is already set up for you: the wizard
 adds a **Flap Compensation**-[tagged](#rule-roles) rule, at zero weight,
 onto every surface that carries pitch -- the elevator, or both sides of
 a V-tail or elevon layout. Find it in the **Compensation** table (or the
