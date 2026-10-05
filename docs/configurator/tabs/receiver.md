@@ -18,6 +18,24 @@ you'll see no signal at all rather than a subtle problem:
   for SBUS2, F.Port, SRXL, and SRXL2.
 - **Pin Swap** swaps the Rx/Tx pins, for wiring that comes in reversed.
 
+## ExpressLRS switch mode
+
+ExpressLRS receivers use the **TBS CRSF** protocol.
+
+!!! warning
+    Wingflight only supports the ExpressLRS **Full Res 16ch Rate/2** switch
+    mode, at the **100Hz Full** or **333Hz Full** packet rate. It sends all
+    16 channels at full (10-bit) resolution, including channel 5, at half
+    the packet refresh rate.
+
+    The other switch modes send channel 5 (AUX1) only as a two-position arm
+    switch. Wingflight uses channel 5 as a normal channel, for example for
+    [flaps and flaperons](mixer.md#flaps-and-flaperons), so in those modes
+    it can only be fully one way or the other.
+
+When the protocol is TBS CRSF, the Receiver tab, the Setup Wizard's
+receiver step and the Mixer Setup Wizard's flap options show this warning.
+
 ## SRXL2 full-size receivers
 
 Some Spektrum full-size receivers (e.g. the AR6610T) need to see a valid
