@@ -47,11 +47,11 @@ than a textbook definition:
   soft/rounded; too much and quick flicks get twitchy, sharing D's noise
   sensitivity.
 
-### F and GYRO OFF mode
+### F and MANUAL mode
 
 F also sets how far the surfaces move in
-[GYRO OFF](../../flight-modes/setup-gyro-off.md) mode (stabilization off,
-your rates and expo kept; called MANUAL in older firmware). GYRO OFF is
+[MANUAL](../../flight-modes/setup-gyro-off.md) mode (stabilization off,
+your rates and expo kept; called GYRO OFF in firmware up to 0.0.32). MANUAL is
 scaled through the same F-term the stabilized loop uses -- "stabilized
 flight minus the gyro correction" -- so a well-tuned F puts its throw in
 the neighborhood of what the stabilized modes settle to in flight. Judge the
@@ -59,14 +59,14 @@ match in the air: a stationary airframe on the bench never rotates, so
 normal mode's P and I keep adding deflection there and the two never look
 alike.
 
-Full-stick throw in GYRO OFF is F × the full-stick rate. With the default F
+Full-stick throw in MANUAL is F × the full-stick rate. With the default F
 of 75 and 250 deg/s rates that is about 47% of full travel. Lower F or the
 rates and it shrinks, but never below 30% of full travel. Set your surface
-throws in [SETUP](../../flight-modes/setup-gyro-off.md#setup-set-your-throws-here)
-mode, where full stick is full travel, not in GYRO OFF.
+throws in [PASSTHROUGH](../../flight-modes/setup-gyro-off.md#passthrough-set-your-throws-here)
+mode, where full stick is full travel, not in MANUAL.
 
 F can't be set below **50** on roll, pitch or yaw. The minimum is for the
-stabilized modes, not GYRO OFF: F sets most of the surface deflection for a
+stabilized modes, not MANUAL: F sets most of the surface deflection for a
 commanded rate, and P and I only correct what is left. I is capped (by
 `error_limit`), so with too little F the sticks run out of authority. With
 the default P and I and F at 0, full stick reaches only about 100 of a
@@ -141,8 +141,8 @@ centre, which stops the rotation crisply. The lower F leaves less steady
 throw that has to unwind after the stick is released. If the stick feels
 sluggish, raise F; if starts and stops feel too sharp, lower B.
 
-F also sets GYRO OFF mode's throw (see [Setup and Gyro Off](../../flight-modes/setup-gyro-off.md)), so
-lowering it reduces GYRO OFF deflection as well.
+F also sets MANUAL mode's throw (see [Passthrough and Manual](../../flight-modes/setup-gyro-off.md)), so
+lowering it reduces MANUAL deflection as well.
 
 Flight Feel's Gain defaults to 100% (no scaling) with no curve on every axis,
 and the Throttle and Speed rows likewise default to 100% with no curve -- so the PID
@@ -189,7 +189,7 @@ high-throttle point to low-throttle rate ÷ high-throttle rate. For example,
 if the model rolls 1.7× faster at full throttle, set about 60%.
 
 Throttle and Speed together never scale the gains below 25%, so no curve can
-leave the surfaces without throw. GYRO OFF mode is not attenuated.
+leave the surfaces without throw. MANUAL mode is not attenuated.
 
 ### Speed (GPS speed attenuation)
 

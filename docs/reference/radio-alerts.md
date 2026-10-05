@@ -56,7 +56,7 @@ it starts" and "When it clears" are the callouts.
 | **RTH UNAVAILABLE** or **LOITER UNAVAILABLE** (amber) | (the flight mode callout says "RTH, unavailable" or "GPS Loiter, unavailable") | – | The RTH or Loiter switch is on, but the mode can't fly. It needs the model armed, an accelerometer, a good GPS fix and, for RTH, a recorded home position. Short GPS dropouts (up to 5 s) are ridden through without this callout, so in flight it means the fix has been lost for longer. | Wait for a GPS fix before arming. See [GPS RTH and Loiter](../flight-modes/gps-rth.md). |
 | **GPS NOT RESPONDING** (amber) | "GPS not responding" | – | The GPS was working earlier in this session and has stopped talking to the flight controller. This is a wiring or power fault, not a lost fix. | Check the GPS wiring and power. GPS modes will not work until it comes back. |
 | **ACC NOT CALIBRATED** (amber) | – | – | The accelerometer has never been calibrated. Self-levelling, Attitude Hold and GPS modes level to the wrong attitude. | Calibrate the accelerometer on the [Setup tab](../configurator/tabs/setup.md) with the model level. |
-| **TEST OVERRIDE ACTIVE** (amber) | – | – | A servo, motor or mixer test override from the Configurator is still on, so the outputs aren't under normal control. | Turn the override off in the Configurator. Arming is blocked while a servo or mixer override is on. |
+| **SETUP ACTIVE** (amber) | (the flight mode callout says "Setup") | – | The model is in the [setup state](../flight-modes/setup-gyro-off.md#the-setup-state): a setup tool is holding it, such as the Configurator's setup wizard or a servo, motor or mixer test override. The outputs aren't under normal control, and flight mode callouts pause until it ends. | Close the setup wizard or turn the override off in the Configurator. Arming is blocked meanwhile. |
 | **REBOOT REQUIRED** (amber) | – | – | A setting was changed that only takes effect after a reboot. | Power cycle the flight controller. |
 | **BLACKBOX FULL** (amber) | "Blackbox full" | – | The onboard [Blackbox](../configurator/tabs/blackbox.md) log storage is full, so this flight isn't being logged. | Download the logs if you want them, then erase the flash. |
 
@@ -98,6 +98,7 @@ These existed before the status alerts, and work the same way.
 |---|---|
 | "Armed" / "Disarmed" | The model is armed or disarmed. |
 | Flight mode name ("Angle", "Att Hold", "RTH", "GPS Loiter", "GPS Rescue", "Failsafe", "Manual", "Passthrough", "Normal", …) | The active flight mode changes. "Unavailable" follows the name when a GPS mode is switched on but can't engage. "Traditional" is announced when it's switched on. |
+| "Setup" | A setup tool starts holding the model (the [setup state](../flight-modes/setup-gyro-off.md#the-setup-state)). Flight mode callouts pause until it ends, and then only a mode that changed meanwhile is announced. |
 | "GPS Fix" / "GPS Fix Lost" | The GPS gains or loses its position fix. Useful on the bench while you wait to arm. |
 | "Profile" + number, "Rates" + number, "Thrust Vector" + number | The PID, rate or thrust vector profile changes. |
 | "Battery" + capacity and cell count | The battery profile changes. |
