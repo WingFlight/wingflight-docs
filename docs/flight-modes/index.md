@@ -17,6 +17,7 @@ helicopter-focused mode set.
 | [Cross-Axis Relax](cross-axis-relax.md) | Reduces unwanted coupling between control axes |
 | [Snap Relax](snap-relax.md) | Stops the gyro fighting pop tops, pinwheels and snaps |
 | [Prop-Hang Relax](prop-hang-relax.md) | Lets the prop torque roll the model in a prop hang |
+| [Roll-Yaw Coupling](roll-yaw-coupling.md) | Stops the gyro fighting the yaw a model makes by itself when it rolls |
 | [GPS RTH and Loiter](gps-rth.md) | Experimental fixed-wing return-to-home and orbit, by banking and pitching under Angle-mode leveling; also reachable as a [Failsafe Stage 2 procedure](../configurator/tabs/failsafe.md) |
 | [Governor](governor.md) | Idle-hold or RPM governing of motor throttle response, from Off through fixed idle to full RPM Range control |
 | [Backup RX Input](backup-rx-input.md) | Instant backup receiver takeover from a second RX port if the main RF link is lost |
