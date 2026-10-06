@@ -47,7 +47,6 @@ want to change):
 | `prop_hang_strength` | 0-100 | 100 | [Prop-Hang Relax](../flight-modes/prop-hang-relax.md): percent of the roll I-term held back in a prop hang; 0 = off |
 | `prop_hang_angle` | 5-45 | 20 | Degrees from straight up that still count as a hang |
 | `prop_hang_fade` | 0-2000 | 500 | Fade-out back to full roll I-term after the hang, ms |
-| `roll_yaw_coupling` | -100-100 | 0 | [Roll-Yaw Coupling](../flight-modes/roll-yaw-coupling.md): percent of the roll rate the model yaws by itself, which the yaw loop leaves alone; positive = yaw against the roll; 0 = off |
 
 The `autohover_*` settings were removed with the AUTO HOVER mode in MSP API
 22.11. Restoring a diff from older firmware reports them as unknown settings;

@@ -111,7 +111,6 @@ nav:
       - Cross-Axis Relax: flight-modes/cross-axis-relax.md
       - Snap Relax: flight-modes/snap-relax.md
       - Prop-Hang Relax: flight-modes/prop-hang-relax.md
-      - Roll-Yaw Coupling: flight-modes/roll-yaw-coupling.md
       - Governor: flight-modes/governor.md
       - Backup RX Input: flight-modes/backup-rx-input.md
       - GPS RTH and Loiter: flight-modes/gps-rth.md
