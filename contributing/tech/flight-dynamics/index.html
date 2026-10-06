@@ -1837,6 +1837,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../flight-modes/roll-yaw-coupling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roll-Yaw Coupling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../flight-modes/governor/" class="md-nav__link">
         
   
@@ -3993,6 +4021,7 @@
 <li><strong>Master gain applied at the point of use</strong>, not baked into <code>coef[]</code>, so any live adjustment stays correct regardless of which adjustment last touched a coefficient.</li>
 <li><strong>I-term error relax</strong> (<code>iterm_relax_*</code>): high-pass of the setpoint scales accumulation down during fast stick motion. Inherited. Always on for roll, pitch and yaw in both loops since API 22.8 (<code>iterm_relax_type</code> removed). Per axis: <code>bounceback</code> (the I-Term Relax score shown in Flight Feel, 1-10, default 5, higher = more suppression; API 22.9 replaced <code>iterm_relax_cutoff</code>), which <code>pidBouncebackCutoff()</code> maps to the setpoint low-pass cutoff (50, 30, 20, 15, 10, 8, 7, 6, 5, 3 Hz) and <code>iterm_relax_level</code> (°/s, default 22, the high-pass magnitude at which accumulation stops; lower = stronger).</li>
 <li><strong>Cross-axis relax</strong> (<code>cross_axis_relax_*</code>): yaw activity softens roll and/or pitch feedback "so rudder does not feel like an artificial hold". It scales the P and D outputs, and slows the I <em>accumulation</em> (like <code>iterm_relax</code>) instead of scaling the I output, so I does not step when rudder is applied or released. Default off.</li>
+<li><strong>Roll-yaw coupling</strong> (<code>roll_yaw_coupling</code>, signed percent, separate per-profile PG <code>PG_ROLL_YAW_CONFIG</code>): the yaw error becomes <code>setpoint − (gyro + k · rollGyro)</code>, so the share of the measured roll rate the airframe yaws by itself is not fought. Only the error changes, so P and I see it while F, B and D do not; the stick commands the same rudder and yaw beyond the coupling is still held. It uses the bandwidth-filtered roll gyro from the same loop (roll runs before yaw), not the stick, so snaps and roll overshoot are covered. Reason: logs from a 3D model showed yaw at −23% of the roll rate in MANUAL, independent of elevator, and the rate loop cancelling two thirds of it with up to 22% rudder, mostly I and in one roll direction only, so rudder in rolls stopped tracking the stick. Default 0 (off).</li>
 <li><strong>Anti-windup:</strong> accumulation stops only when the mixer input for that axis is saturated <em>and</em> the error would push further into saturation (<code>pidAxisSaturated</code>). Servo travel clipping also raises saturation (<code>mixerSaturateServoOutput</code>), so trim-induced clipping is covered.</li>
 <li><strong><code>rotateAxisError()</code>:</strong> rotates roll/pitch <code>axisError</code> by the yaw gyro so a stored error stays fixed in the earth-ish frame during a yaw rotation. Physically correct for a knife-edge or hover, harmless in cruise.</li>
 <li><strong>I-term decay policy</strong> (the most-edited rule in this file):</li>
