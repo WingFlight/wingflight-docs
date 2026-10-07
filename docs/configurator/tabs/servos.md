@@ -145,9 +145,15 @@ button as the switch for its mix line. By hand:
 
 1. **Model → Trims**: leave the aileron, elevator and rudder trims enabled,
    with **Audio** on so each press clicks.
+
+    <img src="../../../assets/images/ethos/ethos_trims_page.png" width="320" alt="Ethos Trims page: Trim Rudder with Audio on">
+
 2. **Model → Mixes**: in the Ailerons, Elevator and Rudder mixes, turn
    **Trim** off. A trim left on a stick is read as stick input, which the
    stabilizer holds against.
+
+    <img src="../../../assets/images/ethos/ethos_stick_mix_trim_off.png" width="320" alt="Ethos Ailerons mix with Trim off">
+
 3. Add a **Free mix** named TRIM: Always on, **Source** Maximum,
    **Operation** Add, **Output** a spare channel. Add an action per trim
    button, setting the mix weight:
@@ -160,6 +166,8 @@ button as the switch for its mix line. By hand:
     | T2 Down | 50% | 1730-1780 µs | Servo Trim Pitch, up |
     | T4 Right (rudder) | 40% | 1680-1730 µs | Servo Trim Yaw, up |
     | T4 Left | 30% | 1630-1680 µs | Servo Trim Yaw, down |
+
+    <img src="../../../assets/images/ethos/ethos_trim_mix.png" width="320" alt="Ethos TRIM free mix: source Maximum, operation Add, an action per trim button, output CH8">
 
 4. On the [Adjustments](adjustments.md) tab, add Servo Trim Roll, Pitch
    and Yaw as **Stepped**, always on, all on that channel, with the
