@@ -17,7 +17,9 @@ MSP compatibility it can't verify.
 Additive changes, such as a new read-only command, don't change the API
 version: firmware that lacks a command answers it as unsupported, which is
 how the Configurator tells. `MSP_SERVO_TRIM`, which reports the live runtime
-servo trim, works this way.
+servo trim, works this way. Appending fields to the end of a reply is
+additive too: firmware with saved servo trims appends them to
+`MSP_SERVO_TRIM`, and the Configurator tells from the reply length.
 
 Changes to an existing message's layout are different, because an old client
 would misparse the reply, or write shifted bytes into a profile. Those bump
