@@ -4062,11 +4062,12 @@ overshoot. It does not measure angle of attack or provide stall protection.</p>
 <li><strong>Overrides and wiggle</strong> apply only while disarmed.</li>
 </ul>
 <h3 id="210-servo-output-servosc-autotrimc">2.10 Servo output — <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/servos.c">servos.c</a>, <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/autotrim.c">autotrim.c</a><a class="headerlink" href="#210-servo-output-servosc-autotrimc" title="Permanent link">&para;</a></h3>
-<p>Order: mixer output → geometry correction → <strong>balance curve</strong> → speed limit → reverse → <code>rpos</code>/<code>rneg</code> scale → runtime trim → travel limit → <code>mid</code>.</p>
+<p>Order: mixer output → geometry correction → <strong>balance curve</strong> → speed limit → reverse → <code>rpos</code>/<code>rneg</code> scale → trim (saved + runtime) → travel limit → <code>mid</code>.</p>
 <ul>
 <li><strong>Balance curve</strong> (commit <code>aa362d09a</code>): a small additive delta so two servos on one surface can be matched across the throw, the same idea as ETHOS "Balance channels". Additive, not a reshape, so an unconfigured curve is a zero delta.</li>
-<li><strong>Trim is split in two</strong> (commit <code>220980d8d</code>). Switch-stepped and auto trim edit <code>mid</code> (saved). A continuous pot/channel trim is a <strong>runtime-only</strong> offset limited to 20% of scale and never saved. If it were saved, the pot would apply itself on top of its own saved result after every reboot, and a bad reading at boot would leave a wrong centre behind. Trim direction folds together three independent reversals (axis input rate sign, rule weight sign, servo REVERSED flag) so paired surfaces stay coordinated.</li>
-<li><strong>Auto trim</strong> (from iNav's BOXAUTOTRIM): while the switch is on and armed, averages each stabilized servo's final output for 2 s and stores it as the new centre. Turning the switch off before disarm reverts it. It removes the runtime trim from what it stores.</li>
+<li><strong>Trim never edits <code>mid</code></strong> (<a href="https://github.com/WingFlight/wingflight-firmware/pull/202">firmware#202</a>). Min/max are offsets from <code>mid</code>, so trimming the centre also moved the end stops. Switch-stepped and auto trim write a <strong>saved</strong> per-servo trim (<code>servoTrims</code> PG). A continuous pot/channel trim is a <strong>runtime-only</strong> offset, never saved (commit <code>220980d8d</code>): if it were saved, the pot would apply itself on top of its own saved result after every reboot, and a bad reading at boot would leave a wrong centre behind. Saved and runtime trim together are limited to 20% of the larger scale and added before the travel limit, so the output stays inside min/max. Trim direction folds together three independent reversals (axis input rate sign, rule weight sign, servo REVERSED flag) so paired surfaces stay coordinated, and an axis stops as a whole when any of its servos reaches the limit. Bus channels cloned from PWM are skipped: they carry the PWM servo's trim.</li>
+<li><strong>Stepped trim</strong> gives one step per press (40 ms debounce), repeats after a 500 ms hold every 50 ms, and beeps only on the first step. Its value is absolute, so it no longer re-baselines on every save.</li>
+<li><strong>Auto trim</strong> (from iNav's BOXAUTOTRIM): while the switch is on and armed, averages each stabilized servo's final output for 2 s and stores the difference from <code>mid</code> as the saved trim. Turning the switch off before disarm reverts it. It removes the runtime trim from what it stores.</li>
 </ul>
 <h3 id="211-throttle-governor-motors-governorc-motorsc">2.11 Throttle, governor, motors — <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/governor.c">governor.c</a>, <a href="https://github.com/WingFlight/wingflight-firmware/blob/master/src/main/flight/motors.c">motors.c</a><a class="headerlink" href="#211-throttle-governor-motors-governorc-motorsc" title="Permanent link">&para;</a></h3>
 <p>Throttle goes <code>getThrottle()</code> → <code>governorApply()</code> → mixer M1 → <code>motorUpdate()</code>. The governor has four modes (off, RPM idle-hold, fixed throttle, RPM range) plus an RPM max limiter. Notable decisions:</p>
@@ -4291,6 +4292,12 @@ bench/flight validation of the initial thresholds remains required.</p>
 <td><a href="https://github.com/WingFlight/wingflight-firmware/pull/181">firmware#181</a></td>
 <td>MANUAL full-stick throw floored at 30%; I not integrated while MANUAL or PASSTHROUGH is active</td>
 <td>M-3: the F floor did not cover low rates or <code>rc_rate</code> adjustments; I wound up while bypassed and bumped on switching back</td>
+</tr>
+<tr>
+<td>2026-10-07</td>
+<td><a href="https://github.com/WingFlight/wingflight-firmware/pull/202">firmware#202</a></td>
+<td>Stepped and auto trim write a saved per-servo trim added at the output, never <code>mid</code>; one step per press; bus servos trimmed unless cloned</td>
+<td>Trimming <code>mid</code> also moved the min/max end stops; the stepped window re-baselined on every save and walked; a tap gave nothing, a hold gave 50 steps/s</td>
 </tr>
 </tbody>
 </table>
