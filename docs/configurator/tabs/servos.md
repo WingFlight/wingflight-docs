@@ -54,67 +54,92 @@ curve, since that's the one actually shaping its output.
     showed on this tab has been removed from the Configurator, so the
     correction can no longer be turned on or off from here.
 
-## In-Flight Trim
+## Trim
 
-Center points (**Mid**) don't have to be set from this tab or the CLI --
-map **Servo Trim Roll**, **Servo Trim Pitch**, or **Servo Trim Yaw** on the
-[Adjustments](adjustments.md) tab and trim live while flying instead. The
-two adjustment modes behave differently:
+Trim never changes a servo's **Mid**. Each servo has a separate **Trim**
+value in µs, added to its output on top of Mid. Mid and the Min/Max end
+stops you set on the bench stay where you put them, however much you trim.
 
-- **Stepped** (a momentary switch you flick to walk the trim up or down)
-  changes **Mid** itself, and the change is saved.
-- **Mapped** (a knob or channel position that sets the trim directly) adds
-  an offset to the servo's output *on top of* Mid. It never changes Mid, is
-  not saved, and starts from zero every time the flight controller boots,
-  following the knob's position from there.
+The **Trim** column holds two kinds of trim:
 
-Trimming an axis moves every servo whose [Mixer](mixer.md) rule
-takes its input from that stabilized axis, not just one output -- each
-servo's own Reverse flag above is respected, so e.g. two ailerons mixed
-from opposite sides of the same roll input trim toward each other
-correctly rather than both moving the same raw direction. Servos fed by a
-raw RC channel, an override, or a logic condition rather than a
-stabilized axis aren't touched -- the same rule
-[Auto Trim](../../flight-modes/auto-trim.md) uses for its own capture.
+- **Saved trim** -- set by a **Stepped** Servo Trim adjustment, by
+  [Auto Trim](../../flight-modes/auto-trim.md), or by typing it in here. It
+  is saved like any other setting (on disarm, or with **Save** on this tab).
+- **Live trim** -- set by a **Mapped** Servo Trim adjustment (a knob). It
+  follows the knob, is never saved, and starts from zero every time the
+  flight controller boots.
 
-With **Stepped**, each axis can move up to ±200μs away from its last
-*saved* Mid before hitting the adjustment's own limit. Disarming with a
-pending trim saves it automatically, the same as any other live-adjusted
-value, and the ±200μs window then re-baselines to the new center, so
-there's always fresh headroom to keep trimming across multiple flights
-rather than being capped by the first save.
+Both together are limited to 20% of the servo's Scale (the larger of Scale
+Neg and Scale Pos -- ±100 µs at the default 500 µs). The output also stays
+inside the servo's Min/Max, so trim can never drive a surface past the end
+stops you set.
 
-With **Mapped**, the offset on any one servo is limited to 20% of that
-servo's Scale (the larger of Scale Neg and Scale Pos -- ±100μs at the
-default 500μs), however far the knob is turned or whatever the channel
-reads, and it is applied inside the servo's Min/Max travel limits. Because
-it is never saved, a knob that is misread -- for example a channel that
-isn't valid yet just after power-up -- can move a surface by at most that
-much and leaves nothing behind once the reading is right again. It also
-means the knob can't stack on top of its own saved result after a reboot.
-The firmware also ignores a trim channel until the receiver link has been
-continuously present for a full second (both at power-up and after a brief
-link drop), so a channel that comes online later than the link itself can't
-pull a servo off center in that gap.
+How the column shows it:
 
-Because a Mapped trim doesn't change Mid, the **Mid** field on this tab
-doesn't move when you turn the knob. Servos that have a Servo Trim
-adjustment set up show a badge in the **Trim** column (highlighted while
-the adjustment is active, with its channel, e.g. `R CH9` for roll on
-channel 9). When the firmware and Configurator both support it, the badge
-is followed by the live offset, for example `+10` or `-25`, so you can see
-a trim is in effect. It is display-only and never counts as an unsaved
-change on this tab.
+- **No Servo Trim adjustment for this servo:** the saved trim, editable.
+- **A Servo Trim adjustment covers this servo:** read-only, showing the trim
+  in use (saved plus live), so it moves as you turn the knob or flick the
+  switch. Hover over it to see the two parts. The switch or knob owns the
+  value, so it can't be typed over here. A badge beside it shows the
+  adjustment, highlighted while active with its channel, e.g. `R CH #9` for
+  roll on channel 9.
+- **A bus servo cloning a PWM output:** read-only, showing that PWM servo's
+  trim (see [below](#clone-pwm-outputs-to-bus-servos)).
 
-!!! warning "Stepped trim is best used in the air, not on the bench"
-    Stepped trimming is meant for trimming while actually flying. Ground use over USB
-    currently fights you on two fronts: this tab won't visibly pick up a
-    center-point change made this way, so there's nothing to confirm/save
-    from the Configurator, and having this tab open over USB blocks
-    arming outright. See
-    [firmware issue #17](https://github.com/WingFlight/wingflight-firmware/issues/17)
-    for current status. Mapped trims are not affected: they need no arming
-    and can be tried with the Configurator connected.
+The **Signal** column's full-stick estimate allows for the saved trim: trim
+uses up travel on one side and gives it back on the other.
+
+### Clear trims and Move trims into Center
+
+Above each table:
+
+- **Clear trims** sets every saved trim in that table to 0.
+- **Move trims into Center** adds each servo's saved trim to its Mid and
+  sets the trim to 0. The servo doesn't move, but Min/Max are measured from
+  Mid, so the end stops move with it. Use it once you've trimmed the model
+  out and want the result to become the new center -- and check the end
+  stops afterwards.
+
+Both count as unsaved changes until you press **Save**. Cloned bus servos
+are skipped.
+
+### Trimming in flight
+
+Map **Servo Trim Roll**, **Servo Trim Pitch** or **Servo Trim Yaw** on the
+[Adjustments](adjustments.md) tab to trim from the transmitter:
+
+- **Stepped** (a momentary switch): each press moves the saved trim by one
+  **Step**. A quick tap counts. Hold the switch and it starts repeating after
+  half a second. Only the first step of each press beeps. The trim is saved
+  when you disarm.
+- **Mapped** (a knob or channel position): sets the live trim directly,
+  within the adjustment's range. It is never saved.
+
+Trimming an axis moves every servo whose [Mixer](mixer.md) rule takes its
+input from that stabilized axis, not just one output. Each servo's Reverse,
+its rule's weight sign and the axis's Invert are taken into account, so two
+ailerons trim in opposite directions correctly. Servos fed by a raw RC
+channel, an override or a logic condition aren't touched -- the same rule
+[Auto Trim](../../flight-modes/auto-trim.md) uses. When any servo on the
+axis reaches its trim limit, the whole axis stops, so a pair of servos on
+one surface never get pulled out of line.
+
+Because a Mapped trim is never saved, a knob that is misread -- for example
+a channel that isn't valid yet just after power-up -- can move a surface by
+at most the trim limit and leaves nothing behind once the reading is right
+again. The firmware also ignores a trim channel until the receiver link has
+been continuously present for a full second (both at power-up and after a
+brief link drop), so a channel that comes online later than the link itself
+can't pull a servo off center in that gap.
+
+Stepped trims work on the bench too: the Trim column follows each press,
+and **Save** keeps the result.
+
+!!! note "Upgrading from older firmware"
+    Older firmware wrote Stepped trims and Auto Trim straight into Mid.
+    Anything trimmed that way stays in Mid after the upgrade, and the new
+    saved trims start at 0. In the CLI, `servo trim` lists the saved trims
+    and `servo trim <servo> <µs>` sets one; `diff` and `dump` include them.
 
 ## Bus Servos
 
@@ -165,13 +190,15 @@ Setup Wizard](mixer.md) for a named model type -- drives the bus servos
 too, without needing separate mixer rules for them. Bus channels beyond
 your PWM output count (e.g. channel 9 on a board with 8 PWM outputs)
 always run their own independent mixer rule regardless of this setting,
-since there's no PWM output to mirror.
+since there's no PWM output to mirror. A cloned bus channel sends its PWM servo's output with that servo's
+trim already in it, so its own Trim isn't used: the Trim column shows the
+PWM servo's trim, read-only.
 
 Turn it **OFF** for a custom model where the bus servos need mixer rules
 of their own, distinct from the PWM outputs -- for example a different
 control-surface layout on the bus side, or extra bus channels that don't
 correspond 1:1 with your PWM outputs. With cloning off, a bus channel's
-Min/Max/Mid/Scale/Speed/Reverse here and its own rule on the
+Min/Max/Mid/Trim/Scale/Speed/Reverse here and its own rule on the
 [Mixer](mixer.md) tab (output numbers past your PWM count) take full
 effect, exactly like a PWM servo does.
 

@@ -8,7 +8,7 @@ A/B comparing two settings values in the air.
 ![Adjustments tab](../../assets/images/configurator-adjustments.png)
 
 Adjustable functions are grouped by category -- [Flight Feel](profiles.md#flight-feel)
-(Master Gain, I-Term Decay and I-Term Relax), [Servo Trims](servos.md#in-flight-trim)
+(Master Gain, I-Term Decay and I-Term Relax), [Servo Trims](servos.md#trimming-in-flight)
 (roll/pitch/yaw), Accelerometer Trim, Setpoint Boost, PID/Rate/TV Profile
 switching, [Mixer](mixer.md#rule-roles) (Flap Compensation Gain,
 Differential Thrust Yaw Gain), and others -- and any function currently
@@ -68,7 +68,7 @@ config write, a beep and a blackbox event each time and make PID values
 wander. Deliberate, slow movement still gets through, because the reference
 only moves once that small window is exceeded. Stepped is not affected.
 
-For [Servo Trims](servos.md#in-flight-trim) the two modes differ in more
-than how you drive them: Stepped changes the servo's saved Mid, while
-Mapped adds a runtime-only offset that is never saved and is limited to 20%
-of the servo's Scale.
+For [Servo Trims](servos.md#trim) the two modes differ in more than how
+you drive them: Stepped changes the servo's saved trim, one step per press,
+while Mapped sets a live trim that is never saved. Neither changes the
+servo's Mid, and both together are limited to 20% of the servo's Scale.
