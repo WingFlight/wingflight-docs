@@ -190,17 +190,17 @@ raising **Differential Thrust Yaw Gain** on the
 [Adjustments](adjustments.md) tab (or the Weight field on either rule)
 scales both together rather than cancelling the differential out.
 
-## Axis Gain / Invert
+## Axis Throw / Invert
 
-**Axis Gain** scales *every* rule reading a given stabilized axis (Roll,
-Pitch, Yaw) by one percentage (0-200%, 100% = unchanged) -- raise or lower
+**Axis Throw** scales *every* rule reading a given stabilized axis (Roll,
+Pitch, Yaw) by one percentage (0-200%, 100% = the servo's normal travel) -- raise or lower
 the combined throw of every surface on that axis (e.g. both aileron
 servos) without re-balancing each rule's Weight individually. **Axis
 Invert** flips every rule reading that axis at once, instead of editing
 each rule's Reverse checkbox by hand.
 
-Pair Axis Gain with **Control Surface Override** below it to calibrate an
+Pair Axis Throw with **Control Surface Override** below it to calibrate an
 exact throw: enable the override for an axis, command a known percentage
 (e.g. 100%), measure the actual surface deflection with a protractor, then
-adjust that axis's Gain until the measured angle matches your target.
+adjust that axis's Throw until the measured angle matches your target.
 Override only takes effect while disarmed.
