@@ -200,13 +200,15 @@ throttle closed, where the Throttle row can't help. Speed reduces gain as
 the model goes faster.
 
 It needs a GPS with a fix, and it does nothing until a **Speed** curve is
-assigned in [Gain Curves](#gain-curves). The row only appears with firmware
-that supports it (MSP API 22.10 or later).
+assigned in [Gain Curves](#gain-curves). The row, and the Speed curve and
+range in Gain Curves, only appear with the GPS feature on (see
+[Configuration](configuration.md)) and with firmware that supports it (MSP
+API 22.10 or later).
 
 - **Gain** (25-200%, default 100%) scales the whole curve.
 - The curve's X axis runs from 0 to the **speed curve range** (10-600 km/h,
-  default 150), set in the Gain Curves panel. Faster than that uses the
-  curve's last point.
+  default 150), the km/h value beside the Speed curve in the Gain Curves
+  panel. Faster than that uses the curve's last point.
 - Speed is 3D speed when the GPS reports it (u-blox), so vertical dives
   count; otherwise ground speed. It is smoothed, so gain follows speed with
   a short delay rather than in steps.
@@ -228,8 +230,8 @@ log `debug_mode = GAIN_ATTEN` with [Blackbox](blackbox.md).
 
 Gain curves are an advanced shaping tool, so they are assigned in the
 **Gain Curves** panel, which appears in Expert Mode, rather than in Flight
-Feel. Pick a curve slot for Roll, Pitch, Yaw, Throttle and Speed (plus the
-Speed curve's range in km/h); the shapes
+Feel. Pick a curve slot for Roll, Pitch, Yaw, Throttle and Speed; the Speed
+line also holds the curve's range in km/h, and hovering it explains both. The shapes
 themselves are edited on the [Curves](curves.md) tab. "-" means no curve,
 so Master Gain applies as set. Whenever a curve is assigned, the Master Gain cell in
 Flight Feel shows a **CURVE** badge, with the curve number in its tooltip,
