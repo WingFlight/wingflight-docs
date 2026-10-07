@@ -135,6 +135,49 @@ can't pull a servo off center in that gap.
 Stepped trims work on the bench too: the Trim column follows each press,
 and **Save** keeps the result.
 
+### Trim buttons on one channel
+
+The radio's own trim buttons can drive Stepped trims on a single spare
+channel. The Setup Wizard's **Trim and gain** step sets this up (**Trim
+buttons on one channel**) and checks each button. The steps below use
+Ethos as the example; on other radios (EdgeTX, OpenTX, Jeti and so on) set
+up the same mix and weights, with each trim button as the switch for its
+mix line. By hand:
+
+1. **Model → Trims**: leave the aileron, elevator and rudder trims enabled,
+   with **Audio** on so each press clicks.
+
+    <img src="../../../assets/images/ethos/ethos_trims_page.png" width="320" alt="Ethos Trims page: Trim Rudder with Audio on">
+
+2. **Model → Mixes**: in the Ailerons, Elevator and Rudder mixes, turn
+   **Trim** off. A trim left on a stick is read as stick input, which the
+   stabilizer holds against.
+
+    <img src="../../../assets/images/ethos/ethos_stick_mix_trim_off.png" width="320" alt="Ethos Ailerons mix with Trim off">
+
+3. Add a **Free mix** named TRIM: Always on, **Source** Maximum,
+   **Operation** Add, **Output** a spare channel. Add an action per trim
+   button, setting the mix weight:
+
+    | Trim button | Weight | Channel | Adjustment |
+    |---|---|---|---|
+    | T1 Right (aileron) | 80% | 1885-1935 µs | Servo Trim Roll, up |
+    | T1 Left | 70% | 1835-1885 µs | Servo Trim Roll, down |
+    | T2 Up (elevator) | 60% | 1780-1835 µs | Servo Trim Pitch, down |
+    | T2 Down | 50% | 1730-1780 µs | Servo Trim Pitch, up |
+    | T4 Right (rudder) | 40% | 1680-1730 µs | Servo Trim Yaw, up |
+    | T4 Left | 30% | 1630-1680 µs | Servo Trim Yaw, down |
+
+    <img src="../../../assets/images/ethos/ethos_trim_mix.png" width="320" alt="Ethos TRIM free mix: source Maximum, operation Add, an action per trim button, output CH8">
+
+4. On the [Adjustments](adjustments.md) tab, add Servo Trim Roll, Pitch
+   and Yaw as **Stepped**, always on, all on that channel, with the
+   channel windows above and a Step of 2 µs.
+
+Each weight puts its own value on the channel (100% is 2012 µs), and the
+windows sit half-way between neighbouring buttons. With no button pressed,
+the channel reads outside all of them.
+
 !!! note "Upgrading from older firmware"
     Older firmware wrote Stepped trims and Auto Trim straight into Mid.
     Anything trimmed that way stays in Mid after the upgrade, and the new
