@@ -1043,6 +1043,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#trim-buttons-on-one-channel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trim buttons on one channel
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3357,6 +3368,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#trim-buttons-on-one-channel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trim buttons on one channel
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3542,6 +3564,88 @@ brief link drop), so a channel that comes online later than the link itself
 can't pull a servo off center in that gap.</p>
 <p>Stepped trims work on the bench too: the Trim column follows each press,
 and <strong>Save</strong> keeps the result.</p>
+<h3 id="trim-buttons-on-one-channel">Trim buttons on one channel<a class="headerlink" href="#trim-buttons-on-one-channel" title="Permanent link">&para;</a></h3>
+<p>The radio's own trim buttons can drive Stepped trims on a single spare
+channel. The Setup Wizard's <strong>Trim and gain</strong> step sets this up (<strong>Trim
+buttons on one channel</strong>) and checks each button. The steps below use
+Ethos as the example; on other radios (EdgeTX, OpenTX, Jeti and so on) set
+up the same mix and weights, with each trim button as the switch for its
+mix line. By hand:</p>
+<ol>
+<li>
+<p><strong>Model → Trims</strong>: leave the aileron, elevator and rudder trims enabled,
+   with <strong>Audio</strong> on so each press clicks.</p>
+<p><img src="../../../assets/images/ethos/ethos_trims_page.png" width="320" alt="Ethos Trims page: Trim Rudder with Audio on"></p>
+</li>
+<li>
+<p><strong>Model → Mixes</strong>: in the Ailerons, Elevator and Rudder mixes, turn
+   <strong>Trim</strong> off. A trim left on a stick is read as stick input, which the
+   stabilizer holds against.</p>
+<p><img src="../../../assets/images/ethos/ethos_stick_mix_trim_off.png" width="320" alt="Ethos Ailerons mix with Trim off"></p>
+</li>
+<li>
+<p>Add a <strong>Free mix</strong> named TRIM: Always on, <strong>Source</strong> Maximum,
+   <strong>Operation</strong> Add, <strong>Output</strong> a spare channel. Add an action per trim
+   button, setting the mix weight:</p>
+<table>
+<thead>
+<tr>
+<th>Trim button</th>
+<th>Weight</th>
+<th>Channel</th>
+<th>Adjustment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T1 Right (aileron)</td>
+<td>80%</td>
+<td>1885-1935 µs</td>
+<td>Servo Trim Roll, up</td>
+</tr>
+<tr>
+<td>T1 Left</td>
+<td>70%</td>
+<td>1835-1885 µs</td>
+<td>Servo Trim Roll, down</td>
+</tr>
+<tr>
+<td>T2 Up (elevator)</td>
+<td>60%</td>
+<td>1780-1835 µs</td>
+<td>Servo Trim Pitch, down</td>
+</tr>
+<tr>
+<td>T2 Down</td>
+<td>50%</td>
+<td>1730-1780 µs</td>
+<td>Servo Trim Pitch, up</td>
+</tr>
+<tr>
+<td>T4 Right (rudder)</td>
+<td>40%</td>
+<td>1680-1730 µs</td>
+<td>Servo Trim Yaw, up</td>
+</tr>
+<tr>
+<td>T4 Left</td>
+<td>30%</td>
+<td>1630-1680 µs</td>
+<td>Servo Trim Yaw, down</td>
+</tr>
+</tbody>
+</table>
+<p><img src="../../../assets/images/ethos/ethos_trim_mix.png" width="320" alt="Ethos TRIM free mix: source Maximum, operation Add, an action per trim button, output CH8"></p>
+</li>
+<li>
+<p>On the <a href="../adjustments/">Adjustments</a> tab, add Servo Trim Roll, Pitch
+   and Yaw as <strong>Stepped</strong>, always on, all on that channel, with the
+   channel windows above and a Step of 2 µs.</p>
+</li>
+</ol>
+<p>Each weight puts its own value on the channel (100% is 2012 µs), and the
+windows sit half-way between neighbouring buttons. With no button pressed,
+the channel reads outside all of them.</p>
 <div class="admonition note">
 <p class="admonition-title">Upgrading from older firmware</p>
 <p>Older firmware wrote Stepped trims and Auto Trim straight into Mid.
