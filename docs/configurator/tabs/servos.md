@@ -139,9 +139,10 @@ and **Save** keeps the result.
 
 The radio's own trim buttons can drive Stepped trims on a single spare
 channel. The Setup Wizard's **Trim and gain** step sets this up (**Trim
-buttons on one channel**) and checks each button. The steps below are for
-Ethos; EdgeTX and OpenTX use the same mix and weights, with each trim
-button as the switch for its mix line. By hand:
+buttons on one channel**) and checks each button. The steps below use
+Ethos as the example; on other radios (EdgeTX, OpenTX, Jeti and so on) set
+up the same mix and weights, with each trim button as the switch for its
+mix line. By hand:
 
 1. **Model → Trims**: leave the aileron, elevator and rudder trims enabled,
    with **Audio** on so each press clicks.
