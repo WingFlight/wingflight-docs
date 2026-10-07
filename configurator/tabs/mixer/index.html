@@ -1004,10 +1004,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#axis-gain-invert" class="md-nav__link">
+  <a href="#axis-throw-invert" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Axis Gain / Invert
+        Axis Throw / Invert
       
     </span>
   </a>
@@ -3301,10 +3301,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#axis-gain-invert" class="md-nav__link">
+  <a href="#axis-throw-invert" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Axis Gain / Invert
+        Axis Throw / Invert
       
     </span>
   </a>
@@ -3509,17 +3509,17 @@ Yaw</strong> <a href="#rule-roles">role</a> but move opposite directions by desi
 raising <strong>Differential Thrust Yaw Gain</strong> on the
 <a href="../adjustments/">Adjustments</a> tab (or the Weight field on either rule)
 scales both together rather than cancelling the differential out.</p>
-<h2 id="axis-gain-invert">Axis Gain / Invert<a class="headerlink" href="#axis-gain-invert" title="Permanent link">&para;</a></h2>
-<p><strong>Axis Gain</strong> scales <em>every</em> rule reading a given stabilized axis (Roll,
-Pitch, Yaw) by one percentage (0-200%, 100% = unchanged) -- raise or lower
+<h2 id="axis-throw-invert">Axis Throw / Invert<a class="headerlink" href="#axis-throw-invert" title="Permanent link">&para;</a></h2>
+<p><strong>Axis Throw</strong> scales <em>every</em> rule reading a given stabilized axis (Roll,
+Pitch, Yaw) by one percentage (0-200%, 100% = the servo's normal travel) -- raise or lower
 the combined throw of every surface on that axis (e.g. both aileron
 servos) without re-balancing each rule's Weight individually. <strong>Axis
 Invert</strong> flips every rule reading that axis at once, instead of editing
 each rule's Reverse checkbox by hand.</p>
-<p>Pair Axis Gain with <strong>Control Surface Override</strong> below it to calibrate an
+<p>Pair Axis Throw with <strong>Control Surface Override</strong> below it to calibrate an
 exact throw: enable the override for an axis, command a known percentage
 (e.g. 100%), measure the actual surface deflection with a protractor, then
-adjust that axis's Gain until the measured angle matches your target.
+adjust that axis's Throw until the measured angle matches your target.
 Override only takes effect while disarmed.</p>
 
 
