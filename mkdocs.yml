@@ -99,6 +99,15 @@ nav:
       - CRSF Sensors: configurator/tabs/crsf-sensors.md
       - Blackbox: configurator/tabs/blackbox.md
       - CLI: configurator/tabs/cli.md
+  - Ethos Lua Suite:
+      - ethos-suite/index.md
+      - Installing: ethos-suite/installing.md
+      - Using the App: ethos-suite/using-the-app.md
+      - Flight Tuning: ethos-suite/flight-tuning.md
+      - Setup: ethos-suite/setup.md
+      - Tools and Logs: ethos-suite/tools-and-logs.md
+      - Settings: ethos-suite/settings.md
+      - Dashboard: ethos-suite/dashboard.md
   - Flight Modes & Features:
       - flight-modes/index.md
       - Attitude Hold: flight-modes/atthold.md
