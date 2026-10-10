@@ -75,6 +75,6 @@ These pages have an extra action behind **Tool**:
 | Telemetry | Selects the default telemetry sensors. |
 | Servos | Turns servo override on or off. While it is on, a servo's centre moves as you change it, so you can trim it by eye. |
 | Blackbox Status | Erases the onboard log memory. |
-| Tune Advisor | Clears the flight data the advisor has collected. |
+| Tune Advisor | Clears the flight data the advisor has collected. ([Save](tune-advisor.md#applying-the-changes) on this page writes the advisor's suggested changes.) |
 
 Each one asks before it does anything.

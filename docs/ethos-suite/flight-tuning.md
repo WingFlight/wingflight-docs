@@ -48,9 +48,14 @@ Unlike the other pages, the Tune Advisor is the radio's own. While you fly in
 rate mode, the flight controller measures how the model answers the sticks,
 and each time you disarm the radio stores that flight's results. Pick an axis
 to see how it responds and stops, and what the advisor suggests changing and
-why. **Tool** clears the data it has collected.
+why. **Save** writes the suggested changes for that axis to the flight
+controller; **Tool** clears the data it has collected.
 
-![Tune Advisor page](../assets/images/ethos-suite/tune_advisor.png)
+![Tune Advisor page](../assets/images/ethos-suite/tune_advisor_changes.png)
+
+See [Tune Advisor](tune-advisor.md) for how flights are collected and
+combined, what each suggestion means, what **Save** checks before it writes,
+and how in-flight adjustments affect it.
 
 ## Filters
 
