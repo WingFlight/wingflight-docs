@@ -186,6 +186,8 @@ the channel reads outside all of them.
 
 ## Bus Servos
 
+For FrSky XACT servos on one F.Bus wire, see [FrSky Servos](../../setup/frsky-servos.md).
+
 Enabling **SBUS Output** or **FBUS Master** on a serial port (see
 [Configuration](configuration.md)) adds a second "Bus Servo Configuration"
 table below the PWM one -- for digital bus servos wired to that UART instead
