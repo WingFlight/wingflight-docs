@@ -24,6 +24,8 @@ default for all models, and optionally a different one for a particular
 model. Some themes have options of their own, under **Settings** on the same
 menu.
 
+[Dashboard Themes](dashboard-themes.md) shows each theme's three layouts.
+
 ## Toolbar
 
 Swipe up on the dashboard, or long-press **PAGE**, to open the toolbar. It
