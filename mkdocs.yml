@@ -109,6 +109,7 @@ nav:
       - Tools and Logs: ethos-suite/tools-and-logs.md
       - Settings: ethos-suite/settings.md
       - Dashboard: ethos-suite/dashboard.md
+      - Dashboard Themes: ethos-suite/dashboard-themes.md
   - Flight Modes & Features:
       - flight-modes/index.md
       - Attitude Hold: flight-modes/atthold.md
