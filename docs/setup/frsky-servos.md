@@ -28,8 +28,9 @@ themselves are explained on their own pages, linked below.
   board's pinout before wiring.
 - Four XACT servos for two ailerons, the elevator and the rudder. They match the
   default mixer, see [section 5](#5-bus-servos-and-the-mixer).
-- The [Configurator](../configurator/index.md) and a transmitter with the
-  FrSky Ethos XAct menu, or the Configurator only, for the settings in section 3.
+- A transmitter with the FrSky Ethos XAct menu, to program each servo while it is
+  connected directly to the transmitter or receiver (section 2.2).
+- The [Configurator](../configurator/index.md) for the settings in section 3.
 
 ## 1. Wiring
 
@@ -91,9 +92,10 @@ Use the Ethos route in section 2.2.
 FrSky's XAct Lua script adds a servo menu to Ethos radios under
 **System → Device Config**. Install it with the FrSky Suite (2.0 or later),
 under **Lua library**. It programs a servo that is connected directly to the
-transmitter or receiver. Whether it can also reach a servo on the flight
-controller's Port A is **not verified** for this guide, so use the Configurator
-route for bus servos once that route is documented.
+transmitter or receiver. Program each servo this way, one at a time, while it is
+connected directly to the transmitter or receiver, and only then join it to the
+bus. Whether the menu can also reach a servo on the flight controller's Port A is
+**not verified** for this guide, so do not rely on it for bus servos.
 
 The entry is under **System → Device config → Servos → XAct**.
 
