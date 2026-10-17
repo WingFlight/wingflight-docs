@@ -2112,6 +2112,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#axes-without-a-nozzle-actuator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Axes without a nozzle actuator
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#tuning" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3653,6 +3664,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#axes-without-a-nozzle-actuator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Axes without a nozzle actuator
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#tuning" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3717,9 +3739,17 @@ setpoint to a safety-leveled value, and TV Hold never fights that with its own
 frozen target. Attitude Hold does not switch it off: the
 Thrust Vector loop reuses the main loop's final setpoint, so while it is
 active, TV Hold works on top of that setpoint.</p>
+<h2 id="axes-without-a-nozzle-actuator">Axes without a nozzle actuator<a class="headerlink" href="#axes-without-a-nozzle-actuator" title="Permanent link">&para;</a></h2>
+<p>TV Hold only holds the axes the nozzle can move. An axis that no
+<strong>Stabilized TV</strong> mixer rule uses is left free, and is read when the switch
+engages. On the usual pitch/yaw nozzle that is roll: the hold keeps the
+direction the thrust points and ignores rotation about it. A pusher in a
+hang torque-rolls with nothing to stop it. Holding roll there built an error
+that turned the pitch/yaw correction with the airframe, so a pitch correction
+ended up on yaw.</p>
 <h2 id="tuning">Tuning<a class="headerlink" href="#tuning" title="Permanent link">&para;</a></h2>
-<p><strong>Gain</strong> sets how aggressively TV Hold corrects the thrust-vector output
-back to the frozen attitude. <strong>Max Rate</strong> caps how fast it's allowed to
+<p><strong>Gain</strong> (default 25) sets how aggressively TV Hold corrects the
+thrust-vector output back to the frozen attitude. <strong>Max Rate</strong> caps how fast it's allowed to
 rotate the held target while doing so. Both are configured on the
 <a href="../../configurator/tabs/thrust-vector/">Thrust Vector</a> tab, under
 <strong>Attitude / Heading Hold</strong> -- separate from Attitude Hold's own
