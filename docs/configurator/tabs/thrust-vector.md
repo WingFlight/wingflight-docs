@@ -24,6 +24,21 @@ One difference: the thrust-vector Master Gain (and so its gain curve) also scale
 where the main loop's does not. The relax level is under PID Settings in
 Expert Mode.
 
+## Defaults
+
+The thrust-vector defaults are tuned for a nozzle, not copied from the main loop:
+
+| Setting | Default | Why |
+| --- | --- | --- |
+| P | 150 on every axis | A nozzle is symmetric, so pitch and yaw match. The main loop's higher yaw P makes up for a weak rudder. |
+| I | 15 | Small, so I can't park the nozzle off centre. TV Hold already supplies the long-term correction. |
+| F | 30 | In a hang there is no airflow to damp the nozzle, so rate feedforward over-drives it. P carries the response. |
+| Error limit | 25 | Caps how far I can move the nozzle. |
+| I-term decay | 0.30 s, no limit | The nozzle returns to centre quickly after a stick move. |
+| Hold gain | 25 | Keeps TV Hold slower than the rate loop. |
+
+A thrust-vector axis that no **Stabilized TV** mixer rule uses outputs zero and builds no I.
+
 ## Attitude / Heading Hold
 
 **Gain**, **Deadband**, and **Max Rate** here configure

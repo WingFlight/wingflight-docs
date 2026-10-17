@@ -32,10 +32,20 @@ frozen target. Attitude Hold does not switch it off: the
 Thrust Vector loop reuses the main loop's final setpoint, so while it is
 active, TV Hold works on top of that setpoint.
 
+## Axes without a nozzle actuator
+
+TV Hold only holds the axes the nozzle can move. An axis that no
+**Stabilized TV** mixer rule uses is left free, and is read when the switch
+engages. On the usual pitch/yaw nozzle that is roll: the hold keeps the
+direction the thrust points and ignores rotation about it. A pusher in a
+hang torque-rolls with nothing to stop it. Holding roll there built an error
+that turned the pitch/yaw correction with the airframe, so a pitch correction
+ended up on yaw.
+
 ## Tuning
 
-**Gain** sets how aggressively TV Hold corrects the thrust-vector output
-back to the frozen attitude. **Max Rate** caps how fast it's allowed to
+**Gain** (default 25) sets how aggressively TV Hold corrects the
+thrust-vector output back to the frozen attitude. **Max Rate** caps how fast it's allowed to
 rotate the held target while doing so. Both are configured on the
 [Thrust Vector](../configurator/tabs/thrust-vector.md) tab, under
 **Attitude / Heading Hold** -- separate from Attitude Hold's own
