@@ -1,12 +1,16 @@
 # Thrust Vector
 
 The Thrust Vector tab configures the independent PID loop that drives a
-vectored-thrust nozzle (`FEATURE_THRUST_VECTOR`). It targets the same
+vectored-thrust nozzle. It targets the same
 roll/pitch/yaw setpoint as the main flight loop, but with its own gains,
 filters, and I-term state -- so it can be tuned, adjusted, or disabled
 without touching the main [Profiles](profiles.md) tune at all.
 
-This tab only appears once **THRUST VECTOR** is enabled as a feature.
+The tab is always there. The loop only reaches the aircraft once a
+**Stabilized TV Roll/Pitch/Yaw** rule on the [Mixer](mixer.md) tab drives an
+output, and only while the **THRUST VECTOR** mode is active on the
+[Modes](auxiliary.md) tab. With the mode off, the loop is reset and the TV
+inputs stay at zero.
 
 ## PID Gains and Flight Feel
 
@@ -35,7 +39,7 @@ The thrust-vector defaults are tuned for a nozzle, not copied from the main loop
 | F | 30 | In a hang there is no airflow to damp the nozzle, so rate feedforward over-drives it. P carries the response. |
 | Error limit | 25 | Caps how far I can move the nozzle. |
 | I-term decay | 0.30 s, no limit | The nozzle returns to centre quickly after a stick move. |
-| Hold gain | 25 | Keeps TV Hold slower than the rate loop. |
+| Hold gain | 45 | In a hang the nozzle can't stop torque roll, so the pointing error turns round the airframe and I can't build against it. The hold's own gain has to carry the correction. |
 
 A thrust-vector axis that no **Stabilized TV** mixer rule uses outputs zero and builds no I.
 

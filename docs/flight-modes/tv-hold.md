@@ -44,7 +44,7 @@ ended up on yaw.
 
 ## Tuning
 
-**Gain** (default 25) sets how aggressively TV Hold corrects the
+**Gain** (default 45) sets how aggressively TV Hold corrects the
 thrust-vector output back to the frozen attitude. **Max Rate** caps how fast it's allowed to
 rotate the held target while doing so. Both are configured on the
 [Thrust Vector](../configurator/tabs/thrust-vector.md) tab, under
