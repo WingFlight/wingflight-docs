@@ -13,7 +13,7 @@ the Configurator page that explains the settings.
 ### Configuration
 
 The craft name, PID loop speed, and the features the board runs: GPS, LED
-strip, thrust vectoring and the ready-to-arm wiggle.
+strip and the ready-to-arm wiggle.
 
 ![Configuration page](../assets/images/ethos-suite/configuration.png)
 
