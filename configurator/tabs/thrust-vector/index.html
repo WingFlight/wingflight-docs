@@ -3756,11 +3756,15 @@
 
 <h1 id="thrust-vector">Thrust Vector<a class="headerlink" href="#thrust-vector" title="Permanent link">&para;</a></h1>
 <p>The Thrust Vector tab configures the independent PID loop that drives a
-vectored-thrust nozzle (<code>FEATURE_THRUST_VECTOR</code>). It targets the same
+vectored-thrust nozzle. It targets the same
 roll/pitch/yaw setpoint as the main flight loop, but with its own gains,
 filters, and I-term state -- so it can be tuned, adjusted, or disabled
 without touching the main <a href="../profiles/">Profiles</a> tune at all.</p>
-<p>This tab only appears once <strong>THRUST VECTOR</strong> is enabled as a feature.</p>
+<p>The tab is always there. The loop only reaches the aircraft once a
+<strong>Stabilized TV Roll/Pitch/Yaw</strong> rule on the <a href="../mixer/">Mixer</a> tab drives an
+output, and only while the <strong>THRUST VECTOR</strong> mode is active on the
+<a href="../auxiliary/">Modes</a> tab. With the mode off, the loop is reset and the TV
+inputs stay at zero.</p>
 <h2 id="pid-gains-and-flight-feel">PID Gains and Flight Feel<a class="headerlink" href="#pid-gains-and-flight-feel" title="Permanent link">&para;</a></h2>
 <p>The PID Gains and Flight Feel tables work exactly like their
 <a href="../profiles/">Profiles</a> counterparts -- P/I/D/F/B per axis, and per-axis
@@ -3812,8 +3816,8 @@ Expert Mode.</p>
 </tr>
 <tr>
 <td>Hold gain</td>
-<td>25</td>
-<td>Keeps TV Hold slower than the rate loop.</td>
+<td>45</td>
+<td>In a hang the nozzle can't stop torque roll, so the pointing error turns round the airframe and I can't build against it. The hold's own gain has to carry the correction.</td>
 </tr>
 </tbody>
 </table>
