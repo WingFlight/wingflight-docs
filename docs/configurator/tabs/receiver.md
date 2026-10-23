@@ -18,8 +18,8 @@ you'll see no signal at all rather than a subtle problem:
   for SBUS2, F.Port, SRXL, and SRXL2.
 - **Pin Swap** swaps the Rx/Tx pins, for wiring that comes in reversed.
 
-FrSky F.Bus and F.Port2 are the same protocol at two speeds, so there is one
-option, **FrSky FBUS / F.PORT2**. The flight controller finds the speed the
+For FrSky receivers set to F.Bus or F.Port2, pick **FrSky FBUS**. They are
+the same protocol at two speeds, and the flight controller finds the speed the
 receiver uses and keeps it once good frames arrive; telemetry starts after
 that. Changing the receiver between F.Bus and F.Port2 needs no change here.
 
@@ -117,10 +117,10 @@ If a serial port is assigned the **Serial Rx (Backup)** function on the
 [Configuration](configuration.md) tab, a second box, **Serial RX #2**,
 appears below it with:
 
-- A **Protocol** dropdown (None, Futaba S.BUS, FrSky FBUS / F.PORT2,
-  FrSky F.PORT, Jeti EXBUS, or TBS CRSF) -- `None` is the default, meaning
-  the port is assigned but not yet decoding anything. FBUS / F.PORT2 finds
-  the receiver's speed, as on the main receiver.
+- A **Protocol** dropdown (None, Futaba S.BUS, FrSky FBUS, FrSky F.PORT,
+  Jeti EXBUS, or TBS CRSF) -- `None` is the default, meaning the port is
+  assigned but not yet decoding anything. FrSky FBUS also covers F.Port2
+  receivers, as on the main receiver.
 - **Inverted**, **Half-Duplex**, and **Pin Swap** switches, same meaning as
   the equivalent settings for the main receiver but independent of them --
   this is a different physical UART, and each protocol has its own natural
