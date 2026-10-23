@@ -267,6 +267,8 @@ For Serial RX enable `RX_SERIAL` and set the `serialrx_provider` CLI setting as 
 
 The providers are: `SPEK1024`, `SPEK2048`, `SBUS`, `SUMD`, `SUMH`, `XB-B`, `XB-B-RJ01`, `IBUS`, `JETIEXBUS`, `CRSF`, `SRXL`, `CUSTOM`, `FPORT`, `SRXL2`, `SBUS2`, `FPORT2`, `FBUS`, `XB-A` and `IBUS2`. For example `set serialrx_provider = SBUS`.
 
+`FBUS` (460800 baud) and `FPORT2` (115200 baud) are the same protocol, and both find the receiver's speed: the port starts at the selected one, switches to the other every 150 ms until three good frames arrive, then keeps it. No telemetry is sent until then. If no frame arrives for 1 s while disarmed, it searches again.
+
 ImmersionRC GHOST (`GHST`) and CPPM receivers are not supported in WingFlight. `GHST` is still accepted by the CLI so saved
 configurations load, but the receiver will not work.
 

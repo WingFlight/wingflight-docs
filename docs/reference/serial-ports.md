@@ -146,6 +146,7 @@ read-only via `MSP2_WING_RX_INPUT_BACKUP_STATUS`.
 
 Which protocol this port speaks is selected via `rx_input_backup_provider`:
 `NONE`, `SBUS`, `FBUS`, `FPORT`, `FPORT2`, `EXBUS`, or `CRSF`
+(`FBUS` and `FPORT2` both find the receiver's speed, like the main receiver)
 (`pg/rx_input_backup.h`'s
 `provider` field). `NONE` (value `0`, matching this codebase's usual
 "zero-init means off" convention) is the default for a freshly reset config -
