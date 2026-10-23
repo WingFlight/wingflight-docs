@@ -4234,6 +4234,7 @@ specific fixed threshold isn't used instead. See <code>drivers/rx_input_backup.c
 read-only via <code>MSP2_WING_RX_INPUT_BACKUP_STATUS</code>.</p>
 <p>Which protocol this port speaks is selected via <code>rx_input_backup_provider</code>:
 <code>NONE</code>, <code>SBUS</code>, <code>FBUS</code>, <code>FPORT</code>, <code>FPORT2</code>, <code>EXBUS</code>, or <code>CRSF</code>
+(<code>FBUS</code> and <code>FPORT2</code> both find the receiver's speed, like the main receiver)
 (<code>pg/rx_input_backup.h</code>'s
 <code>provider</code> field). <code>NONE</code> (value <code>0</code>, matching this codebase's usual
 "zero-init means off" convention) is the default for a freshly reset config -

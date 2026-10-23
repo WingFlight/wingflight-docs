@@ -4593,6 +4593,7 @@ A flight channel can be AUTOMATIC, HOLD or SET. An AUX channel can be HOLD or SE
 <p>Using CLI:
 For Serial RX enable <code>RX_SERIAL</code> and set the <code>serialrx_provider</code> CLI setting as follows.</p>
 <p>The providers are: <code>SPEK1024</code>, <code>SPEK2048</code>, <code>SBUS</code>, <code>SUMD</code>, <code>SUMH</code>, <code>XB-B</code>, <code>XB-B-RJ01</code>, <code>IBUS</code>, <code>JETIEXBUS</code>, <code>CRSF</code>, <code>SRXL</code>, <code>CUSTOM</code>, <code>FPORT</code>, <code>SRXL2</code>, <code>SBUS2</code>, <code>FPORT2</code>, <code>FBUS</code>, <code>XB-A</code> and <code>IBUS2</code>. For example <code>set serialrx_provider = SBUS</code>.</p>
+<p><code>FBUS</code> (460800 baud) and <code>FPORT2</code> (115200 baud) are the same protocol, and both find the receiver's speed: the port starts at the selected one, switches to the other every 150 ms until three good frames arrive, then keeps it. No telemetry is sent until then. If no frame arrives for 1 s while disarmed, it searches again.</p>
 <p>ImmersionRC GHOST (<code>GHST</code>) and CPPM receivers are not supported in WingFlight. <code>GHST</code> is still accepted by the CLI so saved
 configurations load, but the receiver will not work.</p>
 <h3 id="pwm-input-filtering">PWM input filtering.<a class="headerlink" href="#pwm-input-filtering" title="Permanent link">&para;</a></h3>

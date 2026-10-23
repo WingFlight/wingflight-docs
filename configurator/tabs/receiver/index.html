@@ -3858,6 +3858,10 @@ you'll see no signal at all rather than a subtle problem:</p>
   for SBUS2, F.Port, SRXL, and SRXL2.</li>
 <li><strong>Pin Swap</strong> swaps the Rx/Tx pins, for wiring that comes in reversed.</li>
 </ul>
+<p>For FrSky receivers set to F.Bus or F.Port2, pick <strong>FrSky FBUS</strong>. They are
+the same protocol at two speeds, and the flight controller finds the speed the
+receiver uses and keeps it once good frames arrive; telemetry starts after
+that. Changing the receiver between F.Bus and F.Port2 needs no change here.</p>
 <h2 id="expresslrs-switch-mode">ExpressLRS switch mode<a class="headerlink" href="#expresslrs-switch-mode" title="Permanent link">&para;</a></h2>
 <p>ExpressLRS receivers use the <strong>TBS CRSF</strong> protocol.</p>
 <div class="admonition warning">
@@ -3933,8 +3937,9 @@ state, whether or not a backup port is configured.</p>
 appears below it with:</p>
 <ul>
 <li>A <strong>Protocol</strong> dropdown (None, Futaba S.BUS, FrSky FBUS, FrSky F.PORT,
-  FrSky F.PORT2, Jeti EXBUS, or TBS CRSF) -- <code>None</code> is the default, meaning
-  the port is assigned but not yet decoding anything.</li>
+  Jeti EXBUS, or TBS CRSF) -- <code>None</code> is the default, meaning the port is
+  assigned but not yet decoding anything. FrSky FBUS also covers F.Port2
+  receivers, as on the main receiver.</li>
 <li><strong>Inverted</strong>, <strong>Half-Duplex</strong>, and <strong>Pin Swap</strong> switches, same meaning as
   the equivalent settings for the main receiver but independent of them --
   this is a different physical UART, and each protocol has its own natural
