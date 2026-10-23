@@ -16,7 +16,7 @@ different protocol entirely) without needing a full second RF system.
 
 The backup port speaks a single, configurable protocol, chosen from the
 **Protocol** dropdown on the **Serial RX #2** box (see below): **SBUS**,
-**FBUS**, **F.Port**, **F.Port2**, **Jeti EXBUS**, or **TBS CRSF**
+**FBUS** (also F.Port2 receivers), **F.Port**, **Jeti EXBUS**, or **TBS CRSF**
 (Crossfire/ELRS). The feature was originally SBUS-only
 in name too ("SBUS-In Fallback Receiver"); it's now built so more protocols
 can be added later without changing how it behaves or is configured, hence
