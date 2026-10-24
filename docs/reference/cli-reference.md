@@ -160,6 +160,7 @@ sources, to check the fusion against the raw readings:
 | Setting | Values | Default | Description |
 |---|---|---|---|
 | `fbus_master_channels` | `8`, `12`, `16`, `24` | `24` | Channels F.Bus output sends. 8 uses the 8-channel frame, 12 and 16 the 16-channel frame, 24 the 24-channel frame |
+| `fbus_master_baud_fast` | `OFF`, `ON` | `ON` | F.Bus output speed. ON runs at 460800 baud, OFF at 115200 for receivers set to F.Port2 speed; at 115200 the frame rate is capped at 150 Hz. CLI only |
 | `sbus_out_channels` | `8`, `12`, `16` | `16` | Channels SBUS output sends, always in the 16-channel frame |
 
 Channels past the count are sent at center. Also on the Servos tab; see
