@@ -201,9 +201,9 @@ the model goes faster.
 
 It needs a GPS with a fix, and it does nothing until a **Speed** curve is
 assigned in [Gain Curves](#gain-curves). The row, and the Speed curve and
-range in Gain Curves, only appear with the GPS feature on (see
-[Configuration](configuration.md)) and with firmware that supports it (MSP
-API 22.10 or later).
+range in Gain Curves, only appear when GPS is active (see
+[When GPS is active](gps.md#when-gps-is-active)) and with firmware that
+supports it (MSP API 22.10 or later).
 
 - **Gain** (25-200%, default 100%) scales the whole curve.
 - The curve's X axis runs from 0 to the **speed curve range** (10-600 km/h,

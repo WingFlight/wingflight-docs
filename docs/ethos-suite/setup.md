@@ -12,8 +12,9 @@ the Configurator page that explains the settings.
 
 ### Configuration
 
-The craft name, PID loop speed, and the features the board runs: GPS, LED
-strip and the ready-to-arm wiggle.
+The craft name, PID loop speed, and the features the board runs: LED strip
+and the ready-to-arm wiggle. There is no GPS switch: GPS runs when the GPS
+source matches a port (see [When GPS is active](../configurator/tabs/gps.md#when-gps-is-active)).
 
 ![Configuration page](../assets/images/ethos-suite/configuration.png)
 

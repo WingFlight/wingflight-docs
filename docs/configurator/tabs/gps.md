@@ -3,6 +3,26 @@
 The GPS tab configures GPS module settings and shows live GPS status
 (fix type, satellite count, position, a live map).
 
+## When GPS is active
+
+There is no GPS feature switch. GPS runs when the **Protocol** below
+matches a port on the [Configuration](configuration.md) tab:
+
+| Protocol | Port needed |
+| --- | --- |
+| NMEA or UBLOX | a port set to **GPS** |
+| FBUS | a port set to **F.BUS** (FBUS master) or **S.PORT Master** |
+| CRSF | a port set to **CRSF Sensors** |
+| MSP | none |
+
+This tab appears as soon as any of those ports is set up, so you can pick
+the matching protocol here. The [GPS Navigation](gps-navigation.md) tab,
+GPS modes and GPS telemetry only appear once the protocol and port match.
+Changes take effect after the save and reboot.
+
+Firmware before MSP API 22.15 still has a GPS feature bit. The
+Configurator sets it for you to match the protocol and port when you save.
+
 ## Module setup
 
 **Protocol** selects how the GPS module talks to the flight controller:

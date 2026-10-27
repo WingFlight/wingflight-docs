@@ -3,7 +3,8 @@
 The GPS Navigation tab configures [GPS RTH and Loiter](../../flight-modes/gps-rth.md)
 -- the fixed-wing navigation controller behind both, and behind the
 Failsafe tab's [GPS Rescue](../../flight-modes/gps-rescue.md) procedure too.
-It only appears once the **GPS** feature is enabled (Configuration tab).
+It only appears once GPS is active, which means the GPS Protocol on the
+[GPS](gps.md) tab matches a port (see [When GPS is active](gps.md#when-gps-is-active)).
 
 These settings used to be CLI-only, then briefly lived on the Failsafe tab;
 they moved here because they aren't failsafe-specific -- **GPS RTH** and

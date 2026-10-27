@@ -42,7 +42,7 @@ If the configuration is invalid the serial port configuration will reset to its 
 * There must always be a port available to use for MSP/CLI.
 * There is a maximum of 3 MSP ports.
 * To use a port for a function, the function's corresponding feature must be also be enabled.
-e.g. after configuring a port for GPS enable the GPS feature.
+GPS is the exception: it has no feature, and runs when `gps_provider` matches its port.
 * If SoftSerial is used, then all SoftSerial ports must use the same baudrate.
 * Softserial is limited to 19200 baud.
 * All telemetry systems except MSP will ignore any attempts to override the baudrate.
