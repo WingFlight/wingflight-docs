@@ -55,11 +55,13 @@ fixed-wing navigation modes that use the GPS are in
 ## Diagnostics
 
 With a serial GPS (NMEA or UBLOX) and firmware that supports it, a
-**Diagnostics** panel shows the GPS port and its pins, whether it opened
-and at what baud rate, the GPS state, the byte, packet, error and timeout
-counters, and the last bytes received from the module. A line at the top
-says what is wrong, for example no port set to GPS, nothing received
+**Diagnostics** panel under Status shows the GPS port and its pins, whether
+it opened and at what baud rate, the GPS state, and the byte, packet, error
+and timeout counters. A badge in its header gives the state at a glance
+(for example *Receiving*, *No data* or *Bad data*). When something is
+wrong, a line says what to do: no port set to GPS, nothing received
 (wiring or power), or data arriving but no valid messages (baud rate or
-protocol). For the raw data and a baud rate scan, use the CLI command
+protocol). In Expert Mode the panel also shows the last bytes received
+from the module. For the raw data and a baud rate scan, use the CLI command
 `serialdebug`; see
 [GPS troubleshooting](../../reference/gps-hardware.md#troubleshooting).
