@@ -20,8 +20,8 @@ the matching protocol here. The [GPS Navigation](gps-navigation.md) tab,
 GPS modes and GPS telemetry only appear once the protocol and port match.
 Changes take effect after the save and reboot.
 
-Older firmware still has a GPS feature bit. The Configurator sets it for
-you to match the protocol and port when you save.
+Firmware before MSP API 22.15 still has a GPS feature bit. The
+Configurator sets it for you to match the protocol and port when you save.
 
 ## Module setup
 
