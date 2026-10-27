@@ -19,8 +19,7 @@ Enable the GPS from the CLI as follows:
 
 1. [configure a serial port to use for GPS.](serial-ports.md) 
 1. set your GPS baud rate
-1. enable the `feature GPS`
-1. set the `gps_provider`
+1. set the `gps_provider` to `NMEA` or `UBLOX`
 1. connect your GPS to the serial port configured for GPS.
 1. save and reboot.
 

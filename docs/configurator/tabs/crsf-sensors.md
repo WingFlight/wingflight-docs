@@ -27,8 +27,8 @@ about failing over the *control* link, not reading a sensor.
 Nothing downstream is enabled automatically just by wiring the sensor up --
 each consumer needs its own source set explicitly:
 
-- **GPS** -- set **GPS Protocol** to CRSF on the [GPS](gps.md) tab (and
-  make sure the GPS feature itself is enabled). Position, ground speed,
+- **GPS** -- set **GPS Protocol** to CRSF on the [GPS](gps.md) tab. With
+  a CRSF Sensors port that is all GPS needs. Position, ground speed,
   heading, and satellite count come from the sensor's GPS frames.
 - **Battery voltage/current** -- set **Voltage Meter Type** and/or
   **Current Meter Type** to **CRSF Sensor** on the [Power](power.md) tab.
