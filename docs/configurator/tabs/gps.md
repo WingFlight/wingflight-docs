@@ -51,3 +51,15 @@ Wiring and configuring a u-blox or NMEA module by hand is covered in
 [GPS Hardware and Module Setup](../../reference/gps-hardware.md). The
 fixed-wing navigation modes that use the GPS are in
 [GPS RTH and Loiter](../../flight-modes/gps-rth.md).
+
+## Diagnostics
+
+With a serial GPS (NMEA or UBLOX) and firmware that supports it, a
+**Diagnostics** panel shows the GPS port and its pins, whether it opened
+and at what baud rate, the GPS state, the byte, packet, error and timeout
+counters, and the last bytes received from the module. A line at the top
+says what is wrong, for example no port set to GPS, nothing received
+(wiring or power), or data arriving but no valid messages (baud rate or
+protocol). For the raw data and a baud rate scan, use the CLI command
+`serialdebug`; see
+[GPS troubleshooting](../../reference/gps-hardware.md#troubleshooting).

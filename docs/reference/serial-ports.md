@@ -272,6 +272,14 @@ The Serial Port baudrates are defined as follows:
 | 14 | 2000000   |
 | 15 | 2470000   |
 
+### Checking a port
+
+If a device on a port isn't working, the CLI command `serialdebug` shows
+whether each port opened, which pins it uses and any pin conflicts;
+`serialdebug <port>` shows one port in detail with what its function
+reports, `serialdebug monitor <port>` shows the raw data it receives and
+`serialdebug scan <port>` looks for a known protocol at common baud rates.
+See [Serial port diagnostics](cli-reference.md#serial-port-diagnostics).
 
 ### Passthrough
 
