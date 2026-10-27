@@ -3997,7 +3997,7 @@ These are sometimes referred to as FTDI boards.  FTDI is just a common manufactu
 <li>There must always be a port available to use for MSP/CLI.</li>
 <li>There is a maximum of 3 MSP ports.</li>
 <li>To use a port for a function, the function's corresponding feature must be also be enabled.
-e.g. after configuring a port for GPS enable the GPS feature.</li>
+GPS is the exception: it has no feature, and runs when <code>gps_provider</code> matches its port.</li>
 <li>If SoftSerial is used, then all SoftSerial ports must use the same baudrate.</li>
 <li>Softserial is limited to 19200 baud.</li>
 <li>All telemetry systems except MSP will ignore any attempts to override the baudrate.</li>

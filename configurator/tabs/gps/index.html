@@ -1325,6 +1325,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#when-gps-is-active" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When GPS is active
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#module-setup" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3653,6 +3664,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#when-gps-is-active" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When GPS is active
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#module-setup" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3691,6 +3713,41 @@
 <h1 id="gps">GPS<a class="headerlink" href="#gps" title="Permanent link">&para;</a></h1>
 <p>The GPS tab configures GPS module settings and shows live GPS status
 (fix type, satellite count, position, a live map).</p>
+<h2 id="when-gps-is-active">When GPS is active<a class="headerlink" href="#when-gps-is-active" title="Permanent link">&para;</a></h2>
+<p>There is no GPS feature switch. GPS runs when the <strong>Protocol</strong> below
+matches a port on the <a href="../configuration/">Configuration</a> tab:</p>
+<table>
+<thead>
+<tr>
+<th>Protocol</th>
+<th>Port needed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NMEA or UBLOX</td>
+<td>a port set to <strong>GPS</strong></td>
+</tr>
+<tr>
+<td>FBUS</td>
+<td>a port set to <strong>F.BUS</strong> (FBUS master) or <strong>S.PORT Master</strong></td>
+</tr>
+<tr>
+<td>CRSF</td>
+<td>a port set to <strong>CRSF Sensors</strong></td>
+</tr>
+<tr>
+<td>MSP</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<p>This tab appears as soon as any of those ports is set up, so you can pick
+the matching protocol here. The <a href="../gps-navigation/">GPS Navigation</a> tab,
+GPS modes and GPS telemetry only appear once the protocol and port match.
+Changes take effect after the save and reboot.</p>
+<p>Firmware before MSP API 22.15 still has a GPS feature bit. The
+Configurator sets it for you to match the protocol and port when you save.</p>
 <h2 id="module-setup">Module setup<a class="headerlink" href="#module-setup" title="Permanent link">&para;</a></h2>
 <p><strong>Protocol</strong> selects how the GPS module talks to the flight controller:
 NMEA or UBLOX over a serial port, MSP (a companion device relaying GPS over
