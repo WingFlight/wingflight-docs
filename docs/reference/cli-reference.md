@@ -26,6 +26,114 @@ easy to review. Paste the saved output back into the CLI and run `save` to
 restore it. See [Backup & Restore](../getting-started/backup-and-restore.md)
 for the full workflow.
 
+## Serial port diagnostics
+
+`serialdebug` helps when a device on a serial port (GPS, receiver,
+telemetry, ESC sensor) isn't working. It shows how each port is set up,
+what the function on a port reports, and the raw data a port receives.
+
+| Command | Description |
+|---|---|
+| `serialdebug` | Show every port |
+| `serialdebug <port>` | One port in detail, with what its function reports |
+| `serialdebug monitor <port> [<baud>] [<seconds>] [inverted]` | Print what a port receives |
+| `serialdebug scan <port> [inverted]` | Try common baud rates and look for known protocols |
+
+`<port>` is the port number used by the `serial` command (UART1 is 0,
+UART7 is 6, UART10 is 9) or its name, such as `UART7`. `serialdebug` with
+no arguments lists the numbers, and `serialdebug help` prints the usage.
+
+### All ports
+
+```
+# serialdebug
+port     id  rx   tx   functions         open  baud
+VCP      20  -    -    MSP               yes
+UART1     0  -    -    -                 no pins
+...
+UART3     2  D09  D08  RX_SERIAL         yes   460800 (irq rx)
+UART7     6  E07  E08  GPS               yes   57600
+UART10    9  E02  E03  -                 no
+...
+```
+
+- **rx / tx**: the pins assigned with `resource SERIAL_RX` / `SERIAL_TX`.
+- **open**: whether the port is running. `NO` (in capitals) means it has a
+  function but did not open. `no pins` means no pins are assigned, so the
+  port can't be used. `PIN CONFLICT` means one of its pins is also used by
+  something else, such as a servo or LED; see `resource show`.
+- **(irq rx)**: the port's owner reads incoming bytes as they arrive (for
+  example a serial receiver); `monitor` still works on it.
+
+Lines starting with `#` point out setup problems: a port whose function did
+not open, a pin conflict, or a `gps_provider` with no matching port (for
+example `UBLOX` with no port set to GPS, so GPS is off).
+
+### One port
+
+`serialdebug 6` shows UART7 in detail: its pins and functions, the baud
+rates configured for each function type, and if it is open, the live baud
+rate, direction, inversion, half duplex and how many bytes are waiting to
+be read. Then each function on the port that can report its state adds a
+block. GPS reports:
+
+```
+GPS: provider UBLOX, active yes
+GPS: state RECEIVING_DATA, last valid message 85ms ago, at 57600 baud
+GPS: bytes 91230, packets 1520, errors 0, timeouts 0, sats 11, fix yes
+```
+
+- **active**: whether GPS was started at the last boot. GPS starts only
+  when `gps_provider` matches a port (see the
+  [GPS tab](../configurator/tabs/gps.md)). `setup changed: save and reboot`
+  means the port or provider changed since the last boot.
+- **state**: `INITIALIZING` or `LOST_COMMUNICATION` means no valid messages
+  are arriving. `RECEIVING_DATA` means the module is talking.
+- **bytes / packets / errors / timeouts**: everything received, valid
+  messages, bad messages (wrong checksum, usually noise or a wrong baud
+  rate) and times the module went silent.
+
+The hints tell the cases apart: no bytes at all points at wiring or power,
+bytes without packets at the baud rate or protocol, and GPS set on more
+than one port means only the first one is used.
+
+### Watching a port
+
+`serialdebug monitor 6` prints what UART7 receives for 5 seconds. Readable
+text is shown as is, other bytes as `<hex>`. A working NMEA GPS shows lines
+like `$GNGGA,...`, a u-blox in binary mode shows `<B5>b...`, a CRSF
+receiver shows `<C8><18><16>...`. If nothing arrives, check that the
+device's TX goes to the flight controller's RX pin, and check power and
+ground.
+
+The baud rate defaults to the port's current rate (or its GPS baud rate if
+the port is closed). Give one to try another, for example
+`serialdebug monitor 6 9600 10` listens at 9600 baud for 10 seconds (up to
+60). Add `inverted` for a signal that is inverted, such as S.Bus; a port
+that is already open keeps its own setting.
+
+### Finding the baud rate and protocol
+
+`serialdebug scan 6` listens for 1.5 seconds at each of 9600, 19200,
+38400, 57600, 100000, 115200, 230400, 400000, 416666, 420000 and 460800
+baud, and counts the NMEA, UBX, CRSF and FBUS frames it recognises at each:
+
+```
+   9600:   960 bytes, 100% text, 16 NMEA
+  19200:   480 bytes,  41% text
+...
+# looks like NMEA at 9600 baud
+```
+
+Set the port's baud rate (or for GPS, turn on `gps_auto_baud`) to match.
+S.Bus is not recognised; use `monitor` with `inverted` for it.
+
+!!! note
+    While `monitor` or `scan` runs the flight controller does nothing
+    else, so only use them on the bench. Press any key to stop early. A
+    port already in use (such as the GPS port) is borrowed and set back
+    afterwards.
+
 ## Settings added in recent snapshots
 
 These settings are per-profile (set them after selecting the profile you

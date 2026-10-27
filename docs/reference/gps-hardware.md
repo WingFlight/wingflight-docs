@@ -62,6 +62,24 @@ If you use a regional specific setting you may achieve a faster GPS lock than us
 
 This setting only works when `gps_auto_config=ON`
 
+## Troubleshooting
+
+The GPS tab in the Configurator has a Diagnostics panel that shows the GPS
+port, whether it opened, the GPS state and counters, the last bytes
+received from the module and a hint about what is wrong. The same comes
+from the CLI: `serialdebug` lists the ports and `serialdebug <port>` shows
+the GPS port in detail. Then:
+
+1. `serialdebug monitor <port>` shows the raw data from the module.
+   Nothing at all usually means wiring: the module's TX goes to the flight
+   controller's RX, and it needs power and ground.
+2. `serialdebug scan <port>` finds the baud rate the module is sending at.
+
+Only one port can be used for GPS. If GPS is set on more than one port,
+only the first one is used. See
+[Serial port diagnostics](cli-reference.md#serial-port-diagnostics) for the
+full output.
+
 ## GPS Receiver Configuration
 
 UBlox GPS units can either be configured using the FC or manually.
