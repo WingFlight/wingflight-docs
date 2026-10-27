@@ -2958,6 +2958,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gps-receiver-configuration" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3909,6 +3920,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gps-receiver-configuration" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4153,6 +4175,22 @@ experimental. The Failsafe tab's <a href="../../flight-modes/gps-rescue/">GPS Re
 </table>
 <p>If you use a regional specific setting you may achieve a faster GPS lock than using AUTO.</p>
 <p>This setting only works when <code>gps_auto_config=ON</code></p>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<p>The GPS tab in the Configurator has a Diagnostics panel that shows the GPS
+port, whether it opened, the GPS state and counters, the last bytes
+received from the module and a hint about what is wrong. The same comes
+from the CLI: <code>serialdebug</code> lists the ports and <code>serialdebug &lt;port&gt;</code> shows
+the GPS port in detail. Then:</p>
+<ol>
+<li><code>serialdebug monitor &lt;port&gt;</code> shows the raw data from the module.
+   Nothing at all usually means wiring: the module's TX goes to the flight
+   controller's RX, and it needs power and ground.</li>
+<li><code>serialdebug scan &lt;port&gt;</code> finds the baud rate the module is sending at.</li>
+</ol>
+<p>Only one port can be used for GPS. If GPS is set on more than one port,
+only the first one is used. See
+<a href="../cli-reference/#serial-port-diagnostics">Serial port diagnostics</a> for the
+full output.</p>
 <h2 id="gps-receiver-configuration">GPS Receiver Configuration<a class="headerlink" href="#gps-receiver-configuration" title="Permanent link">&para;</a></h2>
 <p>UBlox GPS units can either be configured using the FC or manually.</p>
 <h3 id="ublox-gps-manual-configuration">UBlox GPS manual configuration<a class="headerlink" href="#ublox-gps-manual-configuration" title="Permanent link">&para;</a></h3>

@@ -1346,6 +1346,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#diagnostics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagnostics
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3685,6 +3696,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#diagnostics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagnostics
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3772,6 +3794,18 @@ to your actual takeoff spot.</p>
 <a href="../../../reference/gps-hardware/">GPS Hardware and Module Setup</a>. The
 fixed-wing navigation modes that use the GPS are in
 <a href="../../../flight-modes/gps-rth/">GPS RTH and Loiter</a>.</p>
+<h2 id="diagnostics">Diagnostics<a class="headerlink" href="#diagnostics" title="Permanent link">&para;</a></h2>
+<p>With a serial GPS (NMEA or UBLOX) and firmware that supports it, a
+<strong>Diagnostics</strong> panel under Status shows the GPS port and its pins, whether
+it opened and at what baud rate, the GPS state, and the byte, packet, error
+and timeout counters. A badge in its header gives the state at a glance
+(for example <em>Receiving</em>, <em>No data</em> or <em>Bad data</em>). When something is
+wrong, a line says what to do: no port set to GPS, nothing received
+(wiring or power), or data arriving but no valid messages (baud rate or
+protocol). In Expert Mode the panel also shows the last bytes received
+from the module. For the raw data and a baud rate scan, use the CLI command
+<code>serialdebug</code>; see
+<a href="../../../reference/gps-hardware/#troubleshooting">GPS troubleshooting</a>.</p>
 
 
 

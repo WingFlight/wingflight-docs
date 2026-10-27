@@ -2583,6 +2583,67 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#serial-port-diagnostics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Serial port diagnostics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Serial port diagnostics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#all-ports" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        All ports
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#one-port" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        One port
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#watching-a-port" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Watching a port
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#finding-the-baud-rate-and-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Finding the baud rate and protocol
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#settings-added-in-recent-snapshots" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3747,6 +3808,67 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#serial-port-diagnostics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Serial port diagnostics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Serial port diagnostics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#all-ports" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        All ports
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#one-port" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        One port
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#watching-a-port" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Watching a port
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#finding-the-baud-rate-and-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Finding the baud rate and protocol
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#settings-added-in-recent-snapshots" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3892,6 +4014,116 @@ Configurator, or over any serial terminal at the configured baud rate.</p>
 easy to review. Paste the saved output back into the CLI and run <code>save</code> to
 restore it. See <a href="../../getting-started/backup-and-restore/">Backup &amp; Restore</a>
 for the full workflow.</p>
+<h2 id="serial-port-diagnostics">Serial port diagnostics<a class="headerlink" href="#serial-port-diagnostics" title="Permanent link">&para;</a></h2>
+<p><code>serialdebug</code> helps when a device on a serial port (GPS, receiver,
+telemetry, ESC sensor) isn't working. It shows how each port is set up,
+what the function on a port reports, and the raw data a port receives.</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>serialdebug</code></td>
+<td>Show every port</td>
+</tr>
+<tr>
+<td><code>serialdebug &lt;port&gt;</code></td>
+<td>One port in detail, with what its function reports</td>
+</tr>
+<tr>
+<td><code>serialdebug monitor &lt;port&gt; [&lt;baud&gt;] [&lt;seconds&gt;] [inverted]</code></td>
+<td>Print what a port receives</td>
+</tr>
+<tr>
+<td><code>serialdebug scan &lt;port&gt; [inverted]</code></td>
+<td>Try common baud rates and look for known protocols</td>
+</tr>
+</tbody>
+</table>
+<p><code>&lt;port&gt;</code> is the port number used by the <code>serial</code> command (UART1 is 0,
+UART7 is 6, UART10 is 9) or its name, such as <code>UART7</code>. <code>serialdebug</code> with
+no arguments lists the numbers, and <code>serialdebug help</code> prints the usage.</p>
+<h3 id="all-ports">All ports<a class="headerlink" href="#all-ports" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code># serialdebug
+port     id  rx   tx   functions         open  baud
+VCP      20  -    -    MSP               yes
+UART1     0  -    -    -                 no pins
+...
+UART3     2  D09  D08  RX_SERIAL         yes   460800 (irq rx)
+UART7     6  E07  E08  GPS               yes   57600
+UART10    9  E02  E03  -                 no
+...
+</code></pre></div>
+<ul>
+<li><strong>rx / tx</strong>: the pins assigned with <code>resource SERIAL_RX</code> / <code>SERIAL_TX</code>.</li>
+<li><strong>open</strong>: whether the port is running. <code>NO</code> (in capitals) means it has a
+  function but did not open. <code>no pins</code> means no pins are assigned, so the
+  port can't be used. <code>PIN CONFLICT</code> means one of its pins is also used by
+  something else, such as a servo or LED; see <code>resource show</code>.</li>
+<li><strong>(irq rx)</strong>: the port's owner reads incoming bytes as they arrive (for
+  example a serial receiver); <code>monitor</code> still works on it.</li>
+</ul>
+<p>Lines starting with <code>#</code> point out setup problems: a port whose function did
+not open, a pin conflict, or a <code>gps_provider</code> with no matching port (for
+example <code>UBLOX</code> with no port set to GPS, so GPS is off).</p>
+<h3 id="one-port">One port<a class="headerlink" href="#one-port" title="Permanent link">&para;</a></h3>
+<p><code>serialdebug 6</code> shows UART7 in detail: its pins and functions, the baud
+rates configured for each function type, and if it is open, the live baud
+rate, direction, inversion, half duplex and how many bytes are waiting to
+be read. Then each function on the port that can report its state adds a
+block. GPS reports:</p>
+<div class="highlight"><pre><span></span><code>GPS: provider UBLOX, active yes
+GPS: state RECEIVING_DATA, last valid message 85ms ago, at 57600 baud
+GPS: bytes 91230, packets 1520, errors 0, timeouts 0, sats 11, fix yes
+</code></pre></div>
+<ul>
+<li><strong>active</strong>: whether GPS was started at the last boot. GPS starts only
+  when <code>gps_provider</code> matches a port (see the
+  <a href="../../configurator/tabs/gps/">GPS tab</a>). <code>setup changed: save and reboot</code>
+  means the port or provider changed since the last boot.</li>
+<li><strong>state</strong>: <code>INITIALIZING</code> or <code>LOST_COMMUNICATION</code> means no valid messages
+  are arriving. <code>RECEIVING_DATA</code> means the module is talking.</li>
+<li><strong>bytes / packets / errors / timeouts</strong>: everything received, valid
+  messages, bad messages (wrong checksum, usually noise or a wrong baud
+  rate) and times the module went silent.</li>
+</ul>
+<p>The hints tell the cases apart: no bytes at all points at wiring or power,
+bytes without packets at the baud rate or protocol, and GPS set on more
+than one port means only the first one is used.</p>
+<h3 id="watching-a-port">Watching a port<a class="headerlink" href="#watching-a-port" title="Permanent link">&para;</a></h3>
+<p><code>serialdebug monitor 6</code> prints what UART7 receives for 5 seconds. Readable
+text is shown as is, other bytes as <code>&lt;hex&gt;</code>. A working NMEA GPS shows lines
+like <code>$GNGGA,...</code>, a u-blox in binary mode shows <code>&lt;B5&gt;b...</code>, a CRSF
+receiver shows <code>&lt;C8&gt;&lt;18&gt;&lt;16&gt;...</code>. If nothing arrives, check that the
+device's TX goes to the flight controller's RX pin, and check power and
+ground.</p>
+<p>The baud rate defaults to the port's current rate (or its GPS baud rate if
+the port is closed). Give one to try another, for example
+<code>serialdebug monitor 6 9600 10</code> listens at 9600 baud for 10 seconds (up to
+60). Add <code>inverted</code> for a signal that is inverted, such as S.Bus; a port
+that is already open keeps its own setting.</p>
+<h3 id="finding-the-baud-rate-and-protocol">Finding the baud rate and protocol<a class="headerlink" href="#finding-the-baud-rate-and-protocol" title="Permanent link">&para;</a></h3>
+<p><code>serialdebug scan 6</code> listens for 1.5 seconds at each of 9600, 19200,
+38400, 57600, 100000, 115200, 230400, 400000, 416666, 420000 and 460800
+baud, and counts the NMEA, UBX, CRSF and FBUS frames it recognises at each:</p>
+<div class="highlight"><pre><span></span><code>   9600:   960 bytes, 100% text, 16 NMEA
+  19200:   480 bytes,  41% text
+...
+# looks like NMEA at 9600 baud
+</code></pre></div>
+<p>Set the port's baud rate (or for GPS, turn on <code>gps_auto_baud</code>) to match.
+S.Bus is not recognised; use <code>monitor</code> with <code>inverted</code> for it.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>While <code>monitor</code> or <code>scan</code> runs the flight controller does nothing
+else, so only use them on the bench. Press any key to stop early. A
+port already in use (such as the GPS port) is borrowed and set back
+afterwards.</p>
+</div>
 <h2 id="settings-added-in-recent-snapshots">Settings added in recent snapshots<a class="headerlink" href="#settings-added-in-recent-snapshots" title="Permanent link">&para;</a></h2>
 <p>These settings are per-profile (set them after selecting the profile you
 want to change):</p>
