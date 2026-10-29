@@ -168,6 +168,8 @@ CG, or after an in-flight adjustment.
 
 ## See also
 
+- [Tune Advisor Internals](../contributing/tech/tune-advisor.md) for the exact measurements, thresholds and
+  formulas, and every parameter **Save** can write.
 - [Profiles: PID Gains](../configurator/tabs/profiles.md#pid-gains) and
   [Flight Feel](../configurator/tabs/profiles.md#flight-feel) for what P, F, B and Relax do.
 - [Rates](../configurator/tabs/rates.md#rate-shape-and-expo) for RC Rate.

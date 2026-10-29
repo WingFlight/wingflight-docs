@@ -22,6 +22,8 @@ Configurator. Most users will not need these pages.
   encodings of the log.
 - [SmartFuel Internals](smartfuel.md) -- how the charge estimator works, and its
   MSP interface.
+- [Tune Advisor Internals](tune-advisor.md) -- what the Tune Advisor measures,
+  its advice rules, and exactly which settings it writes.
 
 ## Debugging
 
