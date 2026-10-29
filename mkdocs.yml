@@ -161,6 +161,7 @@ nav:
           - Custom Board Configuration: contributing/tech/custom-boards.md
           - Blackbox Log Format: contributing/tech/blackbox-format.md
           - SmartFuel Internals: contributing/tech/smartfuel.md
+          - Tune Advisor Internals: contributing/tech/tune-advisor.md
           - Hardware Debugging: contributing/tech/hardware-debugging.md
           - Debugging with VS Code and J-Link: contributing/tech/hardware-debugging-vscode-jlink.md
           - Flight Dynamics: contributing/tech/flight-dynamics.md
