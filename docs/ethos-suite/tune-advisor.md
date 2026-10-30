@@ -81,15 +81,22 @@ firmware update.
 
 - **Turns faster or slower than asked** (more than 15% off): change F and RC Rate by the same amount in opposite
   directions. The stick still moves the surfaces as far as before, but now asks for the rate the model really
-  flies. One step changes F by at most 20%, so you fly and check again rather than jump. F never goes below 50,
-  the lowest F the firmware allows.
+  flies. One step changes F by at most 20%, so you fly and check again rather than jump. If F would go below
+  50 (the lowest F the firmware allows) or RC Rate past its maximum, neither change is suggested.
 - **Full stick asks for more roll rate than the model reaches**, with the surfaces at their limit: lower RC Rate
-  to what the model reaches, or add surface throw.
+  toward what the model reaches, by at most 20% per step, or add surface throw.
 - **Stops bounce back 12% or more:**
   - If the I-term pushes the model back after the stop, raise *Flight Feel > Relax* by one.
   - If F does not match yet, fix F first and check again.
   - Otherwise the controller is barely braking the stop: raise P by 20% (or add B).
+  - P is raised to at most 50% above your own P, which allows two steps. Your own P is the last one you set by
+    hand: the page works it out from `changes.csv` (see [After applying](#after-applying)), and setting P by
+    hand starts the count again. Past that, the reasons say *P is already ...% above your setting. Check the
+    mechanics.* More P will not fix it.
 - **Turns faster at high throttle than at low** (or the reverse) by 25% or more is shown as a fact, with no change.
+- **A change would go past a setting's limit**: the page does not suggest it, or any change that goes with it
+  (F is never suggested without its RC Rate). The reasons say *The change needed goes past a setting's
+  limit.* Look for the cause outside the tune, for example surface throw or linkages.
 
 ## Applying the changes
 
