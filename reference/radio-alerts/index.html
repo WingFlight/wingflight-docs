@@ -2871,6 +2871,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Status alerts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#out-of-trim" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out of trim
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -3766,6 +3783,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Status alerts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#out-of-trim" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out of trim
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -3955,8 +3989,38 @@ it starts" and "When it clears" are the callouts.</p>
 <td>The onboard <a href="../../configurator/tabs/blackbox/">Blackbox</a> log storage is full, so this flight isn't being logged.</td>
 <td>Download the logs if you want them, then erase the flash.</td>
 </tr>
+<tr>
+<td><strong>TRIM NOSE UP</strong> or <strong>TRIM NOSE DOWN</strong>, <strong>TRIM ROLL RIGHT</strong> or <strong>TRIM ROLL LEFT</strong>, <strong>TRIM RUDDER RIGHT</strong> or <strong>TRIM RUDDER LEFT</strong> (amber)</td>
+<td>"Trim nose up", "Trim roll left", "Trim rudder right", …</td>
+<td>"Trim OK"</td>
+<td>The model is out of trim on that axis, and the stabiliser is holding the difference. See <a href="#out-of-trim">Out of trim</a> below.</td>
+<td>Trim the way it says until "Trim OK".</td>
+</tr>
 </tbody>
 </table>
+<h3 id="out-of-trim">Out of trim<a class="headerlink" href="#out-of-trim" title="Permanent link">&para;</a></h3>
+<p>In normal (rate) flight, the stabiliser's I-term quietly holds whatever
+steady control surface deflection the model needs. A model that is out of
+trim still flies straight, and a trim press seems to do nothing, because the
+I-term backs off by the same amount. Manual and Passthrough don't use the
+I-term, so the missing trim shows up there: the model pitches, rolls or yaws
+away as soon as you switch.</p>
+<p>The flight controller watches the I-term while you fly hands-off and roughly
+level in a stabilised rate mode (not Angle, Attitude Hold, GPS modes, Manual
+or Passthrough). Each axis counts only while its stick is centred and the
+model isn't rotating on it. If an axis's I-term holds more than about 4% of
+full surface travel, the callout tells you which way to trim. Once every axis
+is back below about 2%, you hear "Trim OK".</p>
+<ul>
+<li>Each flight is measured afresh, after about 3 s of qualifying flight. Until
+  then, and after you land, the last report stays on the dashboard, so you can
+  still see what to fix.</li>
+<li>Trim with the <a href="../../configurator/tabs/servos/#trimming-in-flight">in-flight servo trims</a>,
+  or use <a href="../../flight-modes/auto-trim/">Auto Trim</a>. The out-of-trim alert only
+  reports. It doesn't change a trim itself.</li>
+<li>Torque, a strong crosswind or a gust that lasts a few seconds can also make
+  the I-term hold steadily, so trim only for what stays after a few passes.</li>
+</ul>
 <div class="admonition note">
 <p class="admonition-title">When you'll hear the backup receiver callouts</p>
 <p>Telemetry reaches the radio through the main receiver. With ELRS,
@@ -4089,6 +4153,11 @@ chatter.</p>
 <tr>
 <td>Autotrim</td>
 <td>Trim captured / saved / cancelled</td>
+<td>On</td>
+</tr>
+<tr>
+<td>Out of trim</td>
+<td>Trim nose up / down, roll and rudder left / right, Trim OK</td>
 <td>On</td>
 </tr>
 <tr>

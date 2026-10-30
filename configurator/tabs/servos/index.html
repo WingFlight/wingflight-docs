@@ -4054,6 +4054,12 @@ brief link drop), so a channel that comes online later than the link itself
 can't pull a servo off center in that gap.</p>
 <p>Stepped trims work on the bench too: the Trim column follows each press,
 and <strong>Save</strong> keeps the result.</p>
+<p>In normal (stabilised) flight a trim press can seem to do nothing, because
+the stabiliser's I-term backs off by the same amount. The model only shows
+the difference in Manual or Passthrough. The Ethos Lua suite tells you when
+the stabiliser is holding trim and which way to trim ("Trim nose up", "Trim
+roll left", ...) until "Trim OK". See
+<a href="../../../reference/radio-alerts/#out-of-trim">Out of trim</a>.</p>
 <h3 id="trim-buttons-on-one-channel">Trim buttons on one channel<a class="headerlink" href="#trim-buttons-on-one-channel" title="Permanent link">&para;</a></h3>
 <p>The radio's own trim buttons can drive Stepped trims on a single spare
 channel. The Setup Wizard's <strong>Trim and gain</strong> step sets this up (<strong>Trim
