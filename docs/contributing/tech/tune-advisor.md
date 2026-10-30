@@ -157,43 +157,46 @@ by an adjustment function) is not noticed until the next arm.
 | `MSP2_WING_TUNE_ADVISOR` | `0x5F18` | Read | Request: `U8` axis (0 roll, 1 pitch, 2 yaw). Any other length or axis is an error. |
 | `MSP2_WING_TUNE_ADVISOR_CLEAR` | `0x5F19` | Write | Empty. Resets all statistics. |
 
-One axis per request keeps the reply (65 bytes) small enough for MSP over
-telemetry. Firmware without the feature answers with an MSP error.
+One axis per request. The reply is 48 bytes: one CRSF frame, and 11 S.Port/FBUS
+frames. Firmware without the feature answers with an MSP error.
 
-Reply, payload version 1. Ratios are signed 16-bit × 1000; counts saturate at
-65535; all values little-endian.
+Reply, payload version 2. Each value takes as few bytes as the advice needs:
+a scaled value is stored as value × scale and saturates at its byte's range;
+counts saturate at 65535; all values little-endian.
 
 | Offset | Type | Field |
 | --- | --- | --- |
-| 0 | U8 | Payload version (1) |
-| 1 | U8 | Collecting now (1 = the current sample is valid) |
+| 0 | U8 | Payload version (2) |
+| 1 | U8 | Flags: bits 0–1 axis, bit 2 collecting now (1 = the current sample is valid) |
 | 2 | U16 | Seconds of valid flight |
-| 4 | U8 | Axis |
-| 5 | U16 | P gain (current PID profile) |
-| 7 | U16 | F gain |
-| 9 | U16 | B gain |
-| 11 | U8 | I-term Relax score for this axis (1–10) |
-| 12 | U8 | RC rate for this axis (raw; the Rates page shows raw × 5 deg/s) |
-| 13 | U16 | `ffCount` |
-| 15 | S16 | `ffGain` × 1000 |
-| 17 | S16 | `ffCorr` × 1000 |
-| 19 | U16 | `ffLagMs` |
-| 21 | 3 × (S16, U16) | Setpoint bands 40–100, 100–200, 200+: gain × 1000, count |
-| 33 | 3 × (S16, U16) | Throttle bands <30%, 30–60%, 60%+: gain × 1000, count |
-| 45 | U16 | `fullCount` |
-| 47 | U16 | `fullSatCount` |
-| 49 | S16 | `fullRatio` × 1000 |
-| 51 | U16 | `fullMaxRate` (deg/s) |
-| 53 | U16 | `releases` |
-| 55 | U16 | `bigRebounds` |
-| 57 | S16 | `meanRebound` × 1000 |
-| 59 | S16 | `meanOvershoot` × 1000 |
-| 61 | S16 | `meanCounter` × 1000 |
-| 63 | S16 | `meanIterm` × 1000 |
+| 4 | U32 | P, F and B gains (current PID profile), 10 bits each: P in bits 0–9, F in 10–19, B in 20–29 |
+| 8 | U8 | I-term Relax score for this axis (1–10) |
+| 9 | U8 | RC rate for this axis (raw; the Rates page shows raw × 5 deg/s) |
+| 10 | U16 | `ffCount` |
+| 12 | U8 | `ffGain` × 64 (0–3.98) |
+| 13 | S8 | `ffCorr` × 100 |
+| 14 | U8 | `ffLagMs` |
+| 15 | 3 × (U8, U16) | Setpoint bands 40–100, 100–200, 200+: gain × 64, count |
+| 24 | 3 × (U8, U16) | Throttle bands <30%, 30–60%, 60%+: gain × 64, count |
+| 33 | U16 | `fullCount` |
+| 35 | U16 | `fullSatCount` |
+| 37 | U8 | `fullRatio` × 100 |
+| 38 | U8 | `fullMaxRate` in steps of 10 deg/s |
+| 39 | U16 | `releases` |
+| 41 | U16 | `bigRebounds` |
+| 43 | U8 | `meanRebound` × 100 |
+| 44 | U8 | `meanOvershoot` × 64 |
+| 45 | U8 | `meanCounter` × 100 |
+| 46 | S16 | `meanIterm` × 1000 (16-bit: it needs both the range and the 0.01s) |
 
-The tune values at offsets 5–12 are the settings the numbers belong to, so a
-client can work out new values without reading the profiles first. The radio
-refuses a reply of any other length or version rather than guess at it.
+The tune values at offsets 4–9 are the settings the numbers belong to, so a
+client can work out new values without reading the profiles first.
+
+Payload version 1 (65 bytes, sent by snapshots 0.0.32 to 0.0.38) is still read
+by the radio: the same values with every ratio a signed 16-bit value × 1000,
+every count and `ffLagMs` and `fullMaxRate` 16-bit, and the axis and
+collecting flag in bytes of their own. The radio refuses a reply of any other
+version, or of another length than its version's, rather than guess at it.
 
 ## Radio: capturing each flight
 
