@@ -106,6 +106,9 @@ as a signed number.
 | 20 | Backup receiver configured |
 | 21 | Blackbox full |
 | 22 | Motor RPM telemetry present |
+| 23-24 | Out of trim, roll: 0 in trim, 1 trim right, 2 trim left |
+| 25-26 | Out of trim, pitch: 0 in trim, 1 trim nose up, 2 trim nose down |
+| 27-28 | Out of trim, yaw: 0 in trim, 1 trim right, 2 trim left |
 
 **Manual decoding examples**
 

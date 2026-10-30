@@ -135,6 +135,13 @@ can't pull a servo off center in that gap.
 Stepped trims work on the bench too: the Trim column follows each press,
 and **Save** keeps the result.
 
+In normal (stabilised) flight a trim press can seem to do nothing, because
+the stabiliser's I-term backs off by the same amount. The model only shows
+the difference in Manual or Passthrough. The Ethos Lua suite tells you when
+the stabiliser is holding trim and which way to trim ("Trim nose up", "Trim
+roll left", ...) until "Trim OK". See
+[Out of trim](../../reference/radio-alerts.md#out-of-trim).
+
 ### Trim buttons on one channel
 
 The radio's own trim buttons can drive Stepped trims on a single spare

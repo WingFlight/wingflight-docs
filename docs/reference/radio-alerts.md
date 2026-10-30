@@ -59,6 +59,32 @@ it starts" and "When it clears" are the callouts.
 | **SETUP ACTIVE** (amber) | (the flight mode callout says "Setup") | – | The model is in the [setup state](../flight-modes/setup-gyro-off.md#the-setup-state): a setup tool is holding it, such as the Configurator's setup wizard or a servo, motor or mixer test override. The outputs aren't under normal control, and flight mode callouts pause until it ends. | Close the setup wizard or turn the override off in the Configurator. Arming is blocked meanwhile. |
 | **REBOOT REQUIRED** (amber) | – | – | A setting was changed that only takes effect after a reboot. | Power cycle the flight controller. |
 | **BLACKBOX FULL** (amber) | "Blackbox full" | – | The onboard [Blackbox](../configurator/tabs/blackbox.md) log storage is full, so this flight isn't being logged. | Download the logs if you want them, then erase the flash. |
+| **TRIM NOSE UP** or **TRIM NOSE DOWN**, **TRIM ROLL RIGHT** or **TRIM ROLL LEFT**, **TRIM RUDDER RIGHT** or **TRIM RUDDER LEFT** (amber) | "Trim nose up", "Trim roll left", "Trim rudder right", … | "Trim OK" | The model is out of trim on that axis, and the stabiliser is holding the difference. See [Out of trim](#out-of-trim) below. | Trim the way it says until "Trim OK". |
+
+### Out of trim
+
+In normal (rate) flight, the stabiliser's I-term quietly holds whatever
+steady control surface deflection the model needs. A model that is out of
+trim still flies straight, and a trim press seems to do nothing, because the
+I-term backs off by the same amount. Manual and Passthrough don't use the
+I-term, so the missing trim shows up there: the model pitches, rolls or yaws
+away as soon as you switch.
+
+The flight controller watches the I-term while you fly hands-off and roughly
+level in a stabilised rate mode (not Angle, Attitude Hold, GPS modes, Manual
+or Passthrough). Each axis counts only while its stick is centred and the
+model isn't rotating on it. If an axis's I-term holds more than about 4% of
+full surface travel, the callout tells you which way to trim. Once every axis
+is back below about 2%, you hear "Trim OK".
+
+- Each flight is measured afresh, after about 3 s of qualifying flight. Until
+  then, and after you land, the last report stays on the dashboard, so you can
+  still see what to fix.
+- Trim with the [in-flight servo trims](../configurator/tabs/servos.md#trimming-in-flight),
+  or use [Auto Trim](../flight-modes/auto-trim.md). The out-of-trim alert only
+  reports. It doesn't change a trim itself.
+- Torque, a strong crosswind or a gust that lasts a few seconds can also make
+  the I-term hold steadily, so trim only for what stays after a few passes.
 
 !!! note "When you'll hear the backup receiver callouts"
     Telemetry reaches the radio through the main receiver. With ELRS,
@@ -121,6 +147,7 @@ On the radio, open the WingFlight suite and go to
 | GPS not responding | GPS not responding | On |
 | Blackbox full | Blackbox full | On |
 | Autotrim | Trim captured / saved / cancelled | On |
+| Out of trim | Trim nose up / down, roll and rudder left / right, Trim OK | On |
 | Control limit | Control limit | Off |
 
 The switches only control the callouts. The dashboard banners always show.
