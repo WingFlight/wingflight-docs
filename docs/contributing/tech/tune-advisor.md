@@ -267,6 +267,11 @@ arm, but flights before and after it are still combined on the radio.
 All rules work per axis, on the combined numbers. At most **3 changes** and 3
 reasons are shown; a change and its reason are added together or not at all.
 
+A change is never clamped into the setting's range. If a new value would fall
+outside what the flight controller accepts, that change is not suggested, nor
+any change tied to it (F and RC Rate go together or not at all), and the
+reasons say "The change needed goes past a setting's limit" once.
+
 ### Thresholds
 
 | Name | Value | Used for |
@@ -278,9 +283,11 @@ reasons are shown; a change and its reason are added together or not at all.
 | Full stick data needed | `fullCount` ≥ 100 | Full-stick RC Rate change |
 | Surfaces at their limit | `fullSatCount` ≥ 50% of `fullCount` | Full-stick RC Rate change |
 | Rate not reached | `fullMaxRate` < 80% of the rate asked | Full-stick RC Rate change |
+| Full-stick step limit | −20% per step | Full-stick RC Rate change |
 | Stops needed | `releases` ≥ 10 | Judging stops at all |
 | Bounce too big | `meanRebound` ≥ 0.12 | Stop changes |
 | I-term pushing back | `meanIterm` ≥ 0.03 | Relax change |
+| P raise limit | 1.5 × the pilot's own P | P change |
 | Throttle fact | both outer bands ≥ 300 samples, spread ≥ 25% | Information only |
 
 ### Response
@@ -291,17 +298,20 @@ Checked in this order:
    The page asks for rolls, pitch inputs or rudder inputs. No change.
 2. `ffCorr` < 0.85: **Too uneven to judge**. No change. Common on rudder.
 3. `ffGain` above 1.15 or below 0.85: change **F and RC Rate together**:
-    - new F = round(F × clamp(1 / `ffGain`, 0.8, 1.2)), limited to 50–1000
-      (50 is the firmware's lowest F: MANUAL flies on F)
-    - new RC Rate = round(RC Rate × old F / new F), limited to 1–200
+    - new F = round(F × clamp(1 / `ffGain`, 0.8, 1.2))
+    - new RC Rate = round(RC Rate × old F / new F)
+
+    If new F is outside 50–1000 (50 is the firmware's lowest F: MANUAL flies
+    on F) or new RC Rate outside 1–200, neither is suggested.
 
     F × rate is what sets how far the stick moves the surfaces, so that stays
     the same; the setpoint now matches what the model does. This applies to
     yaw too.
 4. Otherwise the response matches. Then, on **roll only**, if the full-stick
-   conditions above all hold, RC Rate is set to what the model reaches:
-   new RC Rate = round(`fullMaxRate` / 5), limited to 1–200. The rate asked
-   is RC Rate × 5 deg/s. Pitch is left out because 3D flying parks at full
+   conditions above all hold, RC Rate is lowered toward what the model
+   reaches, at most 20% per step: new RC Rate = round(RC Rate ×
+   max(`fullMaxRate` / rate asked, 0.8)), given only if it is within 1–200.
+   The rate asked is RC Rate × 5 deg/s. Pitch is left out because 3D flying parks at full
    elevator on purpose.
 
 ### Stops
@@ -314,10 +324,16 @@ Checked in this order:
       relax cutoff (scores 1–10 are 50, 30, 20, 15, 10, 8, 7, 6, 5 and 3 Hz),
       so the I-term builds less during the input.
     - The response is still off (step 3 above applies): reason only, "fix F
-      first".
-    - Otherwise, with room for a change: new P = round(P × 1.2), limited to
-      (P + 1) … 1000. The page also mentions B as an alternative but never
-      changes B.
+      first". Left out when F was held back by a limit.
+    - Otherwise, with room for a change: new P = max(round(P × 1.2), P + 1).
+      It is given only if it is at most 1000 and at most 1.5 × the pilot's own
+      P (rounded down). The pilot's own P is the current P followed back
+      through `changes.csv` while each P change there ended at the value the
+      next one started from; a P set by hand breaks the chain and becomes the
+      pilot's own. Past 1.5 × the reason is "P is already N% above your
+      setting. Check the mechanics."; past 1000 it is "The change needed goes
+      past a setting's limit". The page also mentions B as an alternative but
+      never changes B.
 
 F with RC Rate is two changes, so a Relax change can still be added next to
 them.
