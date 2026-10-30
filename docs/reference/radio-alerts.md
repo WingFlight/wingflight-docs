@@ -67,22 +67,22 @@ In normal (rate) flight, the stabiliser's I-term quietly holds whatever
 steady control surface deflection the model needs. A model that is out of
 trim still flies straight, and a trim press seems to do nothing, because the
 I-term backs off by the same amount. Manual and Passthrough don't use the
-I-term, so the missing trim shows up there: the model pitches or rolls away as
-soon as you switch.
+I-term, so the missing trim shows up there: the model pitches, rolls or yaws
+away as soon as you switch.
 
 The flight controller watches the I-term while you fly hands-off and roughly
 level in a stabilised rate mode (not Angle, Attitude Hold, GPS modes, Manual
 or Passthrough). Each axis counts only while its stick is centred and the
 model isn't rotating on it. If an axis's I-term holds more than about 4% of
-full surface travel, the callout tells you which way to trim. When it drops
-below about 2%, you hear "Trim OK".
+full surface travel, the callout tells you which way to trim. Once every axis
+is back below about 2%, you hear "Trim OK".
 
 - Each flight is measured afresh, after about 3 s of qualifying flight. Until
   then, and after you land, the last report stays on the dashboard, so you can
   still see what to fix.
 - Trim with the [in-flight servo trims](../configurator/tabs/servos.md#trimming-in-flight),
-  or use [Auto Trim](../flight-modes/auto-trim.md). The flight controller only
-  reports. It never changes a trim itself.
+  or use [Auto Trim](../flight-modes/auto-trim.md). The out-of-trim alert only
+  reports. It doesn't change a trim itself.
 - Torque, a strong crosswind or a gust that lasts a few seconds can also make
   the I-term hold steadily, so trim only for what stays after a few passes.
 
