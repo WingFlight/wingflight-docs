@@ -22,6 +22,12 @@ throttle curve:
   and above the handover throttle (or across the whole stick in RPM Range
   mode) the stick drives the motor normally.
 
+Arming is blocked while the **GOVERNOR** switch is on, because an engaged
+switch takes the motor to idle (or to Min RPM in RPM Range mode) as soon as
+the model arms, whatever the stick says. Arm with the switch off, then turn
+it on. The status shows **GOVERNOR** as the reason arming is disabled. The
+in-flight re-arm grace window still allows re-arming with it on.
+
 If a mode other than Off is selected but no switch is assigned to
 **GOVERNOR**, the interlock does not apply and the motor behaves as if the
 governor were Off -- throttle passes straight through at all times. Assign
@@ -64,7 +70,9 @@ RPM-governing modes hold their target using a filtered P/I loop: P gain
 corrects RPM error but always settles a little below target, and I gain
 closes that remaining gap. Handover Throttle sets the stick position below
 which RPM Idle/Max or Throttle Idle takes over (not used in RPM Range mode,
-which spans the whole stick).
+which spans the whole stick). When the stick rises past Handover Throttle
+while the held idle is higher than the stick, the output eases down to the
+stick instead of stepping; raising the stick further takes over at once.
 
 !!! warning "Throttle Ceiling defaults to 30%"
     Throttle Ceiling defaults to 30%. That is a sensible cap for an idle hold,
