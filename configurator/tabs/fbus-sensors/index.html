@@ -1497,6 +1497,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#configuring-forwarded-devices-from-the-radio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuring forwarded devices from the radio
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3763,6 +3774,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#configuring-forwarded-devices-from-the-radio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuring forwarded devices from the radio
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3885,6 +3907,26 @@ FrSky-family.</p>
 independent: the master feature listens on its own dedicated UART, so
 it works alongside CRSF, ELRS, or any other receiver protocol. Only
 <em>forwarding</em> ties back to what the receiver link speaks.</p>
+</div>
+<p>A forwarded sensor shows on the radio under its own physical ID, as if it
+were plugged into the receiver: run <strong>Discover new</strong> on the radio's
+Telemetry page to add it. Its values are sent one after another, so a value
+the sensor sends often can't crowd out the others. A value the sensor sends
+only now and then (an RB's battery value, for example) is repeated about
+once a second, so the radio doesn't report it lost. If the sensor stops
+sending, the radio sees it go after about a second.</p>
+<h2 id="configuring-forwarded-devices-from-the-radio">Configuring forwarded devices from the radio<a class="headerlink" href="#configuring-forwarded-devices-from-the-radio" title="Permanent link">&para;</a></h2>
+<p>With a device on the FBUS master line forwarded, the radio can read and
+change its settings as if it were plugged into the receiver: FrSky's
+<strong>XAct</strong> tool for servos, the <strong>RB</strong> configuration pages, and other
+<em>Device config</em> pages on Ethos. Forward the device first: Ethos only offers
+a device's pages once it has seen the device's telemetry.</p>
+<p>This only works on an FBUS master port with an F.Port2 or FBUS receiver,
+and not while armed.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A device's settings change on the device itself, not in Wingflight, so
+they are not part of a Wingflight backup or <code>diff</code>.</p>
 </div>
 
 
