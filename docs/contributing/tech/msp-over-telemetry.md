@@ -105,8 +105,9 @@ first millisecond. The reply chunk is written under the common ID `0x1B` whichev
 is what both Lua transports filter on.
 
 Data polls of `0x0D` carry pending reply chunks too, not only the polls that brought a request. Sensor
-data is only ever sent on `0x1B`. How much this gains depends on how often the receiver polls `0x0D`
-between requests, which the debug mode below measures.
+data is only ever sent on `0x1B`. Measured on an X20S with an FBUS receiver, this takes an 81-byte reply
+from 0.48 s to 0.39 s and leaves an 11-byte reply at 0.12 s, even though the receiver turns many of
+the extra polls into null polls while its uplink is busy.
 
 ### F.Port
 
@@ -165,10 +166,20 @@ link from frames lost to a full queue on the radio.
 
 ## Known limits
 
-- The link, not the bus, sets the rate. Measured on an FBUS receiver, the receiver polls `0x1B` and
-  `0x0D` every 21 ms each but turns 30 to 40% of the polls into null polls while a reply streams,
-  because its RF uplink to the radio moves about one frame per 30 ms. Answering more polls on the FC
-  therefore gains nothing; fewer frames per message is the only lever on the firmware side.
+- The link sets the rate for long replies. On an FBUS receiver the FC is polled on `0x1B` and `0x0D`
+  every 21 ms each, and 30 to 40% of those polls become null polls while a reply streams, because the
+  receiver's RF uplink to the radio is busy. Loss-free medians from one bench session, 120 s runs on an
+  X20S, for a 81-byte and an 11-byte read:
+
+    | Firmware | Lua framing | 81-byte read | 11-byte read |
+    | --- | --- | --- | --- |
+    | replies on `0x1B` only | MSPv2 | 0.484 s | 0.117 s |
+    | replies on `0x1B` only | compact | 0.470 s | 0.115 s |
+    | replies on `0x1B` and `0x0D` | MSPv2 | 0.385 s | 0.116 s |
+    | replies on `0x1B` and `0x0D` | compact | 0.382 s | 0.101 s |
+
+  Answering `0x0D` polls is worth 20% on long replies; the compact header is worth one frame, which
+  shows on the short read only once the `0x0D` polls make frames cheap enough for it to matter.
 - A request chunk lost on the way to the FC is never acknowledged; the radio only finds out when its
   retry window expires.
 - A reply bigger than 640 bytes cannot be sent at all; the FC answers with an error.
