@@ -167,3 +167,4 @@ nav:
           - Flight Dynamics: contributing/tech/flight-dynamics.md
           - RX Wiring Auto-detect: contributing/tech/rx-wiring-autodetect.md
           - ESC Signalling Auto-detect: contributing/tech/esc-signaling-autodetect.md
+          - MSP over Telemetry: contributing/tech/msp-over-telemetry.md
