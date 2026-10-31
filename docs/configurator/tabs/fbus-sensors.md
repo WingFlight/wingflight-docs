@@ -78,3 +78,26 @@ FrSky-family.
     independent: the master feature listens on its own dedicated UART, so
     it works alongside CRSF, ELRS, or any other receiver protocol. Only
     *forwarding* ties back to what the receiver link speaks.
+
+A forwarded sensor shows on the radio under its own physical ID, as if it
+were plugged into the receiver: run **Discover new** on the radio's
+Telemetry page to add it. Its values are sent one after another, so a value
+the sensor sends often can't crowd out the others. A value the sensor sends
+only now and then (an RB's battery value, for example) is repeated about
+once a second, so the radio doesn't report it lost. If the sensor stops
+sending, the radio sees it go after about a second.
+
+## Configuring forwarded devices from the radio
+
+With a device on the FBUS master line forwarded, the radio can read and
+change its settings as if it were plugged into the receiver: FrSky's
+**XAct** tool for servos, the **RB** configuration pages, and other
+*Device config* pages on Ethos. Forward the device first: Ethos only offers
+a device's pages once it has seen the device's telemetry.
+
+This only works on an FBUS master port with an F.Port2 or FBUS receiver,
+and not while armed.
+
+!!! note
+    A device's settings change on the device itself, not in Wingflight, so
+    they are not part of a Wingflight backup or `diff`.
