@@ -4533,6 +4533,7 @@
 <p>Euler-angle leveling on roll and pitch only; yaw stays a pass-through so the rudder is never held. Stick target = stick × <code>level_limit</code> (default 55°) + GPS-rescue/nav offsets, clamped to the limit. Rate command = error × <code>level_strength/10</code> (default 4 °/s per °) − measured rate × <code>angle_level_damping/100</code> (default 25%), clamped to the rate profile's full-stick rate for that axis. Below "airborne" the error is scaled to 25% (see <strong>H-4</strong>).</p>
 <ul>
 <li><strong>Slewed target, not a step.</strong> The error is measured against a working target, not the stick target. On engagement (any entry into the leveling set: ANGLE, failsafe, GPS rescue, loiter, RTH) the working target starts at the current attitude, then moves toward the stick target no faster than the full-stick rate. Engaging 49° off level used to command 196 °/s on the first loop; the command now ramps in over about <code>1 / (level_strength/10)</code> seconds (0.25 s at the default). <code>pid.c</code> resets the target whenever no leveling mode is active.</li>
+<li><strong>No I before takeoff.</strong> Until <code>isAirborne()</code> latches, the rate loop does not accumulate I and decays it at the normal rate, in every mode. Leveling suspends decay, so a tail-dragger armed nose-up on the ground used to build pitch I to <code>error_limit</code> against an attitude it could never reach, and took off with the elevator wound in. Arming is often well before takeoff, so a reset on arm would not have helped.</li>
 <li><strong>Damping through F.</strong> The damping term is a rate setpoint, so it reaches the surfaces through the rate PID's F term and scales with each airframe's F tune. It is not a D-term on the level loop. The P-term was too small (about a twentieth of F) to damp the level loop on its own. In steady tracking the damping reduces the effective level gain by <code>1 / (1 + damping)</code>.</li>
 <li><strong>Storage.</strong> <code>angle_level_damping</code> lives in its own per-profile parameter group (<code>PG_LEVEL_CONFIG</code>) so adding it did not reset PID profiles. It is the MSP API 22.13 byte at the end of <code>MSP_PID_PROFILE</code>.</li>
 </ul>
@@ -4824,6 +4825,12 @@ bench/flight validation of the initial thresholds remains required.</p>
 <td><a href="https://github.com/WingFlight/wingflight-firmware/pull/211">firmware#211</a></td>
 <td>Own TV defaults (P 150, I 15, F 30, error limit 25, decay 0.30 s, hold gain 25); TV axes with no mixer rule output zero; TV hold keeps only the thrust direction when roll has no actuator</td>
 <td>Prop-hang logs: I parked the nozzle off centre, F over-drove the hang, torque roll rotated hold corrections from pitch onto yaw</td>
+</tr>
+<tr>
+<td>2026-10-31</td>
+<td><a href="https://github.com/WingFlight/wingflight-firmware/pull/234">firmware#234</a></td>
+<td>Hold I accumulation and decay normally until airborne</td>
+<td>Tail-dragger in ANGLE wound pitch I to <code>error_limit</code> on the ground between arming and takeoff</td>
 </tr>
 </tbody>
 </table>
