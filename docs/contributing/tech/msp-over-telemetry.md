@@ -36,23 +36,29 @@ A FrSky frame carries 6 bytes of MSP: a status byte and 5 bytes of message. The 
 | 3-0 | sequence number, modulo 16 |
 
 The message is the MSP frame without its `$M<` prefix and without a CRC, since the telemetry frame has
-its own. MSPv2, which the Ethos suite always uses, starts with a 5-byte header: flags, command (16 bit),
-length (16 bit). MSPv1, which the EdgeTX scripts use for commands below 256, starts with length and
-command (2 bytes) and ends with a CRC byte.
+its own. The firmware accepts three layouts and answers in the one the request used:
 
-So the first frame of an MSPv2 message carries only the header, and every later frame carries 5 bytes
-of payload:
+| Version bits | Header | Used by |
+| --- | --- | --- |
+| `11` compact | command (16 bit), length (8 bit; `0xFF` then a 16-bit length for longer messages) | Ethos suite, EdgeTX scripts |
+| `10` MSPv2 | flags, command (16 bit), length (16 bit) | older Wingflight Lua, Rotorflight Lua |
+| `01` MSPv1 | length, command (8 bit), CRC byte at the end | older EdgeTX scripts, commands below 256 |
+
+The compact header is 3 bytes, so the first frame carries 2 bytes of payload and every later frame
+carries 5. The MSPv2 header is 5 bytes and fills the first frame on its own:
 
 ```
-frames = 1 + ceil(payload / 5)
+compact: frames = 1 + ceil((payload - 2) / 5)
+MSPv2:   frames = 1 + ceil(payload / 5)
 ```
 
-| Message | MSPv2 frames | MSPv1 frames |
+| Message | compact frames | MSPv2 frames |
 | --- | --- | --- |
 | read request, no payload | 1 | 1 |
-| 12-byte write | 4 | 3 |
-| 40-byte reply | 9 | 9 |
-| 52-byte write (`MSP_TELEMETRY_CONFIG`) | 12 | 11 |
+| 11-byte reply | 3 | 4 |
+| 12-byte write | 3 | 4 |
+| 52-byte write (`MSP_TELEMETRY_CONFIG`) | 11 | 12 |
+| 81-byte reply | 17 | 18 |
 | 448-byte reply (mixer rule pool) | 91 | 91 |
 
 A frame is lost, not retransmitted, when the sequence breaks. The firmware drops the rest of a request
@@ -159,8 +165,10 @@ link from frames lost to a full queue on the radio.
 
 ## Known limits
 
-- The first MSPv2 frame in each direction carries no payload. A header of 2 or 3 bytes would save one
-  frame on most messages, but both Lua suites and the firmware would need to change together.
+- The link, not the bus, sets the rate. Measured on an FBUS receiver, the receiver polls `0x1B` and
+  `0x0D` every 21 ms each but turns 30 to 40% of the polls into null polls while a reply streams,
+  because its RF uplink to the radio moves about one frame per 30 ms. Answering more polls on the FC
+  therefore gains nothing; fewer frames per message is the only lever on the firmware side.
 - A request chunk lost on the way to the FC is never acknowledged; the radio only finds out when its
   retry window expires.
 - A reply bigger than 640 bytes cannot be sent at all; the FC answers with an error.
