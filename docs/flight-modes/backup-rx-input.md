@@ -23,13 +23,6 @@ Each backup port speaks a single, configurable protocol, chosen from the
 ones. By default (before a protocol is chosen) a port is reserved but not
 decoding anything.
 
-!!! warning "Jeti EXBUS is not hardware-verified as a backup"
-    The backup link never replies to the receiver, and Jeti documents EX Bus
-    receivers as expecting a bus master. The firmware relies on the receiver
-    broadcasting its channel frames regardless, which has not been confirmed
-    on real hardware. Bench-test an EX Bus backup thoroughly, including the
-    failover itself, before flying on it.
-
 Flight-controller telemetry only ever travels over the main receiver. The
 backup links are receive-only: nothing is sent to a backup receiver, whatever
 its protocol.

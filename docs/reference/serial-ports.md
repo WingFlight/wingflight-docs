@@ -164,10 +164,9 @@ protocol is chosen. FBUS decodes 8-, 16- and 24-channel frames. `EXBUS` (Jeti EX
 Bus) decodes only the fixed 16-channel data frame; unlike the other
 providers here its own reference driver (rx/jetiexbus.c) always opens the
 port bidirectionally since a real Jeti receiver may need a telemetry reply -
-this backup link never replies (receive-only, as always), which is expected
-to be fine since the receiver broadcasts channel data on its own schedule
-regardless, but hasn't been hardware-verified specifically for this
-protocol's stricter documented bus-master expectations. `CRSF`
+this backup link never replies (receive-only, as always); the receiver
+broadcasts channel data on its own schedule regardless, confirmed on
+hardware. `CRSF`
 (Crossfire/ELRS) decodes only the `RC_CHANNELS_PACKED` frame type off a
 generic address+length-prefixed byte stream - unlike the other length-
 prefixed providers here, a real CRSF link legitimately interleaves other
