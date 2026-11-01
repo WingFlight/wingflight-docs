@@ -365,6 +365,8 @@ SBUS2 telemetry requires a single connection from the TX pin of a bidirectional 
 It shares 1 line for both TX and RX, the rx pin cannot be used for other serial port stuff.
 It runs at a fixed baud rate of 100000 8e2.
 
+On the Receiver tab, pick **Futaba S.BUS2** with *Half Duplex* on and *Serial Inverted* **off**. If your receiver has no S.BUS2 port, use **Futaba S.BUS** instead (control only, no telemetry).
+
 ```
      _______
     /       \                                             /----------\
