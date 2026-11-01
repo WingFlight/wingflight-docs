@@ -3908,12 +3908,18 @@ channel mapping, and live channel monitoring.</p>
 that matter more than they look like they should -- get the wrong one and
 you'll see no signal at all rather than a subtle problem:</p>
 <ul>
-<li><strong>Serial Inverted</strong> un-inverts an inverted signal -- required for S.BUS
-  and F.Port, among others. Not supported on F4-based boards.</li>
+<li><strong>Serial Inverted</strong> flips the signal polarity. Turn it on for F.Port
+  and F.Bus. Leave it <strong>off</strong> for Futaba S.BUS and S.BUS2 -- the flight
+  controller already allows for S.BUS being inverted; turn it on only for
+  a receiver that outputs non-inverted S.BUS. Not supported on F4-based
+  boards.</li>
 <li><strong>Half Duplex</strong> uses the Tx pin for both sending and receiving -- required
-  for SBUS2, F.Port, SRXL, and SRXL2.</li>
-<li><strong>Pin Swap</strong> swaps the Rx/Tx pins, for wiring that comes in reversed.</li>
+  for SBUS2, F.Port, SRXL, and SRXL2. Plain S.BUS leaves it off.</li>
 </ul>
+<p>For Futaba receivers, use <strong>Futaba S.BUS2</strong> if the receiver has an S.BUS2
+port (control and telemetry on one wire), or <strong>Futaba S.BUS</strong> if it doesn't
+(control only). The receiver must be set to output the same one.
+- <strong>Pin Swap</strong> swaps the Rx/Tx pins, for wiring that comes in reversed.</p>
 <p>For FrSky receivers set to F.Bus or F.Port2, pick <strong>FrSky FBUS</strong>. They are
 the same protocol at two speeds, and the flight controller finds the speed the
 receiver uses and keeps it once good frames arrive; telemetry starts after
