@@ -17,7 +17,7 @@ arming-disable flag; hover one for a plain-language explanation of what's
 blocking. One worth knowing about is **BACKUP_RX**: a
 [Backup RX Input](../../flight-modes/backup-rx-input.md) receiver is
 configured but hasn't linked yet, so the first arm of the session is
-blocked until it does. Check the backup receiver's power, binding and
+blocked until every configured backup does. Check the backup receiver's power, binding and
 wiring, or power-cycle it, then confirm its **Link** badge on the
 [Receiver](receiver.md) tab comes up.
 

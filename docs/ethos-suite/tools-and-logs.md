@@ -29,7 +29,7 @@ Read-only pages for checking the link and the flight controller:
 | Status | Whether the radio side is working: free memory, the RF module, the MSP sensor, the connection to the flight controller and the API version. |
 | ELRS Telemetry | Probes the ExpressLRS module and its link. It needs CRSF telemetry. |
 | FBL Status | The flight controller's arming flags, blackbox space, load, and active profiles. |
-| Rx Backup | The [backup receiver](../flight-modes/backup-rx-input.md) input: protocol, link, which source is active, and its channels. |
+| Rx Backup | The [backup receiver](../flight-modes/backup-rx-input.md) inputs: each backup's protocol and link, which source is active, and their channels side by side. |
 | Info | Version numbers: the suite, Ethos, the firmware, and the MSP protocol. |
 
 ![Diagnostics, Status page](../assets/images/ethos-suite/diagnostics_rfstatus.png)

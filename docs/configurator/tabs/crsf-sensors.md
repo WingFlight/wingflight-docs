@@ -11,7 +11,7 @@ about failing over the *control* link, not reading a sensor.
 ## Setting it up
 
 1. Wire the sensor's data line to a spare UART, then assign that port the
-   **CRSF Sensors** function from the port function dropdown on the
+   **Bus: CRSF Sensors** function from the port function dropdown on the
    Configuration tab's serial ports list. The port runs at CRSF's fixed
    baud rate -- there's nothing to pick.
 2. If the sensor doesn't show data once wired, try flipping

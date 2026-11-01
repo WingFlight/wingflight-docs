@@ -107,15 +107,16 @@ default list and what each status bit means.
 For bench-testing without a real transmitter bound, a virtual RX input tool
 is available (desktop app only) to simulate channel input.
 
-## Serial RX #1 / Serial RX #2 (Backup RX Input)
+## Primary Receiver / Backup Receiver 1 and 2 (Backup RX Input)
 
-The main receiver's own protocol box is labeled **Serial RX #1**. Its title
-bar always shows a **Link** badge for the main receiver's own live signal
-state, whether or not a backup port is configured.
+The main receiver's own protocol box is labeled **Primary Receiver**. Its
+title bar always shows a **Link** badge for the main receiver's own live
+signal state, whether or not a backup port is configured.
 
-If a serial port is assigned the **Serial Rx (Backup)** function on the
-[Configuration](configuration.md) tab, a second box, **Serial RX #2**,
-appears below it with:
+If a serial port is assigned the **Receiver: Backup 1** function on the
+[Configuration](configuration.md) tab, a second box, **Backup Receiver 1**,
+appears below it; a port assigned **Receiver: Backup 2** adds a **Backup
+Receiver 2** box in turn. Each has:
 
 - A **Protocol** dropdown (None, Futaba S.BUS, FrSky FBUS, FrSky F.PORT,
   Jeti EXBUS, or TBS CRSF) -- `None` is the default, meaning the port is
@@ -127,15 +128,16 @@ appears below it with:
   wiring convention (SBUS is inverted by default; every other supported
   protocol isn't), so `OFF` always means "this protocol's normal wiring."
 - **Link** and **Active Source** badges in its own title bar, live-updated,
-  so both boxes show their status right where you'd configure them.
+  so every box shows its status right where you'd configure it. **Active
+  Source** names the receiver in control: Main RX, Backup 1 or Backup 2.
 
 Changes to any of these fields need **Save & Reboot** to take effect, same
 as any other serial-port setting.
 
 Once a backup protocol is selected and reporting data, every entry in
-[Channel Assignment](#channel-assignment) grows a second, smaller meter
-underneath the main one showing the backup receiver's own live value for
-that channel -- useful for confirming a bound backup satellite is producing
+[Channel Assignment](#channel-assignment) grows a smaller meter per backup
+underneath the main one showing that backup receiver's own live value for
+the channel -- useful for confirming a bound backup satellite is producing
 sane values before ever relying on it in the air. See
 [Backup RX Input](../../flight-modes/backup-rx-input.md)
-for what the feature actually does.
+for what the feature actually does, including the failover order.
