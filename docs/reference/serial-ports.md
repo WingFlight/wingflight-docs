@@ -123,19 +123,24 @@ Other devices can be added starting from id 50.
 | FUNCTION_FBUS_MASTER         | 524288 |
 | FUNCTION_SPORT_MASTER        | 1048576 |
 | FUNCTION_SRXL2_ESC           | 2097152 |
-| FUNCTION_RX_INPUT_BACKUP     | 4194304 |
+| FUNCTION_CRSF_SENSORS        | 4194304 |
+| FUNCTION_RX_INPUT_BACKUP     | 8388608 |
+| FUNCTION_RX_INPUT_BACKUP2    | 16777216 |
 
 Note: values above `FUNCTION_LIDAR_TF` require more than 16 bits. `FUNCTION_SPORT_MASTER` = `(1<<20)` requires 21 bits.
 
-`FUNCTION_RX_INPUT_BACKUP` assigns a UART to a secondary, independent RX input
-("backup RX"). It is not the main RX link - it exists as a fallback: if the main RX
-link's signal is lost, the FC takes all RC channels (including aux/mode switches)
-from this port instead, bypassing the staged failsafe machinery (hold/land/cut)
-entirely, and reverts back automatically once the main link recovers. If the main
-link is present, this port's data has no effect. None of this applies if no
-backup protocol is configured (`provider` is `NONE`) or the backup link isn't
-currently up itself - in either case the main RX's normal staged failsafe
-(hold/land/cut) remains the fallback, exactly as it would without this feature.
+`FUNCTION_RX_INPUT_BACKUP` (`RX_BACKUP` in the `serial` command) and
+`FUNCTION_RX_INPUT_BACKUP2` (`RX_BACKUP2`) each assign a UART to an independent
+backup RX input. Neither is the main RX link - they exist as fallbacks: if the
+main RX link's signal is lost, the FC takes all RC channels (including aux/mode
+switches) from the first backup port that is receiving - backup 1, then backup 2
+- instead, bypassing the staged failsafe machinery (hold/land/cut)
+entirely, and reverts back automatically once a higher-priority link recovers.
+If the main link is present, the backup ports' data has no effect. None of this
+applies to a port with no backup protocol configured (`provider` is `NONE`) or
+whose link isn't currently up itself - if no backup is available the main RX's
+normal staged failsafe (hold/land/cut) remains the fallback, exactly as it
+would without this feature.
 Takeover/revert is bounded by the
 main RX's own existing ~100ms signal-loss detection window (`rxSignalReceived`,
 `DELAY_100_MS` in `rx.c`'s `rxFrameCheck()`), not per-missed-frame - see the comment
@@ -144,16 +149,17 @@ specific fixed threshold isn't used instead. See `drivers/rx_input_backup.c` and
 `rx/rx.c`'s `detectAndApplySignalLossBehaviour()`. Diagnostics are available
 read-only via `MSP2_WING_RX_INPUT_BACKUP_STATUS`.
 
-Which protocol this port speaks is selected via `rx_input_backup_provider`:
+Which protocol each port speaks is selected via `rx_input_backup_provider`
+(backup 1) and `rx_input_backup2_provider` (backup 2):
 `NONE`, `SBUS`, `FBUS`, `FPORT`, `FPORT2`, `EXBUS`, or `CRSF`
 (`FBUS` and `FPORT2` both find the receiver's speed, like the main receiver)
-(`pg/rx_input_backup.h`'s
-`provider` field). `NONE` (value `0`, matching this codebase's usual
+(`pg/rx_input_backup.h`'s per-port `provider` field). The two backups may run
+the same protocol: every provider keeps one parser state per port. `NONE`
+(value `0`, matching this codebase's usual
 "zero-init means off" convention) is the default for a freshly reset config -
-assigning a port `FUNCTION_RX_INPUT_BACKUP` alone no longer silently starts
+assigning a port a backup function alone does not silently start
 decoding SBUS on it; the port is reserved but never opened until a real
-protocol is chosen. FBUS is decoded as 16-channel
-frames only (its 8ch/24ch variants aren't supported yet). `EXBUS` (Jeti EX
+protocol is chosen. FBUS decodes 8-, 16- and 24-channel frames. `EXBUS` (Jeti EX
 Bus) decodes only the fixed 16-channel data frame; unlike the other
 providers here its own reference driver (rx/jetiexbus.c) always opens the
 port bidirectionally since a real Jeti receiver may need a telemetry reply -
@@ -175,16 +181,18 @@ is deliberately no telemetry on this link, ever, for any protocol - it exists
 purely to hand over channel data, same as a physical backup satellite receiver
 would.
 
-Electrical settings for this port are independent of the main RX's own
-`serialrx_inverted`/`serialrx_halfduplex`/`serialrx_pinswap` (different
-physical UART): `rx_input_backup_inverted`, `rx_input_backup_halfduplex`, and
-`rx_input_backup_pinswap` (all `OFF`/`ON`, default `OFF`), in
+Electrical settings for each port are independent of the main RX's own
+`serialrx_inverted`/`serialrx_halfduplex`/`serialrx_pinswap` and of the other
+backup's (different physical UARTs): `rx_input_backup_inverted`,
+`rx_input_backup_halfduplex`, and `rx_input_backup_pinswap` for backup 1, and
+`rx_input_backup2_inverted`, `rx_input_backup2_halfduplex` and
+`rx_input_backup2_pinswap` for backup 2 (all `OFF`/`ON`, default `OFF`), in
 `pg/rx_input_backup.h`. `pinSwap` behaves identically for every protocol, but
 `inverted` and `halfDuplex` do not - each protocol's own native wiring
 convention differs (SBUS is natively inverted, FBUS/FPort/FPort2 are not; SBUS
 uses plain half-duplex, FBUS/FPort/FPort2 use push-pull half-duplex), so
 `OFF` (the default, "normal wiring for whichever protocol is selected") maps
-to a different underlying UART configuration depending on `rx_input_backup_provider`
+to a different underlying UART configuration depending on that port's provider
 - each provider's own driver file handles this translation, exactly mirroring
 how `rx/sbus.c` and `rx/fbus.c`/`rx/fport.c` apply the main RX's own
 `serialrx_inverted`/`serialrx_halfduplex` in opposite directions for the same

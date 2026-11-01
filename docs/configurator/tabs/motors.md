@@ -30,7 +30,7 @@ single, bidirectional, single-wire UART connection for both throttle
 commands and telemetry -- there's no separate PWM/DShot signal wire and no
 separate ESC telemetry wire.
 
-To use one, assign a spare UART the **SRXL2 ESC** function on the
+To use one, assign a spare UART the **ESC: SRXL2** function on the
 [Configuration](configuration.md) tab. That one assignment is all that's
 needed: **Protocol**, **ESC Telemetry Protocol**, and **Half-Duplex** are
 all set to match automatically and lock (shown disabled, with a tooltip

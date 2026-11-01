@@ -11,8 +11,8 @@ matches a port on the [Configuration](configuration.md) tab:
 | Protocol | Port needed |
 | --- | --- |
 | NMEA or UBLOX | a port set to **GPS** |
-| FBUS | a port set to **F.BUS** (FBUS master) or **S.PORT Master** |
-| CRSF | a port set to **CRSF Sensors** |
+| FBUS | a port set to **Bus: F.BUS Master** or **Bus: S.PORT Master** |
+| CRSF | a port set to **Bus: CRSF Sensors** |
 | MSP | none |
 
 This tab appears as soon as any of those ports is set up, so you can pick
