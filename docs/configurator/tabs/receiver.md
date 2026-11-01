@@ -12,10 +12,17 @@ Once a serial RX protocol is selected, three signal-level switches appear
 that matter more than they look like they should -- get the wrong one and
 you'll see no signal at all rather than a subtle problem:
 
-- **Serial Inverted** un-inverts an inverted signal -- required for S.BUS
-  and F.Port, among others. Not supported on F4-based boards.
+- **Serial Inverted** flips the signal polarity. Turn it on for F.Port
+  and F.Bus. Leave it **off** for Futaba S.BUS and S.BUS2 -- the flight
+  controller already allows for S.BUS being inverted; turn it on only for
+  a receiver that outputs non-inverted S.BUS. Not supported on F4-based
+  boards.
 - **Half Duplex** uses the Tx pin for both sending and receiving -- required
-  for SBUS2, F.Port, SRXL, and SRXL2.
+  for SBUS2, F.Port, SRXL, and SRXL2. Plain S.BUS leaves it off.
+
+For Futaba receivers, use **Futaba S.BUS2** if the receiver has an S.BUS2
+port (control and telemetry on one wire), or **Futaba S.BUS** if it doesn't
+(control only). The receiver must be set to output the same one.
 - **Pin Swap** swaps the Rx/Tx pins, for wiring that comes in reversed.
 
 For FrSky receivers set to F.Bus or F.Port2, pick **FrSky FBUS**. They are
