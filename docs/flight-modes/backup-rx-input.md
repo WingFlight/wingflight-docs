@@ -23,8 +23,16 @@ Each backup port speaks a single, configurable protocol, chosen from the
 ones. By default (before a protocol is chosen) a port is reserved but not
 decoding anything.
 
-Telemetry only ever travels over the main receiver. The backup links are
-receive-only: nothing is sent to a backup receiver, whatever its protocol.
+!!! warning "Jeti EXBUS is not hardware-verified as a backup"
+    The backup link never replies to the receiver, and Jeti documents EX Bus
+    receivers as expecting a bus master. The firmware relies on the receiver
+    broadcasting its channel frames regardless, which has not been confirmed
+    on real hardware. Bench-test an EX Bus backup thoroughly, including the
+    failover itself, before flying on it.
+
+Flight-controller telemetry only ever travels over the main receiver. The
+backup links are receive-only: nothing is sent to a backup receiver, whatever
+its protocol.
 
 ## Priority
 
@@ -132,9 +140,13 @@ once, so a mis-wired or dead backup can't go unnoticed until the moment you
 need it.
 
 The check only guards the **first arm after power-up**. Once you have armed
-successfully, a backup that later drops out (between flights or batteries,
-say) will not block re-arming for the rest of the session. A backup port
-left unconfigured (no protocol chosen) takes no part in the check.
+successfully, a backup that later drops out during the same powered session
+will not block re-arming for the rest of that session; a battery change that
+powers the flight controller off starts a new session and the check runs
+again. A backup port left unconfigured (no protocol chosen) takes no part in
+the check. A backup with a protocol chosen whose port fails to open counts as
+configured but never linked, so it blocks the first arm until the wiring or
+port conflict is fixed.
 
 ## Alerts on the radio
 
@@ -179,7 +191,10 @@ before relying on it in the air:
 ## CLI settings
 
 Backup 1 uses `rx_input_backup_provider`, `rx_input_backup_inverted`,
-`rx_input_backup_halfduplex` and `rx_input_backup_pinswap`; Backup 2 uses
-the same names with `rx_input_backup2_` in front. The port functions are
-`RX_BACKUP` and `RX_BACKUP2` in the `serial` command. See
-[Serial Ports](../reference/serial-ports.md) for the details.
+`rx_input_backup_halfduplex` and `rx_input_backup_pinswap`. Backup 2 uses
+`rx_input_backup2_provider`, `rx_input_backup2_inverted`,
+`rx_input_backup2_halfduplex` and `rx_input_backup2_pinswap`. The `serial`
+command takes the port functions as numbers, 8388608 for Backup 1 and
+16777216 for Backup 2; `serialdebug` shows them as `RX_BACKUP` and
+`RX_BACKUP2`. See [Serial Ports](../reference/serial-ports.md) for the
+details.

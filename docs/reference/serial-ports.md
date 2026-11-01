@@ -129,12 +129,13 @@ Other devices can be added starting from id 50.
 
 Note: values above `FUNCTION_LIDAR_TF` require more than 16 bits. `FUNCTION_SPORT_MASTER` = `(1<<20)` requires 21 bits.
 
-`FUNCTION_RX_INPUT_BACKUP` (`RX_BACKUP` in the `serial` command) and
-`FUNCTION_RX_INPUT_BACKUP2` (`RX_BACKUP2`) each assign a UART to an independent
-backup RX input. Neither is the main RX link - they exist as fallbacks: if the
+`FUNCTION_RX_INPUT_BACKUP` (8388608, shown as `RX_BACKUP` by `serialdebug`) and
+`FUNCTION_RX_INPUT_BACKUP2` (16777216, `RX_BACKUP2`) each assign a UART to an
+independent backup RX input; the `serial` command takes the numeric value.
+Neither is the main RX link - they exist as fallbacks: if the
 main RX link's signal is lost, the FC takes all RC channels (including aux/mode
-switches) from the first backup port that is receiving - backup 1, then backup 2
-- instead, bypassing the staged failsafe machinery (hold/land/cut)
+switches) from the first backup port that is receiving (backup 1, then backup 2)
+instead, bypassing the staged failsafe machinery (hold/land/cut)
 entirely, and reverts back automatically once a higher-priority link recovers.
 If the main link is present, the backup ports' data has no effect. None of this
 applies to a port with no backup protocol configured (`provider` is `NONE`) or
