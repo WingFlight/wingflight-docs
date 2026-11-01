@@ -2392,6 +2392,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#priority" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Priority
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#setting-it-up" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2440,6 +2451,17 @@
     <span class="md-ellipsis">
       
         Bench-testing before you fly
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cli-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CLI settings
       
     </span>
   </a>
@@ -3753,6 +3775,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#priority" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Priority
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#setting-it-up" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3807,6 +3840,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#cli-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CLI settings
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3833,38 +3877,49 @@
 
 
 <h1 id="backup-rx-input">Backup RX Input<a class="headerlink" href="#backup-rx-input" title="Permanent link">&para;</a></h1>
-<p>Backup RX Input lets a spare UART carry a second, independent RX
-receiver ("satellite") purely as a backup for the main RF link. If the main
-receiver's signal is lost, the flight controller takes over all RC
+<p>Backup RX Input lets spare UARTs carry up to two independent backup
+receivers ("satellites") purely as fallbacks for the main RF link. If the
+main receiver's signal is lost, the flight controller takes over all RC
 channels -- including aux/mode switches, so arm state and flight-mode
-switching keep working -- from the backup port instead, bypassing the
-normal failsafe stages entirely. The moment the main link's signal comes
-back, control reverts to it automatically. Takeover and revert happen
-within the main receiver's own signal-loss detection window (up to
-~100ms), not on a per-missed-frame basis -- see <a href="#behavior">Behavior</a>.</p>
-<p>This is a cheap way to get a basic backup-receiver setup (e.g. a small
+switching keep working -- from the first backup that is receiving,
+bypassing the normal failsafe stages entirely. The moment a higher-priority
+link's signal comes back, control reverts to it automatically. Takeover and
+revert happen within the main receiver's own signal-loss detection window
+(up to ~100ms), not on a per-missed-frame basis -- see <a href="#behavior">Behavior</a>.</p>
+<p>This is a cheap way to get a backup-receiver setup (e.g. a small
 FrSky/compatible satellite bound to a second transmitter module or a
-different protocol entirely) without needing a full second RF system.</p>
-<p>The backup port speaks a single, configurable protocol, chosen from the
-<strong>Protocol</strong> dropdown on the <strong>Serial RX #2</strong> box (see below): <strong>SBUS</strong>,
+different protocol entirely) without needing a full second RF system. A
+second backup gives three-way redundancy for models where a single lost
+link is not an acceptable risk.</p>
+<p>Each backup port speaks a single, configurable protocol, chosen from the
+<strong>Protocol</strong> dropdown on its <strong>Backup Receiver</strong> box (see below): <strong>SBUS</strong>,
 <strong>FBUS</strong> (also F.Port2 receivers), <strong>F.Port</strong>, <strong>Jeti EXBUS</strong>, or <strong>TBS CRSF</strong>
-(Crossfire/ELRS). The feature was originally SBUS-only
-in name too ("SBUS-In Fallback Receiver"); it's now built so more protocols
-can be added later without changing how it behaves or is configured, hence
-the more general name. By default (before a protocol is chosen) the port
-is reserved but not decoding anything.</p>
+(Crossfire/ELRS). The two backups may use the same protocol or different
+ones. By default (before a protocol is chosen) a port is reserved but not
+decoding anything.</p>
+<p>Flight-controller telemetry only ever travels over the main receiver. The
+backup links are receive-only: nothing is sent to a backup receiver, whatever
+its protocol.</p>
+<h2 id="priority">Priority<a class="headerlink" href="#priority" title="Permanent link">&para;</a></h2>
+<p>Failover is a fixed chain: <strong>Primary</strong>, then <strong>Backup 1</strong>, then <strong>Backup 2</strong>.
+Whichever is highest in that order and currently receiving valid frames is
+in control. There is no signal-quality comparison -- a backup's own
+telemetry or RSSI is never read -- so the order you assign the ports is the
+order they take over. Put the receiver you trust most as Backup 1.</p>
 <h2 id="setting-it-up">Setting it up<a class="headerlink" href="#setting-it-up" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Wire an RX-capable satellite receiver to a spare UART, then assign
-   that port the <strong>Serial Rx (Backup)</strong> function from the port function
+   that port the <strong>Receiver: Backup 1</strong> function from the port function
    dropdown on the Configuration tab's serial ports list. It's named to
-   pair with the main receiver's own <strong>Serial Rx</strong> option -- this is a
-   second, independent one.</li>
-<li>On the <a href="../../configurator/tabs/receiver/">Receiver</a> tab, a <strong>Serial
-   RX #2</strong> box appears below the main <strong>Serial RX #1</strong> box. Pick the
+   pair with the main receiver's own <strong>Receiver: Primary</strong> option -- this
+   is a second, independent one. For a third receiver, wire it to another
+   spare UART and assign that port <strong>Receiver: Backup 2</strong>.</li>
+<li>On the <a href="../../configurator/tabs/receiver/">Receiver</a> tab, a <strong>Backup
+   Receiver 1</strong> box (and a <strong>Backup Receiver 2</strong> box, if that port is
+   assigned) appears below the <strong>Primary Receiver</strong> box. Pick each
    satellite's protocol from its <strong>Protocol</strong> dropdown, then <strong>Save &amp;
    Reboot</strong>.</li>
-<li>Bind the satellite as you would any receiver of that protocol. If it
+<li>Bind each satellite as you would any receiver of that protocol. If it
    isn't decoding (the box's <strong>Link</strong> badge stays down), check wiring
    against the UART's pinout -- the box's <strong>Pin Swap</strong> and <strong>Inverted</strong>
    switches cover boards where the port's natural RX pin isn't the one
@@ -3872,13 +3927,15 @@ is reserved but not decoding anything.</p>
    inversion from the protocol's default assumption; <strong>Half-Duplex</strong> covers
    satellites that only expose a single, shared signal wire for this
    protocol. All three are independent of the main receiver's own
-   equivalent settings, since this is a different physical UART, and each
-   protocol has its own natural wiring convention (SBUS is inverted by
-   default; every other supported protocol isn't) -- <code>OFF</code> always means
-   "this protocol's normal wiring," not "no inversion" in an absolute
-   sense. Changing any of these needs <strong>Save &amp; Reboot</strong> to take effect.</li>
-<li><strong>Turn off telemetry on the backup receiver itself.</strong> This link is
-   receive-only -- the flight controller never reads anything the backup
+   equivalent settings and of the other backup's, since each is a different
+   physical UART, and each protocol has its own natural wiring convention
+   (SBUS is inverted by default; every other supported protocol isn't) --
+   <code>OFF</code> always means "this protocol's normal wiring," not "no inversion" in
+   an absolute sense. The box's <strong>Detect</strong> button tries every combination
+   on the live port and reports the one that receives frames. Changing any
+   of these needs <strong>Save &amp; Reboot</strong> to take effect.</li>
+<li><strong>Turn off telemetry on the backup receivers themselves.</strong> These links
+   are receive-only -- the flight controller never reads anything a backup
    receiver's own telemetry system might send, so this has no effect on
    the feature's flight-control behavior at all. It matters for a
    different reason: a second, independent telemetry stream is exactly
@@ -3891,13 +3948,15 @@ is reserved but not decoding anything.</p>
   disable telemetry on this receiver.</li>
 </ul>
 </li>
-<li>Once bound and decoding, the <strong>Serial RX #2</strong> box's <strong>Link</strong> and
+<li>Once bound and decoding, each <strong>Backup Receiver</strong> box's <strong>Link</strong> and
    <strong>Active Source</strong> badges update live, and each entry in
    <a href="../../configurator/tabs/receiver/#channel-assignment">Channel Assignment</a>
-   grows a second, smaller meter showing the backup receiver's own live
-   channel values -- refreshed several times a second, the same readout
+   grows a smaller meter per backup showing that receiver's own live
+   channel value -- refreshed several times a second, the same readout
    used for bench-testing below.</li>
 </ol>
+<p>All three receivers must use the same channel order: the backups are read
+through the primary receiver's channel map.</p>
 <h2 id="behavior">Behavior<a class="headerlink" href="#behavior" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>Bypasses staged failsafe, but isn't sub-frame instant.</strong> This does not
@@ -3910,48 +3969,57 @@ is reserved but not decoding anything.</p>
   a takeover on a legitimately slower RX protocol's normal frame spacing.
   It's still far quicker than doing nothing here -- an un-caught channel
   would otherwise hold its last value for 300ms before failsafe even
-  declares it failed.</li>
-<li><strong>Full channel takeover.</strong> All channels are taken from the backup port
-  during fallback, not just roll/pitch/yaw/throttle -- aux switches
+  declares it failed. Between the two backups the hand-over is quicker: a
+  backup counts as down after about 50ms without a valid frame, and Backup 2
+  takes over the moment Backup 1 is down while it is still receiving.</li>
+<li><strong>Full channel takeover.</strong> All channels are taken from the backup in
+  control during fallback, not just roll/pitch/yaw/throttle -- aux switches
   (flight mode, arming, etc.) are driven from the backup stick exactly
-  as they would be from the main receiver. Channels the backup doesn't
+  as they would be from the main receiver. Channels a backup doesn't
   carry go to stick center (1500 by default): for example CH19-24 when the
   main receiver sends 24 channels but the backup sends a 16-channel F.Bus
   frame. A mode or switch on those channels moves to its middle position on
-  takeover, so keep safety-relevant switches on channels both receivers
-  carry. F.Bus and F.Port2 backups carry up to 24 channels, SBUS and F.Port
-  18.</li>
-<li><strong>Auto-revert.</strong> As soon as the main receiver's signal is valid again
-  (within that same ~100ms window), control reverts to it -- the backup
-  does not latch for the rest of the flight.</li>
-<li><strong>Not a second failsafe system.</strong> If <em>both</em> the main link and the
-  backup link are down, ordinary staged failsafe behavior (hold/land/cut,
+  takeover, so keep safety-relevant switches on channels every receiver
+  carries. F.Bus and F.Port2 backups carry up to 24 channels, SBUS and F.Port
+  18, EX Bus and CRSF 16.</li>
+<li><strong>Auto-revert.</strong> As soon as a higher-priority receiver's signal is valid
+  again (the main receiver within that same ~100ms window, Backup 1 within
+  ~50ms), control reverts to it -- a backup does not latch for the rest of
+  the flight.</li>
+<li><strong>Not a second failsafe system.</strong> If the main link <em>and</em> every backup
+  link are down, ordinary staged failsafe behavior (hold/land/cut,
   per the <a href="../../configurator/tabs/failsafe/">Failsafe</a> tab) takes over
   exactly as it would without this feature. Backup RX input is a bridge
-  for a single lost link, not a replacement for failsafe.</li>
+  for lost links, not a replacement for failsafe.</li>
 <li>A <strong>Failsafe</strong> switch on an aux channel still invalidates control
-  channels even while the backup link is otherwise healthy -- the switch
+  channels even while a backup link is otherwise healthy -- the switch
   is honored the same way regardless of which link is currently active.</li>
 </ul>
 <h2 id="arming-check">Arming check<a class="headerlink" href="#arming-check" title="Permanent link">&para;</a></h2>
-<p>A configured backup receiver has to prove it works before you can fly
+<p>Every configured backup receiver has to prove it works before you can fly
 relying on it. Once the boot arming-grace window has passed, arming is
 blocked -- the Status tab shows the <strong>BACKUP_RX</strong> arming-disable flag --
-until the backup receiver has linked at least once, so a mis-wired or dead
-backup can't go unnoticed until the moment you need it.</p>
+until each backup receiver that has a protocol selected has linked at least
+once, so a mis-wired or dead backup can't go unnoticed until the moment you
+need it.</p>
 <p>The check only guards the <strong>first arm after power-up</strong>. Once you have armed
-successfully, a backup that later drops out (between flights or batteries,
-say) will not block re-arming for the rest of the session. If you leave the
-backup port unconfigured (no protocol chosen), no check applies.</p>
+successfully, a backup that later drops out during the same powered session
+will not block re-arming for the rest of that session; a battery change that
+powers the flight controller off starts a new session and the check runs
+again. A backup port left unconfigured (no protocol chosen) takes no part in
+the check. A backup with a protocol chosen whose port fails to open counts as
+configured but never linked, so it blocks the first arm until the wiring or
+port conflict is fixed.</p>
 <h2 id="alerts-on-the-radio">Alerts on the radio<a class="headerlink" href="#alerts-on-the-radio" title="Permanent link">&para;</a></h2>
-<p>With the WingFlight Lua suite on an Ethos radio, the backup receiver's state
+<p>With the WingFlight Lua suite on an Ethos radio, the backup receivers' state
 is also shown on the dashboard and announced:</p>
 <ul>
 <li><strong>BACKUP RX NO SIGNAL</strong> (amber banner, "Backup receiver lost" /
-  "Backup receiver OK"): a backup is configured but isn't receiving. Check
-  this before takeoff.</li>
+  "Backup receiver OK"): at least one configured backup isn't receiving.
+  Check this before takeoff. The <strong>Rx Backup</strong> diagnostics page shows
+  which one.</li>
 <li><strong>BACKUP RX IN CONTROL</strong> (red banner, "Backup receiver active" /
-  "Main receiver restored"): the backup is flying the model.</li>
+  "Main receiver restored"): a backup is flying the model.</li>
 </ul>
 <p>Telemetry normally travels over the main link, so while the main link is
 down the radio often can't hear the flight controller. See
@@ -3961,22 +4029,33 @@ callout can reach you.</p>
 <p>As with any failsafe-adjacent behavior, test this on the bench (props off)
 before relying on it in the air:</p>
 <ol>
-<li>Power up with the backup satellite bound and powered, and
-   confirm the <strong>BACKUP_RX</strong> flag on the Status tab clears once its <strong>Link</strong>
-   badge comes up (arming stays blocked until then).</li>
-<li>With both the main receiver and the backup satellite bound and
-   powered, confirm the Receiver tab's <strong>Serial RX #1</strong> box shows its
-   <strong>Active Source</strong> badge as Main RX, and moving the backup satellite's
-   sticks has no effect on outputs.</li>
+<li>Power up with the backup satellites bound and powered, and
+   confirm the <strong>BACKUP_RX</strong> flag on the Status tab clears once every
+   backup's <strong>Link</strong> badge comes up (arming stays blocked until then).</li>
+<li>With every receiver bound and powered, confirm the Receiver tab's
+   <strong>Primary Receiver</strong> box shows its <strong>Active Source</strong> badge as Main RX,
+   and moving a backup satellite's sticks has no effect on outputs.</li>
 <li>Power off (or walk the main receiver's transmitter out of range),
-   and confirm control switches to the backup satellite within roughly
-   100ms, arm state is preserved, and aux switches on the backup radio
-   work as expected.</li>
+   and confirm control switches to Backup 1 within roughly 100ms, arm
+   state is preserved, and aux switches on the backup radio work as
+   expected. The <strong>Active Source</strong> badges name the backup in control.</li>
+<li>With a second backup fitted, power off Backup 1 as well and confirm
+   control moves to Backup 2; power Backup 1 back on and confirm it takes
+   control back.</li>
 <li>Restore the main link and confirm control reverts to it within that
    same window.</li>
-<li>Power off both receivers and confirm ordinary staged failsafe
+<li>Power off every receiver and confirm ordinary staged failsafe
    triggers as configured.</li>
 </ol>
+<h2 id="cli-settings">CLI settings<a class="headerlink" href="#cli-settings" title="Permanent link">&para;</a></h2>
+<p>Backup 1 uses <code>rx_input_backup_provider</code>, <code>rx_input_backup_inverted</code>,
+<code>rx_input_backup_halfduplex</code> and <code>rx_input_backup_pinswap</code>. Backup 2 uses
+<code>rx_input_backup2_provider</code>, <code>rx_input_backup2_inverted</code>,
+<code>rx_input_backup2_halfduplex</code> and <code>rx_input_backup2_pinswap</code>. The <code>serial</code>
+command takes the port functions as numbers, 8388608 for Backup 1 and
+16777216 for Backup 2; <code>serialdebug</code> shows them as <code>RX_BACKUP</code> and
+<code>RX_BACKUP2</code>. See <a href="../../reference/serial-ports/">Serial Ports</a> for the
+details.</p>
 
 
 

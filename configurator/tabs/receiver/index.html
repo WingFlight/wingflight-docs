@@ -1010,10 +1010,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#serial-rx-1-serial-rx-2-backup-rx-input" class="md-nav__link">
+  <a href="#primary-receiver-backup-receiver-1-and-2-backup-rx-input" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Serial RX #1 / Serial RX #2 (Backup RX Input)
+        Primary Receiver / Backup Receiver 1 and 2 (Backup RX Input)
       
     </span>
   </a>
@@ -3863,10 +3863,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#serial-rx-1-serial-rx-2-backup-rx-input" class="md-nav__link">
+  <a href="#primary-receiver-backup-receiver-1-and-2-backup-rx-input" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Serial RX #1 / Serial RX #2 (Backup RX Input)
+        Primary Receiver / Backup Receiver 1 and 2 (Backup RX Input)
       
     </span>
   </a>
@@ -3984,13 +3984,14 @@ default list and what each status bit means.</p>
 <h2 id="virtual-tx">Virtual TX<a class="headerlink" href="#virtual-tx" title="Permanent link">&para;</a></h2>
 <p>For bench-testing without a real transmitter bound, a virtual RX input tool
 is available (desktop app only) to simulate channel input.</p>
-<h2 id="serial-rx-1-serial-rx-2-backup-rx-input">Serial RX #1 / Serial RX #2 (Backup RX Input)<a class="headerlink" href="#serial-rx-1-serial-rx-2-backup-rx-input" title="Permanent link">&para;</a></h2>
-<p>The main receiver's own protocol box is labeled <strong>Serial RX #1</strong>. Its title
-bar always shows a <strong>Link</strong> badge for the main receiver's own live signal
-state, whether or not a backup port is configured.</p>
-<p>If a serial port is assigned the <strong>Serial Rx (Backup)</strong> function on the
-<a href="../configuration/">Configuration</a> tab, a second box, <strong>Serial RX #2</strong>,
-appears below it with:</p>
+<h2 id="primary-receiver-backup-receiver-1-and-2-backup-rx-input">Primary Receiver / Backup Receiver 1 and 2 (Backup RX Input)<a class="headerlink" href="#primary-receiver-backup-receiver-1-and-2-backup-rx-input" title="Permanent link">&para;</a></h2>
+<p>The main receiver's own protocol box is labeled <strong>Primary Receiver</strong>. Its
+title bar always shows a <strong>Link</strong> badge for the main receiver's own live
+signal state, whether or not a backup port is configured.</p>
+<p>If a serial port is assigned the <strong>Receiver: Backup 1</strong> function on the
+<a href="../configuration/">Configuration</a> tab, a second box, <strong>Backup Receiver 1</strong>,
+appears below it; a port assigned <strong>Receiver: Backup 2</strong> adds a <strong>Backup
+Receiver 2</strong> box in turn. Each has:</p>
 <ul>
 <li>A <strong>Protocol</strong> dropdown (None, Futaba S.BUS, FrSky FBUS, FrSky F.PORT,
   Jeti EXBUS, or TBS CRSF) -- <code>None</code> is the default, meaning the port is
@@ -4002,17 +4003,18 @@ appears below it with:</p>
   wiring convention (SBUS is inverted by default; every other supported
   protocol isn't), so <code>OFF</code> always means "this protocol's normal wiring."</li>
 <li><strong>Link</strong> and <strong>Active Source</strong> badges in its own title bar, live-updated,
-  so both boxes show their status right where you'd configure them.</li>
+  so every box shows its status right where you'd configure it. <strong>Active
+  Source</strong> names the receiver in control: Main RX, Backup 1 or Backup 2.</li>
 </ul>
 <p>Changes to any of these fields need <strong>Save &amp; Reboot</strong> to take effect, same
 as any other serial-port setting.</p>
 <p>Once a backup protocol is selected and reporting data, every entry in
-<a href="#channel-assignment">Channel Assignment</a> grows a second, smaller meter
-underneath the main one showing the backup receiver's own live value for
-that channel -- useful for confirming a bound backup satellite is producing
+<a href="#channel-assignment">Channel Assignment</a> grows a smaller meter per backup
+underneath the main one showing that backup receiver's own live value for
+the channel -- useful for confirming a bound backup satellite is producing
 sane values before ever relying on it in the air. See
 <a href="../../../flight-modes/backup-rx-input/">Backup RX Input</a>
-for what the feature actually does.</p>
+for what the feature actually does, including the failover order.</p>
 
 
 
