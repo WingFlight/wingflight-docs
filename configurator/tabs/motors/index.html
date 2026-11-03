@@ -3843,7 +3843,21 @@ explaining why) so they can't drift out of sync with the port -- the
 firmware forces the same values on save regardless of what's shown here.
 To go back to a different ESC protocol, change the port's function on the
 Configuration tab rather than trying to change it from this tab.</p>
-<p>SRXL2 ESC only supports a single motor.</p>
+<p>With an SRXL2 ESC selected, the <strong>ESC Telemetry</strong> box gains an <strong>SRXL2
+ESC</strong> section:</p>
+<ul>
+<li><strong>Telemetry Interval</strong>: every how many throttle frames the ESC is asked
+  for telemetry. 0 turns telemetry polling off. Default 7.</li>
+<li><strong>Motor 2 Channel</strong>: for dual-motor Smart ESCs (e.g. the Spektrum
+  SPMXAE1020), the SRXL2 channel that carries the second motor. Motor 1 is
+  always channel 0. With a channel set, the motor count becomes 2 and the
+  mixer's second motor output (M2) drives it, so add a mixer rule for M2.
+  Leave it <strong>Off</strong> for a single motor (the default). CLI:
+  <code>srxl2esc_motor2_channel</code>.</li>
+</ul>
+<p>Both take effect after <strong>Save and Reboot</strong>. Dual-motor Smart ESCs report no
+RPM and have no governor setting, so RPM filtering and the governor are not
+available with them.</p>
 <h2 id="throttle-endpoints-pwm-only">Throttle endpoints (PWM-only)<a class="headerlink" href="#throttle-endpoints-pwm-only" title="Permanent link">&para;</a></h2>
 <p>For PWM/analog protocols, three raw PWM values calibrate the throttle
 range: <strong>Minimum Command</strong> (sent when the motor is stopped -- also what
