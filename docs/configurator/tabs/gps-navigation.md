@@ -11,6 +11,10 @@ they moved here because they aren't failsafe-specific -- **GPS RTH** and
 **GPS LOITER** (whether switched on by hand or started by the Failsafe
 tab's GPS Rescue procedure) all use them.
 
+GPS navigation only runs on a u-blox GPS (Protocol **UBLOX** on the
+[GPS](gps.md) tab). With NMEA, FBUS or CRSF, RTH, Loiter and GPS Rescue
+won't engage.
+
 ## Arming without a GPS fix
 
 When the Failsafe tab's GPS Rescue procedure or a **GPS RTH** switch is set

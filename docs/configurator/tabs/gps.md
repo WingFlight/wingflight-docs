@@ -33,10 +33,20 @@ latter two, the satellite signal-strength panel and baud/config options
 below don't apply, since both carry an already-processed fix rather than
 raw module output.
 
+!!! warning "Only u-blox can navigate"
+    [GPS RTH and Loiter](../../flight-modes/gps-rth.md) and the Failsafe
+    tab's GPS Rescue only run on a **UBLOX** GPS. NMEA, FBUS and CRSF GPS
+    still show position and feed telemetry, but navigation won't engage on
+    them: they update too slowly or report too little about their fix to
+    steer on. With one of those selected, this tab shows a warning. The
+    radio dashboard does too if a GPS mode or GPS Rescue is set up. Arming
+    isn't blocked.
+
 For NMEA/UBLOX modules, **Auto Baud** and **Auto Config** let the
 Configurator detect the module's baud rate and push its own configuration
 automatically -- leave both on unless you have a reason to manage the
-module yourself. U-blox modules specifically also expose a **Ground
+module yourself. Auto Config sets a u-blox module to 10 Hz, or 5 Hz if the
+module refuses 10 Hz. U-blox modules specifically also expose a **Ground
 Assistance Type** (SBAS region -- EGNOS/WAAS/MSAS/GAGAN/auto/none) and a
 **Galileo** toggle (swaps the QZSS constellation for Galileo, since a
 module only tracks so many constellations at once).

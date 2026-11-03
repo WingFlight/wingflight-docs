@@ -24,8 +24,11 @@
     Failsafe tab's GPS Rescue *procedure* (below) is unrelated to that old
     switch and still works the same as ever.
 
-RTH and Loiter are the fixed-wing navigation modes. Both need a
-[GPS](../configurator/tabs/gps.md) with a fix, and both are switched on from
+RTH and Loiter are the fixed-wing navigation modes. Both need a u-blox
+[GPS](../configurator/tabs/gps.md) with a fix. NMEA, FBUS and CRSF GPS
+aren't used for navigation (see
+[Only u-blox can navigate](../configurator/tabs/gps.md#module-setup)). Both
+are switched on from
 the [Modes](../configurator/tabs/auxiliary.md) tab (**GPS RTH** and
 **GPS LOITER**). The Failsafe tab's GPS Rescue procedure uses this same
 controller too, automatically, if the radio link is lost and stays lost.

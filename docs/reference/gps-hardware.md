@@ -36,6 +36,8 @@ Set the `gps_provider` appropriately, for example `set gps_provider=UBLOX`
 | NMEA     |
 | UBLOX    |
 
+GPS navigation ([GPS RTH and Loiter](../flight-modes/gps-rth.md), and the GPS Rescue failsafe) only runs with `UBLOX`. NMEA works for position and telemetry, but navigation won't engage on it.
+
 ### GPS Auto configuration
 
 When using UBLOX it is a good idea to use GPS auto configuration so your FC gets the GPS messages it needs.
