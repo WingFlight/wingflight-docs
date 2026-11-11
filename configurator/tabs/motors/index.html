@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../../assets/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
     
     
       
@@ -3849,10 +3849,10 @@ ESC</strong> section:</p>
 <li><strong>Telemetry Interval</strong>: every how many throttle frames the ESC is asked
   for telemetry. 0 turns telemetry polling off. Default 7.</li>
 <li><strong>Motor 2 Channel</strong>: for dual-motor Smart ESCs (e.g. the Spektrum
-  SPMXAE1020), the SRXL2 channel that carries the second motor. Motor 1 is
-  always channel 0. With a channel set, the motor count becomes 2 and the
-  mixer's second motor output (M2) drives it, so add a mixer rule for M2.
-  Leave it <strong>Off</strong> for a single motor (the default). CLI:
+  SPMXAE1020), the SRXL2 channel that carries the second motor, 2 to 32.
+  Motor 1 is always channel 1. With a channel set, the motor count becomes 2
+  and the mixer's second motor output (M2) drives it, so add a mixer rule
+  for M2. Leave it <strong>Off</strong> for a single motor (the default). CLI:
   <code>srxl2esc_motor2_channel</code>.</li>
 </ul>
 <p>Both take effect after <strong>Save and Reboot</strong>. Dual-motor Smart ESCs report no
@@ -3998,7 +3998,7 @@ it's available to both.</p>
       <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.action.edit", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.c21346df.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
       
     
   </body>
