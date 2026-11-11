@@ -42,11 +42,19 @@ raw module output.
     radio dashboard does too if a GPS mode or GPS Rescue is set up. Arming
     isn't blocked.
 
+    The GPS serial port speed matters too. A u-blox GPS on a 9600 baud
+    port doesn't navigate either, because the port can't carry its
+    output fast enough. Use 38400 baud or faster (the default is 57600)
+    to get the full 10 Hz.
+
 For NMEA/UBLOX modules, **Auto Baud** and **Auto Config** let the
 Configurator detect the module's baud rate and push its own configuration
 automatically -- leave both on unless you have a reason to manage the
 module yourself. Auto Config sets a u-blox module to 10 Hz, or 5 Hz if the
-module refuses 10 Hz. U-blox modules specifically also expose a **Ground
+module refuses 10 Hz or the port is slower than 38400 baud. With Auto
+Config off the flight controller leaves the module's update rate alone
+and doesn't check it, so set the module to 5 Hz or faster yourself if you
+use GPS navigation. U-blox modules specifically also expose a **Ground
 Assistance Type** (SBAS region -- EGNOS/WAAS/MSAS/GAGAN/auto/none) and a
 **Galileo** toggle (swaps the QZSS constellation for Galileo, since a
 module only tracks so many constellations at once).

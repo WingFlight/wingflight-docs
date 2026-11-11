@@ -38,6 +38,8 @@ Set the `gps_provider` appropriately, for example `set gps_provider=UBLOX`
 
 GPS navigation ([GPS RTH and Loiter](../flight-modes/gps-rth.md), and the GPS Rescue failsafe) only runs with `UBLOX`. NMEA works for position and telemetry, but navigation won't engage on it.
 
+The GPS port speed matters as well. At 38400 baud or faster a u-blox module is set to 10 Hz; at 19200 it is set to 5 Hz; at 9600 navigation won't engage. With `gps_auto_config = OFF` the update rate is whatever the module is set to and is not checked, so set it to 5 Hz or faster yourself.
+
 ### GPS Auto configuration
 
 When using UBLOX it is a good idea to use GPS auto configuration so your FC gets the GPS messages it needs.
