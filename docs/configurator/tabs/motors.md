@@ -45,10 +45,10 @@ ESC** section:
 - **Telemetry Interval**: every how many throttle frames the ESC is asked
   for telemetry. 0 turns telemetry polling off. Default 7.
 - **Motor 2 Channel**: for dual-motor Smart ESCs (e.g. the Spektrum
-  SPMXAE1020), the SRXL2 channel that carries the second motor. Motor 1 is
-  always channel 0. With a channel set, the motor count becomes 2 and the
-  mixer's second motor output (M2) drives it, so add a mixer rule for M2.
-  Leave it **Off** for a single motor (the default). CLI:
+  SPMXAE1020), the SRXL2 channel that carries the second motor, 2 to 32.
+  Motor 1 is always channel 1. With a channel set, the motor count becomes 2
+  and the mixer's second motor output (M2) drives it, so add a mixer rule
+  for M2. Leave it **Off** for a single motor (the default). CLI:
   `srxl2esc_motor2_channel`.
 
 Both take effect after **Save and Reboot**. Dual-motor Smart ESCs report no
