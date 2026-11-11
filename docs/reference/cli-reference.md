@@ -155,6 +155,10 @@ want to change):
 | `prop_hang_strength` | 0-100 | 100 | [Prop-Hang Relax](../flight-modes/prop-hang-relax.md): percent of the roll I-term held back in a prop hang; 0 = off |
 | `prop_hang_angle` | 5-45 | 20 | Degrees from straight up that still count as a hang |
 | `prop_hang_fade` | 0-2000 | 500 | Fade-out back to full roll I-term after the hang, ms |
+| `auto_gain` | 0-1 per axis | 0,0,0 | [Auto Gain](../flight-modes/auto-gain.md) on roll, pitch and yaw: 1 = P and D are turned down while that axis oscillates |
+| `auto_gain_min` | 20-90 | 40 | Lowest gain Auto Gain may go to, percent |
+| `auto_gain_threshold` | 5-200 | 20 | P + D swing that counts as oscillation, 0.1 % of surface travel |
+| `auto_gain_recovery` | 1-100 | 5 | Gain regained once the oscillation has stopped, percent per second |
 
 The `autohover_*` settings were removed with the AUTO HOVER mode in MSP API
 22.11. Restoring a diff from older firmware reports them as unknown settings;
@@ -215,7 +219,7 @@ is rejected as an invalid value. Set `debug_mode = NONE` instead.
 | 79 | `AUTOHOVER` (removed with the mode in API 22.11) |
 
 For Wingflight's own diagnostics use `ATTHOLD`, `TVHOLD`,
-`AIRBORNE`, `ALTITUDE`, `GAIN_ATTEN`, `SNAP_RELAX` or `PROP_HANG`. The first two log one axis at a
+`AIRBORNE`, `ALTITUDE`, `GAIN_ATTEN`, `SNAP_RELAX`, `PROP_HANG` or `AUTO_GAIN`. The first two log one axis at a
 time, picked with `debug_axis`.
 
 `GAIN_ATTEN` shows the throttle (TPA) and GPS speed (SPA) gain attenuation
@@ -248,6 +252,13 @@ that scales P, D, F and B (their product is floored at 25%):
 | 3 | Time the hang conditions have held, ms (detected at 500) |
 | 4 | Altitude estimate available (1 = yes) |
 | 5 | Plain rate flight (1 = no leveling or hold mode active) |
+
+`AUTO_GAIN` shows [Auto Gain](../flight-modes/auto-gain.md):
+
+| Field | Value |
+|---|---|
+| 0-2 | Roll, pitch and yaw gain scale, x1000 (1000 = 100%) |
+| 3-5 | Roll, pitch and yaw P + D with the slow part removed, x1000 (1000 = full surface travel) |
 
 `ALTITUDE` shows the [altitude estimate](#altitude-estimation) next to its
 sources, to check the fusion against the raw readings:
