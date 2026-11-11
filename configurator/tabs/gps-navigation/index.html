@@ -3776,6 +3776,9 @@ It only appears once GPS is active, which means the GPS Protocol on the
 they moved here because they aren't failsafe-specific -- <strong>GPS RTH</strong> and
 <strong>GPS LOITER</strong> (whether switched on by hand or started by the Failsafe
 tab's GPS Rescue procedure) all use them.</p>
+<p>GPS navigation only runs on a u-blox GPS (Protocol <strong>UBLOX</strong> on the
+<a href="../gps/">GPS</a> tab). With NMEA, FBUS or CRSF, RTH, Loiter and GPS Rescue
+won't engage.</p>
 <h2 id="arming-without-a-gps-fix">Arming without a GPS fix<a class="headerlink" href="#arming-without-a-gps-fix" title="Permanent link">&para;</a></h2>
 <p>When the Failsafe tab's GPS Rescue procedure or a <strong>GPS RTH</strong> switch is set
 up, the first arm after power-up is blocked until the GPS has a fix (the

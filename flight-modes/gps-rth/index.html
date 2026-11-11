@@ -3816,8 +3816,11 @@ been removed -- <strong>GPS RTH</strong> is the only switch for this behavior. T
 Failsafe tab's GPS Rescue <em>procedure</em> (below) is unrelated to that old
 switch and still works the same as ever.</p>
 </div>
-<p>RTH and Loiter are the fixed-wing navigation modes. Both need a
-<a href="../../configurator/tabs/gps/">GPS</a> with a fix, and both are switched on from
+<p>RTH and Loiter are the fixed-wing navigation modes. Both need a u-blox
+<a href="../../configurator/tabs/gps/">GPS</a> with a fix. NMEA, FBUS and CRSF GPS
+aren't used for navigation (see
+<a href="../../configurator/tabs/gps/#module-setup">Only u-blox can navigate</a>). Both
+are switched on from
 the <a href="../../configurator/tabs/auxiliary/">Modes</a> tab (<strong>GPS RTH</strong> and
 <strong>GPS LOITER</strong>). The Failsafe tab's GPS Rescue procedure uses this same
 controller too, automatically, if the radio link is lost and stays lost.</p>

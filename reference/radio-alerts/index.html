@@ -3983,6 +3983,13 @@ it starts" and "When it clears" are the callouts.</p>
 <td>Wait for a GPS fix before arming. See <a href="../../flight-modes/gps-rth/">GPS RTH and Loiter</a>.</td>
 </tr>
 <tr>
+<td><strong>GPS CAN'T NAVIGATE</strong> (amber)</td>
+<td>–</td>
+<td>–</td>
+<td>A GPS RTH or GPS LOITER switch, or the GPS Rescue failsafe, is set up, but the GPS protocol is NMEA, FBUS or CRSF, or it is a u-blox GPS on a 9600 baud port. Navigation only runs on a u-blox GPS at 19200 baud or faster. This comes from the settings, so it shows on the bench without a fix.</td>
+<td>Fit a u-blox GPS and set the protocol to UBLOX on the <a href="../../configurator/tabs/gps/">GPS tab</a>. If it already is, raise the GPS port's baud rate (see <a href="../serial-ports/">Serial Ports</a>).</td>
+</tr>
+<tr>
 <td><strong>GPS NOT RESPONDING</strong> (amber)</td>
 <td>"GPS not responding"</td>
 <td>–</td>
