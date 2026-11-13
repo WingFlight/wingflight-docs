@@ -122,11 +122,10 @@ See [Curves](../configurator/tabs/curves.md).
 ### Servos
 
 Lists the servos in use, whether they are on a PWM output or a bus; select
-one to set its centre, limits and direction. **PWM Rate**, at the end of
-the list, sets the update rate of the PWM outputs: Standard (50 Hz) or High
-speed (333 Hz, digital servos only). Saving it restarts the flight
-controller. **Tool** turns servo override on, so a servo moves to its
-centre as you change it.
+one to set its centre, limits and direction. **Tool** turns servo override
+on, so a servo moves to its centre as you change it. The PWM update rate
+isn't set here: use the Configurator's
+[Servos](../configurator/tabs/servos.md#pwm-update-rate) tab.
 
 ![Servos](../assets/images/ethos-suite/servos.png)
 
