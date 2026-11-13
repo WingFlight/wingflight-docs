@@ -4075,7 +4075,7 @@ F.Bus wire.</p>
 </table>
 <ul>
 <li><strong>Channel</strong> says which bus channel the servo answers to. Bus channel N
-  mirrors PWM output N by default (see <a href="../../configurator/tabs/servos/#clone-pwm-outputs-to-bus-servos">Clone PWM outputs to bus servos</a>),
+  carries servo N (see <a href="../../configurator/tabs/servos/#bus-servos">Bus Servos</a>),
   so channel <code>CHn</code> drives the surface on output <code>Sn</code>.</li>
 <li><strong>Physical ID</strong> is the unique bus address used for telemetry. The valid
   range is <code>00</code> to <code>1A</code>.</li>
@@ -4213,11 +4213,10 @@ voltage and temperature (<code>fbusServoConvertData</code> in
 <li><strong>S3</strong> elevator (<code>STABILIZED_PITCH</code>, weight +1000)</li>
 <li><strong>S4</strong> rudder (<code>STABILIZED_YAW</code>, weight +1000)</li>
 </ul>
-<p>With <strong>Clone PWM outputs to bus servos</strong> on, which is the default
-(<code>src/main/pg/bus_servo.c:37</code>), bus channels 1 to 4 mirror S1 to S4. The XACT
-servos on the bus therefore receive their surface positions without any extra
-rule. The <a href="../../configurator/tabs/servos/#bus-servos">Servos</a> tab shows the bus
-table below the PWM table.</p>
+<p>Bus channel N always carries servo N, so bus channels 1 to 4 carry S1 to S4.
+The XACT servos on the bus therefore receive their surface positions without
+any extra rule. The <a href="../../configurator/tabs/servos/#bus-servos">Servos</a> tab
+lists them in the one servo table.</p>
 <ul>
 <li>Use the <a href="../../configurator/tabs/mixer/">Mixer</a> tab, or the Mixer Setup Wizard,
   for a different wing layout.</li>

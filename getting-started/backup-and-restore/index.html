@@ -3787,6 +3787,21 @@ is the easiest route around a firmware update:</p>
 <li>If the board isn't currently running WingFlight, the backup is still
   captured and saveable, but it isn't offered for automatic restore --
   another firmware's settings aren't guaranteed to carry over.</li>
+<li>A backup made before the 24-servo firmware (MSP API 22.16) restores
+  servos 1-8 with their settings, apart from the per-servo Rate, which no
+  longer exists. Its lines for servo 9 and above are left out: they were
+  bus servos, numbered 8 higher than the bus channel they drove. After the
+  restore:<ul>
+<li>Set those servos up again on the
+  <a href="../../configurator/tabs/servos/#bus-servos">Servos</a> tab, and recreate
+  the mixer rules that drove them on the
+  <a href="../../configurator/tabs/mixer/">Mixer</a> tab. Check that each surface
+  moves the right way before flying.</li>
+<li>Set the <a href="../../configurator/tabs/servos/#pwm-update-rate">PWM update rate</a>
+  if the servos ran faster than 50 Hz before: the backup doesn't carry
+  it, so they run at 50 Hz until it is changed.</li>
+</ul>
+</li>
 <li>Backup and restore need a normal serial connection; a board flashed over
   DFU alone can't be backed up this way. If the connection drops after the
   board reboots mid-restore, the wizard retries and offers a <strong>Select Port</strong>
@@ -3805,6 +3820,14 @@ regardless of defaults, use:</p>
 </code></pre></div>
 <p>Save the output to a text file. To restore, paste the same commands back
 into the CLI followed by <code>save</code>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Don't paste a backup made before MSP API 22.16 back unchanged. Its
+<code>servo</code>, <code>servo trim</code> and <code>mixer rule</code> lines for servo 9 and above use
+the old numbering and would set up a different servo. Leave those lines
+out and set those servos up again by hand; see the
+<a href="../../reference/cli-reference/#servos">CLI reference</a>.</p>
+</div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>A <code>diff all</code> backup is the most useful format for sharing a tune with

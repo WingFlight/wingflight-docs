@@ -3868,11 +3868,10 @@ than building rules from scratch, and a good way to see a working example of
 the patterns below.</p>
 <p>If your airframe changes (e.g. converting ailerons to flaperons, or adding a
 second motor), this is the tab to revisit.</p>
-<p>If you're running digital bus servos (SBUS/FBUS output) instead of, or
-alongside, PWM servos, note that they normally mirror your PWM outputs
-automatically -- rules built here for PWM outputs drive both. See
-<a href="../servos/#bus-servos">Servos → Bus Servos</a> for how that works and when to
-turn it off.</p>
+<p>A rule's output is a servo (1-24) or a motor. It makes no difference
+whether the servo is wired to a PWM output or is a digital bus servo
+(SBUS/FBUS output): servo N is PWM output N and bus channel N alike, so one
+rule drives both. See <a href="../servos/#bus-servos">Servos → Bus Servos</a>.</p>
 <h2 id="rules">Rules<a class="headerlink" href="#rules" title="Permanent link">&para;</a></h2>
 <p>Each rule reads one input (a stabilized axis, throttle, an RC channel, etc.)
 and writes it to one output (a servo or motor), combined with whatever's
