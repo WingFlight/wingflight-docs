@@ -67,7 +67,7 @@ Each servo needs two addresses, set one servo at a time:
 | 4 | Rudder | `CH4` | `0D` | 13 |
 
 - **Channel** says which bus channel the servo answers to. Bus channel N
-  mirrors PWM output N by default (see [Clone PWM outputs to bus servos](../configurator/tabs/servos.md#clone-pwm-outputs-to-bus-servos)),
+  carries servo N (see [Bus Servos](../configurator/tabs/servos.md#bus-servos)),
   so channel `CHn` drives the surface on output `Sn`.
 - **Physical ID** is the unique bus address used for telemetry. The valid
   range is `00` to `1A`.
@@ -186,11 +186,10 @@ The default mixer of a new model is a glider layout (`src/main/pg/mixer.c:55-79`
 - **S3** elevator (`STABILIZED_PITCH`, weight +1000)
 - **S4** rudder (`STABILIZED_YAW`, weight +1000)
 
-With **Clone PWM outputs to bus servos** on, which is the default
-(`src/main/pg/bus_servo.c:37`), bus channels 1 to 4 mirror S1 to S4. The XACT
-servos on the bus therefore receive their surface positions without any extra
-rule. The [Servos](../configurator/tabs/servos.md#bus-servos) tab shows the bus
-table below the PWM table.
+Bus channel N always carries servo N, so bus channels 1 to 4 carry S1 to S4.
+The XACT servos on the bus therefore receive their surface positions without
+any extra rule. The [Servos](../configurator/tabs/servos.md#bus-servos) tab
+lists them in the one servo table.
 
 - Use the [Mixer](../configurator/tabs/mixer.md) tab, or the Mixer Setup Wizard,
   for a different wing layout.

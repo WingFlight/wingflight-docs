@@ -22,6 +22,19 @@ is the easiest route around a firmware update:
 - If the board isn't currently running WingFlight, the backup is still
   captured and saveable, but it isn't offered for automatic restore --
   another firmware's settings aren't guaranteed to carry over.
+- A backup made before the 24-servo firmware (MSP API 22.16) restores
+  servos 1-8 with their settings, apart from the per-servo Rate, which no
+  longer exists. Its lines for servo 9 and above are left out: they were
+  bus servos, numbered 8 higher than the bus channel they drove. After the
+  restore:
+    - Set those servos up again on the
+      [Servos](../configurator/tabs/servos.md#bus-servos) tab, and recreate
+      the mixer rules that drove them on the
+      [Mixer](../configurator/tabs/mixer.md) tab. Check that each surface
+      moves the right way before flying.
+    - Set the [PWM update rate](../configurator/tabs/servos.md#pwm-update-rate)
+      if the servos ran faster than 50 Hz before: the backup doesn't carry
+      it, so they run at 50 Hz until it is changed.
 - Backup and restore need a normal serial connection; a board flashed over
   DFU alone can't be backed up this way. If the connection drops after the
   board reboots mid-restore, the wizard retries and offers a **Select Port**
@@ -48,6 +61,13 @@ dump all
 
 Save the output to a text file. To restore, paste the same commands back
 into the CLI followed by `save`.
+
+!!! warning
+    Don't paste a backup made before MSP API 22.16 back unchanged. Its
+    `servo`, `servo trim` and `mixer rule` lines for servo 9 and above use
+    the old numbering and would set up a different servo. Leave those lines
+    out and set those servos up again by hand; see the
+    [CLI reference](../reference/cli-reference.md#servos).
 
 !!! tip
     A `diff all` backup is the most useful format for sharing a tune with

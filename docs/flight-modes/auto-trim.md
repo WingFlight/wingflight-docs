@@ -31,9 +31,6 @@ The captured trim is what the aircraft needs *without* the knob, so the
 knob keeps working on top of it instead of being baked in and then applied
 a second time.
 
-A bus servo cloning a PWM output isn't trimmed itself: it already carries
-its PWM servo's trim.
-
 For a manual alternative -- nudging an axis's trim by a fixed amount per
 switch press, rather than capturing a sustained stick correction -- see
 [Trimming in flight](../configurator/tabs/servos.md#trimming-in-flight) on

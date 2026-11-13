@@ -121,12 +121,13 @@ See [Curves](../configurator/tabs/curves.md).
 
 ### Servos
 
-**PWM Output** lists the servos; select one to set its centre, limits and
-direction. **BUS Output** is for bus servos and is greyed out unless the
-model has them. **Tool** turns servo override on, so a servo moves to its
-centre as you change it.
+Lists the servos in use, whether they are on a PWM output or a bus; select
+one to set its centre, limits and direction. **Tool** turns servo override
+on, so a servo moves to its centre as you change it. The PWM update rate
+isn't set here: use the Configurator's
+[Servos](../configurator/tabs/servos.md#pwm-update-rate) tab.
 
-![Servos, PWM Output](../assets/images/ethos-suite/servos_pwm.png)
+![Servos](../assets/images/ethos-suite/servos.png)
 
 See [Servos](../configurator/tabs/servos.md).
 
