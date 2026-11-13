@@ -274,6 +274,40 @@ sources, to check the fusion against the raw readings:
 Channels past the count are sent at center. Also on the Servos tab; see
 [Servos → Bus output channel count](../configurator/tabs/servos.md#bus-output-channel-count).
 
+## Servos
+
+There are 24 servos. Servo N is sent on PWM output N, where the board has
+one, and on bus channel N. The `servo` command lists the servos in use and
+sets one:
+
+```
+servo <index> <mid> <min> <max> <rneg> <rpos> <speed> <flags>
+```
+
+| Argument | Range | Default | Meaning |
+|---|---|---|---|
+| `<index>` | 1 to 24 | | The servo |
+| `<mid>` | 1000 to 2000 | 1500 | Center, µs |
+| `<min>` | -1000 to 0 | -600 | Lower travel limit, µs from center |
+| `<max>` | 0 to 1000 | 600 | Upper travel limit, µs from center |
+| `<rneg>`, `<rpos>` | 50 to 1000 | 500 | Scale on the negative and positive side, µs |
+| `<speed>` | | 0 | Speed limit, ms per 60°; 0 is no limit |
+| `<flags>` | | 0 | Bit 0 reverse, bit 1 geometry correction |
+
+The signal sent to a servo stays within 880-2159 µs. `servo status`,
+`servo override` and `servo trim` use the same index.
+
+| Setting | Values | Default | Description |
+|---|---|---|---|
+| `servo_pwm_rate` | 25-333 | `50` | Update rate of every PWM servo output, Hz. Takes effect at boot. 50 suits any servo; a higher rate is for digital servos only |
+
+!!! note "Backups from before MSP API 22.16"
+    The `servo` line had a ninth value, a rate per servo, between `<rpos>`
+    and `<speed>`. Such a line is still accepted and its rate is ignored.
+    `bus_servo_clone_pwm` no longer exists. A `servo`, `servo trim` or
+    `mixer rule` line that names servo 9 or above meant a bus channel 8
+    lower than it does now, so don't paste those lines back as they are.
+
 ## Mixer rules
 
 The `mixer rule` command takes an optional last argument, the rule's
@@ -289,16 +323,14 @@ Everything after `<offset>` is optional: `<weight-neg>` defaults to the
 symmetric value, and the rest default to off. `dump` and `diff` print rules
 in this form.
 
-`<output>` is a number. Motors stay at 27-30, so bus servos 19-24 come after
-them:
+`<output>` is a number:
 
 | Output | Meaning |
 |---|---|
 | 0 | None |
-| 1-8 | PWM servos 1-8 (S1-S8) |
-| 9-26 | Bus servos 1-18 (S9-S26) |
+| 1-24 | Servos 1-24 (S1-S24) |
+| 25-26 | Reserved |
 | 27-30 | Motors 1-4 (M1-M4) |
-| 31-36 | Bus servos 19-24 (S27-S32) |
 
 `<input>` is a number too. RC channels 19-24 were added after the
 thrust-vector inputs, so they are 30-35 rather than following CH18 (26):

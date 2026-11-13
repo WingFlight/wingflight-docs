@@ -86,7 +86,7 @@ before wiring up the [Mixer](mixer.md).
 Up to 24 channels are shown. Most receiver protocols carry 16 or 18; FrSky
 F.Bus in its 24-channel mode carries all 24. Channels 19-24 can be used for
 modes, adjustments, failsafe and as [Mixer](mixer.md) inputs, for example to
-drive bus servos 19-24 with a
+drive servos 19-24 with a
 [24-channel F.Bus output](servos.md#bus-output-channel-count).
 
 **RSSI** can be read from Auto (protocol-reported, if the link supports

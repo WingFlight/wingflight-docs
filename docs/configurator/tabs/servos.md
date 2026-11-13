@@ -1,8 +1,13 @@
 # Servos
 
-The Servos tab configures each physical servo output: center point, travel
+The Servos tab configures each servo: center point, travel
 limits/endpoints, and direction (reversing), on top of whatever mixing rules
-send input to that output.
+send input to it.
+
+There are 24 servos. Servo N is sent on PWM output N, where the board has
+one, and on channel N of a bus output (SBUS, F.Bus) when one is set up, so
+a servo is set up the same way however it is wired. The table lists the
+servos in use; see [Bus Servos](#bus-servos).
 
 ![Servos tab](../../assets/images/configurator-servos.png)
 
@@ -14,19 +19,37 @@ diagnose a stalled/straining servo after the fact.
 
 **Min**/**Max** cap the servo's actual pulse-width travel, to keep the arm
 off a mechanical stop at either extreme. **Scale Neg**/**Scale Pos** are a
-separate pair of per-side scaling factors (500μs default for a normal
-1520μs-center servo, 250μs for a narrow-band 760μs-center one) -- adjust
+separate pair of per-side scaling factors (500μs by default) -- adjust
 these instead of Min/Max specifically to correct a servo that throws
 noticeably further on one side than the other.
 
-## Rate, Speed, and Reverse
+The limits are the same for every servo, on a PWM output and on a bus:
 
-**Rate** is the PWM update frequency for this output -- 50Hz for analog
-servos (higher can damage them), 100-560Hz for digital servos depending on
-what the datasheet supports. The default is 50Hz, the safe choice for any
-servo; raise it only once you've confirmed your servos support it. It only takes effect after **Save and
-reboot**, since the rate is set up at boot time, not applied live like most
-other fields here.
+| Field | Range | Default |
+|---|---|---|
+| Center | 1000-2000 µs | 1500 µs |
+| Min / Max | down to 880 µs / up to 2159 µs | 600 µs either side of Center |
+| Scale Neg / Scale Pos | 50-1000 µs | 500 µs |
+
+880-2159 µs is everything an SBUS or F.Bus channel can carry. Narrow-band
+servos (760 µs center) are not supported.
+
+## PWM update rate
+
+**PWM update rate**, above the table, is how often every PWM output is
+updated. It is one setting for all of them:
+
+- **Standard (50 Hz)** -- the default, and safe for any servo.
+- **High speed (333 Hz)** -- responds faster, but is for digital servos
+  only. It can damage an analog servo, so check the data sheet first.
+
+It only takes effect after **Save and reboot**, since the rate is set up at
+boot time, not applied live like most other fields here. It doesn't affect
+bus outputs, which run at their own frame rate. The CLI setting is
+`servo_pwm_rate`, 25-333 Hz; a value other than 50 or 333 is shown here as
+it is.
+
+## Speed and Reverse
 
 **Speed** limits how fast the servo is allowed to move, expressed as
 milliseconds needed for a 60° rotation -- 0 means unlimited. Useful for
@@ -45,9 +68,7 @@ don't quite track each other, a per-servo **balance curve** trims one
 servo's travel to match its partner. Balance curves are edited on the
 [Curves](curves.md#servo-balance-curves) tab, not here. Any servo with a
 non-flat curve shows a curve icon in its row; click it to jump straight to
-that servo's curve. A bus servo that is cloning a PWM output (see
-[below](#clone-pwm-outputs-to-bus-servos)) shows its source PWM servo's
-curve, since that's the one actually shaping its output.
+that servo's curve.
 
 !!! note
     The **Geometry Correction** switch that older Configurator versions
@@ -83,25 +104,22 @@ How the column shows it:
   value, so it can't be typed over here. A badge beside it shows the
   adjustment, highlighted while active with its channel, e.g. `R CH #9` for
   roll on channel 9.
-- **A bus servo cloning a PWM output:** read-only, showing that PWM servo's
-  trim (see [below](#clone-pwm-outputs-to-bus-servos)).
 
 The **Signal** column's full-stick estimate allows for the saved trim: trim
 uses up travel on one side and gives it back on the other.
 
 ### Clear trims and Move trims into Center
 
-Above each table:
+Above the table:
 
-- **Clear trims** sets every saved trim in that table to 0.
+- **Clear trims** sets every saved trim to 0.
 - **Move trims into Center** adds each servo's saved trim to its Mid and
   sets the trim to 0. The servo doesn't move, but Min/Max are measured from
   Mid, so the end stops move with it. Use it once you've trimmed the model
   out and want the result to become the new center -- and check the end
   stops afterwards.
 
-Both count as unsaved changes until you press **Save**. Cloned bus servos
-are skipped.
+Both count as unsaved changes until you press **Save**.
 
 ### Trimming in flight
 
@@ -196,20 +214,29 @@ the channel reads outside all of them.
 For FrSky XACT servos on one F.Bus wire, see [FrSky Servos](../../setup/frsky-servos.md).
 
 Enabling **SBUS Output** or **FBUS Master** on a serial port (see
-[Configuration](configuration.md)) adds a second "Bus Servo Configuration"
-table below the PWM one -- for digital bus servos wired to that UART instead
-of individual PWM wires. The table lists as many bus servos as the output's
-channel count (see [Bus output channel count](#bus-output-channel-count)).
-Each bus output has the same Min/Max/Scale/Speed/Reverse fields as a PWM
-servo, above. Bus servo N is channel N on the bus.
+[Configuration](configuration.md)) sends the servos down that UART too, for
+digital bus servos wired to it instead of individual PWM wires. Servo N is
+channel N on the bus. It is the same servo as PWM output N, with the same
+Center, Min/Max, Scale, Trim, Speed and Reverse, so one
+[Mixer](mixer.md) rule and one row in the table drive both.
+
+The table lists the servos in use: servo 1 up to the board's PWM output
+count or the bus channel count (see
+[Bus output channel count](#bus-output-channel-count)), whichever is
+larger. A note above the table says which servos the bus sends and which
+are also on a PWM output. On a board with four PWM outputs and a
+12-channel bus, for example, servos 1-12 are listed, all twelve go down the
+bus, and servos 1-4 are on the PWM outputs as well.
+
+To send something on the bus that isn't on a PWM output, give it a servo
+number the board has no PWM output for.
 
 ### Bus output channel count
 
 How many channels each bus output sends is set with **F.Bus output channels**
-and **SBUS output channels**, below the clone switch in the Bus Servo
-Configuration section. Each appears only when a port has that output
-assigned. A change applies straight away, the table resizes to match, and it
-is saved with the rest of this tab. The CLI settings are
+and **SBUS output channels**, above the table. Each appears only when a
+port has that output assigned. A change applies straight away, the table
+resizes to match, and it is saved with the rest of this tab. The CLI settings are
 `fbus_master_channels` and `sbus_out_channels`:
 
 | Output | Channel counts | Default | Frame |
@@ -220,43 +247,25 @@ is saved with the rest of this tab. The CLI settings are
 Channels past the count are sent at center. Pick 16 or less for F.Bus if
 anything on the bus only accepts the 16-channel frame.
 
-SBUS and F.Bus output can run at the same time, each with its own count. Bus
-servo N is channel N on both, and the table lists the larger of the two
+SBUS and F.Bus output can run at the same time, each with its own count.
+Servo N is channel N on both, and the table follows the larger of the two
 counts.
 
-With a count of 16, channels 17 and 18 are also sent as on/off channels: on
-when that bus servo's output is at 1500 µs or above. They aren't listed in
-the table. The 24-channel F.Bus frame has no on/off channels.
+With a count of 16, channels 17 and 18 are also sent as on/off channels,
+driven by servos 17 and 18: on when that servo's output is at 1500 µs or
+above. Both are listed in the table. The 24-channel F.Bus frame has no
+on/off channels.
 
 With a 24-channel F.Bus receiver, receiver channels 19-24 are available too
 (see [Receiver](receiver.md#channel-assignment)), so they can be mixed
-straight to bus servos 19-24.
+straight to servos 19-24.
 
-### Clone PWM outputs to bus servos
-
-**Clone PWM outputs to bus servos** is **ON** by default: bus channel 1
-mirrors PWM servo 1's final output, bus channel 2 mirrors PWM servo 2, and
-so on for every bus channel that has a PWM counterpart. This means any
-mixer built for PWM outputs -- including one generated by the [Mixer
-Setup Wizard](mixer.md) for a named model type -- drives the bus servos
-too, without needing separate mixer rules for them. Bus channels beyond
-your PWM output count (e.g. channel 9 on a board with 8 PWM outputs)
-always run their own independent mixer rule regardless of this setting,
-since there's no PWM output to mirror. A cloned bus channel sends its PWM servo's output with that servo's
-trim already in it, so its own Trim isn't used: the Trim column shows the
-PWM servo's trim, read-only.
-
-Turn it **OFF** for a custom model where the bus servos need mixer rules
-of their own, distinct from the PWM outputs -- for example a different
-control-surface layout on the bus side, or extra bus channels that don't
-correspond 1:1 with your PWM outputs. With cloning off, a bus channel's
-Min/Max/Mid/Trim/Scale/Speed/Reverse here and its own rule on the
-[Mixer](mixer.md) tab (output numbers past your PWM count) take full
-effect, exactly like a PWM servo does.
-
-!!! note
-    Turning this off doesn't change your existing PWM mixer rules -- it
-    only changes whether the bus outputs *also* follow them. A common
-    workflow is still to start from the Mixer Setup Wizard for the PWM
-    side, then add or edit rules targeting the bus outputs on the
-    [Mixer](mixer.md) tab afterward.
+!!! note "Upgrading from older firmware"
+    Older firmware had separate PWM servos (S1-S8) and bus servos (S9 and
+    up), with a **Clone PWM outputs to bus servos** switch, and a Rate for
+    each servo. All of that is gone. Servo and mixer rule settings reset to
+    their defaults on the upgrade. In a backup made before it, a line that
+    names servo 9 or above meant a bus channel 8 lower than it does now:
+    the Configurator leaves those lines out when it restores such a backup,
+    and they must not be pasted back into the CLI as they are. Set those
+    servos up again by hand.

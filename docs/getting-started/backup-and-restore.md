@@ -22,6 +22,11 @@ is the easiest route around a firmware update:
 - If the board isn't currently running WingFlight, the backup is still
   captured and saveable, but it isn't offered for automatic restore --
   another firmware's settings aren't guaranteed to carry over.
+- A backup made before the 24-servo firmware (MSP API 22.16) restores
+  servos 1-8 as before, but its lines for servo 9 and above are left out:
+  they were bus servos, numbered 8 higher than the bus channel they drove.
+  Set those up again on the [Servos](../configurator/tabs/servos.md#bus-servos)
+  tab.
 - Backup and restore need a normal serial connection; a board flashed over
   DFU alone can't be backed up this way. If the connection drops after the
   board reboots mid-restore, the wizard retries and offers a **Select Port**

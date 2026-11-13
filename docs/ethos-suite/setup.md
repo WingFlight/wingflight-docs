@@ -121,12 +121,14 @@ See [Curves](../configurator/tabs/curves.md).
 
 ### Servos
 
-**PWM Output** lists the servos; select one to set its centre, limits and
-direction. **BUS Output** is for bus servos and is greyed out unless the
-model has them. **Tool** turns servo override on, so a servo moves to its
+Lists the servos in use, whether they are on a PWM output or a bus; select
+one to set its centre, limits and direction. **PWM Rate**, at the end of
+the list, sets the update rate of the PWM outputs: Standard (50 Hz) or High
+speed (333 Hz, digital servos only). Saving it restarts the flight
+controller. **Tool** turns servo override on, so a servo moves to its
 centre as you change it.
 
-![Servos, PWM Output](../assets/images/ethos-suite/servos_pwm.png)
+![Servos](../assets/images/ethos-suite/servos.png)
 
 See [Servos](../configurator/tabs/servos.md).
 
