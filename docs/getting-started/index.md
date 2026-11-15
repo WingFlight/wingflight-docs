@@ -11,7 +11,8 @@ configured, flying aircraft.
    receiver, and basic setup are working.
 4. Read [Safety](safety.md) before you power the aircraft with a propeller
    fitted, and set up your receiver's failsafe.
-5. Configure your mixer, servos, and flight modes for your specific airframe.
+5. [Set up your aircraft](aircraft-setup.md) with the Setup Wizard: receiver,
+   airframe, servos, motor and flight modes for your specific airframe.
 6. Once you have a working setup, take a [backup](backup-and-restore.md)
    before you start tuning.
 

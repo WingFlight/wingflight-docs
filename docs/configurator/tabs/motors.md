@@ -39,6 +39,12 @@ firmware forces the same values on save regardless of what's shown here.
 To go back to a different ESC protocol, change the port's function on the
 Configuration tab rather than trying to change it from this tab.
 
+The **Protocol** list only offers SRXL2 once a port has that function, since
+without one the ESC gets no signal. The
+[Setup Wizard](../../getting-started/aircraft-setup.md#srxl2-and-castle-escs)'s
+Motor step does the port assignment for you: choose SRXL2 there and pick the
+port the ESC is plugged into.
+
 With an SRXL2 ESC selected, the **ESC Telemetry** box gains an **SRXL2
 ESC** section:
 
