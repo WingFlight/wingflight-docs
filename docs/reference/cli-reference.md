@@ -295,7 +295,19 @@ servo <index> <mid> <min> <max> <rneg> <rpos> <speed> <flags>
 | `<flags>` | | 0 | Bit 0 reverse, bit 1 geometry correction |
 
 The signal sent to a servo stays within 880-2159 µs. `servo status`,
-`servo override` and `servo trim` use the same index.
+`servo override`, `servo trim` and `servo name` use the same index.
+
+`servo name` lists the servos that have a name, `servo name <index> <name>`
+sets one and `servo name <index>` clears it. A name is up to 8 printable
+characters and may contain spaces:
+
+```
+servo name 1 L AIL
+servo name 3 ELEV
+```
+
+Names are labels only; nothing in flight reads them. `diff` and `dump`
+include them.
 
 | Setting | Values | Default | Description |
 |---|---|---|---|

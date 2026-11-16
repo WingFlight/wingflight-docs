@@ -15,6 +15,26 @@ Set servo endpoints conservatively at first -- it's easier to increase travel
 once you've confirmed nothing binds mechanically at the extremes than to
 diagnose a stalled/straining servo after the fact.
 
+## Name
+
+Each servo can have a short **Name**, such as `L AIL` or `ELEV`, so you can
+tell the servos apart without counting outputs. A name is up to 8
+characters (letters, digits, spaces and punctuation). It is saved on the
+flight controller and kept in a CLI backup, but nothing in flight uses it.
+The column only shows with firmware that supports names.
+
+The Mixer tab, the Setup Wizard, Servo Override and Balance show the name
+with the servo number, for example *Servo #1 (L AIL)*. When a mixer setup
+(the Mixer tab's model setup or the Setup Wizard's airframe step) assigns
+the surfaces, it names those servos for you: `L AIL` / `R AIL`, `ELEV`,
+`RUDDER`, `L FLAP` / `R FLAP`, `L ELEVON`, `L VTAIL` and so on. A name it
+gave earlier to a servo the new mix no longer uses is cleared; a name you
+typed there is kept.
+
+The Ethos Lua suite shows and edits the names too, and its Setup Wizard
+names the servos the same way. The EdgeTX scripts show them but can't
+edit them.
+
 ## Endpoints and scale
 
 **Min**/**Max** cap the servo's actual pulse-width travel, to keep the arm
