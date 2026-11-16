@@ -15,6 +15,14 @@ Set servo endpoints conservatively at first -- it's easier to increase travel
 once you've confirmed nothing binds mechanically at the extremes than to
 diagnose a stalled/straining servo after the fact.
 
+## Name
+
+Each servo can have a short **Name**, such as `L AIL` or `ELEV`, so you can
+tell the servos apart without counting outputs. A name is up to 8
+characters (letters, digits, spaces and punctuation). It is saved on the
+flight controller and kept in a CLI backup, but nothing in flight uses it.
+The column only shows with firmware that supports names.
+
 ## Endpoints and scale
 
 **Min**/**Max** cap the servo's actual pulse-width travel, to keep the arm
