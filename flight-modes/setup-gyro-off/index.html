@@ -3898,6 +3898,11 @@ way", this is the mode to measure it in.</p>
 steps that measure throws, so you don't need a switch for it there.</p>
 <p>PASSTHROUGH also works in flight as a raw bail-out: the sticks drive the
 surfaces directly, with nothing from the flight controller in between.</p>
+<p>PASSTHROUGH and MANUAL also skip the limits on the stabilized roll, pitch
+and yaw mixer inputs (the min and max set with the CLI <code>mixer input</code>
+command). That is deliberate, so a bail-out always has the full throw. If you
+tightened one of those limits, it only applies in the stabilized modes. Servo
+<strong>Min</strong> / <strong>Max</strong> still apply in every mode.</p>
 <h2 id="manual-stabilization-off-same-sticks">MANUAL: stabilization off, same sticks<a class="headerlink" href="#manual-stabilization-off-same-sticks" title="Permanent link">&para;</a></h2>
 <p>MANUAL keeps your rates and expo but drops the gyro correction. It flies
 the feedforward (F) part of normal flight on its own:</p>
