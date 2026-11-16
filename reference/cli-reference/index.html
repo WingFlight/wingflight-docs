@@ -4699,7 +4699,15 @@ sets one:</p>
 </tbody>
 </table>
 <p>The signal sent to a servo stays within 880-2159 µs. <code>servo status</code>,
-<code>servo override</code> and <code>servo trim</code> use the same index.</p>
+<code>servo override</code>, <code>servo trim</code> and <code>servo name</code> use the same index.</p>
+<p><code>servo name</code> lists the servos that have a name, <code>servo name &lt;index&gt; &lt;name&gt;</code>
+sets one and <code>servo name &lt;index&gt;</code> clears it. A name is up to 8 printable
+characters and may contain spaces:</p>
+<div class="highlight"><pre><span></span><code>servo name 1 L AIL
+servo name 3 ELEV
+</code></pre></div>
+<p>Names are labels only; nothing in flight reads them. <code>diff</code> and <code>dump</code>
+include them.</p>
 <table>
 <thead>
 <tr>

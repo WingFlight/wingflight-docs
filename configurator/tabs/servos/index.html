@@ -1045,6 +1045,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Name
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#endpoints-and-scale" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3848,6 +3859,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Name
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#endpoints-and-scale" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4006,6 +4028,22 @@ servos in use; see <a href="#bus-servos">Bus Servos</a>.</p>
 <p>Set servo endpoints conservatively at first -- it's easier to increase travel
 once you've confirmed nothing binds mechanically at the extremes than to
 diagnose a stalled/straining servo after the fact.</p>
+<h2 id="name">Name<a class="headerlink" href="#name" title="Permanent link">&para;</a></h2>
+<p>Each servo can have a short <strong>Name</strong>, such as <code>L AIL</code> or <code>ELEV</code>, so you can
+tell the servos apart without counting outputs. A name is up to 8
+characters (letters, digits, spaces and punctuation). It is saved on the
+flight controller and kept in a CLI backup, but nothing in flight uses it.
+The column only shows with firmware that supports names.</p>
+<p>The Mixer tab, the Setup Wizard, Servo Override and Balance show the name
+with the servo number, for example <em>Servo #1 (L AIL)</em>. When a mixer setup
+(the Mixer tab's model setup or the Setup Wizard's airframe step) assigns
+the surfaces, it names those servos for you: <code>L AIL</code> / <code>R AIL</code>, <code>ELEV</code>,
+<code>RUDDER</code>, <code>L FLAP</code> / <code>R FLAP</code>, <code>L ELEVON</code>, <code>L VTAIL</code> and so on. A name it
+gave earlier to a servo the new mix no longer uses is cleared; a name you
+typed there is kept.</p>
+<p>The Ethos Lua suite shows and edits the names too, and its Setup Wizard
+names the servos the same way. The EdgeTX scripts show them but can't
+edit them.</p>
 <h2 id="endpoints-and-scale">Endpoints and scale<a class="headerlink" href="#endpoints-and-scale" title="Permanent link">&para;</a></h2>
 <p><strong>Min</strong>/<strong>Max</strong> cap the servo's actual pulse-width travel, to keep the arm
 off a mechanical stop at either extreme. <strong>Scale Neg</strong>/<strong>Scale Pos</strong> are a
